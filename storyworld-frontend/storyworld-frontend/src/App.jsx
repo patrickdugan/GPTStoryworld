@@ -68,7 +68,7 @@ Structure each output as JSON with: {
           'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: 'gpt-4',
+          model: 'gpt-4.1',
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: 'Generate the first encounter of this storyworld.' }
