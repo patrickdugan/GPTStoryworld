@@ -78,6 +78,26 @@
       },
       "creation_time": 1707000000.0,
       "modified_time": 1707000000.0
+    },
+    {
+      "id": "char_public",
+      "name": "Public Opinion",
+      "bnumber_properties": {
+        "PublicMood": 0,
+        "pPublicMood": 0
+      },
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "char_sufi",
+      "name": "Sufi Sheikh",
+      "bnumber_properties": {
+        "SufiInfluence": 0,
+        "SufiCharisma": 0
+      },
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
     }
   ],
   "authored_properties": [
@@ -248,6 +268,38 @@
       "default_value": 0,
       "creation_time": 1707000000.0,
       "modified_time": 1707000000.0
+    },
+    {
+      "id": "PublicMood",
+      "property_name": "PublicMood",
+      "property_type": "bounded number",
+      "default_value": 0,
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "pPublicMood",
+      "property_name": "pPublicMood",
+      "property_type": "bounded number",
+      "default_value": 0,
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "SufiInfluence",
+      "property_name": "SufiInfluence",
+      "property_type": "bounded number",
+      "default_value": 0,
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "SufiCharisma",
+      "property_name": "SufiCharisma",
+      "property_type": "bounded number",
+      "default_value": 0,
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
     }
   ],
   "spools": [
@@ -266,7 +318,11 @@
         "page_sultan_murad_decrees",
         "page_katip_celebi_paradox",
         "page_disastrous_policies_nabulsi",
-        "page_sufi_tekke_encounter"
+        "page_sufi_tekke_encounter",
+        "page_sufi_poet_trial",
+        "page_coffeehouse_raid",
+        "page_shrine_visitation",
+        "page_mawlid_dispute"
       ]
     },
     {
@@ -3272,6 +3328,1346 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_sufi_poet_trial",
+      "title": "The Poet's Trial",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_1"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A fiery sermon sparks a crowd outside a lodge tied to the Halveti circle. A wandering poet-mystic, Niyazi-i Misri, is accused of stirring people with ecstatic verses. Kad?zadeli preachers demand punishment. Older scholars cite Ismail Ankaravi's commentaries as a defense of disciplined Sufi practice. The streets await your decision."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A fiery sermon sparks a crowd outside a lodge tied to the Halveti circle. A wandering poet-mystic, Niyazi-i Misri, is accused of stirring people with ecstatic verses. Kad?zadeli preachers demand punishment. Older scholars cite Ismail Ankaravi's commentaries as a defense of disciplined Sufi practice. The streets await your decision."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_sufi_poet_trial_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Condemn the poet and restrict lodge gatherings to signal zero tolerance for innovation."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_sufi_poet_trial_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The puritan camp applauds. The lodges fall silent, and the city grows tense and watchful."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Influence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Influence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "SufiInfluence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "SufiInfluence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_sufi_poet_trial_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Defend the poet and cite Ankaravi: devotional arts can be orthodox when disciplined."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_sufi_poet_trial_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The lodges rally to your reasoning. The puritans fume, but the crowds quiet."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "SufiInfluence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "SufiInfluence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Influence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Influence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_sufi_poet_trial_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Refer the case to the Sultan's court, buying time while the factions argue."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_sufi_poet_trial_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You defer to imperial authority. The crowds disperse, but the Sultan's attention turns sharply toward you."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "SultanFavor"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "SultanFavor"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_coffeehouse_raid",
+      "title": "The Coffeehouse Raid",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_1"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Kad?zadeli followers storm a busy coffeehouse near the Golden Horn. They accuse the owner of fostering idle talk and sedition. A wary crowd gathers; a scholar said to be Katip ?elebi observes in silence. Your ruling will set the tone for the coming bans."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Kad?zadeli followers storm a busy coffeehouse near the Golden Horn. They accuse the owner of fostering idle talk and sedition. A wary crowd gathers; a scholar said to be Katip ?elebi observes in silence. Your ruling will set the tone for the coming bans."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_coffeehouse_raid_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Order the coffeehouse closed and approve a public warning against coffee gatherings."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_coffeehouse_raid_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The puritans celebrate, and the crowd disperses uneasily. The city grows quieter, but grumbling rises in the alleys."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Influence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Influence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "SultanFavor"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "SultanFavor"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_coffeehouse_raid_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Allow the coffeehouse to operate under strict oversight and curfew."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_coffeehouse_raid_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The public relaxes, and chatter resumes under watchful eyes. The puritans accuse you of weakness."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Influence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Influence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_coffeehouse_raid_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Delay judgment and open a formal inquiry into disorder and sedition."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_coffeehouse_raid_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You buy time. The crowd cools, but the Sultan expects results and the puritans keep pressure."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "SultanFavor"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "SultanFavor"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_shrine_visitation",
+      "title": "At the Shrine of Eyup",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_1"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Pilgrims bring offerings to the shrine of Eyup Sultan. Kad?zadeli preachers call it idolatry and demand an immediate ban. A traveler rumored to be Evliya ?elebi notes the scene in his journal."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Pilgrims bring offerings to the shrine of Eyup Sultan. Kad?zadeli preachers call it idolatry and demand an immediate ban. A traveler rumored to be Evliya ?elebi notes the scene in his journal."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_shrine_visitation_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Prohibit offerings and close the shrine for a purification period."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_shrine_visitation_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The puritans declare victory. The public feels a wound to its traditions."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Influence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Influence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_shrine_visitation_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Permit visitation but forbid excesses and public agitation."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_shrine_visitation_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You protect custom while curbing spectacle. Both sides accept a tense restraint."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_shrine_visitation_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Defend the shrine as a lawful site of memory and prayer."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_shrine_visitation_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Pilgrims cheer your protection of the shrine. The Kad?zadelis mark you as an obstacle."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "SufiInfluence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "SufiInfluence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Influence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Influence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_mawlid_dispute",
+      "title": "The Mawlid Dispute",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_1"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A public recitation of the Mawlid draws a large crowd. Kad?zadeli preachers call it a forbidden innovation, while Sufi leaders claim it strengthens devotion. A passing official whispers that Ko?i Bey has been watching the crowd's temper."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A public recitation of the Mawlid draws a large crowd. Kad?zadeli preachers call it a forbidden innovation, while Sufi leaders claim it strengthens devotion. A passing official whispers that Ko?i Bey has been watching the crowd's temper."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_mawlid_dispute_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Ban the public recitation and disperse the gathering."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_mawlid_dispute_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The puritans gain confidence. The crowd leaves sullen and quiet."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Influence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Influence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_mawlid_dispute_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Permit the Mawlid under supervision and limit excess display."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_mawlid_dispute_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The crowd feels respected, and the recitation ends peacefully. Puritan leaders grumble at your leniency."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "SufiInfluence"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "SufiInfluence"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_mawlid_dispute_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Allow the recitation but issue a stern public admonition against excess and factionalism."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_mawlid_dispute_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Your warning cools tempers without forbidding the rite. Both sides accept the limits for now."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "PublicMood"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "PublicMood"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "FollowerSupport"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "FollowerSupport"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
                       }
                     ]
                   }
