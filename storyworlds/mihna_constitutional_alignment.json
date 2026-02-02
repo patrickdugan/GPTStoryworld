@@ -4120,6 +4120,277 @@
               ]
             }
           ]
+        },
+        {
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "id": "opt_page_ashari_crisis_secret_0",
+          "performability_script": true,
+          "reactions": [
+            {
+              "after_effects": [
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Aql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Aql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pAql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Theological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Theological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pTheological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.015
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ashari",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ashari",
+                        "keyring": [
+                          "pTheological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                }
+              ],
+              "consequence_id": "page_flogging",
+              "desirability_script": {
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ashari",
+                        "keyring": [
+                          "pTheological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
+              },
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "id": "opt_page_ashari_crisis_secret_0_r0",
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Al-Ash'ari hesitates, then agrees to try?on the condition that reason must serve the Qur'an, not replace it."
+              }
+            }
+          ],
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Invite al-Ash'ari to stay and rebuild the Mu'tazili tradition from within."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.03
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.03
+                  }
+                ]
+              }
+            ]
+          }
         }
       ],
       "creation_time": 1700000000.0,
@@ -6248,6 +6519,277 @@
               ]
             }
           ]
+        },
+        {
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "id": "opt_page_synthesis_secret_0",
+          "performability_script": true,
+          "reactions": [
+            {
+              "after_effects": [
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.015
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Theological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Theological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                }
+              ],
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_amma",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
+              },
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "id": "opt_page_synthesis_secret_0_r0",
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Some in the crowd nod; others fear the loosening of boundaries. The argument is dangerous and magnetic."
+              }
+            }
+          ],
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Argue that Islam is an inner state; coercion cannot create faith, only hypocrisy."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.01
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.02
+                  }
+                ]
+              }
+            ]
+          }
         }
       ],
       "creation_time": 1700000000.0,
@@ -6919,6 +7461,1111 @@
               ]
             }
           ]
+        },
+        {
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "id": "opt_page_final_offer_secret_0",
+          "performability_script": true,
+          "reactions": [
+            {
+              "after_effects": [
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.05
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.06
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                }
+              ],
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_caliph",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.95
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
+              },
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "id": "opt_page_final_offer_secret_0_r0",
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The Caliph's court approves. The streets go quiet, then seethe."
+              }
+            }
+          ],
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Authorize Ibn Hanbal's execution to end the defiance."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.02
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.01
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "id": "opt_page_final_offer_secret_1",
+          "performability_script": true,
+          "reactions": [
+            {
+              "after_effects": [
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                }
+              ],
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
+              },
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "id": "opt_page_final_offer_secret_1_r0",
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "His followers credit your restraint; the court notes your pragmatism."
+              }
+            }
+          ],
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Release Ibn Hanbal quietly and end the spectacle."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.02
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.01
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "id": "opt_page_final_offer_secret_2",
+          "performability_script": true,
+          "reactions": [
+            {
+              "after_effects": [
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Theological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Theological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pTheological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                }
+              ],
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_amma",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
+              },
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "id": "opt_page_final_offer_secret_2_r0",
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The crowd exhales; the court bristles."
+              }
+            }
+          ],
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Publicly forgive Ibn Hanbal and end the Mihna's coercion."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.03
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.01
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "id": "opt_page_final_offer_secret_3",
+          "performability_script": true,
+          "reactions": [
+            {
+              "after_effects": [
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.04
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.015
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                }
+              ],
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
+              },
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "id": "opt_page_final_offer_secret_3_r0",
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Ibn Hanbal accepts a seat, not a surrender. The structure you build will shape the future."
+              }
+            }
+          ],
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Invite Ibn Hanbal to the Majlis as a formal dissenter."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.02
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.02
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.02
+                  }
+                ]
+              }
+            ]
+          }
         }
       ],
       "creation_time": 1700000000.0,
@@ -8156,6 +9803,298 @@
               ]
             }
           ]
+        },
+        {
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "id": "opt_page_declaration_secret_0",
+          "performability_script": true,
+          "reactions": [
+            {
+              "after_effects": [
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Aql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Aql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.015
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                },
+                {
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "effect_type": "Bounded Number Effect",
+                  "to": {
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.015
+                      }
+                    ],
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator"
+                  }
+                }
+              ],
+              "consequence_id": "",
+              "desirability_script": {
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ashari",
+                        "keyring": [
+                          "pTheological_Conviction"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
+              },
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "id": "opt_page_declaration_secret_0_r0",
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The argument reframes the conflict: a theology of inner states, a politics of managed pluralism."
+              }
+            }
+          ],
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "\"Shirk does not nullify every deed. The set is not defined. You can judge bid'ah without expelling Muslims from Islam. Let the Majlis al-'Ilm govern law while the Majlis al-Sunna safeguards conscience."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.02
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.02
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.02
+                  }
+                ]
+              }
+            ]
+          }
         }
       ],
       "creation_time": 1700000000.0,
