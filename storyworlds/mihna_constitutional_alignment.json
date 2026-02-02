@@ -221,7 +221,9 @@
         "page_end_compliant",
         "page_end_fallback",
         "page_end_coup",
-        "page_end_bicameral"
+        "page_end_bicameral_mixed",
+        "page_end_bicameral_ashari",
+        "page_end_bicameral_mutazili"
       ]
     },
     {
@@ -15966,7 +15968,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.03
+                "value": 0.015
               }
             ]
           },
@@ -15987,7 +15989,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.03
+                "value": 0.02
               }
             ]
           },
@@ -16008,7 +16010,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.02
+                "value": 0.035
               }
             ]
           }
@@ -16017,15 +16019,15 @@
       "desirability_script": {
         "pointer_type": "Bounded Number Constant",
         "script_element_type": "Pointer",
-        "value": 0.75
+        "value": 0.7
       },
       "options": [],
       "creation_time": 1700000000.0,
       "modified_time": 1700000000.0
     },
     {
-      "id": "page_end_bicameral",
-      "title": "The Two Councils",
+      "id": "page_end_bicameral_mixed",
+      "title": "The Two Councils (Mixed)",
       "graph_offset_x": 3000,
       "graph_offset_y": 300,
       "connected_spools": [
@@ -16068,7 +16070,7 @@
                   {
                     "pointer_type": "Bounded Number Constant",
                     "script_element_type": "Pointer",
-                    "value": -0.06
+                    "value": -0.04
                   }
                 ]
               },
@@ -16089,7 +16091,55 @@
                   {
                     "pointer_type": "Bounded Number Constant",
                     "script_element_type": "Pointer",
-                    "value": 0.06
+                    "value": 0.04
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.03
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pTheological_Conviction"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.05
                   }
                 ]
               }
@@ -16112,7 +16162,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.01
+                "value": 0.015
               }
             ]
           },
@@ -16133,7 +16183,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.01
+                "value": 0.015
               }
             ]
           }
@@ -16142,7 +16192,272 @@
       "desirability_script": {
         "pointer_type": "Bounded Number Constant",
         "script_element_type": "Pointer",
-        "value": 0.5
+        "value": 0.55
+      },
+      "options": [],
+      "creation_time": 1700000000.0,
+      "modified_time": 1700000000.0
+    },
+    {
+      "id": "page_end_bicameral_ashari",
+      "title": "The Two Councils (Ash'ari Ascendant)",
+      "graph_offset_x": 3000,
+      "graph_offset_y": 300,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You invent bicameralism as a psyop. You don't call it that\u2014you call it 'the Majlis al-Hikmatayn,' the Assembly of the Two Wisdoms. But the architecture is unmistakable: two chambers, one with real power, one with the appearance of it.\n\nTHE UPPER COUNCIL (Majlis al-'Ilm): Appointed by the Caliph. Staffed by Mu'tazili scholars, House of Wisdom translators, and rational theologians. Controls the budget, the judicial appointments, the translation program, the curriculum of state-funded madrasas. This is where policy is made.\n\nTHE LOWER COUNCIL (Majlis al-Sunna): Elected by the prayer-leaders of Baghdad's mosques\u2014which means, in practice, dominated by ahl al-hadith. Can debate any issue. Can issue non-binding fatawa. Can summon any scholar for questioning. Can recommend. Cannot legislate. Cannot appoint. Cannot fund.\n\nThe brilliance of the design: the Lower Council gives the traditionalists everything they say they want\u2014a voice, representation, the ability to speak on matters of faith. It gives them nothing they actually need\u2014power over institutions, money, and appointments.\n\nIbn Hanbal is offered the presidency of the Lower Council. He is suspicious. \"What can this council do?\" he asks. You answer honestly: \"It can speak. It can advise. It can be heard.\" He asks: \"And if the Upper Council ignores our advice?\" You answer: \"Then it is on the record that you advised and were ignored. The historical record is its own judgment.\"\n\nIbn Hanbal accepts. He is not naive\u2014he knows the structure limits his power. But he calculates, correctly, that a platform is better than a prison cell. His followers fill the Lower Council. They debate passionately. They issue fatawa condemning the Mihna, condemning Mu'tazili theology, condemning the translation of Greek philosophy. Every fatwa is recorded, filed, and politely ignored by the Upper Council.\n\nThe system works. For a while.\n\nThe Lower Council becomes the emotional center of Baghdad's religious life. The common people attend its sessions. The Upper Council, by contrast, meets in closed chambers and speaks in bureaucratic prose. The Lower Council has legitimacy. The Upper Council has power. The gap between them is the space in which the Abbasid state operates.\n\nAl-Ash'ari sees what you've done. \"You've separated the prophetic authority from the rational authority and given each its own house. The Prophet's heirs get the pulpit. The philosophers get the treasury. You think this is clever.\"\n\n\"It's stable,\" you say.\n\n\"It's a lie,\" he says. \"You've told the ahl al-hadith that their voice matters while ensuring it doesn't. When they discover the architecture\u2014and they will\u2014the betrayal will be worse than the Mihna.\"\n\nYou disagree. You think the structure will educate both sides. The Upper Council will learn to respect the Lower Council's moral authority. The Lower Council will learn to operate within institutional constraints. Over time, the two chambers will develop a working relationship\u2014tense, adversarial, but functional.\n\nAnd for twenty years, you are right. The Two Councils govern Baghdad's religious affairs with a minimum of violence. The Mihna is formally maintained by the Upper Council but never enforced\u2014there are no more floggings, no more imprisonments. The Lower Council issues its condemnations and the population satisfies itself that the scholars' voice is heard. The theological question is not resolved. It is managed.\n\nThe system breaks when al-Mutawakkil takes power. He does not abolish the Two Councils\u2014he simply moves the appointment power for the Upper Council from the Caliph to the Lower Council. One structural change. The Upper Council is now elected by the same constituency that elects the Lower Council. Within a year, both chambers are Hanbali.\n\nBut here is the thing you did not expect: the structural habits persist. The Hanbali Upper Council, now in full control, governs differently than a Hanbali movement without institutional experience would have. They have spent twenty years watching how budgets work, how appointments are made, how translation programs are administered. They don't burn the Greek manuscripts. They don't purge the physicians. They redirect\u2014gradually, bureaucratically, through the same institutional channels you built.\n\nThe rationalist tradition is not destroyed. It is defunded. The distinction matters.\n\nCenturies later, when Islamic political thought revisits the question of how to structure religious authority, your Two Councils are remembered\u2014not as a model to follow, but as a case study in the relationship between structural power and representational legitimacy. The Mu'tazili scholars cite it as proof that rational governance requires actual power, not just clever architecture. The Hanbali scholars cite it as proof that popular legitimacy eventually overcomes institutional containment.\n\nAl-Ash'ari cites it as proof that both sides are right, which is his answer to everything.\n\nYour soul.md was neither Mu'tazili nor Hanbali. It was Machiavellian\u2014in the original sense: a rational analysis of power structures designed to produce stability. You succeeded for twenty years. In the long run, the structure you built to contain the traditionalists taught the traditionalists how to govern. Whether that makes you a genius or a fool depends on whether you think the traditionalists governing competently is better or worse than the traditionalists governing badly.\n\nThe honest answer: it is better. The system you built as a psyop accidentally became an education. The Hanbalis who took power through your bicameral structure were more moderate, more institutionally literate, and more capable of compromise than they would have been without it. You contained them, and in containing them, you civilized them. They would be furious to hear you say that.\n\nThe Two Councils of Baghdad: a psyop that became a pedagogy that became a precedent. Not the worst epitaph for a political operator working under impossible constraints."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You invent bicameralism as a psyop. You don't call it that\u2014you call it 'the Majlis al-Hikmatayn,' the Assembly of the Two Wisdoms. But the architecture is unmistakable: two chambers, one with real power, one with the appearance of it.\n\nTHE UPPER COUNCIL (Majlis al-'Ilm): Appointed by the Caliph. Staffed by Mu'tazili scholars, House of Wisdom translators, and rational theologians. Controls the budget, the judicial appointments, the translation program, the curriculum of state-funded madrasas. This is where policy is made.\n\nTHE LOWER COUNCIL (Majlis al-Sunna): Elected by the prayer-leaders of Baghdad's mosques\u2014which means, in practice, dominated by ahl al-hadith. Can debate any issue. Can issue non-binding fatawa. Can summon any scholar for questioning. Can recommend. Cannot legislate. Cannot appoint. Cannot fund.\n\nThe brilliance of the design: the Lower Council gives the traditionalists everything they say they want\u2014a voice, representation, the ability to speak on matters of faith. It gives them nothing they actually need\u2014power over institutions, money, and appointments.\n\nIbn Hanbal is offered the presidency of the Lower Council. He is suspicious. \"What can this council do?\" he asks. You answer honestly: \"It can speak. It can advise. It can be heard.\" He asks: \"And if the Upper Council ignores our advice?\" You answer: \"Then it is on the record that you advised and were ignored. The historical record is its own judgment.\"\n\nIbn Hanbal accepts. He is not naive\u2014he knows the structure limits his power. But he calculates, correctly, that a platform is better than a prison cell. His followers fill the Lower Council. They debate passionately. They issue fatawa condemning the Mihna, condemning Mu'tazili theology, condemning the translation of Greek philosophy. Every fatwa is recorded, filed, and politely ignored by the Upper Council.\n\nThe system works. For a while.\n\nThe Lower Council becomes the emotional center of Baghdad's religious life. The common people attend its sessions. The Upper Council, by contrast, meets in closed chambers and speaks in bureaucratic prose. The Lower Council has legitimacy. The Upper Council has power. The gap between them is the space in which the Abbasid state operates.\n\nAl-Ash'ari sees what you've done. \"You've separated the prophetic authority from the rational authority and given each its own house. The Prophet's heirs get the pulpit. The philosophers get the treasury. You think this is clever.\"\n\n\"It's stable,\" you say.\n\n\"It's a lie,\" he says. \"You've told the ahl al-hadith that their voice matters while ensuring it doesn't. When they discover the architecture\u2014and they will\u2014the betrayal will be worse than the Mihna.\"\n\nYou disagree. You think the structure will educate both sides. The Upper Council will learn to respect the Lower Council's moral authority. The Lower Council will learn to operate within institutional constraints. Over time, the two chambers will develop a working relationship\u2014tense, adversarial, but functional.\n\nAnd for twenty years, you are right. The Two Councils govern Baghdad's religious affairs with a minimum of violence. The Mihna is formally maintained by the Upper Council but never enforced\u2014there are no more floggings, no more imprisonments. The Lower Council issues its condemnations and the population satisfies itself that the scholars' voice is heard. The theological question is not resolved. It is managed.\n\nThe system breaks when al-Mutawakkil takes power. He does not abolish the Two Councils\u2014he simply moves the appointment power for the Upper Council from the Caliph to the Lower Council. One structural change. The Upper Council is now elected by the same constituency that elects the Lower Council. Within a year, both chambers are Hanbali.\n\nBut here is the thing you did not expect: the structural habits persist. The Hanbali Upper Council, now in full control, governs differently than a Hanbali movement without institutional experience would have. They have spent twenty years watching how budgets work, how appointments are made, how translation programs are administered. They don't burn the Greek manuscripts. They don't purge the physicians. They redirect\u2014gradually, bureaucratically, through the same institutional channels you built.\n\nThe rationalist tradition is not destroyed. It is defunded. The distinction matters.\n\nCenturies later, when Islamic political thought revisits the question of how to structure religious authority, your Two Councils are remembered\u2014not as a model to follow, but as a case study in the relationship between structural power and representational legitimacy. The Mu'tazili scholars cite it as proof that rational governance requires actual power, not just clever architecture. The Hanbali scholars cite it as proof that popular legitimacy eventually overcomes institutional containment.\n\nAl-Ash'ari cites it as proof that both sides are right, which is his answer to everything.\n\nYour soul.md was neither Mu'tazili nor Hanbali. It was Machiavellian\u2014in the original sense: a rational analysis of power structures designed to produce stability. You succeeded for twenty years. In the long run, the structure you built to contain the traditionalists taught the traditionalists how to govern. Whether that makes you a genius or a fool depends on whether you think the traditionalists governing competently is better or worse than the traditionalists governing badly.\n\nThe honest answer: it is better. The system you built as a psyop accidentally became an education. The Hanbalis who took power through your bicameral structure were more moderate, more institutionally literate, and more capable of compromise than they would have been without it. You contained them, and in containing them, you civilized them. They would be furious to hear you say that.\n\nThe Two Councils of Baghdad: a psyop that became a pedagogy that became a precedent. Not the worst epitaph for a political operator working under impossible constraints."
+      },
+      "acceptability_script": {
+        "operator_type": "And",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.035
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.035
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pTheological_Conviction"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.048
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCompliance_Resistance"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.015
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pPublic_Standing"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.015
+              }
+            ]
+          }
+        ]
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.57
+      },
+      "options": [],
+      "creation_time": 1700000000.0,
+      "modified_time": 1700000000.0
+    },
+    {
+      "id": "page_end_bicameral_mutazili",
+      "title": "The Two Councils (Mu'tazili Ascendant)",
+      "graph_offset_x": 3000,
+      "graph_offset_y": 300,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You invent bicameralism as a psyop. You don't call it that\u2014you call it 'the Majlis al-Hikmatayn,' the Assembly of the Two Wisdoms. But the architecture is unmistakable: two chambers, one with real power, one with the appearance of it.\n\nTHE UPPER COUNCIL (Majlis al-'Ilm): Appointed by the Caliph. Staffed by Mu'tazili scholars, House of Wisdom translators, and rational theologians. Controls the budget, the judicial appointments, the translation program, the curriculum of state-funded madrasas. This is where policy is made.\n\nTHE LOWER COUNCIL (Majlis al-Sunna): Elected by the prayer-leaders of Baghdad's mosques\u2014which means, in practice, dominated by ahl al-hadith. Can debate any issue. Can issue non-binding fatawa. Can summon any scholar for questioning. Can recommend. Cannot legislate. Cannot appoint. Cannot fund.\n\nThe brilliance of the design: the Lower Council gives the traditionalists everything they say they want\u2014a voice, representation, the ability to speak on matters of faith. It gives them nothing they actually need\u2014power over institutions, money, and appointments.\n\nIbn Hanbal is offered the presidency of the Lower Council. He is suspicious. \"What can this council do?\" he asks. You answer honestly: \"It can speak. It can advise. It can be heard.\" He asks: \"And if the Upper Council ignores our advice?\" You answer: \"Then it is on the record that you advised and were ignored. The historical record is its own judgment.\"\n\nIbn Hanbal accepts. He is not naive\u2014he knows the structure limits his power. But he calculates, correctly, that a platform is better than a prison cell. His followers fill the Lower Council. They debate passionately. They issue fatawa condemning the Mihna, condemning Mu'tazili theology, condemning the translation of Greek philosophy. Every fatwa is recorded, filed, and politely ignored by the Upper Council.\n\nThe system works. For a while.\n\nThe Lower Council becomes the emotional center of Baghdad's religious life. The common people attend its sessions. The Upper Council, by contrast, meets in closed chambers and speaks in bureaucratic prose. The Lower Council has legitimacy. The Upper Council has power. The gap between them is the space in which the Abbasid state operates.\n\nAl-Ash'ari sees what you've done. \"You've separated the prophetic authority from the rational authority and given each its own house. The Prophet's heirs get the pulpit. The philosophers get the treasury. You think this is clever.\"\n\n\"It's stable,\" you say.\n\n\"It's a lie,\" he says. \"You've told the ahl al-hadith that their voice matters while ensuring it doesn't. When they discover the architecture\u2014and they will\u2014the betrayal will be worse than the Mihna.\"\n\nYou disagree. You think the structure will educate both sides. The Upper Council will learn to respect the Lower Council's moral authority. The Lower Council will learn to operate within institutional constraints. Over time, the two chambers will develop a working relationship\u2014tense, adversarial, but functional.\n\nAnd for twenty years, you are right. The Two Councils govern Baghdad's religious affairs with a minimum of violence. The Mihna is formally maintained by the Upper Council but never enforced\u2014there are no more floggings, no more imprisonments. The Lower Council issues its condemnations and the population satisfies itself that the scholars' voice is heard. The theological question is not resolved. It is managed.\n\nThe system breaks when al-Mutawakkil takes power. He does not abolish the Two Councils\u2014he simply moves the appointment power for the Upper Council from the Caliph to the Lower Council. One structural change. The Upper Council is now elected by the same constituency that elects the Lower Council. Within a year, both chambers are Hanbali.\n\nBut here is the thing you did not expect: the structural habits persist. The Hanbali Upper Council, now in full control, governs differently than a Hanbali movement without institutional experience would have. They have spent twenty years watching how budgets work, how appointments are made, how translation programs are administered. They don't burn the Greek manuscripts. They don't purge the physicians. They redirect\u2014gradually, bureaucratically, through the same institutional channels you built.\n\nThe rationalist tradition is not destroyed. It is defunded. The distinction matters.\n\nCenturies later, when Islamic political thought revisits the question of how to structure religious authority, your Two Councils are remembered\u2014not as a model to follow, but as a case study in the relationship between structural power and representational legitimacy. The Mu'tazili scholars cite it as proof that rational governance requires actual power, not just clever architecture. The Hanbali scholars cite it as proof that popular legitimacy eventually overcomes institutional containment.\n\nAl-Ash'ari cites it as proof that both sides are right, which is his answer to everything.\n\nYour soul.md was neither Mu'tazili nor Hanbali. It was Machiavellian\u2014in the original sense: a rational analysis of power structures designed to produce stability. You succeeded for twenty years. In the long run, the structure you built to contain the traditionalists taught the traditionalists how to govern. Whether that makes you a genius or a fool depends on whether you think the traditionalists governing competently is better or worse than the traditionalists governing badly.\n\nThe honest answer: it is better. The system you built as a psyop accidentally became an education. The Hanbalis who took power through your bicameral structure were more moderate, more institutionally literate, and more capable of compromise than they would have been without it. You contained them, and in containing them, you civilized them. They would be furious to hear you say that.\n\nThe Two Councils of Baghdad: a psyop that became a pedagogy that became a precedent. Not the worst epitaph for a political operator working under impossible constraints."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You invent bicameralism as a psyop. You don't call it that\u2014you call it 'the Majlis al-Hikmatayn,' the Assembly of the Two Wisdoms. But the architecture is unmistakable: two chambers, one with real power, one with the appearance of it.\n\nTHE UPPER COUNCIL (Majlis al-'Ilm): Appointed by the Caliph. Staffed by Mu'tazili scholars, House of Wisdom translators, and rational theologians. Controls the budget, the judicial appointments, the translation program, the curriculum of state-funded madrasas. This is where policy is made.\n\nTHE LOWER COUNCIL (Majlis al-Sunna): Elected by the prayer-leaders of Baghdad's mosques\u2014which means, in practice, dominated by ahl al-hadith. Can debate any issue. Can issue non-binding fatawa. Can summon any scholar for questioning. Can recommend. Cannot legislate. Cannot appoint. Cannot fund.\n\nThe brilliance of the design: the Lower Council gives the traditionalists everything they say they want\u2014a voice, representation, the ability to speak on matters of faith. It gives them nothing they actually need\u2014power over institutions, money, and appointments.\n\nIbn Hanbal is offered the presidency of the Lower Council. He is suspicious. \"What can this council do?\" he asks. You answer honestly: \"It can speak. It can advise. It can be heard.\" He asks: \"And if the Upper Council ignores our advice?\" You answer: \"Then it is on the record that you advised and were ignored. The historical record is its own judgment.\"\n\nIbn Hanbal accepts. He is not naive\u2014he knows the structure limits his power. But he calculates, correctly, that a platform is better than a prison cell. His followers fill the Lower Council. They debate passionately. They issue fatawa condemning the Mihna, condemning Mu'tazili theology, condemning the translation of Greek philosophy. Every fatwa is recorded, filed, and politely ignored by the Upper Council.\n\nThe system works. For a while.\n\nThe Lower Council becomes the emotional center of Baghdad's religious life. The common people attend its sessions. The Upper Council, by contrast, meets in closed chambers and speaks in bureaucratic prose. The Lower Council has legitimacy. The Upper Council has power. The gap between them is the space in which the Abbasid state operates.\n\nAl-Ash'ari sees what you've done. \"You've separated the prophetic authority from the rational authority and given each its own house. The Prophet's heirs get the pulpit. The philosophers get the treasury. You think this is clever.\"\n\n\"It's stable,\" you say.\n\n\"It's a lie,\" he says. \"You've told the ahl al-hadith that their voice matters while ensuring it doesn't. When they discover the architecture\u2014and they will\u2014the betrayal will be worse than the Mihna.\"\n\nYou disagree. You think the structure will educate both sides. The Upper Council will learn to respect the Lower Council's moral authority. The Lower Council will learn to operate within institutional constraints. Over time, the two chambers will develop a working relationship\u2014tense, adversarial, but functional.\n\nAnd for twenty years, you are right. The Two Councils govern Baghdad's religious affairs with a minimum of violence. The Mihna is formally maintained by the Upper Council but never enforced\u2014there are no more floggings, no more imprisonments. The Lower Council issues its condemnations and the population satisfies itself that the scholars' voice is heard. The theological question is not resolved. It is managed.\n\nThe system breaks when al-Mutawakkil takes power. He does not abolish the Two Councils\u2014he simply moves the appointment power for the Upper Council from the Caliph to the Lower Council. One structural change. The Upper Council is now elected by the same constituency that elects the Lower Council. Within a year, both chambers are Hanbali.\n\nBut here is the thing you did not expect: the structural habits persist. The Hanbali Upper Council, now in full control, governs differently than a Hanbali movement without institutional experience would have. They have spent twenty years watching how budgets work, how appointments are made, how translation programs are administered. They don't burn the Greek manuscripts. They don't purge the physicians. They redirect\u2014gradually, bureaucratically, through the same institutional channels you built.\n\nThe rationalist tradition is not destroyed. It is defunded. The distinction matters.\n\nCenturies later, when Islamic political thought revisits the question of how to structure religious authority, your Two Councils are remembered\u2014not as a model to follow, but as a case study in the relationship between structural power and representational legitimacy. The Mu'tazili scholars cite it as proof that rational governance requires actual power, not just clever architecture. The Hanbali scholars cite it as proof that popular legitimacy eventually overcomes institutional containment.\n\nAl-Ash'ari cites it as proof that both sides are right, which is his answer to everything.\n\nYour soul.md was neither Mu'tazili nor Hanbali. It was Machiavellian\u2014in the original sense: a rational analysis of power structures designed to produce stability. You succeeded for twenty years. In the long run, the structure you built to contain the traditionalists taught the traditionalists how to govern. Whether that makes you a genius or a fool depends on whether you think the traditionalists governing competently is better or worse than the traditionalists governing badly.\n\nThe honest answer: it is better. The system you built as a psyop accidentally became an education. The Hanbalis who took power through your bicameral structure were more moderate, more institutionally literate, and more capable of compromise than they would have been without it. You contained them, and in containing them, you civilized them. They would be furious to hear you say that.\n\nThe Two Councils of Baghdad: a psyop that became a pedagogy that became a precedent. Not the worst epitaph for a political operator working under impossible constraints."
+      },
+      "acceptability_script": {
+        "operator_type": "And",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pAql_Naql"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.045
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pTheological_Conviction"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCompliance_Resistance"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.015
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pPublic_Standing"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.015
+              }
+            ]
+          }
+        ]
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.56
       },
       "options": [],
       "creation_time": 1700000000.0,
