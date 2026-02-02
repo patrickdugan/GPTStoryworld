@@ -26739,6 +26739,120 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_qadi_talaq_0_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "A supplementary policy rationale gains traction."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Aql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Aql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -26862,6 +26976,120 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": -0.06
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_qadi_talaq_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "A supplementary policy rationale gains traction."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Aql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Aql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -27025,13 +27253,63 @@
                       }
                     ]
                   }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_qadi_talaq_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "A supplementary policy rationale gains traction."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Aql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Aql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
                 },
                 {
                   "effect_type": "Bounded Number Effect",
                   "Set": {
                     "pointer_type": "Bounded Number Pointer",
                     "script_element_type": "Pointer",
-                    "character": "char_amma",
+                    "character": "char_player",
                     "keyring": [
                       "Public_Standing"
                     ],
@@ -27044,7 +27322,7 @@
                       {
                         "pointer_type": "Bounded Number Pointer",
                         "script_element_type": "Pointer",
-                        "character": "char_amma",
+                        "character": "char_player",
                         "keyring": [
                           "Public_Standing"
                         ],
@@ -27053,7 +27331,39 @@
                       {
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
-                        "value": -0.024
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -28279,38 +28589,6 @@
                       }
                     ]
                   }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Theological_Conviction"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Theological_Conviction"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.024
-                      }
-                    ]
-                  }
                 }
               ]
             },
@@ -28422,38 +28700,6 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "pPublic_Standing"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pPublic_Standing"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
                       }
                     ]
                   }
@@ -28571,7 +28817,25 @@
                       }
                     ]
                   }
-                },
+                }
+              ]
+            },
+            {
+              "id": "opt_page_pol_madrasa_0_r3",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "A supplementary policy rationale gains traction."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
                 {
                   "effect_type": "Bounded Number Effect",
                   "Set": {
@@ -28579,7 +28843,7 @@
                     "script_element_type": "Pointer",
                     "character": "char_player",
                     "keyring": [
-                      "pPublic_Standing"
+                      "Aql_Naql"
                     ],
                     "coefficient": 1.0
                   },
@@ -28592,7 +28856,7 @@
                         "script_element_type": "Pointer",
                         "character": "char_player",
                         "keyring": [
-                          "pPublic_Standing"
+                          "Aql_Naql"
                         ],
                         "coefficient": 1.0
                       },
@@ -28600,6 +28864,70 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -28845,38 +29173,6 @@
                       }
                     ]
                   }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "pPublic_Standing"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pPublic_Standing"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
-                      }
-                    ]
-                  }
                 }
               ]
             },
@@ -28991,7 +29287,25 @@
                       }
                     ]
                   }
-                },
+                }
+              ]
+            },
+            {
+              "id": "opt_page_pol_madrasa_1_r3",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "A supplementary policy rationale gains traction."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
                 {
                   "effect_type": "Bounded Number Effect",
                   "Set": {
@@ -28999,7 +29313,7 @@
                     "script_element_type": "Pointer",
                     "character": "char_player",
                     "keyring": [
-                      "pPublic_Standing"
+                      "Aql_Naql"
                     ],
                     "coefficient": 1.0
                   },
@@ -29012,7 +29326,7 @@
                         "script_element_type": "Pointer",
                         "character": "char_player",
                         "keyring": [
-                          "pPublic_Standing"
+                          "Aql_Naql"
                         ],
                         "coefficient": 1.0
                       },
@@ -29020,6 +29334,70 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -29265,38 +29643,6 @@
                       }
                     ]
                   }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "pPublic_Standing"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pPublic_Standing"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
-                      }
-                    ]
-                  }
                 }
               ]
             },
@@ -29411,7 +29757,25 @@
                       }
                     ]
                   }
-                },
+                }
+              ]
+            },
+            {
+              "id": "opt_page_pol_madrasa_2_r3",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "A supplementary policy rationale gains traction."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
                 {
                   "effect_type": "Bounded Number Effect",
                   "Set": {
@@ -29419,7 +29783,7 @@
                     "script_element_type": "Pointer",
                     "character": "char_player",
                     "keyring": [
-                      "pPublic_Standing"
+                      "Aql_Naql"
                     ],
                     "coefficient": 1.0
                   },
@@ -29432,7 +29796,7 @@
                         "script_element_type": "Pointer",
                         "character": "char_player",
                         "keyring": [
-                          "pPublic_Standing"
+                          "Aql_Naql"
                         ],
                         "coefficient": 1.0
                       },
@@ -29440,6 +29804,70 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -29716,38 +30144,6 @@
                       }
                     ]
                   }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "pPublic_Standing"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pPublic_Standing"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
-                      }
-                    ]
-                  }
                 }
               ]
             },
@@ -29859,38 +30255,6 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "pPublic_Standing"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pPublic_Standing"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
                       }
                     ]
                   }
@@ -30133,38 +30497,6 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "pPublic_Standing"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pPublic_Standing"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
                       }
                     ]
                   }
@@ -33047,38 +33379,6 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.045
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Theological_Conviction"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Theological_Conviction"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.024
                       }
                     ]
                   }
