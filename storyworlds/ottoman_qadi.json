@@ -27191,6 +27191,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -27250,6 +27300,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_port_ban_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Require sureties and inspections instead of punishments."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_port_ban_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Law appears procedural."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Law"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Law"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_port_ban_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Authority holds."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Authority"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Authority"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_port_ban_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Public mercy rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -28300,6 +28614,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -28359,6 +28723,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_street_singers_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Move performances to courtyards with permits."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_street_singers_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Tradition persists quietly."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "Tassawuf"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "Tassawuf"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_street_singers_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Public calm rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_street_singers_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Zeal softens."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.005
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -30832,6 +31460,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -30891,6 +31569,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_patrol_brutality_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Institute patrol codes and training on ta?zir limits."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_patrol_brutality_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Law strengthens."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Law"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Law"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_patrol_brutality_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Authority stabilizes."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Authority"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Authority"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_patrol_brutality_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Public mercy rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -30991,6 +31933,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -31050,6 +32042,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_house_raid_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Offer repentance pledge in lieu of ta?zir."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_house_raid_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Mercy rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_house_raid_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Law appears balanced."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Law"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Law"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_house_raid_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Zeal softens."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -31309,6 +32565,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -31368,6 +32674,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_bathhouse_rule_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Permit music only on festival nights."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_bathhouse_rule_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Public mood softens."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_bathhouse_rule_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Tradition persists."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "Tassawuf"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "Tassawuf"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_bathhouse_rule_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Zeal cools."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.005
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -31468,6 +33038,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -31527,6 +33147,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_alley_mediation_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Assign a neutral mediator under court oversight."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_alley_mediation_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Law strengthens."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Law"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Law"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_alley_mediation_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Authority steadies."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Authority"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Authority"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_alley_mediation_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Public calm rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -31627,6 +33511,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -31686,6 +33620,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_secret_meeting_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Order discreet observation rather than a raid."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_secret_meeting_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Authority appears cautious."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Authority"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Authority"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_secret_meeting_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Public mercy rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_secret_meeting_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Zeal cools."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -31786,6 +33984,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -31845,6 +34093,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_school_whip_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Allow discipline but cap strikes by rule."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_school_whip_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Authority steadies."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Authority"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Authority"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_school_whip_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Mercy rises slightly."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_school_whip_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Zeal holds."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.0
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -33217,6 +35729,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -33276,6 +35838,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_tavern_song_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Allow only devotional songs and no wine on premises."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_tavern_song_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Mercy rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_tavern_song_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Authority steadies."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Authority"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Authority"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_tavern_song_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Zeal cools slightly."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.005
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -33376,6 +36202,56 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -33435,6 +36311,56 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -33519,6 +36445,270 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_grain_smuggling_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Issue fines and require public restitution."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_grain_smuggling_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Law balances order."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Law"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Law"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_grain_smuggling_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Public mercy rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_grain_smuggling_3_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Zeal cools."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.005
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "auto_rxn5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Whispers adjust perceived mercy."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "pMercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "pMercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
