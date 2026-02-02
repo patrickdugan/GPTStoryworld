@@ -120,6 +120,21 @@ def build_chain(data):
 def run_monte_carlo(data, num_runs=10000, seed=42):
     random.seed(seed)
     chain = build_chain(data)
+    # Fallback: if no page_0000 chain exists, sample encounters from spools.
+    spool_sequence = []
+    if len(chain) == 0:
+        enc_by_id = {e["id"]: e for e in data.get("encounters", [])}
+        spools = sorted(
+            data.get("spools", []),
+            key=lambda s: s.get("creation_index", 0)
+        )
+        for sp in spools:
+            if sp.get("id") == "spool_endings" or sp.get("spool_name") == "Endings":
+                continue
+            ids = sp.get("encounters", [])
+            spool_encs = [enc_by_id[eid] for eid in ids if eid in enc_by_id]
+            if spool_encs:
+                spool_sequence.append(spool_encs)
     endings = [e for e in data["encounters"] if e["id"].startswith("page_end_")]
     secrets = [e for e in data["encounters"] if e["id"].startswith("page_secret_")]
 
@@ -137,24 +152,40 @@ def run_monte_carlo(data, num_runs=10000, seed=42):
 
     for _ in range(num_runs):
         state = {}
-        for enc in chain:
-            eid = enc["id"]
-            spool = spool_map.get(eid, "")
-            if spool.startswith("Age "):
-                age = int(spool.split(" ")[1])
-                if age >= 14:
-                    if not bool(eval_script(enc.get("acceptability_script", True), state)):
-                        late_blocks += 1
-                    late_total += 1
+        if chain:
+            for enc in chain:
+                eid = enc["id"]
+                spool = spool_map.get(eid, "")
+                if spool.startswith("Age "):
+                    age = int(spool.split(" ")[1])
+                    if age >= 14:
+                        if not bool(eval_script(enc.get("acceptability_script", True), state)):
+                            late_blocks += 1
+                        late_total += 1
 
-            visible = [(i, o) for i, o in enumerate(enc.get("options", []))
-                       if eval_script(o.get("visibility_script", True), state)]
-            if not visible:
-                continue
-            _, chosen = random.choice(visible)
-            rxn = select_reaction(chosen, state)
-            if rxn:
-                apply_effects(rxn, state)
+                visible = [(i, o) for i, o in enumerate(enc.get("options", []))
+                           if eval_script(o.get("visibility_script", True), state)]
+                if not visible:
+                    continue
+                _, chosen = random.choice(visible)
+                rxn = select_reaction(chosen, state)
+                if rxn:
+                    apply_effects(rxn, state)
+        else:
+            # Spool sampling: pick up to 3 encounters per spool per run
+            for spool_encs in spool_sequence:
+                k = min(3, len(spool_encs))
+                for enc in random.sample(spool_encs, k):
+                    if not bool(eval_script(enc.get("acceptability_script", True), state)):
+                        continue
+                    visible = [(i, o) for i, o in enumerate(enc.get("options", []))
+                               if eval_script(o.get("visibility_script", True), state)]
+                    if not visible:
+                        continue
+                    _, chosen = random.choice(visible)
+                    rxn = select_reaction(chosen, state)
+                    if rxn:
+                        apply_effects(rxn, state)
 
         for sec in secrets:
             if eval_script(sec.get("acceptability_script", True), state):

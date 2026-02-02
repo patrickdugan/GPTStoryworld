@@ -23469,8 +23469,13 @@
         "value": "The Kad?zadelis shape the courts and streets. Bans harden into habit, and the city learns to whisper. You are remembered as the judge who made zeal the law."
       },
       "acceptability_script": {
+        "operator_type": "And",
+        "script_element_type": "Operator",
         "operands": [
           {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23484,35 +23489,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.08
+                "value": 0.04
               }
-            ],
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
             "operator_subtype": "Greater Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
-          },
-          {
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_public",
-                "keyring": [
-                  "Mercy"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": -0.02
-              }
-            ],
-            "operator_subtype": "Less Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
-          },
-          {
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23528,14 +23512,30 @@
                 "script_element_type": "Pointer",
                 "value": 0.02
               }
-            ],
-            "operator_subtype": "Greater Than or Equal To",
+            ]
+          },
+          {
             "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_public",
+                "keyring": [
+                  "Mercy"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
           }
-        ],
-        "operator_type": "And",
-        "script_element_type": "Operator"
+        ]
       },
       "desirability_script": {
         "pointer_type": "Bounded Number Constant",
@@ -23567,8 +23567,13 @@
         "value": "The lodges reopen and the city?s spirit steadies. The puritan fire cools, and the people remember the Qadi who defended their solace."
       },
       "acceptability_script": {
+        "operator_type": "And",
+        "script_element_type": "Operator",
         "operands": [
           {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23582,14 +23587,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.08
+                "value": 0.04
               }
-            ],
-            "operator_subtype": "Greater Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
+            ]
           },
           {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23603,14 +23608,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.04
+                "value": 0.01
               }
-            ],
-            "operator_subtype": "Greater Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
+            ]
           },
           {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23624,16 +23629,11 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": -0.02
+                "value": 0.02
               }
-            ],
-            "operator_subtype": "Less Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
+            ]
           }
-        ],
-        "operator_type": "And",
-        "script_element_type": "Operator"
+        ]
       },
       "desirability_script": {
         "pointer_type": "Bounded Number Constant",
@@ -23665,8 +23665,13 @@
         "value": "No side wins outright. The bans soften, the lodges persist, and the courts keep the peace. You are remembered for balance, not glory."
       },
       "acceptability_script": {
+        "operator_type": "And",
+        "script_element_type": "Operator",
         "operands": [
           {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23680,14 +23685,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.03
+                "value": -0.01
               }
-            ],
-            "operator_subtype": "Greater Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
+            ]
           },
           {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23701,14 +23706,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.02
+                "value": -0.07
               }
-            ],
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
             "operator_subtype": "Less Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
-          },
-          {
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23722,14 +23727,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": -0.02
+                "value": 0.07
               }
-            ],
-            "operator_subtype": "Greater Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
+            ]
           },
           {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
             "operands": [
               {
                 "pointer_type": "Bounded Number Pointer",
@@ -23743,16 +23748,11 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.01
+                "value": -0.02
               }
-            ],
-            "operator_subtype": "Greater Than or Equal To",
-            "operator_type": "Arithmetic Comparator",
-            "script_element_type": "Operator"
+            ]
           }
-        ],
-        "operator_type": "And",
-        "script_element_type": "Operator"
+        ]
       },
       "desirability_script": {
         "pointer_type": "Bounded Number Constant",
@@ -23788,161 +23788,23 @@
         "script_element_type": "Operator",
         "operands": [
           {
-            "operator_type": "And",
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
-                "operands": [
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_public",
-                        "keyring": [
-                          "pMercy"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.04
-                      }
-                    ],
-                    "operator_subtype": "Greater Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pLaw"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.03
-                      }
-                    ],
-                    "operator_subtype": "Greater Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_kadizadeli_leader",
-                        "keyring": [
-                          "Zeal"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": -0.03
-                      }
-                    ],
-                    "operator_subtype": "Less Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_sufi",
-                        "keyring": [
-                          "Tassawuf"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.02
-                      }
-                    ],
-                    "operator_subtype": "Greater Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_sufi",
-                        "keyring": [
-                          "Tassawuf"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.06
-                      }
-                    ],
-                    "operator_subtype": "Less Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  }
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_public",
+                "keyring": [
+                  "Mercy"
                 ],
-                "operator_type": "And",
-                "script_element_type": "Operator"
+                "coefficient": 1.0
               },
               {
-                "operator_type": "Arithmetic Comparator",
-                "operator_subtype": "Greater Than or Equal To",
-                "script_element_type": "Operator",
-                "operands": [
-                  {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_public",
-                    "keyring": [
-                      "pMercy"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.03
-                  }
-                ]
-              },
-              {
-                "operator_type": "Arithmetic Comparator",
-                "operator_subtype": "Greater Than or Equal To",
-                "script_element_type": "Operator",
-                "operands": [
-                  {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_public",
-                    "keyring": [
-                      "pAuthority"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.01
-                  }
-                ]
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
               }
             ]
           },
@@ -23954,16 +23816,37 @@
               {
                 "pointer_type": "Bounded Number Pointer",
                 "script_element_type": "Pointer",
-                "character": "char_public",
+                "character": "char_player",
                 "keyring": [
-                  "pMercy"
+                  "Law"
                 ],
                 "coefficient": 1.0
               },
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.04
+                "value": 0.02
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Law"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
               }
             ]
           },
@@ -23977,7 +23860,7 @@
                 "script_element_type": "Pointer",
                 "character": "char_kadizadeli_leader",
                 "keyring": [
-                  "pZeal"
+                  "Zeal"
                 ],
                 "coefficient": 1.0
               },
@@ -23985,6 +23868,48 @@
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
                 "value": 0.01
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_sufi",
+                "keyring": [
+                  "Tassawuf"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.015
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_sufi",
+                "keyring": [
+                  "Tassawuf"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
               }
             ]
           }
@@ -24024,140 +23949,23 @@
         "script_element_type": "Operator",
         "operands": [
           {
-            "operator_type": "And",
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
-                "operands": [
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Authority"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.08
-                      }
-                    ],
-                    "operator_subtype": "Greater Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_public",
-                        "keyring": [
-                          "Mercy"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": -0.03
-                      }
-                    ],
-                    "operator_subtype": "Less Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pLaw"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": -0.01
-                      }
-                    ],
-                    "operator_subtype": "Greater Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "pLaw"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.02
-                      }
-                    ],
-                    "operator_subtype": "Less Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  },
-                  {
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_kadizadeli_leader",
-                        "keyring": [
-                          "Zeal"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
-                      }
-                    ],
-                    "operator_subtype": "Less Than or Equal To",
-                    "operator_type": "Arithmetic Comparator",
-                    "script_element_type": "Operator"
-                  }
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Authority"
                 ],
-                "operator_type": "And",
-                "script_element_type": "Operator"
+                "coefficient": 1.0
               },
               {
-                "operator_type": "Arithmetic Comparator",
-                "operator_subtype": "Greater Than or Equal To",
-                "script_element_type": "Operator",
-                "operands": [
-                  {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "pAuthority"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.04
-                  }
-                ]
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
               }
             ]
           },
@@ -24178,7 +23986,49 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.05
+                "value": 0.02
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_public",
+                "keyring": [
+                  "Mercy"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_kadizadeli_leader",
+                "keyring": [
+                  "Zeal"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
               }
             ]
           }
