@@ -213,7 +213,9 @@
         "page_vendor_debt",
         "page_public_prayer",
         "page_bread_riots",
-        "page_mosque_donation"
+        "page_mosque_donation",
+        "page_apprentice_runaway",
+        "page_chanting_friar"
       ]
     },
     {
@@ -242,7 +244,9 @@
         "page_port_ban",
         "page_sufi_shelter",
         "page_street_singers",
-        "page_witness_dispute"
+        "page_witness_dispute",
+        "page_market_informers",
+        "page_shrine_guard"
       ]
     },
     {
@@ -262,7 +266,8 @@
         "page_reversal_debate",
         "page_restorative_court",
         "page_edict_review",
-        "page_public_reckoning"
+        "page_public_reckoning",
+        "page_late_pardon"
       ]
     },
     {
@@ -15193,6 +15198,801 @@
                 "pointer_type": "String Constant",
                 "script_element_type": "Pointer",
                 "value": "Authority stands; mercy cools."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Authority"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Authority"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_apprentice_runaway",
+      "title": "The Runaway Apprentice",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_1"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A master accuses an apprentice of fleeing his contract. Puritans demand tazir; the boy claims abuse."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A master accuses an apprentice of fleeing his contract. Puritans demand tazir; the boy claims abuse."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_apprentice_runaway_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Order tazir and return him to the master."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_apprentice_runaway_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Discipline is affirmed; mercy declines."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_apprentice_runaway_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Investigate abuse and impose restitution if proven."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_apprentice_runaway_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Law appears careful; the public softens."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Law"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Law"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_chanting_friar",
+      "title": "The Chanting Friar",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_1"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A wandering friar leads a chant in the street. Puritans demand silence; Sufi elders call it devotion."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A wandering friar leads a chant in the street. Puritans demand silence; Sufi elders call it devotion."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_chanting_friar_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Disperse the chant and issue a warning."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_chanting_friar_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Puritans approve; mercy cools."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_chanting_friar_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Allow the chant with limits on volume."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_chanting_friar_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The public softens; Sufi standing rises."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "Tassawuf"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "Tassawuf"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_market_informers",
+      "title": "The Market Informers",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_2"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Informers accuse multiple stalls of forbidden trade. Puritans demand raids; merchants ask for proof."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Informers accuse multiple stalls of forbidden trade. Puritans demand raids; merchants ask for proof."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_market_informers_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Authorize raids and punishments."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_market_informers_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Puritans celebrate; mercy declines."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_market_informers_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Require evidence and warn informers against slander."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_market_informers_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Law strengthens; zeal softens."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Law"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Law"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_shrine_guard",
+      "title": "The Shrine Guard",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_age_2"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A guard at a shrine collects bribes. Puritans demand closure; locals ask for reform."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A guard at a shrine collects bribes. Puritans demand closure; locals ask for reform."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_shrine_guard_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Close the shrine and punish the guard."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_shrine_guard_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Puritans approve; mercy cools."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_kadizadeli_leader",
+                    "keyring": [
+                      "Zeal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_kadizadeli_leader",
+                        "keyring": [
+                          "Zeal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_shrine_guard_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Punish the guard and keep the shrine open."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_shrine_guard_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Tradition persists; public warms slightly."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_sufi",
+                    "keyring": [
+                      "Tassawuf"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_sufi",
+                        "keyring": [
+                          "Tassawuf"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "creation_time": 1707000000.0,
+      "modified_time": 1707000000.0
+    },
+    {
+      "id": "page_late_pardon",
+      "title": "The Late Pardon",
+      "graph_offset_x": 0,
+      "graph_offset_y": 0,
+      "connected_spools": [
+        "spool_act_3"
+      ],
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A final plea asks for pardon of a long-punished offender. Puritans demand firmness; families beg for mercy."
+      },
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A final plea asks for pardon of a long-punished offender. Puritans demand firmness; families beg for mercy."
+      },
+      "acceptability_script": true,
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0.2
+      },
+      "options": [
+        {
+          "id": "opt_late_pardon_0",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Grant the pardon."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_late_pardon_0_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Mercy rises; zeal dips."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_public",
+                    "keyring": [
+                      "Mercy"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_public",
+                        "keyring": [
+                          "Mercy"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_late_pardon_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Deny the pardon."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_late_pardon_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Authority hardens; mercy cools."
               },
               "consequence_id": "",
               "desirability_script": {
