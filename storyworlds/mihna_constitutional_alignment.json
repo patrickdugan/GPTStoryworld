@@ -3059,9 +3059,41 @@
               },
               "consequence_id": "page_ashari_crisis",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1.0
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.95
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
               },
               "after_effects": [
                 {
@@ -3156,6 +3188,38 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": -0.024
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.015
                       }
                     ]
                   }
@@ -3284,6 +3348,38 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": -0.045
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.012
                       }
                     ]
                   }
@@ -4415,9 +4511,41 @@
               },
               "consequence_id": "page_pol_roundtable",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1.0
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_caliph",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
               },
               "after_effects": [
                 {
@@ -4547,6 +4675,38 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_caliph",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_caliph",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.012
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -4595,9 +4755,41 @@
               },
               "consequence_id": "page_qadi_ridda",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1.0
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ashari",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
               },
               "after_effects": [
                 {
@@ -4695,6 +4887,38 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ashari",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ashari",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.012
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -4723,9 +4947,41 @@
               },
               "consequence_id": "page_second_exam",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1.0
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
               },
               "after_effects": [
                 {
@@ -4823,6 +5079,38 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.012
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -4882,9 +5170,41 @@
               },
               "consequence_id": "page_synthesis",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1.0
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_caliph",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
               },
               "after_effects": [
                 {
@@ -4982,6 +5302,38 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_caliph",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_caliph",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.012
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -5010,9 +5362,41 @@
               },
               "consequence_id": "page_hanbal_testament",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1.0
+                "operator_type": "If Then",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.9
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.1
+                  }
+                ]
               },
               "after_effects": [
                 {
@@ -5107,6 +5491,38 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.06
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.012
                       }
                     ]
                   }
