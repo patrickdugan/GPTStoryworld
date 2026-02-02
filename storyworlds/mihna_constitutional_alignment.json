@@ -16004,6 +16004,298 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_hanbal_testament_0_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_hanbal_testament_0_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The court responds with a different emphasis."
+              },
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -16191,6 +16483,298 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.024
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_hanbal_testament_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_hanbal_testament_1_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The court responds with a different emphasis."
+              },
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -16388,6 +16972,298 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_hanbal_testament_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_hanbal_testament_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The court responds with a different emphasis."
+              },
+              "consequence_id": "page_declaration",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         }
@@ -16567,6 +17443,298 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_declaration_0_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_declaration_0_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The court responds with a different emphasis."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.05
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -16710,6 +17878,152 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.045
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_declaration_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_ibnhanbal",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_ibnhanbal",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -16890,6 +18204,120 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_declaration_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -17013,6 +18441,120 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": -0.06
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_declaration_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "page_end_compliant",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -17236,6 +18778,120 @@
                 "script_element_type": "Pointer",
                 "value": "The argument reframes the conflict: a theology of inner states, a politics of managed pluralism."
               }
+            },
+            {
+              "id": "opt_page_declaration_secret_0_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ],
           "text_script": {
@@ -17312,6 +18968,280 @@
               }
             ]
           }
+        },
+        {
+          "id": "opt_page_declaration_4",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Declare a narrow doctrine for courts and leave creed to private conscience."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_page_declaration_4_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The ruling is recorded and debated."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.015
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_caliph",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_caliph",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_declaration_4_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The ruling is recorded and debated."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Aql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Aql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pAql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         }
       ],
       "creation_time": 1700000000.0,
@@ -17898,6 +19828,120 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_qadi_custody_0_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -18090,6 +20134,120 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_qadi_custody_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -18213,6 +20371,394 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.024
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_qadi_custody_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_page_qadi_custody_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Issue a narrow ruling and invite mediation outside court."
+          },
+          "visibility_script": true,
+          "performability_script": true,
+          "reactions": [
+            {
+              "id": "opt_page_qadi_custody_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The ruling is recorded and debated."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.08
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCompliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCompliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_qadi_custody_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The ruling is recorded and debated."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.04
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Aql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Aql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pAql_Naql"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pAql_Naql"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
                       }
                     ]
                   }
@@ -18372,6 +20918,120 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.045
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_qadi_daraba_0_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -18569,6 +21229,120 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_qadi_daraba_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -18692,6 +21466,120 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.045
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_qadi_daraba_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
@@ -18856,6 +21744,120 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_qadi_umm_walad_0_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -18984,6 +21986,120 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_page_qadi_umm_walad_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -19107,6 +22223,120 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.024
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_page_qadi_umm_walad_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The decision sets a procedural precedent."
+              },
+              "consequence_id": "",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.06
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Public_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Public_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pPublic_Standing"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pPublic_Standing"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Compliance_Resistance"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Compliance_Resistance"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
