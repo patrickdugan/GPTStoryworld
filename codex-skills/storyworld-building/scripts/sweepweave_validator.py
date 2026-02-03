@@ -24,6 +24,46 @@ def validate_storyworld(path: str):
     for k in required_top:
         if k not in data:
             errors.append(f"{k}: missing")
+    if errors:
+        return errors
+
+    # Build encounter id set for reference checks
+    encounter_ids = set()
+    for e in data.get("encounters", []):
+        if "id" in e:
+            encounter_ids.add(e["id"])
+    if not encounter_ids:
+        errors.append("encounters: empty")
+        return errors
+
+    # Validate spools
+    spools = data.get("spools", [])
+    if not spools:
+        errors.append("spools: empty")
+    start_spools = [s for s in spools if s.get("starts_active")]
+    if not start_spools:
+        errors.append("spools: no starts_active spool")
+    for s in spools:
+        encs = s.get("encounters", None)
+        if not isinstance(encs, list) or len(encs) == 0:
+            errors.append(f"spools[{s.get('id','?')}]: encounters empty")
+            continue
+        for eid in encs:
+            if eid not in encounter_ids:
+                errors.append(f"spools[{s.get('id','?')}]: unknown encounter id {eid}")
+
+    # Validate reactions have consequence_id and that it targets a real encounter
+    for e in data.get("encounters", []):
+        eid = e.get("id", "?")
+        for opt in e.get("options", []):
+            oid = opt.get("id", "?")
+            for r in opt.get("reactions", []):
+                rid = r.get("id", "?")
+                cid = r.get("consequence_id", "")
+                if not isinstance(cid, str) or cid.strip() == "":
+                    errors.append(f"reaction missing consequence_id: encounter={eid} option={oid} reaction={rid}")
+                elif cid not in encounter_ids:
+                    errors.append(f"reaction consequence_id not found: encounter={eid} option={oid} reaction={rid} -> {cid}")
     return errors
 
 def normalize_storyworld(input_path: str, output_path: str, reference_path: str):
@@ -65,7 +105,7 @@ if __name__=="__main__":
         errs=validate_storyworld(sys.argv[2])
         if errs:
             print("Invalid:",errs); sys.exit(2)
-        print("VALID ✅")
+        print("VALID OK")
     elif mode=="normalize":
         out=sys.argv[3] if len(sys.argv)>3 else "normalized.json"
         ref=sys.argv[4] if len(sys.argv)>4 else "dogs_in_a_barrel_secret_endings_spools.json"
