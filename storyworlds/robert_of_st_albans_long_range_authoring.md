@@ -1,5 +1,13 @@
-﻿# Robert of St. Albans Monte Carlo (seed 42, 5000 runs)
+# Long-Range Authoring Report: robert_of_st_albans.json
 
+Runs: 5000 | Seed: 42
+
+## Ending Distribution
+
+## Tuning Notes
+- No endings parsed; check Monte Carlo output format.
+
+## Raw Monte Carlo Output
 ```
 Chain: 0 encounters | 5 endings | 0 secrets
 ======================================================================
@@ -28,4 +36,6 @@ MONTE CARLO RESULTS (5000 runs)
   char_player.pFaith_Doubt                       mean=+0.0030  std=0.0054
   char_player.pHonor_Expediency                  mean=+0.0010  std=0.0053
   char_player.pLoyalty_Betrayal                  mean=+0.0030  std=0.0050
+
+--- Unreachable Endings ---
 ```

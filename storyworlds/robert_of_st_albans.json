@@ -197,6 +197,7 @@
         "page_hattin",
         "page_jerusalem",
         "page_rumor",
+        "page_chroniclers",
         "page_act3_end",
         "page_endings_gate"
       ]
@@ -5541,12 +5542,12 @@
       "text_script": {
         "pointer_type": "String Constant",
         "script_element_type": "Pointer",
-        "value": "Stories say you promised Jerusalem, married into Saladin?s family, and were made a prince. Others call it a fairy tale."
+        "value": "Stories say you promised Jerusalem, married into Saladin's family, and were made a prince. Others call it a fairy tale."
       },
       "prompt_script": {
         "pointer_type": "String Constant",
         "script_element_type": "Pointer",
-        "value": "Stories say you promised Jerusalem, married into Saladin?s family, and were made a prince. Others call it a fairy tale."
+        "value": "Stories say you promised Jerusalem, married into Saladin's family, and were made a prince. Others call it a fairy tale."
       },
       "acceptability_script": {
         "pointer_type": "Boolean Constant",
@@ -5598,7 +5599,7 @@
                 "script_element_type": "Pointer",
                 "value": "The legend grows."
               },
-              "consequence_id": "page_act3_end",
+              "consequence_id": "page_chroniclers",
               "desirability_script": {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
@@ -5670,7 +5671,7 @@
                 "script_element_type": "Pointer",
                 "value": "The truth is smaller, and heavier."
               },
-              "consequence_id": "page_act3_end",
+              "consequence_id": "page_chroniclers",
               "desirability_script": {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
@@ -6506,6 +6507,258 @@
         "spool_endings"
       ],
       "options": []
+    },
+    {
+      "id": "page_chroniclers",
+      "title": "Chroniclers",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Two accounts follow you. One paints you as a prince by marriage; another insists you were only a renegade soldier."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Two accounts follow you. One paints you as a prince by marriage; another insists you were only a renegade soldier."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 26,
+      "latest_turn": 33,
+      "creation_index": 33,
+      "creation_time": 1770152301.9785855,
+      "modified_time": 1770152301.9785855,
+      "graph_position_x": 900,
+      "graph_position_y": 420,
+      "connected_spools": [
+        "spool_act3"
+      ],
+      "options": [
+        {
+          "id": "opt_chroniclers_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Stand with the court chroniclers."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_chroniclers_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The order keeps its version."
+              },
+              "consequence_id": "page_act3_end",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Loyalty_Betrayal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Loyalty_Betrayal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_chroniclers_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Trust later historians."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_chroniclers_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Certainty frays around the edges."
+              },
+              "consequence_id": "page_act3_end",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Faith_Doubt"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Faith_Doubt"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_chroniclers_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Leave the record unfinished."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_chroniclers_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You turn away from the page."
+              },
+              "consequence_id": "page_act3_end",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Honor_Expediency"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Honor_Expediency"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
