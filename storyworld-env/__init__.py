@@ -307,8 +307,7 @@ class SweepweaveValidator:
         total = report["num_runs"]
         if total == 0:
             return 0.0
-        hits = sum(report["secret_hits"].values())
-        return hits / total
+        return report.get("secret_any", 0) / total
 
 
 # ============================================================================
@@ -517,6 +516,7 @@ def run_monte_carlo(data, num_runs=200, seed=42):
     prop_sq = defaultdict(float)
     late_blocks, late_total = 0, 0
     secret_hits = Counter()
+    secret_any = 0
 
     for _ in range(num_runs):
         state = {}
@@ -556,9 +556,13 @@ def run_monte_carlo(data, num_runs=200, seed=42):
                     if rxn:
                         apply_effects(rxn, state)
 
+        hit_any = False
         for sec in secrets:
             if eval_script(sec.get("acceptability_script", True), state):
                 secret_hits[sec["id"]] += 1
+                hit_any = True
+        if hit_any:
+            secret_any += 1
 
         best_end, best_d = None, -999
         for end in endings:
@@ -590,6 +594,7 @@ def run_monte_carlo(data, num_runs=200, seed=42):
         "late_blocks": late_blocks,
         "late_total": late_total,
         "secret_hits": secret_hits,
+        "secret_any": secret_any,
         "prop_sums": prop_sums,
         "prop_sq": prop_sq,
     }
@@ -1045,7 +1050,7 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
     else:
         max_share, min_share = 1.0, 0.0
     late_block = (report["late_blocks"] / report["late_total"]) if report["late_total"] else 0.0
-    secret_reach = (sum(report["secret_hits"].values()) / total) if total else 0.0
+    secret_reach = (report.get("secret_any", 0) / total) if total else 0.0
     late_block_applicable = report["late_total"] > 0
     return {
         "dead_end_rate": dead_end_rate,
