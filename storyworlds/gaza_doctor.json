@@ -26,7 +26,9 @@
         "Khaled_Alive": 1,
         "pKhaled_Alive": 1,
         "Press_Exposure": 0,
-        "pPress_Exposure": 0
+        "pPress_Exposure": 0,
+        "Dua_Made": 0,
+        "pDua_Made": 0
       }
     },
     {
@@ -43,7 +45,9 @@
         "Khaled_Alive": 1,
         "pKhaled_Alive": 1,
         "Press_Exposure": 0,
-        "pPress_Exposure": 0
+        "pPress_Exposure": 0,
+        "Dua_Made": 0,
+        "pDua_Made": 0
       }
     },
     {
@@ -60,7 +64,9 @@
         "Khaled_Alive": 1,
         "pKhaled_Alive": 1,
         "Press_Exposure": 0,
-        "pPress_Exposure": 0
+        "pPress_Exposure": 0,
+        "Dua_Made": 0,
+        "pDua_Made": 0
       }
     }
   ],
@@ -183,6 +189,30 @@
       "id": "pPress_Exposure",
       "modified_time": 1770143274.8840852,
       "property_name": "pPress_Exposure",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 10,
+      "creation_time": 1770144122.8373835,
+      "default_value": 0,
+      "depth": 0,
+      "id": "Dua_Made",
+      "modified_time": 1770144122.8373835,
+      "property_name": "Dua_Made",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 11,
+      "creation_time": 1770144122.8373835,
+      "default_value": 0,
+      "depth": 0,
+      "id": "pDua_Made",
+      "modified_time": 1770144122.8373835,
+      "property_name": "pDua_Made",
       "property_type": "bounded number"
     }
   ],
@@ -3361,6 +3391,136 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_headwound_1_dua",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Against the odds, the child stabilizes. You feel the dua answered."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.2
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ],
+              "acceptability_script": {
+                "operator_type": "And",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  },
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Dua_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         },
@@ -12422,7 +12582,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.015
+                "value": 0.012
               }
             ]
           },
@@ -12443,7 +12603,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.015
+                "value": 0.012
               }
             ]
           }
@@ -12469,7 +12629,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 1.2
+                "value": 1.4
               }
             ]
           },
@@ -12489,14 +12649,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 1.2
+                "value": 1.4
               }
             ]
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.01
+            "value": 0.015
           }
         ]
       },
@@ -12647,6 +12807,104 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "opt_press_1_dua",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "A planned strike does not arrive. The ward is spared, for now."
+              },
+              "consequence_id": "page_khaled_safe",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.1
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ],
+              "acceptability_script": {
+                "operator_type": "And",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  },
+                  {
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Dua_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         },
@@ -13441,6 +13699,142 @@
               ]
             }
           ]
+        },
+        {
+          "id": "opt_downtime_dua",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Make dua for guidance and mercy."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_downtime_dua_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You make the dua and steady yourself."
+              },
+              "consequence_id": "page_coping",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Dua_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Dua_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pDua_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pDua_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -14034,6 +14428,142 @@
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
                         "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_coping_dua",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Pause and make dua again."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_coping_dua_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You make the dua and steady yourself."
+              },
+              "consequence_id": "page_case_layla_intro",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Dua_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Dua_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pDua_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pDua_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
                       }
                     ]
                   }
