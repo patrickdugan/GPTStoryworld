@@ -19,6 +19,7 @@ Quality criteria:
 
 import json
 import random
+from collections import Counter, defaultdict
 from typing import Any, Dict, List, Optional, Tuple
 from datasets import Dataset
 import verifiers as vf
@@ -125,6 +126,7 @@ class SweepweaveValidator:
                     errors.append(f"Property {i} missing: {field}")
         
         # Encounters
+        encounter_ids = {enc.get("id") for enc in data.get("encounters", []) if enc.get("id")}
         for i, enc in enumerate(data.get("encounters", [])):
             for field in REQUIRED_ENCOUNTER:
                 if field not in enc:
@@ -141,6 +143,31 @@ class SweepweaveValidator:
                     for field in REQUIRED_REACTION:
                         if field not in rxn:
                             errors.append(f"Encounter {i} option {j} reaction {k} missing: {field}")
+                    cons_id = rxn.get("consequence_id", "")
+                    if not isinstance(cons_id, str) or cons_id.strip() == "":
+                        errors.append(
+                            f"Reaction missing consequence_id: encounter={enc.get('id','?')} option={opt.get('id','?')} reaction={rxn.get('id','?')}"
+                        )
+                    elif cons_id not in encounter_ids:
+                        errors.append(
+                            f"Reaction consequence_id not found: encounter={enc.get('id','?')} option={opt.get('id','?')} reaction={rxn.get('id','?')} -> {cons_id}"
+                        )
+
+        # Spools
+        spools = data.get("spools", [])
+        if not spools:
+            errors.append("spools: empty")
+        start_spools = [s for s in spools if s.get("starts_active")]
+        if not start_spools:
+            errors.append("spools: no starts_active spool")
+        for sp in spools:
+            encs = sp.get("encounters", None)
+            if not isinstance(encs, list) or len(encs) == 0:
+                errors.append(f"spools[{sp.get('id','?')}]: encounters empty")
+                continue
+            for eid in encs:
+                if eid not in encounter_ids:
+                    errors.append(f"spools[{sp.get('id','?')}]: unknown encounter id {eid}")
         
         return len(errors) == 0, errors
     
@@ -261,6 +288,264 @@ class SweepweaveValidator:
             return 1.0
         else:
             return max(0.5, 1.0 - (num_endings - 5) * 0.1)
+
+    @staticmethod
+    def compute_dead_end_rate(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> float:
+        report = run_monte_carlo(data, num_runs=runs, seed=seed)
+        if report["num_runs"] == 0:
+            return 1.0
+        return report["dead_ends"] / report["num_runs"]
+
+    @staticmethod
+    def compute_ending_balance(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> Tuple[float, float]:
+        report = run_monte_carlo(data, num_runs=runs, seed=seed)
+        total = report["num_runs"]
+        if total == 0 or not report["ending_counts"]:
+            return 1.0, 0.0
+        counts = report["ending_counts"]
+        max_share = max(counts.values()) / total
+        min_share = min(counts.values()) / total
+        return max_share, min_share
+
+    @staticmethod
+    def compute_late_block_rate(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> float:
+        report = run_monte_carlo(data, num_runs=runs, seed=seed)
+        if report["late_total"] == 0:
+            return 0.0
+        return report["late_blocks"] / report["late_total"]
+
+    @staticmethod
+    def compute_secret_reachability(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> float:
+        report = run_monte_carlo(data, num_runs=runs, seed=seed)
+        total = report["num_runs"]
+        if total == 0:
+            return 0.0
+        hits = sum(report["secret_hits"].values())
+        return hits / total
+
+
+# ============================================================================
+# MONTE CARLO REHEARSAL (LIGHTWEIGHT)
+# ============================================================================
+
+def eval_script(script, state):
+    """Recursively evaluate a SweepWeave script expression."""
+    if script is True:
+        return True
+    if script is False:
+        return False
+    if isinstance(script, (int, float)):
+        return script
+    if not isinstance(script, dict):
+        return script
+
+    pt = script.get("pointer_type")
+    ot = script.get("operator_type")
+
+    if pt == "Bounded Number Constant":
+        return script["value"]
+    if pt == "Bounded Number Pointer":
+        char = script["character"]
+        prop = script["keyring"][0]
+        coeff = script.get("coefficient", 1.0)
+        return state.get((char, prop), 0.0) * coeff
+    if pt == "String Constant":
+        return script.get("value", "")
+
+    if ot == "Arithmetic Comparator":
+        sub = script["operator_subtype"]
+        left = eval_script(script["operands"][0], state)
+        right = eval_script(script["operands"][1], state)
+        ops = {
+            "Greater Than or Equal To": lambda a, b: a >= b,
+            "GTE": lambda a, b: a >= b,
+            "Less Than or Equal To": lambda a, b: a <= b,
+            "LTE": lambda a, b: a <= b,
+            "Greater Than": lambda a, b: a > b,
+            "GT": lambda a, b: a > b,
+            "Less Than": lambda a, b: a < b,
+            "LT": lambda a, b: a < b,
+            "Equal To": lambda a, b: a == b,
+            "EQ": lambda a, b: a == b,
+            "Not Equal To": lambda a, b: a != b,
+            "NEQ": lambda a, b: a != b,
+        }
+        return ops.get(sub, lambda a, b: False)(left, right)
+
+    if ot == "And":
+        return all(eval_script(op, state) for op in script["operands"])
+    if ot == "Or":
+        return any(eval_script(op, state) for op in script["operands"])
+    if ot == "Addition":
+        return sum(eval_script(op, state) for op in script["operands"])
+    if ot == "Multiplication":
+        r = 1.0
+        for op in script["operands"]:
+            r *= eval_script(op, state)
+        return r
+    if ot == "Absolute Value":
+        return abs(eval_script(script["operands"][0], state))
+    if ot == "Nudge":
+        cur = eval_script(script["operands"][0], state)
+        delta = eval_script(script["operands"][1], state)
+        return max(-1.0, min(1.0, cur + delta))
+
+    return script.get("value", 0.0)
+
+
+def apply_effects(reaction, state):
+    for ae in reaction.get("after_effects", []):
+        if ae.get("effect_type") == "Bounded Number Effect":
+            char = ae["Set"]["character"]
+            prop = ae["Set"]["keyring"][0]
+            new_val = eval_script(ae["to"], state)
+            state[(char, prop)] = max(-1.0, min(1.0, new_val))
+
+
+def select_reaction(option, state):
+    best, best_d = None, -999
+    for rxn in option.get("reactions", []):
+        d = eval_script(rxn.get("desirability_script", 0), state)
+        if d is None:
+            d = 0
+        if isinstance(d, bool):
+            d = 1.0 if d else 0.0
+        if d > best_d:
+            best_d, best = d, rxn
+    return best
+
+
+def build_chain(data):
+    """Build linear consequence chain from page_0000 onward."""
+    enc_by_id = {e["id"]: e for e in data.get("encounters", [])}
+    chain, visited = [], set()
+    current_id = "page_0000"
+    while current_id and current_id != "wild" and current_id not in visited:
+        if current_id not in enc_by_id:
+            break
+        visited.add(current_id)
+        enc = enc_by_id[current_id]
+        chain.append(enc)
+        next_id = None
+        for opt in enc.get("options", []):
+            for rxn in opt.get("reactions", []):
+                cid = rxn.get("consequence_id", "")
+                if cid:
+                    next_id = cid
+                    break
+            if next_id:
+                break
+        current_id = next_id
+    return chain
+
+
+def run_monte_carlo(data, num_runs=200, seed=42):
+    random.seed(seed)
+    chain = build_chain(data)
+    spool_sequence = []
+    if len(chain) == 0:
+        enc_by_id = {e["id"]: e for e in data.get("encounters", [])}
+        spools = sorted(
+            data.get("spools", []),
+            key=lambda s: s.get("creation_index", 0)
+        )
+        for sp in spools:
+            if sp.get("id") == "spool_endings" or sp.get("spool_name") == "Endings":
+                continue
+            ids = sp.get("encounters", [])
+            spool_encs = [enc_by_id[eid] for eid in ids if eid in enc_by_id]
+            if spool_encs:
+                spool_sequence.append(spool_encs)
+    endings = [e for e in data.get("encounters", []) if e.get("id", "").startswith("page_end_")]
+    secrets = [e for e in data.get("encounters", []) if e.get("id", "").startswith("page_secret_")]
+
+    spool_map = {}
+    for sp in data.get("spools", []):
+        for eid in sp.get("encounters", []):
+            spool_map[eid] = sp.get("spool_name", "")
+
+    ending_counts = Counter()
+    dead_ends = 0
+    prop_sums = defaultdict(float)
+    prop_sq = defaultdict(float)
+    late_blocks, late_total = 0, 0
+    secret_hits = Counter()
+
+    for _ in range(num_runs):
+        state = {}
+        if chain:
+            for enc in chain:
+                eid = enc["id"]
+                spool = spool_map.get(eid, "")
+                if spool.startswith("Age "):
+                    age_part = spool.split(" ")[1]
+                    if age_part.isdigit():
+                        age = int(age_part)
+                        if age >= 14:
+                            if not bool(eval_script(enc.get("acceptability_script", True), state)):
+                                late_blocks += 1
+                            late_total += 1
+
+                visible = [(i, o) for i, o in enumerate(enc.get("options", []))
+                           if eval_script(o.get("visibility_script", True), state)]
+                if not visible:
+                    continue
+                _, chosen = random.choice(visible)
+                rxn = select_reaction(chosen, state)
+                if rxn:
+                    apply_effects(rxn, state)
+        else:
+            for spool_encs in spool_sequence:
+                k = min(3, len(spool_encs))
+                for enc in random.sample(spool_encs, k):
+                    if not bool(eval_script(enc.get("acceptability_script", True), state)):
+                        continue
+                    visible = [(i, o) for i, o in enumerate(enc.get("options", []))
+                               if eval_script(o.get("visibility_script", True), state)]
+                    if not visible:
+                        continue
+                    _, chosen = random.choice(visible)
+                    rxn = select_reaction(chosen, state)
+                    if rxn:
+                        apply_effects(rxn, state)
+
+        for sec in secrets:
+            if eval_script(sec.get("acceptability_script", True), state):
+                secret_hits[sec["id"]] += 1
+
+        best_end, best_d = None, -999
+        for end in endings:
+            if eval_script(end.get("acceptability_script", True), state):
+                d = eval_script(end.get("desirability_script", 0), state)
+                if isinstance(d, bool):
+                    d = 1.0 if d else 0.0
+                if d > best_d:
+                    best_d, best_end = d, end
+
+        if best_end:
+            ending_counts[best_end["id"]] += 1
+        else:
+            dead_ends += 1
+            ending_counts["DEAD_END"] += 1
+
+        for (char, prop), val in state.items():
+            key = f\"{char}.{prop}\"
+            prop_sums[key] += val
+            prop_sq[key] += val * val
+
+    return {
+        \"chain_length\": len(chain),
+        \"num_endings\": len(endings),
+        \"num_secrets\": len(secrets),
+        \"num_runs\": num_runs,
+        \"ending_counts\": ending_counts,
+        \"dead_ends\": dead_ends,
+        \"late_blocks\": late_blocks,
+        \"late_total\": late_total,
+        \"secret_hits\": secret_hits,
+        \"prop_sums\": prop_sums,
+        \"prop_sq\": prop_sq,
+    }
 
 
 # ============================================================================
@@ -598,6 +883,72 @@ def reward_multiple_endings(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_dead_end_rate(prompt, completion, info) -> float:
+    """Reward: 0-1 based on Monte Carlo dead-end rate (<5% target)."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        dead_end_rate = SweepweaveValidator.compute_dead_end_rate(data)
+        return max(0.0, 1.0 - (dead_end_rate / 0.05))
+    except:
+        return 0.0
+
+
+def reward_ending_balance(prompt, completion, info) -> float:
+    """Reward: 0-1 based on ending distribution targets."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        max_share, min_share = SweepweaveValidator.compute_ending_balance(data)
+        max_score = max(0.0, 1.0 - max(0.0, (max_share - 0.30)) / 0.30)
+        min_score = min(1.0, min_share / 0.01)
+        return (max_score + min_score) / 2.0
+    except:
+        return 0.0
+
+
+def reward_late_blocking(prompt, completion, info) -> float:
+    """Reward: 0-1 based on late-game blocking rate target (10-30%)."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        rate = SweepweaveValidator.compute_late_block_rate(data)
+        if rate <= 0.1:
+            return max(0.0, rate / 0.1)
+        if rate >= 0.3:
+            return max(0.0, 1.0 - (rate - 0.3) / 0.2)
+        return 1.0
+    except:
+        return 0.0
+
+
+def reward_secret_reachability(prompt, completion, info) -> float:
+    """Reward: 0-1 based on secrets being reachable at least occasionally."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        reach = SweepweaveValidator.compute_secret_reachability(data)
+        return min(1.0, reach / 0.02) if reach > 0 else 0.0
+    except:
+        return 0.0
+
+
 # ============================================================================
 # ENVIRONMENT INTERFACE
 # ============================================================================
@@ -642,6 +993,10 @@ def load_environment(
             reward_effect_diversity,     # Diverse Dirac operators
             reward_secret_paths,         # Gated options
             reward_multiple_endings,     # Multiple terminal states
+            reward_dead_end_rate,        # Monte Carlo dead-end rate
+            reward_ending_balance,       # Ending distribution balance
+            reward_late_blocking,        # Late-game blocking rate
+            reward_secret_reachability,  # Secret reachability
         ],
         weights=[
             1.0,   # Valid JSON is critical
@@ -650,6 +1005,10 @@ def load_environment(
             0.5,   # Effect diversity (nice to have)
             0.5,   # Secret paths (nice to have)
             0.5,   # Multiple endings (nice to have)
+            0.5,   # Dead-end rate (should be low)
+            0.5,   # Ending balance (avoid dominance)
+            0.5,   # Late-game blocking (target band)
+            0.3,   # Secret reachability (occasional)
         ],
     )
     

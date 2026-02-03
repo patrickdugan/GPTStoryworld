@@ -128,8 +128,12 @@ The environment uses a multi-component reward function:
 | `effect_diversity` | 0.5 | Variety of character property effects |
 | `secret_paths` | 0.5 | Options with conditional visibility |
 | `multiple_endings` | 0.5 | 2-5 distinct terminal states |
+| `dead_end_rate` | 0.5 | Monte Carlo dead-end rate (<5% target) |
+| `ending_balance` | 0.5 | Ending distribution (avoid dominance) |
+| `late_blocking` | 0.5 | Late-game blocking target band (10-30%) |
+| `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
-Total maximum reward: **6.0**
+Total maximum reward: **7.8**
 
 ## Sweepweave Format
 
