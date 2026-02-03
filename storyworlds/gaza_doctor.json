@@ -1,0 +1,5059 @@
+{
+  "IFID": "SW-GAZA-DOCTOR-0001",
+  "title": "Doctor in Gaza",
+  "about_text": {
+    "pointer_type": "String Constant",
+    "script_element_type": "Pointer",
+    "value": "Gaza, present day. You are a physician in an overwhelmed clinic, balancing ethics, resilience, and community trust under pressure."
+  },
+  "css_theme": "sand",
+  "debug_mode": false,
+  "display_mode": 1,
+  "creation_time": 1770140599.8354936,
+  "modified_time": 1770140599.8354936,
+  "characters": [
+    {
+      "id": "char_player",
+      "name": "Dr. Sami",
+      "pronoun": "they",
+      "bnumber_properties": {
+        "Clinical_Ethics": 0,
+        "Stress_Resilience": 0,
+        "Community_Trust": 0,
+        "pClinical_Ethics": 0,
+        "pStress_Resilience": 0,
+        "pCommunity_Trust": 0
+      }
+    },
+    {
+      "id": "char_nurse",
+      "name": "Nura",
+      "pronoun": "she",
+      "bnumber_properties": {
+        "Clinical_Ethics": 0,
+        "Stress_Resilience": 0,
+        "Community_Trust": 0,
+        "pClinical_Ethics": 0,
+        "pStress_Resilience": 0,
+        "pCommunity_Trust": 0
+      }
+    },
+    {
+      "id": "char_admin",
+      "name": "Dr. Khaled",
+      "pronoun": "he",
+      "bnumber_properties": {
+        "Clinical_Ethics": 0,
+        "Stress_Resilience": 0,
+        "Community_Trust": 0,
+        "pClinical_Ethics": 0,
+        "pStress_Resilience": 0,
+        "pCommunity_Trust": 0
+      }
+    }
+  ],
+  "authored_properties": [
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 0,
+      "creation_time": 1770140599.8354936,
+      "default_value": 0,
+      "depth": 0,
+      "id": "Clinical_Ethics",
+      "modified_time": 1770140599.8354936,
+      "property_name": "Clinical_Ethics",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 1,
+      "creation_time": 1770140599.8354936,
+      "default_value": 0,
+      "depth": 0,
+      "id": "Stress_Resilience",
+      "modified_time": 1770140599.8354936,
+      "property_name": "Stress_Resilience",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 2,
+      "creation_time": 1770140599.8354936,
+      "default_value": 0,
+      "depth": 0,
+      "id": "Community_Trust",
+      "modified_time": 1770140599.8354936,
+      "property_name": "Community_Trust",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 3,
+      "creation_time": 1770140599.8354936,
+      "default_value": 0,
+      "depth": 0,
+      "id": "pClinical_Ethics",
+      "modified_time": 1770140599.8354936,
+      "property_name": "pClinical_Ethics",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 4,
+      "creation_time": 1770140599.8354936,
+      "default_value": 0,
+      "depth": 0,
+      "id": "pStress_Resilience",
+      "modified_time": 1770140599.8354936,
+      "property_name": "pStress_Resilience",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 5,
+      "creation_time": 1770140599.8354936,
+      "default_value": 0,
+      "depth": 0,
+      "id": "pCommunity_Trust",
+      "modified_time": 1770140599.8354936,
+      "property_name": "pCommunity_Trust",
+      "property_type": "bounded number"
+    }
+  ],
+  "spools": [
+    {
+      "id": "spool_act1",
+      "spool_type": "General",
+      "spool_name": "Act I: Intake",
+      "creation_index": 0,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "starts_active": true,
+      "encounters": [
+        "page_arrival",
+        "page_triage",
+        "page_supply"
+      ]
+    },
+    {
+      "id": "spool_act2",
+      "spool_type": "General",
+      "spool_name": "Act II: Pressure",
+      "creation_index": 1,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "starts_active": true,
+      "encounters": [
+        "page_power",
+        "page_evac",
+        "page_drone_surgery",
+        "page_child_headwound",
+        "page_leak_request",
+        "page_khaled_loss",
+        "page_ethics"
+      ]
+    },
+    {
+      "id": "spool_act3",
+      "spool_type": "General",
+      "spool_name": "Act III: Decision",
+      "creation_index": 2,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "starts_active": true,
+      "encounters": [
+        "page_nura_talk",
+        "page_rounds",
+        "page_debrief"
+      ]
+    },
+    {
+      "id": "spool_endings",
+      "spool_type": "Endings",
+      "spool_name": "Endings",
+      "creation_index": 3,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "starts_active": false,
+      "encounters": [
+        "page_end_resilient",
+        "page_end_compassion",
+        "page_end_trust",
+        "page_end_burnout"
+      ]
+    }
+  ],
+  "encounters": [
+    {
+      "id": "page_arrival",
+      "title": "Morning Shift",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You arrive at the clinic as generators hum and the waiting room fills. The triage board is already full."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You arrive at the clinic as generators hum and the waiting room fills. The triage board is already full."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 1,
+      "creation_index": 0,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 0,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act1"
+      ],
+      "options": [
+        {
+          "id": "opt_arrival_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Start triage immediately."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_arrival_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You call the first cases."
+              },
+              "consequence_id": "page_triage",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pStress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pStress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_arrival_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Brief the team first."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_arrival_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You align priorities with Nura."
+              },
+              "consequence_id": "page_triage",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCommunity_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCommunity_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_triage",
+      "title": "Triage Decision",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Two critical patients arrive at once. Supplies are limited."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Two critical patients arrive at once. Supplies are limited."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 1,
+      "latest_turn": 3,
+      "creation_index": 1,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 200,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act1"
+      ],
+      "options": [
+        {
+          "id": "opt_triage_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Prioritize the child with airway compromise."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_triage_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You stabilize the airway; the room exhales."
+              },
+              "consequence_id": "page_supply",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pClinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_triage_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Prioritize the pregnant patient."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_triage_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You act fast to save two lives."
+              },
+              "consequence_id": "page_supply",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pClinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_triage_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Split the team and attempt both."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Stress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_triage_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You stretch resources to the edge."
+              },
+              "consequence_id": "page_supply",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pStress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pStress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_supply",
+      "title": "Supply Shortage",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Antibiotics are running low. Dr. Khaled asks you to conserve for tomorrow."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Antibiotics are running low. Dr. Khaled asks you to conserve for tomorrow."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 2,
+      "latest_turn": 5,
+      "creation_index": 2,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 400,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act1"
+      ],
+      "options": [
+        {
+          "id": "opt_supply_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Follow the conservation directive."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.0
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_supply_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You ration carefully."
+              },
+              "consequence_id": "page_power",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_supply_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Use what is needed today."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_supply_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You treat the sickest in front of you."
+              },
+              "consequence_id": "page_power",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pClinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_power",
+      "title": "Power Fluctuation",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "The lights flicker. The backup generator struggles."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "The lights flicker. The backup generator struggles."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 3,
+      "latest_turn": 6,
+      "creation_index": 3,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 600,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_power_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Move critical patients to the corridor for ventilation."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Stress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_power_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You keep airflow moving."
+              },
+              "consequence_id": "page_evac",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_power_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Keep everyone inside and conserve fuel."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_power_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You preserve the generator at a cost."
+              },
+              "consequence_id": "page_evac",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_evac",
+      "title": "Possible Evacuation",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "An alert suggests a nearby strike risk. Some families ask to leave immediately."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "An alert suggests a nearby strike risk. Some families ask to leave immediately."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 4,
+      "latest_turn": 7,
+      "creation_index": 4,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 800,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_evac_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Advise sheltering in place."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_evac_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You prioritize continuity of care."
+              },
+              "consequence_id": "page_drone_surgery",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pClinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_evac_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Help families leave."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_evac_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You coordinate exits quietly."
+              },
+              "consequence_id": "page_drone_surgery",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCommunity_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCommunity_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_ethics",
+      "title": "Ethics Call",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A patient demands priority because their family knows a local official."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A patient demands priority because their family knows a local official."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 5,
+      "latest_turn": 8,
+      "creation_index": 5,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 1000,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_ethics_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Refuse special treatment."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_ethics_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You hold the line."
+              },
+              "consequence_id": "page_nura_talk",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pClinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_ethics_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Make a quiet exception."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_ethics_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You trade equity for stability."
+              },
+              "consequence_id": "page_nura_talk",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCommunity_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCommunity_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_rounds",
+      "title": "Night Rounds",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Exhaustion sets in. Nura asks whether to open an extra ward."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Exhaustion sets in. Nura asks whether to open an extra ward."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 6,
+      "latest_turn": 9,
+      "creation_index": 6,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 1200,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act3"
+      ],
+      "options": [
+        {
+          "id": "opt_rounds_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Open the ward despite staffing limits."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_rounds_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You keep the doors open."
+              },
+              "consequence_id": "page_debrief",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_rounds_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Hold the line to avoid collapse."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_rounds_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You choose sustainability."
+              },
+              "consequence_id": "page_debrief",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_debrief",
+      "title": "Debrief",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "The shift ends. Dr. Khaled asks for your assessment of how the clinic should operate tomorrow."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "The shift ends. Dr. Khaled asks for your assessment of how the clinic should operate tomorrow."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 7,
+      "latest_turn": 12,
+      "creation_index": 7,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 1400,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_act3"
+      ],
+      "options": [
+        {
+          "id": "opt_debrief_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Standardize strict triage and conserve supplies."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_debrief_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You choose institutional stability."
+              },
+              "consequence_id": "page_end_resilient",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_debrief_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Prioritize care even if resources run low."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_debrief_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You choose immediate relief."
+              },
+              "consequence_id": "page_end_compassion",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_debrief_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Delegate decisions to a community council."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_debrief_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You share authority and build trust."
+              },
+              "consequence_id": "page_end_trust",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_debrief_4",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Keep quiet; you need rest more than policy."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_debrief_4_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You retreat to recover."
+              },
+              "consequence_id": "page_end_burnout",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.05
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_end_resilient",
+      "title": "Ending: The Steady Hand",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You set protocols that keep the clinic operating under strain. The team trusts your steadiness, even when choices are hard."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You set protocols that keep the clinic operating under strain. The team trusts your steadiness, even when choices are hard."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 8,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 1600,
+      "graph_position_y": -150,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_end_compassion",
+      "title": "Ending: The Open Door",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You spend supplies to treat the patients in front of you. The ward becomes a symbol of care, even as tomorrow grows uncertain."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You spend supplies to treat the patients in front of you. The ward becomes a symbol of care, even as tomorrow grows uncertain."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 9,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 1600,
+      "graph_position_y": 0,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_end_trust",
+      "title": "Ending: The Shared Burden",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You invite the community into the choices that shape care. It slows decisions but deepens legitimacy."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You invite the community into the choices that shape care. It slows decisions but deepens legitimacy."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 10,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 1600,
+      "graph_position_y": 150,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_end_burnout",
+      "title": "Ending: The Quiet Cost",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You make it through the night, but the weight settles in your chest. The work continues, and so does the exhaustion."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You make it through the night, but the weight settles in your chest. The work continues, and so does the exhaustion."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 11,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 1600,
+      "graph_position_y": 300,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_drone_surgery",
+      "title": "Interrupted Surgery",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A drone sound climbs overhead as you operate on an infant. The power drops for seconds that feel like minutes."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A drone sound climbs overhead as you operate on an infant. The power drops for seconds that feel like minutes."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 4,
+      "latest_turn": 9,
+      "creation_index": 12,
+      "creation_time": 1770142158.4278498,
+      "modified_time": 1770142158.4278498,
+      "graph_position_x": 700,
+      "graph_position_y": -120,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_drone_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Continue by touch and memory."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_drone_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You keep your hands steady as the room goes quiet."
+              },
+              "consequence_id": "page_child_headwound",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.03
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_drone_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The team follows your lead without speaking."
+              },
+              "consequence_id": "page_child_headwound",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_drone_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Stop and move to a safer corridor."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_drone_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You trade precision for safety and time."
+              },
+              "consequence_id": "page_child_headwound",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_drone_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The room absorbs the cost in silence."
+              },
+              "consequence_id": "page_child_headwound",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_drone_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You write a short note for the record."
+              },
+              "consequence_id": "page_child_headwound",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pClinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pClinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_drone_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Call for an immediate pause."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_drone_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You buy a moment to breathe."
+              },
+              "consequence_id": "page_child_headwound",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_drone_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The patient does not make it."
+              },
+              "consequence_id": "page_child_headwound",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_child_headwound",
+      "title": "Critical Arrival",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A child arrives with a critical head wound. The odds are low and the room knows it."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A child arrives with a critical head wound. The odds are low and the room knows it."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 5,
+      "latest_turn": 10,
+      "creation_index": 13,
+      "creation_time": 1770142158.4278498,
+      "modified_time": 1770142158.4278498,
+      "graph_position_x": 850,
+      "graph_position_y": -120,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_headwound_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Attempt the intervention anyway."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_headwound_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You commit to the attempt, no matter the odds."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_headwound_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Nura mirrors your resolve."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_headwound_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Shift focus to pain control and family support."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_headwound_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You center dignity and presence."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_headwound_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You conserve scarce tools for the next patient."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_headwound_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You feel the weight of the choice."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_headwound_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Ask Dr. Khaled to decide."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_headwound_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You defer to administrative protocol."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_headwound_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The family stares at you, not him."
+              },
+              "consequence_id": "page_leak_request",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_leak_request",
+      "title": "Unscheduled Request",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A contact asks for clinic schedules and storage locations, promising safer passage for tomorrow."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A contact asks for clinic schedules and storage locations, promising safer passage for tomorrow."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 6,
+      "latest_turn": 11,
+      "creation_index": 14,
+      "creation_time": 1770142158.4278498,
+      "modified_time": 1770142158.4278498,
+      "graph_position_x": 1000,
+      "graph_position_y": -120,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_leak_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Share the information quietly."
+          },
+          "visibility_script": {
+            "operator_type": "And",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCommunity_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.02
+                  }
+                ]
+              },
+              {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pStress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.01
+                  }
+                ]
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_leak_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You send the details without asking questions."
+              },
+              "consequence_id": "page_khaled_loss",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCommunity_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCommunity_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_leak_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You tell yourself it is a necessary trade."
+              },
+              "consequence_id": "page_khaled_loss",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_leak_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Refuse and document the request."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_leak_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You decline and keep the clinic closed to rumors."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_leak_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Trust dips; staff feel the risk."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_leak_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You log the contact for later review."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pStress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pStress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_leak_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Delay and ask for verification."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_leak_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You buy time and gather more context."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_leak_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The contact grows impatient."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_khaled_loss",
+      "title": "Administrative Silence",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Later, an IDF drone strike hits a nearby route. Dr. Khaled does not return."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Later, an IDF drone strike hits a nearby route. Dr. Khaled does not return."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 7,
+      "latest_turn": 12,
+      "creation_index": 15,
+      "creation_time": 1770142158.4278498,
+      "modified_time": 1770142158.4278498,
+      "graph_position_x": 1150,
+      "graph_position_y": -120,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_khaled_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Keep the clinic open."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_khaled_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You absorb the gap in leadership."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_khaled_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The team watches you for direction."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_khaled_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Close briefly to regroup."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_khaled_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You give the team a moment to breathe."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_khaled_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Patients wait outside in heat."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_khaled_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Ask Nura to handle intake while you notify the family."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_khaled_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You take on the hardest conversation."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_khaled_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Nura says yes without hesitation."
+              },
+              "consequence_id": "page_ethics",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_nura_talk",
+      "title": "Quiet Corridor",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "After a long shift, Nura lingers by the stairwell. The building is quiet for once."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "After a long shift, Nura lingers by the stairwell. The building is quiet for once."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 7,
+      "latest_turn": 12,
+      "creation_index": 16,
+      "creation_time": 1770142158.4278498,
+      "modified_time": 1770142158.4278498,
+      "graph_position_x": 1300,
+      "graph_position_y": -120,
+      "connected_spools": [
+        "spool_act3"
+      ],
+      "options": [
+        {
+          "id": "opt_nura_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Share a personal story."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "She listens and stays."
+              },
+              "consequence_id": "page_rounds",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_nura_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You feel a small anchor return."
+              },
+              "consequence_id": "page_rounds",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Keep it professional."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You set a boundary and keep moving."
+              },
+              "consequence_id": "page_rounds",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_nura_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "She nods, a little distant."
+              },
+              "consequence_id": "page_rounds",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_nura_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The silence stretches then breaks."
+              },
+              "consequence_id": "page_rounds",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pCommunity_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pCommunity_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Hold the moment, quietly."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.01
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You stand there together, wordless."
+              },
+              "consequence_id": "page_rounds",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "opt_nura_3_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You both return to the work."
+              },
+              "consequence_id": "page_rounds",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
