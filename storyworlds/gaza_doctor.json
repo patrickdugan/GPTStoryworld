@@ -257,7 +257,9 @@
       "starts_active": true,
       "encounters": [
         "page_arrival",
+        "page_nura_act1_1",
         "page_overflow_corridor",
+        "page_nura_act1_2",
         "page_street_triage",
         "page_manual_carry",
         "page_waiting_scan",
@@ -277,6 +279,8 @@
       "encounters": [
         "page_power",
         "page_evac",
+        "page_nura_act2_1",
+        "page_nura_act2_2",
         "page_drone_surgery",
         "page_no_scissors",
         "page_no_suction",
@@ -306,6 +310,8 @@
         "page_staff_breaking",
         "page_recording_names",
         "page_moral_injury",
+        "page_lounge_act3",
+        "page_lounge_act3_damaged",
         "page_downtime",
         "page_nikah",
         "page_coping",
@@ -16183,6 +16189,1662 @@
         "spool_endings"
       ],
       "options": []
+    },
+    {
+      "id": "page_nura_act1_1",
+      "title": "Nura, Early",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "In a short lull, Nura leans in and asks how you?re holding up."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "In a short lull, Nura leans in and asks how you?re holding up."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 2,
+      "creation_index": 53,
+      "creation_time": 1770150399.3762896,
+      "modified_time": 1770150399.3762896,
+      "graph_position_x": 120,
+      "graph_position_y": -140,
+      "connected_spools": [
+        "spool_act1"
+      ],
+      "options": [
+        {
+          "id": "opt_nura_act1_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Be honest about the strain."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act1_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "She nods, understanding."
+              },
+              "consequence_id": "page_overflow_corridor",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act1_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Deflect and focus on work."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act1_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You keep the distance for now."
+              },
+              "consequence_id": "page_overflow_corridor",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act1_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Ask about her family."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act1_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "She answers softly, then returns to the ward."
+              },
+              "consequence_id": "page_overflow_corridor",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_nura_act1_2",
+      "title": "Shared Water",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You split a bottle of water in the corridor. The moment feels like a pause in the storm."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You split a bottle of water in the corridor. The moment feels like a pause in the storm."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 1,
+      "latest_turn": 3,
+      "creation_index": 54,
+      "creation_time": 1770150399.3762896,
+      "modified_time": 1770150399.3762896,
+      "graph_position_x": 260,
+      "graph_position_y": -140,
+      "connected_spools": [
+        "spool_act1"
+      ],
+      "options": [
+        {
+          "id": "opt_nura_act1b_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Share a small joke."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act1b_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "She smiles despite everything."
+              },
+              "consequence_id": "page_street_triage",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act1b_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Stay quiet and drink."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act1b_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You both return to the work."
+              },
+              "consequence_id": "page_street_triage",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act1b_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Ask if she needs anything."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act1b_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "She shakes her head and keeps moving."
+              },
+              "consequence_id": "page_street_triage",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_nura_act2_1",
+      "title": "Quiet Bench",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "In the doctor?s lounge, the generator hum is louder than your thoughts. Nura sits across from you."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "In the doctor?s lounge, the generator hum is louder than your thoughts. Nura sits across from you."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 4,
+      "latest_turn": 9,
+      "creation_index": 55,
+      "creation_time": 1770150399.3762896,
+      "modified_time": 1770150399.3762896,
+      "graph_position_x": 980,
+      "graph_position_y": -140,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_nura_act2_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Talk about what scares you most."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act2_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You both name the fear and keep going."
+              },
+              "consequence_id": "page_no_scissors",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act2_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Reach for her hand."
+          },
+          "visibility_script": {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.02
+              }
+            ]
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act2_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You cross a line in a moment of exhaustion."
+              },
+              "consequence_id": "page_nikah",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act2_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Keep it professional."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act2_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You choose distance to stay functional."
+              },
+              "consequence_id": "page_no_scissors",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_nura_act2_2",
+      "title": "Regret and Repair",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Later, you feel the weight of that moment. You ask Nura to make it right."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "Later, you feel the weight of that moment. You ask Nura to make it right."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 5,
+      "latest_turn": 10,
+      "creation_index": 56,
+      "creation_time": 1770150399.3762896,
+      "modified_time": 1770150399.3762896,
+      "graph_position_x": 1120,
+      "graph_position_y": -140,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_nura_act2b_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Offer a nikah and a bag of flour as mahr."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act2b_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "She accepts, and you choose a quiet ceremony."
+              },
+              "consequence_id": "page_nikah",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act2b_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Apologize and keep it private."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act2b_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You return to the ward with new boundaries."
+              },
+              "consequence_id": "page_no_suction",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Clinical_Ethics"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Clinical_Ethics"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_nura_act2b_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Say nothing and work."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_nura_act2b_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The silence sits between you."
+              },
+              "consequence_id": "page_no_suction",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_lounge_act3",
+      "title": "Doctors? Lounge",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "In the lounge, the wall still holds. A thin light comes through the blinds."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "In the lounge, the wall still holds. A thin light comes through the blinds."
+      },
+      "acceptability_script": {
+        "operator_type": "Arithmetic Comparator",
+        "operator_subtype": "Greater Than or Equal To",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Khaled_Alive"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.5
+          }
+        ]
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 7,
+      "latest_turn": 20,
+      "creation_index": 57,
+      "creation_time": 1770150399.3762896,
+      "modified_time": 1770150399.3762896,
+      "graph_position_x": 1260,
+      "graph_position_y": -140,
+      "connected_spools": [
+        "spool_act3"
+      ],
+      "options": [
+        {
+          "id": "opt_lounge_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Sit with Nura and breathe."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_lounge_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You steady each other and return."
+              },
+              "consequence_id": "page_downtime",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_lounge_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Talk about the future."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_lounge_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You make a small plan for later."
+              },
+              "consequence_id": "page_downtime",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_lounge_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Leave without speaking."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_lounge_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You keep moving."
+              },
+              "consequence_id": "page_downtime",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_lounge_act3_damaged",
+      "title": "Doctors? Lounge (Damaged)",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "The lounge has a hole in the wall from the attack. Cold air moves through the room."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "The lounge has a hole in the wall from the attack. Cold air moves through the room."
+      },
+      "acceptability_script": {
+        "operator_type": "Arithmetic Comparator",
+        "operator_subtype": "Less Than or Equal To",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Khaled_Alive"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.0
+          }
+        ]
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 7,
+      "latest_turn": 20,
+      "creation_index": 58,
+      "creation_time": 1770150399.3762896,
+      "modified_time": 1770150399.3762896,
+      "graph_position_x": 1420,
+      "graph_position_y": -140,
+      "connected_spools": [
+        "spool_act3"
+      ],
+      "options": [
+        {
+          "id": "opt_lounge_d_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Sit with Nura and breathe."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_lounge_d_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You steady each other and return."
+              },
+              "consequence_id": "page_downtime",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_lounge_d_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Say a prayer for the dead."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_lounge_d_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The room is quiet for a moment."
+              },
+              "consequence_id": "page_downtime",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_lounge_d_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Leave quickly."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_lounge_d_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You can?t linger here."
+              },
+              "consequence_id": "page_downtime",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
