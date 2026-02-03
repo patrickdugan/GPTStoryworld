@@ -949,6 +949,44 @@ def reward_secret_reachability(prompt, completion, info) -> float:
         return 0.0
 
 
+def benchmark_targets() -> Dict[str, float]:
+    """Targets aligned to STORYWORLD_BALANCING.md."""
+    return {
+        "dead_end_rate_max": 0.05,
+        "max_ending_share_max": 0.30,
+        "min_ending_share_min": 0.01,
+        "late_block_min": 0.10,
+        "late_block_max": 0.30,
+        "secret_reachability_min": 0.02,
+    }
+
+
+def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> Dict[str, float]:
+    """Return benchmark metrics for a storyworld."""
+    dead_end_rate = SweepweaveValidator.compute_dead_end_rate(data, runs=runs, seed=seed)
+    max_share, min_share = SweepweaveValidator.compute_ending_balance(data, runs=runs, seed=seed)
+    late_block = SweepweaveValidator.compute_late_block_rate(data, runs=runs, seed=seed)
+    secret_reach = SweepweaveValidator.compute_secret_reachability(data, runs=runs, seed=seed)
+    return {
+        "dead_end_rate": dead_end_rate,
+        "max_ending_share": max_share,
+        "min_ending_share": min_share,
+        "late_block_rate": late_block,
+        "secret_reachability": secret_reach,
+    }
+
+
+def benchmark_pass(metrics: Dict[str, float]) -> bool:
+    targets = benchmark_targets()
+    return (
+        metrics["dead_end_rate"] <= targets["dead_end_rate_max"]
+        and metrics["max_ending_share"] <= targets["max_ending_share_max"]
+        and metrics["min_ending_share"] >= targets["min_ending_share_min"]
+        and targets["late_block_min"] <= metrics["late_block_rate"] <= targets["late_block_max"]
+        and metrics["secret_reachability"] >= targets["secret_reachability_min"]
+    )
+
+
 # ============================================================================
 # ENVIRONMENT INTERFACE
 # ============================================================================
