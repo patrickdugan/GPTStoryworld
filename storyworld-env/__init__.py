@@ -534,17 +534,17 @@ def run_monte_carlo(data, num_runs=200, seed=42):
             prop_sq[key] += val * val
 
     return {
-        \"chain_length\": len(chain),
-        \"num_endings\": len(endings),
-        \"num_secrets\": len(secrets),
-        \"num_runs\": num_runs,
-        \"ending_counts\": ending_counts,
-        \"dead_ends\": dead_ends,
-        \"late_blocks\": late_blocks,
-        \"late_total\": late_total,
-        \"secret_hits\": secret_hits,
-        \"prop_sums\": prop_sums,
-        \"prop_sq\": prop_sq,
+        "chain_length": len(chain),
+        "num_endings": len(endings),
+        "num_secrets": len(secrets),
+        "num_runs": num_runs,
+        "ending_counts": ending_counts,
+        "dead_ends": dead_ends,
+        "late_blocks": late_blocks,
+        "late_total": late_total,
+        "secret_hits": secret_hits,
+        "prop_sums": prop_sums,
+        "prop_sq": prop_sq,
     }
 
 
