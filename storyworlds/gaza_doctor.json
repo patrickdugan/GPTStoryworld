@@ -258,6 +258,7 @@
         "page_press_call",
         "page_child_headwound",
         "page_leak_request",
+        "page_khaled_targeted",
         "page_khaled_loss",
         "page_ethics"
       ]
@@ -286,6 +287,7 @@
         "page_case_layla_plan",
         "page_case_layla_followup",
         "page_rounds",
+        "page_jordan_bus",
         "page_debrief"
       ]
     },
@@ -302,7 +304,10 @@
         "page_end_compassion",
         "page_end_trust",
         "page_end_burnout",
-        "page_end_layla"
+        "page_end_layla",
+        "page_end_sacrifice",
+        "page_end_jordan_take",
+        "page_end_jordan_refuse"
       ]
     }
   ],
@@ -2472,6 +2477,45 @@
               ]
             }
           ]
+        },
+        {
+          "id": "opt_debrief_jordan",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Accept the transfer and leave for Jordan."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_debrief_jordan_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You board the bus and the city recedes."
+              },
+              "consequence_id": "page_jordan_bus",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.6
+              },
+              "after_effects": []
+            }
+          ]
         }
       ]
     },
@@ -3947,7 +3991,7 @@
                 "script_element_type": "Pointer",
                 "value": "You send the details without asking questions."
               },
-              "consequence_id": "page_khaled_loss",
+              "consequence_id": "page_khaled_targeted",
               "desirability_script": {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
@@ -4029,7 +4073,7 @@
                 "script_element_type": "Pointer",
                 "value": "You tell yourself it is a necessary trade."
               },
-              "consequence_id": "page_khaled_loss",
+              "consequence_id": "page_khaled_targeted",
               "desirability_script": {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
@@ -14825,6 +14869,509 @@
           ]
         }
       ]
+    },
+    {
+      "id": "page_khaled_targeted",
+      "title": "A Targeted Moment",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A drone circles low. The courtyard is exposed. Dr. Khaled moves toward the door as the warning comes through."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "A drone circles low. The courtyard is exposed. Dr. Khaled moves toward the door as the warning comes through."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 6,
+      "latest_turn": 20,
+      "creation_index": 46,
+      "creation_time": 1770144525.3223183,
+      "modified_time": 1770144525.3223183,
+      "graph_position_x": 1100,
+      "graph_position_y": -260,
+      "connected_spools": [
+        "spool_act2"
+      ],
+      "options": [
+        {
+          "id": "opt_targeted_1",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Pull him back and take his place."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_targeted_1_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You act without thinking. The strike hits the open space. You do not return."
+              },
+              "consequence_id": "page_end_sacrifice",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Khaled_Alive"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Khaled_Alive"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pKhaled_Alive"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pKhaled_Alive"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_targeted_2",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Shout for him to get back inside."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_targeted_2_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "He hesitates, then moves. The door closes in time."
+              },
+              "consequence_id": "page_khaled_safe",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.9
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Community_Trust"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Community_Trust"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "opt_targeted_3",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Freeze. You can't move fast enough."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_targeted_3_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The moment passes and the ward absorbs the shock."
+              },
+              "consequence_id": "page_khaled_loss",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.6
+              },
+              "after_effects": [
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Stress_Resilience"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.02
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_jordan_bus",
+      "title": "Bus North",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "On a crowded bus leaving the border, a woman offers you a sandwich. The famine is still in your body."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "On a crowded bus leaving the border, a woman offers you a sandwich. The famine is still in your body."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 47,
+      "creation_time": 1770144525.3223183,
+      "modified_time": 1770144525.3223183,
+      "graph_position_x": 1900,
+      "graph_position_y": 520,
+      "connected_spools": [
+        "spool_act3"
+      ],
+      "options": [
+        {
+          "id": "opt_jordan_take",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Take the sandwich."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_jordan_take_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You accept the food and keep moving."
+              },
+              "consequence_id": "page_end_jordan_take",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": []
+            }
+          ]
+        },
+        {
+          "id": "opt_jordan_refuse",
+          "graph_offset_x": 0,
+          "graph_offset_y": 0,
+          "text_script": {
+            "pointer_type": "String Constant",
+            "script_element_type": "Pointer",
+            "value": "Refuse and go hungry until Jordan."
+          },
+          "visibility_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "performability_script": {
+            "pointer_type": "Boolean Constant",
+            "script_element_type": "Pointer",
+            "value": true
+          },
+          "reactions": [
+            {
+              "id": "opt_jordan_refuse_r0",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You refuse politely and stare out the window."
+              },
+              "consequence_id": "page_end_jordan_refuse",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.0
+              },
+              "after_effects": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page_end_sacrifice",
+      "title": "Ending: The Shield",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You step into the exposed space and pull him back. The strike takes you. The ward remembers your name."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You step into the exposed space and pull him back. The strike takes you. The ward remembers your name."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 48,
+      "creation_time": 1770144525.3223183,
+      "modified_time": 1770144525.3223183,
+      "graph_position_x": 2000,
+      "graph_position_y": -200,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_end_jordan_take",
+      "title": "Ending: The Sandwich",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You take the sandwich. The bread is plain and good. You close your eyes and let the bus carry you north."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You take the sandwich. The bread is plain and good. You close your eyes and let the bus carry you north."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 49,
+      "creation_time": 1770144525.3223183,
+      "modified_time": 1770144525.3223183,
+      "graph_position_x": 2000,
+      "graph_position_y": 520,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_end_jordan_refuse",
+      "title": "Ending: The Bus Window",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You refuse the sandwich and go hungry. The bus hums toward Jordan while you watch the road."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You refuse the sandwich and go hungry. The bus hums toward Jordan while you watch the road."
+      },
+      "acceptability_script": {
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
+      },
+      "desirability_script": {
+        "pointer_type": "Bounded Number Constant",
+        "script_element_type": "Pointer",
+        "value": 0
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 50,
+      "creation_time": 1770144525.3223183,
+      "modified_time": 1770144525.3223183,
+      "graph_position_x": 2000,
+      "graph_position_y": 680,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
     }
   ]
 }
