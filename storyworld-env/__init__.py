@@ -529,7 +529,7 @@ def run_monte_carlo(data, num_runs=200, seed=42):
             ending_counts["DEAD_END"] += 1
 
         for (char, prop), val in state.items():
-            key = f\"{char}.{prop}\"
+            key = f"{char}.{prop}"
             prop_sums[key] += val
             prop_sq[key] += val * val
 
