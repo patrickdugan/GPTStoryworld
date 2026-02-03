@@ -5,16 +5,16 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_resilient                    1862 ( 37.2%) ##################
-  page_end_burnout                       752 ( 15.0%) #######
-  page_end_trust                         440 (  8.8%) ####
-  page_end_layla                         432 (  8.6%) ####
+  page_end_resilient                    1785 ( 35.7%) #################
+  page_end_burnout                       723 ( 14.5%) #######
+  page_end_layla                         434 (  8.7%) ####
+  page_end_trust                         408 (  8.2%) ####
   page_end_jordan_take                   388 (  7.8%) ###
-  page_end_compassion                    377 (  7.5%) ###
+  page_end_compassion                    357 (  7.1%) ###
   page_end_jordan_refuse                 344 (  6.9%) ###
-  page_end_sacrifice                     300 (  6.0%) ###
-  page_end_jordan_refuse_nikah            53 (  1.1%) 
-  page_end_jordan_take_nikah              52 (  1.0%) 
+  page_end_sacrifice                     278 (  5.6%) ##
+  page_end_jordan_refuse_nikah           195 (  3.9%) #
+  page_end_jordan_take_nikah              88 (  1.8%) 
 
   Dead-end rate: 0/5000 (0.0%)
 

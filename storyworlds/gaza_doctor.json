@@ -15982,40 +15982,41 @@
       "text_script": {
         "pointer_type": "String Constant",
         "script_element_type": "Pointer",
-        "value": "You take the sandwich. Later, in Australia, you file a Family Reunification visa. Nura arrives months later, exhausted but alive."
+        "value": "You take the sandwich. Later, you tell Nura the story over text. The message reads too light in a hard time, and she pulls away. The visa never happens."
       },
       "prompt_script": {
         "pointer_type": "String Constant",
         "script_element_type": "Pointer",
-        "value": "You take the sandwich. Later, in Australia, you file a Family Reunification visa. Nura arrives months later, exhausted but alive."
+        "value": "You take the sandwich. Later, you tell Nura the story over text. The message reads too light in a hard time, and she pulls away. The visa never happens."
       },
       "acceptability_script": {
-        "operator_type": "Arithmetic Comparator",
-        "operator_subtype": "Greater Than or Equal To",
+        "operator_type": "And",
         "script_element_type": "Operator",
         "operands": [
           {
-            "pointer_type": "Bounded Number Pointer",
-            "script_element_type": "Pointer",
-            "character": "char_player",
-            "keyring": [
-              "pNikah_Made"
-            ],
-            "coefficient": 1.0
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pNikah_Made"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.006
+              }
+            ]
           },
           {
-            "pointer_type": "Bounded Number Constant",
-            "script_element_type": "Pointer",
-            "value": 0.003
-          }
-        ]
-      },
-      "desirability_script": {
-        "operator_type": "Addition",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Multiplication",
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
@@ -16030,34 +16031,20 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.4
+                "value": 0.01
               }
             ]
-          },
-          {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "pStress_Resilience"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": -0.3
-              }
-            ]
-          },
+          }
+        ]
+      },
+      "desirability_script": {
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.03
+            "value": 0.2
           }
         ]
       },
@@ -16087,32 +16074,12 @@
         "value": "You refuse the sandwich and go hungry. Later, in Australia, you file a Family Reunification visa. Nura arrives months later, exhausted but alive."
       },
       "acceptability_script": {
-        "operator_type": "Arithmetic Comparator",
-        "operator_subtype": "Greater Than or Equal To",
+        "operator_type": "And",
         "script_element_type": "Operator",
         "operands": [
           {
-            "pointer_type": "Bounded Number Pointer",
-            "script_element_type": "Pointer",
-            "character": "char_player",
-            "keyring": [
-              "pNikah_Made"
-            ],
-            "coefficient": 1.0
-          },
-          {
-            "pointer_type": "Bounded Number Constant",
-            "script_element_type": "Pointer",
-            "value": 0.003
-          }
-        ]
-      },
-      "desirability_script": {
-        "operator_type": "Addition",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Multiplication",
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
@@ -16120,19 +16087,20 @@
                 "script_element_type": "Pointer",
                 "character": "char_player",
                 "keyring": [
-                  "pClinical_Ethics"
+                  "pNikah_Made"
                 ],
                 "coefficient": 1.0
               },
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.8
+                "value": 0.006
               }
             ]
           },
           {
-            "operator_type": "Multiplication",
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
@@ -16147,34 +16115,20 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": -0.4
+                "value": 0.0
               }
             ]
-          },
-          {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "pStress_Resilience"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": -0.2
-              }
-            ]
-          },
+          }
+        ]
+      },
+      "desirability_script": {
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.03
+            "value": 0.05
           }
         ]
       },
