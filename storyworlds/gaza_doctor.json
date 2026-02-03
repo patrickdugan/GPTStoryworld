@@ -12673,7 +12673,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 1.4
+                "value": 1.6
               }
             ]
           },
@@ -12693,14 +12693,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 1.4
+                "value": 1.6
               }
             ]
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.015
+            "value": 0.02
           }
         ]
       },
@@ -15282,14 +15282,103 @@
         "value": "You step into the exposed space and pull him back. The strike takes you. The ward remembers your name."
       },
       "acceptability_script": {
-        "pointer_type": "Boolean Constant",
-        "script_element_type": "Pointer",
-        "value": true
+        "operator_type": "And",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.005
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.005
+              }
+            ]
+          }
+        ]
       },
       "desirability_script": {
-        "pointer_type": "Bounded Number Constant",
-        "script_element_type": "Pointer",
-        "value": 0
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.5
+              }
+            ]
+          },
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.5
+              }
+            ]
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.003
+          }
+        ]
       },
       "earliest_turn": 0,
       "latest_turn": 999,
@@ -15317,14 +15406,76 @@
         "value": "You take the sandwich. The bread is plain and good. You close your eyes and let the bus carry you north."
       },
       "acceptability_script": {
-        "pointer_type": "Boolean Constant",
-        "script_element_type": "Pointer",
-        "value": true
+        "operator_type": "Arithmetic Comparator",
+        "operator_subtype": "Less Than or Equal To",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "pStress_Resilience"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": -0.005
+          }
+        ]
       },
       "desirability_script": {
-        "pointer_type": "Bounded Number Constant",
-        "script_element_type": "Pointer",
-        "value": 0
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.6
+              }
+            ]
+          },
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.4
+              }
+            ]
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.01
+          }
+        ]
       },
       "earliest_turn": 0,
       "latest_turn": 999,
@@ -15352,14 +15503,76 @@
         "value": "You refuse the sandwich and go hungry. The bus hums toward Jordan while you watch the road."
       },
       "acceptability_script": {
-        "pointer_type": "Boolean Constant",
-        "script_element_type": "Pointer",
-        "value": true
+        "operator_type": "Arithmetic Comparator",
+        "operator_subtype": "Less Than or Equal To",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "pStress_Resilience"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": -0.005
+          }
+        ]
       },
       "desirability_script": {
-        "pointer_type": "Bounded Number Constant",
-        "script_element_type": "Pointer",
-        "value": 0
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.6
+              }
+            ]
+          },
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.3
+              }
+            ]
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.01
+          }
+        ]
       },
       "earliest_turn": 0,
       "latest_turn": 999,
