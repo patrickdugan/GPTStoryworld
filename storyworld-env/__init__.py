@@ -89,8 +89,8 @@ REQUIRED_TOP_LEVEL = [
     "spools", "encounters"
 ]
 
-REQUIRED_CHARACTER = ["id", "name", "pronoun", "bnumber_properties"]
-REQUIRED_PROPERTY = ["id", "property_name", "property_type", "default_value", "depth"]
+REQUIRED_CHARACTER = ["id", "name", "bnumber_properties"]
+REQUIRED_PROPERTY = ["id", "property_name", "property_type", "default_value"]
 REQUIRED_ENCOUNTER = ["id", "title", "text_script", "options", "connected_spools"]
 REQUIRED_OPTION = ["id", "text_script", "reactions"]
 REQUIRED_REACTION = ["id", "text_script", "consequence_id", "after_effects"]
@@ -265,21 +265,8 @@ class SweepweaveValidator:
     @staticmethod
     def compute_ending_diversity(data: Dict[str, Any]) -> float:
         """Score based on multiple distinct endings"""
-        # Find terminal encounters (no consequences pointing to other encounters)
-        all_consequence_ids = set()
-        encounter_ids = set()
-        
-        for enc in data.get("encounters", []):
-            encounter_ids.add(enc.get("id"))
-            for opt in enc.get("options", []):
-                for rxn in opt.get("reactions", []):
-                    cons_id = rxn.get("consequence_id")
-                    if cons_id:
-                        all_consequence_ids.add(cons_id)
-        
-        # Terminal encounters = encounters not referenced as consequences
-        terminal = encounter_ids - all_consequence_ids
-        num_endings = len(terminal)
+        endings = detect_endings(data)
+        num_endings = len(endings)
         
         # Reward 2-5 endings
         if num_endings < 2:
@@ -439,6 +426,66 @@ def build_chain(data):
     return chain
 
 
+def detect_endings(data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    endings = []
+    encounter_ids = set()
+    all_consequence_ids = set()
+    for enc in data.get("encounters", []):
+        eid = enc.get("id")
+        if eid:
+            encounter_ids.add(eid)
+        if enc.get("is_ending") is True or enc.get("ending_id"):
+            endings.append(enc)
+    for enc in data.get("encounters", []):
+        for opt in enc.get("options", []):
+            for rxn in opt.get("reactions", []):
+                cons_id = rxn.get("consequence_id")
+                if cons_id:
+                    all_consequence_ids.add(cons_id)
+    terminal = encounter_ids - all_consequence_ids
+    for enc in data.get("encounters", []):
+        if enc.get("id") in terminal:
+            endings.append(enc)
+    if not endings:
+        endings = [e for e in data.get("encounters", []) if e.get("id", "").startswith("page_end_")]
+    # de-dup by id
+    seen = set()
+    uniq = []
+    for enc in endings:
+        eid = enc.get("id")
+        if not eid or eid in seen:
+            continue
+        seen.add(eid)
+        uniq.append(enc)
+    return uniq
+
+
+def detect_secrets(data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    secrets = []
+    for enc in data.get("encounters", []):
+        if enc.get("id", "").startswith("page_secret_"):
+            secrets.append(enc)
+            continue
+        for opt in enc.get("options", []):
+            if opt.get("secret") is True:
+                secrets.append(enc)
+                break
+            vis = opt.get("visibility_script")
+            if isinstance(vis, dict) and vis.get("pointer_type") != "Boolean Constant":
+                secrets.append(enc)
+                break
+    # de-dup by id
+    seen = set()
+    uniq = []
+    for enc in secrets:
+        eid = enc.get("id")
+        if not eid or eid in seen:
+            continue
+        seen.add(eid)
+        uniq.append(enc)
+    return uniq
+
+
 def run_monte_carlo(data, num_runs=200, seed=42):
     random.seed(seed)
     chain = build_chain(data)
@@ -456,8 +503,8 @@ def run_monte_carlo(data, num_runs=200, seed=42):
             spool_encs = [enc_by_id[eid] for eid in ids if eid in enc_by_id]
             if spool_encs:
                 spool_sequence.append(spool_encs)
-    endings = [e for e in data.get("encounters", []) if e.get("id", "").startswith("page_end_")]
-    secrets = [e for e in data.get("encounters", []) if e.get("id", "").startswith("page_secret_")]
+    endings = detect_endings(data)
+    secrets = detect_secrets(data)
 
     spool_map = {}
     for sp in data.get("spools", []):
@@ -883,6 +930,32 @@ def reward_multiple_endings(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_schema_soft(prompt, completion, info) -> float:
+    """Reward: 0-1 penalizing missing optional-but-important fields."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        missing = 0
+        total = 0
+        for char in data.get("characters", []):
+            total += 1
+            if "pronoun" not in char:
+                missing += 1
+        for prop in data.get("authored_properties", []):
+            total += 1
+            if "depth" not in prop:
+                missing += 1
+        if total == 0:
+            return 0.0
+        return max(0.0, 1.0 - (missing / total))
+    except:
+        return 0.0
+
+
 def reward_dead_end_rate(prompt, completion, info) -> float:
     """Reward: 0-1 based on Monte Carlo dead-end rate (<5% target)."""
     try:
@@ -963,26 +1036,35 @@ def benchmark_targets() -> Dict[str, float]:
 
 def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> Dict[str, float]:
     """Return benchmark metrics for a storyworld."""
-    dead_end_rate = SweepweaveValidator.compute_dead_end_rate(data, runs=runs, seed=seed)
-    max_share, min_share = SweepweaveValidator.compute_ending_balance(data, runs=runs, seed=seed)
-    late_block = SweepweaveValidator.compute_late_block_rate(data, runs=runs, seed=seed)
-    secret_reach = SweepweaveValidator.compute_secret_reachability(data, runs=runs, seed=seed)
+    report = run_monte_carlo(data, num_runs=runs, seed=seed)
+    dead_end_rate = report["dead_ends"] / report["num_runs"] if report["num_runs"] else 1.0
+    total = report["num_runs"]
+    if total and report["ending_counts"]:
+        max_share = max(report["ending_counts"].values()) / total
+        min_share = min(report["ending_counts"].values()) / total
+    else:
+        max_share, min_share = 1.0, 0.0
+    late_block = (report["late_blocks"] / report["late_total"]) if report["late_total"] else 0.0
+    secret_reach = (sum(report["secret_hits"].values()) / total) if total else 0.0
+    late_block_applicable = report["late_total"] > 0
     return {
         "dead_end_rate": dead_end_rate,
         "max_ending_share": max_share,
         "min_ending_share": min_share,
         "late_block_rate": late_block,
         "secret_reachability": secret_reach,
+        "late_block_applicable": 1.0 if late_block_applicable else 0.0,
     }
 
 
 def benchmark_pass(metrics: Dict[str, float]) -> bool:
     targets = benchmark_targets()
+    late_applicable = metrics.get("late_block_applicable", 1.0) >= 0.5
     return (
         metrics["dead_end_rate"] <= targets["dead_end_rate_max"]
         and metrics["max_ending_share"] <= targets["max_ending_share_max"]
         and metrics["min_ending_share"] >= targets["min_ending_share_min"]
-        and targets["late_block_min"] <= metrics["late_block_rate"] <= targets["late_block_max"]
+        and (not late_applicable or (targets["late_block_min"] <= metrics["late_block_rate"] <= targets["late_block_max"]))
         and metrics["secret_reachability"] >= targets["secret_reachability_min"]
     )
 
@@ -1027,6 +1109,7 @@ def load_environment(
         funcs=[
             reward_valid_json,           # Must be valid JSON
             reward_schema_valid,         # Must match Sweepweave schema
+            reward_schema_soft,          # Soft penalty for missing fields
             reward_structural_completeness,  # Must meet size requirements
             reward_effect_diversity,     # Diverse Dirac operators
             reward_secret_paths,         # Gated options
@@ -1039,6 +1122,7 @@ def load_environment(
         weights=[
             1.0,   # Valid JSON is critical
             2.0,   # Schema validity is most important
+            0.3,   # Soft schema completeness
             1.0,   # Structural completeness
             0.5,   # Effect diversity (nice to have)
             0.5,   # Secret paths (nice to have)

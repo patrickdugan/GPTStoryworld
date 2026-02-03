@@ -124,6 +124,7 @@ The environment uses a multi-component reward function:
 |-----------|--------|-------------|
 | `valid_json` | 1.0 | Output must be parseable JSON |
 | `schema_valid` | 2.0 | Output must match Sweepweave schema |
+| `schema_soft` | 0.3 | Penalize missing pronoun/depth |
 | `structural_completeness` | 1.0 | Meets character/encounter/spool counts |
 | `effect_diversity` | 0.5 | Variety of character property effects |
 | `secret_paths` | 0.5 | Options with conditional visibility |
@@ -133,7 +134,7 @@ The environment uses a multi-component reward function:
 | `late_blocking` | 0.5 | Late-game blocking target band (10-30%) |
 | `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
-Total maximum reward: **7.8**
+Total maximum reward: **8.1**
 
 ## Sweepweave Format
 
