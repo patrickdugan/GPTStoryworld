@@ -28,7 +28,9 @@
         "Press_Exposure": 0,
         "pPress_Exposure": 0,
         "Dua_Made": 0,
-        "pDua_Made": 0
+        "pDua_Made": 0,
+        "Nikah_Made": 0,
+        "pNikah_Made": 0
       }
     },
     {
@@ -47,7 +49,9 @@
         "Press_Exposure": 0,
         "pPress_Exposure": 0,
         "Dua_Made": 0,
-        "pDua_Made": 0
+        "pDua_Made": 0,
+        "Nikah_Made": 0,
+        "pNikah_Made": 0
       }
     },
     {
@@ -66,7 +70,9 @@
         "Press_Exposure": 0,
         "pPress_Exposure": 0,
         "Dua_Made": 0,
-        "pDua_Made": 0
+        "pDua_Made": 0,
+        "Nikah_Made": 0,
+        "pNikah_Made": 0
       }
     }
   ],
@@ -214,6 +220,30 @@
       "modified_time": 1770144122.8373835,
       "property_name": "pDua_Made",
       "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 12,
+      "creation_time": 1770149831.7676942,
+      "default_value": 0,
+      "depth": 0,
+      "id": "Nikah_Made",
+      "modified_time": 1770149831.7676942,
+      "property_name": "Nikah_Made",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 13,
+      "creation_time": 1770149831.7676942,
+      "default_value": 0,
+      "depth": 0,
+      "id": "pNikah_Made",
+      "modified_time": 1770149831.7676942,
+      "property_name": "pNikah_Made",
+      "property_type": "bounded number"
     }
   ],
   "spools": [
@@ -307,7 +337,9 @@
         "page_end_layla",
         "page_end_sacrifice",
         "page_end_jordan_take",
-        "page_end_jordan_refuse"
+        "page_end_jordan_refuse",
+        "page_end_jordan_take_nikah",
+        "page_end_jordan_refuse_nikah"
       ]
     }
   ],
@@ -2538,13 +2570,35 @@
         "value": true
       },
       "desirability_script": {
-        "pointer_type": "Bounded Number Pointer",
-        "script_element_type": "Pointer",
-        "character": "char_player",
-        "keyring": [
-          "Stress_Resilience"
-        ],
-        "coefficient": 1.0
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Stress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 1.8
+              }
+            ]
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.04
+          }
+        ]
       },
       "earliest_turn": 0,
       "latest_turn": 999,
@@ -14015,6 +14069,70 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Nikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Nikah_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pNikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pNikah_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -14087,6 +14205,70 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Nikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Nikah_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pNikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pNikah_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -14149,6 +14331,70 @@
                         "character": "char_player",
                         "keyring": [
                           "Stress_Resilience"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "Nikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Nikah_Made"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.03
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Bounded Number Effect",
+                  "Set": {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pNikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "operator_type": "Nudge",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "pNikah_Made"
                         ],
                         "coefficient": 1.0
                       },
@@ -15217,13 +15463,72 @@
                 "script_element_type": "Pointer",
                 "value": "You accept the food and keep moving."
               },
-              "consequence_id": "page_end_jordan_take",
+              "consequence_id": "page_end_jordan_take_nikah",
               "desirability_script": {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
                 "value": 1.0
               },
-              "after_effects": []
+              "after_effects": [],
+              "acceptability_script": {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pNikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.01
+                  }
+                ]
+              }
+            },
+            {
+              "id": "opt_jordan_take_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You accept the food and keep moving."
+              },
+              "consequence_id": "page_end_jordan_take",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.9
+              },
+              "after_effects": [],
+              "acceptability_script": {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pNikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.0
+                  }
+                ]
+              }
             }
           ]
         },
@@ -15256,13 +15561,72 @@
                 "script_element_type": "Pointer",
                 "value": "You refuse politely and stare out the window."
               },
-              "consequence_id": "page_end_jordan_refuse",
+              "consequence_id": "page_end_jordan_refuse_nikah",
               "desirability_script": {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
                 "value": 1.0
               },
-              "after_effects": []
+              "after_effects": [],
+              "acceptability_script": {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Greater Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pNikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.01
+                  }
+                ]
+              }
+            },
+            {
+              "id": "opt_jordan_refuse_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You refuse politely and stare out the window."
+              },
+              "consequence_id": "page_end_jordan_refuse",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.9
+              },
+              "after_effects": [],
+              "acceptability_script": {
+                "operator_type": "Arithmetic Comparator",
+                "operator_subtype": "Less Than or Equal To",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Pointer",
+                    "script_element_type": "Pointer",
+                    "character": "char_player",
+                    "keyring": [
+                      "pNikah_Made"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.0
+                  }
+                ]
+              }
             }
           ]
         }
@@ -15302,7 +15666,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.005
+                "value": 0.002
               }
             ]
           },
@@ -15323,7 +15687,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.005
+                "value": 0.002
               }
             ]
           }
@@ -15349,7 +15713,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.5
+                "value": 1.6
               }
             ]
           },
@@ -15369,14 +15733,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.5
+                "value": 1.6
               }
             ]
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.003
+            "value": 0.05
           }
         ]
       },
@@ -15415,14 +15779,14 @@
             "script_element_type": "Pointer",
             "character": "char_player",
             "keyring": [
-              "pStress_Resilience"
+              "pNikah_Made"
             ],
             "coefficient": 1.0
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": -0.005
+            "value": 0.005
           }
         ]
       },
@@ -15446,7 +15810,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.6
+                "value": 0.4
               }
             ]
           },
@@ -15466,14 +15830,14 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": -0.4
+                "value": -0.3
               }
             ]
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.01
+            "value": 0.03
           }
         ]
       },
@@ -15512,14 +15876,14 @@
             "script_element_type": "Pointer",
             "character": "char_player",
             "keyring": [
-              "pStress_Resilience"
+              "pNikah_Made"
             ],
             "coefficient": 1.0
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": -0.005
+            "value": 0.005
           }
         ]
       },
@@ -15543,7 +15907,124 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.6
+                "value": 0.8
+              }
+            ]
+          },
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.4
+              }
+            ]
+          },
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.2
+              }
+            ]
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.03
+          }
+        ]
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 50,
+      "creation_time": 1770144525.3223183,
+      "modified_time": 1770144525.3223183,
+      "graph_position_x": 2000,
+      "graph_position_y": 680,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_end_jordan_take_nikah",
+      "title": "Ending: The Sandwich (Reunification)",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You take the sandwich. Later, in Australia, you file a Family Reunification visa. Nura arrives months later, exhausted but alive."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You take the sandwich. Later, in Australia, you file a Family Reunification visa. Nura arrives months later, exhausted but alive."
+      },
+      "acceptability_script": {
+        "operator_type": "Arithmetic Comparator",
+        "operator_subtype": "Greater Than or Equal To",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "pNikah_Made"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.003
+          }
+        ]
+      },
+      "desirability_script": {
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.4
               }
             ]
           },
@@ -15570,17 +16051,134 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.01
+            "value": 0.03
           }
         ]
       },
       "earliest_turn": 0,
       "latest_turn": 999,
-      "creation_index": 50,
-      "creation_time": 1770144525.3223183,
-      "modified_time": 1770144525.3223183,
-      "graph_position_x": 2000,
-      "graph_position_y": 680,
+      "creation_index": 51,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 2100,
+      "graph_position_y": 540,
+      "connected_spools": [
+        "spool_endings"
+      ],
+      "options": []
+    },
+    {
+      "id": "page_end_jordan_refuse_nikah",
+      "title": "Ending: The Bus Window (Reunification)",
+      "text_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You refuse the sandwich and go hungry. Later, in Australia, you file a Family Reunification visa. Nura arrives months later, exhausted but alive."
+      },
+      "prompt_script": {
+        "pointer_type": "String Constant",
+        "script_element_type": "Pointer",
+        "value": "You refuse the sandwich and go hungry. Later, in Australia, you file a Family Reunification visa. Nura arrives months later, exhausted but alive."
+      },
+      "acceptability_script": {
+        "operator_type": "Arithmetic Comparator",
+        "operator_subtype": "Greater Than or Equal To",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "pNikah_Made"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.003
+          }
+        ]
+      },
+      "desirability_script": {
+        "operator_type": "Addition",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pClinical_Ethics"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.8
+              }
+            ]
+          },
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pCommunity_Trust"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.4
+              }
+            ]
+          },
+          {
+            "operator_type": "Multiplication",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "pStress_Resilience"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": -0.2
+              }
+            ]
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.03
+          }
+        ]
+      },
+      "earliest_turn": 0,
+      "latest_turn": 999,
+      "creation_index": 52,
+      "creation_time": 1770140599.8354936,
+      "modified_time": 1770140599.8354936,
+      "graph_position_x": 2100,
+      "graph_position_y": 700,
       "connected_spools": [
         "spool_endings"
       ],
