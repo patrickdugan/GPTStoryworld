@@ -26,12 +26,13 @@ Load the matching task file when the user requests one of these actions, then fo
 - Late-stage balancing: `references/LATE_STAGE_BALANCING.md`
 - Ending reachability: `references/ENDING_REACHABILITY.md`
 - Tail tuning: `references/LATE_STAGE_TAIL_TUNING.md`
+- Long-range authoring: `references/LONG_RANGE_AUTHORING.md`
 
 ## Core Scripts (scripts/)
 Use these tools to make deterministic, validated edits:
 - `new_encounter.py`, `add_options.py`, `add_reactions.py`, `add_effects.py`, `add_secret_logic.py`
 - `materialize_spools.py`, `repair_connected_spools.py`, `spool_sequencing.py`
-- `monte_carlo_rehearsal.py`, `late_stage_balance.py`, `ending_reachability_balance.py`, `late_stage_tail_tuning.py`
+- `monte_carlo_rehearsal.py`, `late_stage_balance.py`, `ending_reachability_balance.py`, `late_stage_tail_tuning.py`, `long_range_authoring.py`
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
 
 ## References
@@ -39,6 +40,7 @@ Use these tools to make deterministic, validated edits:
 - `references/LATE_STAGE_BALANCING.md` for tail-end balancing workflows
 - `references/ENDING_REACHABILITY.md` for unreachable ending discipline
 - `references/LATE_STAGE_TAIL_TUNING.md` for dominant-ending control
+- `references/LONG_RANGE_AUTHORING.md` for long-range balancing loops
 - `references/Storyworld.gd` for engine-side expectations
 - `references/meta-calc.js` for calculation logic
 
