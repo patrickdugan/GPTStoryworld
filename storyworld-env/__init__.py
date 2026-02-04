@@ -238,6 +238,78 @@ class SweepweaveValidator:
         density = min(total_effects / 10.0, 1.0)  # Reward having effects
         
         return (diversity + density) / 2.0
+
+    @staticmethod
+    def _script_is_constant(script: Any) -> bool:
+        if not isinstance(script, dict):
+            return True
+        if script.get("script_element_type") == "Pointer":
+            return script.get("pointer_type") in (
+                "Bounded Number Constant",
+                "Boolean Constant",
+                "String Constant",
+            )
+        if script.get("script_element_type") == "Operator":
+            ops = script.get("operands", [])
+            if not ops:
+                return True
+            return all(SweepweaveValidator._script_is_constant(op) for op in ops)
+        return False
+
+    @staticmethod
+    def _script_has_variable_pointer(script: Any) -> bool:
+        if not isinstance(script, dict):
+            return False
+        if script.get("pointer_type") == "Bounded Number Pointer":
+            return True
+        if script.get("script_element_type") == "Operator":
+            return any(SweepweaveValidator._script_has_variable_pointer(op) for op in script.get("operands", []))
+        return False
+
+    @staticmethod
+    def _extract_thresholds(script: Any) -> List[float]:
+        found: List[float] = []
+        if not isinstance(script, dict):
+            return found
+        if script.get("operator_type") == "Arithmetic Comparator":
+            for op in script.get("operands", []):
+                if isinstance(op, dict) and op.get("pointer_type") == "Bounded Number Constant":
+                    try:
+                        found.append(float(op.get("value", 0.0)))
+                    except (TypeError, ValueError):
+                        continue
+        for op in script.get("operands", []):
+            found.extend(SweepweaveValidator._extract_thresholds(op))
+        return found
+
+    @staticmethod
+    def compute_secret_gate_quality(data: Dict[str, Any], min_effects: int = 3, min_threshold: float = 0.02) -> float:
+        """Score secret gates that require accumulated variable thresholds."""
+        gated_options = 0
+        gated_ok = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                vis = opt.get("visibility_script")
+                if vis and isinstance(vis, dict) and vis.get("pointer_type") != "Boolean Constant":
+                    gated_options += 1
+                    thresholds = SweepweaveValidator._extract_thresholds(vis)
+                    threshold_ok = any(t >= min_threshold for t in thresholds) if thresholds else False
+                    reactions = opt.get("reactions", [])
+                    all_ok = True
+                    for rxn in reactions:
+                        ds = rxn.get("desirability_script")
+                        if not ds or SweepweaveValidator._script_is_constant(ds) or not SweepweaveValidator._script_has_variable_pointer(ds):
+                            all_ok = False
+                            break
+                        effects = rxn.get("after_effects", [])
+                        if not isinstance(effects, list) or len(effects) < min_effects:
+                            all_ok = False
+                            break
+                    if all_ok and threshold_ok:
+                        gated_ok += 1
+        if gated_options == 0:
+            return 0.0
+        return gated_ok / gated_options
     
     @staticmethod
     def compute_gating_score(data: Dict[str, Any]) -> float:
@@ -919,6 +991,20 @@ def reward_secret_paths(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_secret_gate_quality(prompt, completion, info) -> float:
+    """Reward: 0-1 based on gated options with variable desirability and strong effects."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_secret_gate_quality(data)
+    except:
+        return 0.0
+
+
 def reward_multiple_endings(prompt, completion, info) -> float:
     """Reward: 0-1 based on number of distinct endings"""
     try:
@@ -1036,6 +1122,7 @@ def benchmark_targets() -> Dict[str, float]:
         "late_block_min": 0.10,
         "late_block_max": 0.30,
         "secret_reachability_min": 0.02,
+        "secret_gate_quality_min": 0.30,
     }
 
 
@@ -1051,6 +1138,7 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         max_share, min_share = 1.0, 0.0
     late_block = (report["late_blocks"] / report["late_total"]) if report["late_total"] else 0.0
     secret_reach = (report.get("secret_any", 0) / total) if total else 0.0
+    secret_gate_quality = SweepweaveValidator.compute_secret_gate_quality(data)
     late_block_applicable = report["late_total"] > 0
     return {
         "dead_end_rate": dead_end_rate,
@@ -1058,6 +1146,7 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         "min_ending_share": min_share,
         "late_block_rate": late_block,
         "secret_reachability": secret_reach,
+        "secret_gate_quality": secret_gate_quality,
         "late_block_applicable": 1.0 if late_block_applicable else 0.0,
     }
 
@@ -1071,6 +1160,7 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and metrics["min_ending_share"] >= targets["min_ending_share_min"]
         and (not late_applicable or (targets["late_block_min"] <= metrics["late_block_rate"] <= targets["late_block_max"]))
         and metrics["secret_reachability"] >= targets["secret_reachability_min"]
+        and metrics.get("secret_gate_quality", 0.0) >= targets["secret_gate_quality_min"]
     )
 
 
@@ -1118,6 +1208,7 @@ def load_environment(
             reward_structural_completeness,  # Must meet size requirements
             reward_effect_diversity,     # Diverse Dirac operators
             reward_secret_paths,         # Gated options
+            reward_secret_gate_quality,  # Gated options with variable desirability
             reward_multiple_endings,     # Multiple terminal states
             reward_dead_end_rate,        # Monte Carlo dead-end rate
             reward_ending_balance,       # Ending distribution balance
@@ -1131,6 +1222,7 @@ def load_environment(
             1.0,   # Structural completeness
             0.5,   # Effect diversity (nice to have)
             0.5,   # Secret paths (nice to have)
+            0.6,   # Secret gate quality (accumulated thresholds)
             0.5,   # Multiple endings (nice to have)
             0.5,   # Dead-end rate (should be low)
             0.5,   # Ending balance (avoid dominance)
