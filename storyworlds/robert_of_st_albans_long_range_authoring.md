@@ -3,16 +3,16 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_exile: 13.0%
-- page_end_betray_salahudin: 11.1%
-- page_end_regret: 2.9%
-- page_end_suhrawardi: 0.3%
-- page_end_convert: 0.2%
-- DEAD_END: 72.5%
+- page_end_exile: 33.6%
+- page_end_betray_salahudin: 23.5%
+- page_end_regret: 3.8%
+- page_end_fallback: 3.5%
+- page_end_convert: 0.9%
+- DEAD_END: 34.7%
 
 ## Tuning Notes
 - Dead-end rate high: widen fallback ending gate.
-- page_end_suhrawardi too low: lower acceptability or raise desirability.
+- page_end_exile too high: raise acceptability or lower desirability.
 - page_end_convert too low: lower acceptability or raise desirability.
 
 ## Raw Monte Carlo Output
@@ -23,14 +23,14 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  DEAD_END                              3625 ( 72.5%) ####################################
-  page_end_exile                         649 ( 13.0%) ######
-  page_end_betray_salahudin              554 ( 11.1%) #####
-  page_end_regret                        146 (  2.9%) #
-  page_end_suhrawardi                     15 (  0.3%) 
-  page_end_convert                        11 (  0.2%) 
+  DEAD_END                              1733 ( 34.7%) #################
+  page_end_exile                        1680 ( 33.6%) ################
+  page_end_betray_salahudin             1175 ( 23.5%) ###########
+  page_end_regret                        188 (  3.8%) #
+  page_end_fallback                      177 (  3.5%) #
+  page_end_convert                        47 (  0.9%) 
 
-  Dead-end rate: 3625/5000 (72.5%)
+  Dead-end rate: 1733/5000 (34.7%)
 
 --- Late-Game Gate Blocking ---
 
@@ -49,7 +49,7 @@ MONTE CARLO RESULTS (5000 runs)
   page_end_templar
   page_end_hattin
   page_end_legend
+  page_end_suhrawardi
   page_end_salahudin
   page_end_betray_suhrawardi
-  page_end_fallback
 ```
