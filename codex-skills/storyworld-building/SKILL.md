@@ -11,6 +11,7 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
 ## Quick Start
 - Prefer running the specific tool in `scripts/` for the task instead of manual edits.
 - When editing storyworld JSON, validate with `scripts/sweepweave_validator.py` before and after changes.
+- If you introduce a terminal gate (e.g., `page_endings_gate`), ensure it routes to every `page_end_*`/`page_secret_*` and keep ending encounter `acceptability_script` permissive so the gate controls reachability.
 
 ## Task Prompts (references/)
 Load the matching task file when the user requests one of these actions, then follow it verbatim:

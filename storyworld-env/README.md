@@ -23,6 +23,7 @@ Models are rewarded for generating storyworlds that:
 4. **Demonstrate effect diversity** (varied Dirac operators modifying different properties)
 5. **Include secret paths** (some options gated by character property conditions)
 6. **Provide multiple endings** (2-5 distinct terminal states)
+7. **Keep ending gates complete** (every `page_end_*` reachable from the final gate and not blocked by acceptability fallbacks)
 
 ## Installation
 
@@ -135,6 +136,14 @@ The environment uses a multi-component reward function:
 | `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
 Total maximum reward: **8.1**
+
+## Ending Gate Sanity Checklist
+
+If you use a terminal gate encounter (for example `page_endings_gate`), ensure:
+
+- Every `page_end_*` (and `page_secret_*`) is reachable via a reaction from the gate.
+- Ending encounters use permissive `acceptability_script` (usually `True`) so the gate, not the ending, decides eligibility.
+- Reaction desirability or acceptability bands, not fallback defaults, determine the ending mix.
 
 ## Sweepweave Format
 

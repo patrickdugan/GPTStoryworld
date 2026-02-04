@@ -18970,254 +18970,267 @@
               "text_script": {
                 "pointer_type": "String Constant",
                 "script_element_type": "Pointer",
-                "value": "History will decide."
+                "value": "You take the hidden vow."
               },
-              "consequence_id": "page_end_templar",
+              "consequence_id": "page_secret_mureed",
               "desirability_script": {
-                "operator_type": "Multiplication",
+                "operator_type": "Addition",
                 "script_element_type": "Operator",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Loyalty_Betrayal"
-                    ],
-                    "coefficient": 1.0
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Pointer",
+                        "script_element_type": "Pointer",
+                        "character": "char_player",
+                        "keyring": [
+                          "Faith_Doubt"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.85
+                      }
+                    ]
                   },
                   {
                     "pointer_type": "Bounded Number Constant",
                     "script_element_type": "Pointer",
-                    "value": 0.35
+                    "value": -0.5
                   }
                 ]
-              },
-              "after_effects": [
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Faith_Doubt"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Faith_Doubt"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Faith_Doubt"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Faith_Doubt"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.015
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Loyalty_Betrayal"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Loyalty_Betrayal"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.02
-                      }
-                    ]
-                  }
-                }
-              ]
+              }
             },
             {
               "id": "opt_endings_gate_1_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
               "text_script": {
                 "pointer_type": "String Constant",
                 "script_element_type": "Pointer",
-                "value": "The moment bends in a different direction."
+                "value": "Light keeps your name."
               },
-              "consequence_id": "page_endings_gate",
+              "consequence_id": "page_end_suhrawardi",
               "desirability_script": {
-                "operator_type": "Multiplication",
+                "operator_type": "Addition",
                 "script_element_type": "Operator",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Faith_Doubt"
-                    ],
-                    "coefficient": 1.0
+                    "operator_type": "And",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Faith_Doubt"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.75
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Faith_Doubt"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.85
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     "pointer_type": "Bounded Number Constant",
                     "script_element_type": "Pointer",
-                    "value": 0.33
+                    "value": -0.5
                   }
                 ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_1_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Doubt stays with you."
               },
-              "after_effects": [
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Loyalty_Betrayal"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
+              "consequence_id": "page_end_regret",
+              "desirability_script": {
+                "operator_type": "Addition",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "And",
                     "script_element_type": "Operator",
                     "operands": [
                       {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Loyalty_Betrayal"
-                        ],
-                        "coefficient": 1.0
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Faith_Doubt"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.65
+                          }
+                        ]
                       },
                       {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.015
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Faith_Doubt"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.75
+                          }
+                        ]
                       }
                     ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Honor_Expediency"
-                    ],
-                    "coefficient": 1.0
                   },
-                  "to": {
-                    "operator_type": "Nudge",
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
+                  }
+                ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_1_r3",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You fade from the record."
+              },
+              "consequence_id": "page_end_exile",
+              "desirability_script": {
+                "operator_type": "Addition",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "And",
                     "script_element_type": "Operator",
                     "operands": [
                       {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Honor_Expediency"
-                        ],
-                        "coefficient": 1.0
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Faith_Doubt"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.55
+                          }
+                        ]
                       },
                       {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.02
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Faith_Doubt"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.65
+                          }
+                        ]
                       }
                     ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Faith_Doubt"
-                    ],
-                    "coefficient": 1.0
                   },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Faith_Doubt"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.025
-                      }
-                    ]
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
                   }
-                }
-              ]
+                ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_1_r4",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You walk the narrow road."
+              },
+              "consequence_id": "page_end_fallback",
+              "desirability_script": {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.001
+              }
             }
           ]
         },
@@ -19248,107 +19261,16 @@
               "text_script": {
                 "pointer_type": "String Constant",
                 "script_element_type": "Pointer",
-                "value": "You refuse to be rewritten."
+                "value": "You break the oath."
               },
-              "consequence_id": "page_end_templar",
+              "consequence_id": "page_end_betray_salahudin",
               "desirability_script": {
-                "operator_type": "Multiplication",
+                "operator_type": "Addition",
                 "script_element_type": "Operator",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Loyalty_Betrayal"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.35
-                  }
-                ]
-              },
-              "after_effects": [
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Honor_Expediency"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Honor_Expediency"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.01
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Faith_Doubt"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
-                    "script_element_type": "Operator",
-                    "operands": [
-                      {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Faith_Doubt"
-                        ],
-                        "coefficient": 1.0
-                      },
-                      {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.015
-                      }
-                    ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Loyalty_Betrayal"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
+                    "operator_type": "Arithmetic Comparator",
+                    "operator_subtype": "Greater Than or Equal To",
                     "script_element_type": "Operator",
                     "operands": [
                       {
@@ -19363,139 +19285,521 @@
                       {
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
-                        "value": 0.02
+                        "value": 0.78
                       }
                     ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
                   }
-                }
-              ]
+                ]
+              }
             },
             {
               "id": "opt_endings_gate_2_r1",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
               "text_script": {
                 "pointer_type": "String Constant",
                 "script_element_type": "Pointer",
-                "value": "The moment bends in a different direction."
+                "value": "You turn a friend over."
               },
-              "consequence_id": "page_endings_gate",
+              "consequence_id": "page_end_betray_suhrawardi",
               "desirability_script": {
-                "operator_type": "Multiplication",
+                "operator_type": "Addition",
                 "script_element_type": "Operator",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Faith_Doubt"
-                    ],
-                    "coefficient": 1.0
+                    "operator_type": "And",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.72
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.78
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     "pointer_type": "Bounded Number Constant",
                     "script_element_type": "Pointer",
-                    "value": 0.33
+                    "value": -0.5
                   }
                 ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_2_r2",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The field ends you."
               },
-              "after_effects": [
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Loyalty_Betrayal"
-                    ],
-                    "coefficient": 1.0
-                  },
-                  "to": {
-                    "operator_type": "Nudge",
+              "consequence_id": "page_end_hattin",
+              "desirability_script": {
+                "operator_type": "Addition",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "And",
                     "script_element_type": "Operator",
                     "operands": [
                       {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Loyalty_Betrayal"
-                        ],
-                        "coefficient": 1.0
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.66
+                          }
+                        ]
                       },
                       {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.015
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.72
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Honor_Expediency"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.35
+                          }
+                        ]
                       }
                     ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Honor_Expediency"
-                    ],
-                    "coefficient": 1.0
                   },
-                  "to": {
-                    "operator_type": "Nudge",
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
+                  }
+                ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_2_r3",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "Rumor makes you larger."
+              },
+              "consequence_id": "page_end_legend",
+              "desirability_script": {
+                "operator_type": "Addition",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "And",
                     "script_element_type": "Operator",
                     "operands": [
                       {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Honor_Expediency"
-                        ],
-                        "coefficient": 1.0
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.66
+                          }
+                        ]
                       },
                       {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.02
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.72
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Honor_Expediency"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.35
+                          }
+                        ]
                       }
                     ]
-                  }
-                },
-                {
-                  "effect_type": "Bounded Number Effect",
-                  "Set": {
-                    "pointer_type": "Bounded Number Pointer",
-                    "script_element_type": "Pointer",
-                    "character": "char_player",
-                    "keyring": [
-                      "Faith_Doubt"
-                    ],
-                    "coefficient": 1.0
                   },
-                  "to": {
-                    "operator_type": "Nudge",
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
+                  }
+                ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_2_r4",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The Sultan notes your steadiness."
+              },
+              "consequence_id": "page_end_salahudin",
+              "desirability_script": {
+                "operator_type": "Addition",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "And",
                     "script_element_type": "Operator",
                     "operands": [
                       {
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer",
-                        "character": "char_player",
-                        "keyring": [
-                          "Faith_Doubt"
-                        ],
-                        "coefficient": 1.0
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.6
+                          }
+                        ]
                       },
                       {
-                        "pointer_type": "Bounded Number Constant",
-                        "script_element_type": "Pointer",
-                        "value": 0.025
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.66
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Honor_Expediency"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.25
+                          }
+                        ]
                       }
                     ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
                   }
-                }
-              ]
+                ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_2_r5",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "You choose another banner."
+              },
+              "consequence_id": "page_end_convert",
+              "desirability_script": {
+                "operator_type": "Addition",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "And",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.6
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.66
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Honor_Expediency"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.25
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
+                  }
+                ]
+              }
+            },
+            {
+              "id": "opt_endings_gate_2_r6",
+              "graph_offset_x": 0,
+              "graph_offset_y": 0,
+              "text_script": {
+                "pointer_type": "String Constant",
+                "script_element_type": "Pointer",
+                "value": "The Order claims you."
+              },
+              "consequence_id": "page_end_templar",
+              "desirability_script": {
+                "operator_type": "Addition",
+                "script_element_type": "Operator",
+                "operands": [
+                  {
+                    "operator_type": "And",
+                    "script_element_type": "Operator",
+                    "operands": [
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Greater Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.52
+                          }
+                        ]
+                      },
+                      {
+                        "operator_type": "Arithmetic Comparator",
+                        "operator_subtype": "Less Than or Equal To",
+                        "script_element_type": "Operator",
+                        "operands": [
+                          {
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer",
+                            "character": "char_player",
+                            "keyring": [
+                              "Loyalty_Betrayal"
+                            ],
+                            "coefficient": 1.0
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.6
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": -0.5
+                  }
+                ]
+              }
             }
           ]
         }
@@ -19515,52 +19819,9 @@
         "value": "You remain within the Templar story-duty, obedience, and silence."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.06
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.05
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -19608,52 +19869,9 @@
         "value": "You convert and fight beside Saladin. To some you are a traitor; to others, a man who saw the war differently."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.16
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.04
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -19671,7 +19889,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.24
+            "value": 0.26
           }
         ]
       },
@@ -19701,52 +19919,9 @@
         "value": "You convert, but doubt never stops following you. You are neither fully inside nor outside."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.15
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.09
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -19764,7 +19939,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.2
+            "value": 0.24
           }
         ]
       },
@@ -19794,52 +19969,9 @@
         "value": "You die in the field in 1187, one more body in a war that will be remembered."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.018
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.03
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Addition",
@@ -19898,52 +20030,9 @@
         "value": "Rumor makes you a prince and a promise-keeper. In the end, your former crusader brothers strike you down as you whisper ?la ilaha ill Allah.?"
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.14
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.045
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -19961,7 +20050,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.2
+            "value": 0.22
           }
         ]
       },
@@ -20956,52 +21045,9 @@
         "value": "You vanish from the record, trading oath and name for a quiet margin."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Loyalty_Betrayal"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.14
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.08
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -22777,52 +22823,9 @@
         "value": "You keep faith with Suhrawardi?s light, and his circle remembers your name."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.14
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.045
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -22870,52 +22873,9 @@
         "value": "Salah al-Din recognizes your steadiness, granting you a guarded place in his record."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.14
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Loyalty_Betrayal"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.05
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -22963,94 +22923,9 @@
         "value": "You become an Ishraqi murid, taking the discipline of light as your true order."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.22
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.28
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.16
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.22
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -23098,52 +22973,9 @@
         "value": "You turn Suhrawardi over to his enemies. The court rewards your pragmatism and never trusts you again."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Loyalty_Betrayal"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.06
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.03
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Addition",
@@ -23217,52 +23049,9 @@
         "value": "You betray Salah al-Din at the edge of victory. The moment lasts; the consequences do not."
       },
       "acceptability_script": {
-        "operator_type": "And",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Loyalty_Betrayal"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.2
-              }
-            ]
-          },
-          {
-            "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Greater Than or Equal To",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.05
-              }
-            ]
-          }
-        ]
+        "pointer_type": "Boolean Constant",
+        "script_element_type": "Pointer",
+        "value": true
       },
       "desirability_script": {
         "operator_type": "Multiplication",
@@ -23280,7 +23069,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.18
+            "value": 0.16
           }
         ]
       },
@@ -23315,9 +23104,24 @@
         "value": true
       },
       "desirability_script": {
-        "pointer_type": "Bounded Number Constant",
-        "script_element_type": "Pointer",
-        "value": 0.0005
+        "operator_type": "Multiplication",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Faith_Doubt"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.05
+          }
+        ]
       },
       "earliest_turn": 0,
       "latest_turn": 999,
