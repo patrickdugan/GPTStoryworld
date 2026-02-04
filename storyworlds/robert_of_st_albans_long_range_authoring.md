@@ -7,17 +7,16 @@ Runs: 5000 | Seed: 42
 - page_end_salahudin: 18.6%
 - page_end_regret: 17.9%
 - page_end_legend: 13.4%
-- page_end_exile: 7.9%
 - page_end_betray_suhrawardi: 6.3%
 - page_end_convert: 4.7%
+- page_end_fallback: 4.6%
+- page_end_exile: 4.2%
 - page_end_hattin: 3.0%
 - page_end_templar: 2.4%
 - page_end_betray_salahudin: 1.0%
-- page_end_fallback: 0.9%
 - DEAD_END: 0.0%
 
 ## Tuning Notes
-- page_end_fallback too low: lower acceptability or raise desirability.
 
 ## Raw Monte Carlo Output
 ```
@@ -31,14 +30,14 @@ MONTE CARLO RESULTS (5000 runs)
   page_end_salahudin                     931 ( 18.6%) #########
   page_end_regret                        894 ( 17.9%) ########
   page_end_legend                        671 ( 13.4%) ######
-  page_end_exile                         396 (  7.9%) ###
   page_end_betray_suhrawardi             315 (  6.3%) ###
   page_end_convert                       236 (  4.7%) ##
+  page_end_fallback                      231 (  4.6%) ##
+  page_end_exile                         208 (  4.2%) ##
   page_secret_mureed                     204 (  4.1%) ##
   page_end_hattin                        152 (  3.0%) #
   page_end_templar                       122 (  2.4%) #
   page_end_betray_salahudin               52 (  1.0%) 
-  page_end_fallback                       43 (  0.9%) 
 
   Dead-end rate: 0/5000 (0.0%)
 
