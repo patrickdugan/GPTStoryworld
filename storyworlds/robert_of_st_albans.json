@@ -19647,7 +19647,7 @@
         "operands": [
           {
             "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
@@ -19662,7 +19662,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.15
+                "value": 0.065
               }
             ]
           },
@@ -19683,7 +19683,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.055
+                "value": 0.05
               }
             ]
           }
@@ -19705,7 +19705,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.16
+            "value": 0.18
           }
         ]
       },
@@ -22270,7 +22270,7 @@
         "operands": [
           {
             "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
@@ -22285,7 +22285,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.14
+                "value": 0.055
               }
             ]
           },
@@ -22306,7 +22306,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.04
+                "value": 0.035
               }
             ]
           }
@@ -22328,7 +22328,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.16
+            "value": 0.2
           }
         ]
       },
@@ -22363,7 +22363,7 @@
         "operands": [
           {
             "operator_type": "Arithmetic Comparator",
-            "operator_subtype": "Less Than or Equal To",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
@@ -22378,7 +22378,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.14
+                "value": 0.04
               }
             ]
           },
@@ -22399,7 +22399,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.04
+                "value": 0.05
               }
             ]
           }
@@ -22421,7 +22421,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.18
+            "value": 0.2
           }
         ]
       },
@@ -22746,7 +22746,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.05
+                "value": 0.06
               }
             ]
           }
@@ -22768,7 +22768,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.18
+            "value": 0.16
           }
         ]
       },
@@ -22798,14 +22798,72 @@
         "value": "No banner claims you. You survive by choosing the narrow road between oaths."
       },
       "acceptability_script": {
-        "pointer_type": "Boolean Constant",
-        "script_element_type": "Pointer",
-        "value": true
+        "operator_type": "And",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Faith_Doubt"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.12
+              }
+            ]
+          },
+          {
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Less Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Loyalty_Betrayal"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.1
+              }
+            ]
+          }
+        ]
       },
       "desirability_script": {
-        "pointer_type": "Bounded Number Constant",
-        "script_element_type": "Pointer",
-        "value": 0.001
+        "operator_type": "Multiplication",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Faith_Doubt"
+            ],
+            "coefficient": 1.0
+          },
+          {
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.08
+          }
+        ]
       },
       "earliest_turn": 0,
       "latest_turn": 999,
