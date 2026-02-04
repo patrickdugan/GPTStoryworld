@@ -3,25 +3,27 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_regret: 68.9%
-- page_end_legend: 17.7%
-- page_end_templar: 13.4%
+- page_end_mureed: 63.2%
+- page_end_regret: 24.5%
+- page_end_templar: 7.2%
+- page_end_betray_salahudin: 5.1%
 - DEAD_END: 0.0%
 
 ## Tuning Notes
-- page_end_regret too high: raise acceptability or lower desirability.
+- page_end_mureed too high: raise acceptability or lower desirability.
 
 ## Raw Monte Carlo Output
 ```
-Chain: 0 encounters | 8 endings | 0 secrets
+Chain: 0 encounters | 11 endings | 0 secrets
 ======================================================================
 MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_regret                       3446 ( 68.9%) ##################################
-  page_end_legend                        886 ( 17.7%) ########
-  page_end_templar                       668 ( 13.4%) ######
+  page_end_mureed                       3158 ( 63.2%) ###############################
+  page_end_regret                       1224 ( 24.5%) ############
+  page_end_templar                       361 (  7.2%) ###
+  page_end_betray_salahudin              257 (  5.1%) ##
 
   Dead-end rate: 0/5000 (0.0%)
 
@@ -41,7 +43,9 @@ MONTE CARLO RESULTS (5000 runs)
 --- Unreachable Endings ---
   page_end_convert
   page_end_hattin
+  page_end_legend
   page_end_exile
   page_end_suhrawardi
   page_end_salahudin
+  page_end_betray_suhrawardi
 ```
