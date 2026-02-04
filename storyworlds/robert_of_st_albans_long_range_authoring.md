@@ -3,9 +3,9 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_regret: 97.9%
-- page_end_betray_salahudin: 2.0%
-- page_end_salahudin: 0.1%
+- page_end_regret: 97.6%
+- page_end_betray_salahudin: 2.1%
+- page_end_salahudin: 0.3%
 - DEAD_END: 0.0%
 
 ## Tuning Notes
@@ -20,9 +20,9 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_regret                       4895 ( 97.9%) ################################################
-  page_end_betray_salahudin              100 (  2.0%) #
-  page_end_salahudin                       4 (  0.1%) 
+  page_end_regret                       4879 ( 97.6%) ################################################
+  page_end_betray_salahudin              103 (  2.1%) #
+  page_end_salahudin                      17 (  0.3%) 
   DEAD_END                                 1 (  0.0%) 
 
   Dead-end rate: 1/5000 (0.0%)
@@ -30,14 +30,14 @@ MONTE CARLO RESULTS (5000 runs)
 --- Late-Game Gate Blocking ---
 
 --- Secret Reachability ---
-  page_secret_mureed                          150 (3.0%)
+  page_secret_mureed                          817 (16.3%)
 
 --- Property Distributions ---
-  char_player.Faith_Doubt                        mean=+0.1910  std=0.0303
-  char_player.Honor_Expediency                   mean=+0.0665  std=0.0390
-  char_player.Loyalty_Betrayal                   mean=+0.1458  std=0.0349
-  char_player.pFaith_Doubt                       mean=+0.0033  std=0.0059
-  char_player.pHonor_Expediency                  mean=+0.0000  std=0.0035
+  char_player.Faith_Doubt                        mean=+0.2284  std=0.0439
+  char_player.Honor_Expediency                   mean=+0.0820  std=0.0563
+  char_player.Loyalty_Betrayal                   mean=+0.1685  std=0.0532
+  char_player.pFaith_Doubt                       mean=+0.0045  std=0.0081
+  char_player.pHonor_Expediency                  mean=+0.0001  std=0.0040
   char_player.pLoyalty_Betrayal                  mean=+0.0019  std=0.0041
 
 --- Unreachable Endings ---
