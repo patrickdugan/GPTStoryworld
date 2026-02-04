@@ -19258,23 +19258,50 @@
         "value": "You remain within the Templar story-duty, obedience, and silence."
       },
       "acceptability_script": {
-        "operator_type": "Arithmetic Comparator",
-        "operator_subtype": "Greater Than or Equal To",
+        "operator_type": "And",
         "script_element_type": "Operator",
         "operands": [
           {
-            "pointer_type": "Bounded Number Pointer",
-            "script_element_type": "Pointer",
-            "character": "char_player",
-            "keyring": [
-              "Loyalty_Betrayal"
-            ],
-            "coefficient": 1.0
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Honor_Expediency"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.075
+              }
+            ]
           },
           {
-            "pointer_type": "Bounded Number Constant",
-            "script_element_type": "Pointer",
-            "value": 0.013
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Faith_Doubt"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.03
+              }
+            ]
           }
         ]
       },
@@ -19287,14 +19314,14 @@
             "script_element_type": "Pointer",
             "character": "char_player",
             "keyring": [
-              "Loyalty_Betrayal"
+              "Honor_Expediency"
             ],
             "coefficient": 1.0
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.36
+            "value": 0.22
           }
         ]
       },
@@ -19324,32 +19351,33 @@
         "value": "You convert and fight beside Saladin. To some you are a traitor; to others, a man who saw the war differently."
       },
       "acceptability_script": {
-        "operator_type": "Arithmetic Comparator",
-        "operator_subtype": "Greater Than or Equal To",
+        "operator_type": "And",
         "script_element_type": "Operator",
         "operands": [
           {
-            "pointer_type": "Bounded Number Pointer",
-            "script_element_type": "Pointer",
-            "character": "char_player",
-            "keyring": [
-              "Honor_Expediency"
-            ],
-            "coefficient": 1.0
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Faith_Doubt"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.02
+              }
+            ]
           },
           {
-            "pointer_type": "Bounded Number Constant",
-            "script_element_type": "Pointer",
-            "value": 0.025
-          }
-        ]
-      },
-      "desirability_script": {
-        "operator_type": "Addition",
-        "script_element_type": "Operator",
-        "operands": [
-          {
-            "operator_type": "Multiplication",
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
             "script_element_type": "Operator",
             "operands": [
               {
@@ -19364,14 +19392,29 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.45
+                "value": 0.02
               }
             ]
+          }
+        ]
+      },
+      "desirability_script": {
+        "operator_type": "Multiplication",
+        "script_element_type": "Operator",
+        "operands": [
+          {
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Faith_Doubt"
+            ],
+            "coefficient": 1.0
           },
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.001
+            "value": 0.28
           }
         ]
       },
@@ -19421,7 +19464,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.065
+                "value": 0.075
               }
             ]
           }
@@ -19443,7 +19486,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.28
+            "value": 0.2
           }
         ]
       },
@@ -22374,7 +22417,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.16
+                "value": 0.18
               }
             ]
           },
@@ -22395,7 +22438,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.12
+                "value": 0.14
               }
             ]
           }
@@ -22417,7 +22460,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.08
+            "value": 0.06
           }
         ]
       },
