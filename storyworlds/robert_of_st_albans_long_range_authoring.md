@@ -3,15 +3,15 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_convert: 85.2%
-- page_end_exile: 12.7%
-- page_end_betray_salahudin: 1.3%
-- page_end_regret: 0.5%
-- page_end_salahudin: 0.3%
+- page_end_legend: 76.6%
+- page_end_exile: 16.1%
+- page_end_betray_salahudin: 6.4%
+- page_end_regret: 0.6%
+- page_end_salahudin: 0.1%
 - DEAD_END: 0.1%
 
 ## Tuning Notes
-- page_end_convert too high: raise acceptability or lower desirability.
+- page_end_legend too high: raise acceptability or lower desirability.
 - page_end_regret too low: lower acceptability or raise desirability.
 - page_end_salahudin too low: lower acceptability or raise desirability.
 
@@ -23,12 +23,12 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_convert                      4259 ( 85.2%) ##########################################
-  page_end_exile                         634 ( 12.7%) ######
-  page_end_betray_salahudin               64 (  1.3%) 
-  page_end_regret                         24 (  0.5%) 
-  page_end_salahudin                      13 (  0.3%) 
+  page_end_legend                       3832 ( 76.6%) ######################################
+  page_end_exile                         806 ( 16.1%) ########
+  page_end_betray_salahudin              322 (  6.4%) ###
+  page_end_regret                         31 (  0.6%) 
   DEAD_END                                 6 (  0.1%) 
+  page_end_salahudin                       3 (  0.1%) 
 
   Dead-end rate: 6/5000 (0.1%)
 
@@ -47,8 +47,8 @@ MONTE CARLO RESULTS (5000 runs)
 
 --- Unreachable Endings ---
   page_end_templar
+  page_end_convert
   page_end_hattin
-  page_end_legend
   page_end_suhrawardi
   page_end_betray_suhrawardi
 ```
