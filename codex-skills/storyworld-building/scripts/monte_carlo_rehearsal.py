@@ -93,55 +93,66 @@ def select_reaction(option, state):
     return best
 
 
-def build_chain(data):
-    """Build linear consequence chain from page_0000 onward."""
-    enc_by_id = {e["id"]: e for e in data["encounters"]}
-    chain, visited = [], set()
-    current_id = "page_0000"
-    while current_id and current_id != "wild" and current_id not in visited:
-        if current_id not in enc_by_id:
-            break
-        visited.add(current_id)
-        enc = enc_by_id[current_id]
-        chain.append(enc)
-        next_id = None
-        for opt in enc.get("options", []):
-            for rxn in opt.get("reactions", []):
-                cid = rxn.get("consequence_id", "")
-                if cid:
-                    next_id = cid
-                    break
-            if next_id:
-                break
-        current_id = next_id
-    return chain
+def starting_encounter(data):
+    enc_by_id = {e["id"]: e for e in data.get("encounters", [])}
+    if "page_0000" in enc_by_id:
+        return "page_0000"
+    spools = [s for s in data.get("spools", []) if s.get("starts_active")]
+    spools.sort(key=lambda s: s.get("creation_index", 0))
+    for sp in spools:
+        encs = sp.get("encounters") or []
+        if encs:
+            return encs[0]
+    encounters = data.get("encounters", [])
+    return encounters[0]["id"] if encounters else None
+
+
+def run_episode(data, rng, max_steps=200):
+    enc_by_id = {e["id"]: e for e in data.get("encounters", [])}
+    state = {}
+    eid = starting_encounter(data)
+    if not eid:
+        return "DEAD_END", 0, state
+
+    turns = 0
+    while turns < max_steps and eid in enc_by_id:
+        enc = enc_by_id[eid]
+        options = enc.get("options", []) or []
+
+        if not options:
+            ok = True
+            if turns < enc.get("earliest_turn", 0):
+                ok = False
+            if turns > enc.get("latest_turn", 999999):
+                ok = False
+            if not eval_script(enc.get("acceptability_script", True), state):
+                ok = False
+            return (eid if ok else "page_end_fallback"), turns, state
+
+        visible = [o for o in options if eval_script(o.get("visibility_script", True), state)]
+        if not visible:
+            return "DEAD_END", turns, state
+
+        chosen = rng.choice(visible)
+        rxn = select_reaction(chosen, state)
+        if rxn:
+            apply_effects(rxn, state)
+            next_id = rxn.get("consequence_id")
+        else:
+            next_id = None
+
+        turns += 1
+        if not next_id:
+            return "DEAD_END", turns, state
+        eid = next_id
+
+    return "TIMEOUT", turns, state
 
 
 def run_monte_carlo(data, num_runs=10000, seed=42):
-    random.seed(seed)
-    chain = build_chain(data)
-    # Fallback: if no page_0000 chain exists, sample encounters from spools.
-    spool_sequence = []
-    if len(chain) == 0:
-        enc_by_id = {e["id"]: e for e in data.get("encounters", [])}
-        spools = sorted(
-            data.get("spools", []),
-            key=lambda s: s.get("creation_index", 0)
-        )
-        for sp in spools:
-            if sp.get("id") == "spool_endings" or sp.get("spool_name") == "Endings":
-                continue
-            ids = sp.get("encounters", [])
-            spool_encs = [enc_by_id[eid] for eid in ids if eid in enc_by_id]
-            if spool_encs:
-                spool_sequence.append(spool_encs)
+    rng = random.Random(seed)
     endings = [e for e in data["encounters"] if e["id"].startswith("page_end_")]
     secrets = [e for e in data["encounters"] if e["id"].startswith("page_secret_")]
-
-    spool_map = {}
-    for sp in data.get("spools", []):
-        for eid in sp.get("encounters", []):
-            spool_map[eid] = sp["spool_name"]
 
     ending_counts = Counter()
     dead_ends = 0
@@ -151,59 +162,14 @@ def run_monte_carlo(data, num_runs=10000, seed=42):
     secret_hits = Counter()
 
     for _ in range(num_runs):
-        state = {}
-        if chain:
-            for enc in chain:
-                eid = enc["id"]
-                spool = spool_map.get(eid, "")
-                if spool.startswith("Age "):
-                    age = int(spool.split(" ")[1])
-                    if age >= 14:
-                        if not bool(eval_script(enc.get("acceptability_script", True), state)):
-                            late_blocks += 1
-                        late_total += 1
-
-                visible = [(i, o) for i, o in enumerate(enc.get("options", []))
-                           if eval_script(o.get("visibility_script", True), state)]
-                if not visible:
-                    continue
-                _, chosen = random.choice(visible)
-                rxn = select_reaction(chosen, state)
-                if rxn:
-                    apply_effects(rxn, state)
-        else:
-            # Spool sampling: pick up to 3 encounters per spool per run
-            for spool_encs in spool_sequence:
-                k = min(3, len(spool_encs))
-                for enc in random.sample(spool_encs, k):
-                    if not bool(eval_script(enc.get("acceptability_script", True), state)):
-                        continue
-                    visible = [(i, o) for i, o in enumerate(enc.get("options", []))
-                               if eval_script(o.get("visibility_script", True), state)]
-                    if not visible:
-                        continue
-                    _, chosen = random.choice(visible)
-                    rxn = select_reaction(chosen, state)
-                    if rxn:
-                        apply_effects(rxn, state)
-
-        for sec in secrets:
-            if eval_script(sec.get("acceptability_script", True), state):
-                secret_hits[sec["id"]] += 1
-
-        best_end, best_d = None, -999
-        for end in endings:
-            if eval_script(end.get("acceptability_script", True), state):
-                d = eval_script(end.get("desirability_script", 0), state)
-                if isinstance(d, bool): d = 1.0 if d else 0.0
-                if d > best_d:
-                    best_d, best_end = d, end
-
-        if best_end:
-            ending_counts[best_end["id"]] += 1
-        else:
+        end_id, turns, state = run_episode(data, rng)
+        if end_id in ("DEAD_END", "TIMEOUT"):
             dead_ends += 1
-            ending_counts["DEAD_END"] += 1
+            ending_counts[end_id] += 1
+        else:
+            ending_counts[end_id] += 1
+            if end_id.startswith("page_secret_"):
+                secret_hits[end_id] += 1
 
         for (char, prop), val in state.items():
             key = f"{char}.{prop}"
@@ -211,7 +177,7 @@ def run_monte_carlo(data, num_runs=10000, seed=42):
             prop_sq[key] += val * val
 
     return {
-        "chain_length": len(chain),
+        "chain_length": 0,
         "num_endings": len(endings),
         "num_secrets": len(secrets),
         "num_runs": num_runs,
