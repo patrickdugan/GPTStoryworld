@@ -3,9 +3,14 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
+- page_end_legend: 47.0%
+- page_end_regret: 31.1%
+- page_end_templar: 21.9%
+- DEAD_END: 0.0%
 
 ## Tuning Notes
-- No endings parsed; check Monte Carlo output format.
+- page_end_legend too high: raise acceptability or lower desirability.
+- page_end_regret too high: raise acceptability or lower desirability.
 
 ## Raw Monte Carlo Output
 ```
@@ -15,14 +20,11 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_templar                      1390 ( 27.8%) #############
-  page_end_convert                      1331 ( 26.6%) #############
-  page_end_regret                       1112 ( 22.2%) ###########
-  page_end_legend                        912 ( 18.2%) #########
-  DEAD_END                               154 (  3.1%) #
-  page_end_hattin                        101 (  2.0%) #
+  page_end_legend                       2349 ( 47.0%) #######################
+  page_end_regret                       1555 ( 31.1%) ###############
+  page_end_templar                      1096 ( 21.9%) ##########
 
-  Dead-end rate: 154/5000 (3.1%)
+  Dead-end rate: 0/5000 (0.0%)
 
 --- Late-Game Gate Blocking ---
 
@@ -30,12 +32,14 @@ MONTE CARLO RESULTS (5000 runs)
   None reachable
 
 --- Property Distributions ---
-  char_player.Faith_Doubt                        mean=+0.0389  std=0.0227
-  char_player.Honor_Expediency                   mean=+0.0252  std=0.0269
-  char_player.Loyalty_Betrayal                   mean=+0.0284  std=0.0199
-  char_player.pFaith_Doubt                       mean=+0.0030  std=0.0054
-  char_player.pHonor_Expediency                  mean=+0.0010  std=0.0053
-  char_player.pLoyalty_Betrayal                  mean=+0.0030  std=0.0050
+  char_player.Faith_Doubt                        mean=+0.1885  std=0.0283
+  char_player.Honor_Expediency                   mean=+0.0800  std=0.0319
+  char_player.Loyalty_Betrayal                   mean=+0.1585  std=0.0284
+  char_player.pFaith_Doubt                       mean=+0.0018  std=0.0047
+  char_player.pHonor_Expediency                  mean=-0.0001  std=0.0035
+  char_player.pLoyalty_Betrayal                  mean=+0.0020  std=0.0041
 
 --- Unreachable Endings ---
+  page_end_convert
+  page_end_hattin
 ```

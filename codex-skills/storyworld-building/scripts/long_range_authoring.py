@@ -13,13 +13,13 @@ def parse_distribution(output):
     dist = []
     dead_end = None
     for line in output.splitlines():
-        if "DEAD_END" in line:
-            m = re.search(r"\\((\\s*[0-9.]+)%\\)", line)
+        if "DEAD_END" in line or "Dead-end rate" in line:
+            m = re.search(r"\((\s*[0-9.]+)%\)", line)
             if m:
                 dead_end = float(m.group(1))
         if "page_end_" in line:
             name_match = re.search(r"(page_end_[A-Za-z0-9_]+)", line)
-            pct_match = re.search(r"\\((\\s*[0-9.]+)%\\)", line)
+            pct_match = re.search(r"\((\s*[0-9.]+)%\)", line)
             if name_match and pct_match:
                 dist.append((name_match.group(1), float(pct_match.group(1))))
     return dist, dead_end
