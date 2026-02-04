@@ -3,16 +3,15 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_legend: 59.1%
-- page_end_exile: 21.1%
-- page_end_betray_salahudin: 14.2%
-- page_end_suhrawardi: 3.8%
-- page_end_regret: 0.6%
-- page_end_templar: 0.6%
+- page_end_suhrawardi: 75.6%
+- page_end_exile: 16.4%
+- page_end_betray_salahudin: 6.8%
+- page_end_regret: 0.4%
+- page_end_templar: 0.2%
 - DEAD_END: 0.6%
 
 ## Tuning Notes
-- page_end_legend too high: raise acceptability or lower desirability.
+- page_end_suhrawardi too high: raise acceptability or lower desirability.
 - page_end_regret too low: lower acceptability or raise desirability.
 - page_end_templar too low: lower acceptability or raise desirability.
 
@@ -24,20 +23,19 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_legend                       2954 ( 59.1%) #############################
-  page_end_exile                        1055 ( 21.1%) ##########
-  page_end_betray_salahudin              712 ( 14.2%) #######
-  page_end_suhrawardi                    191 (  3.8%) #
-  page_end_regret                         30 (  0.6%) 
-  page_end_templar                        29 (  0.6%) 
-  DEAD_END                                29 (  0.6%) 
+  page_end_suhrawardi                   3781 ( 75.6%) #####################################
+  page_end_exile                         818 ( 16.4%) ########
+  page_end_betray_salahudin              339 (  6.8%) ###
+  DEAD_END                                28 (  0.6%) 
+  page_end_regret                         22 (  0.4%) 
+  page_end_templar                        12 (  0.2%) 
 
-  Dead-end rate: 29/5000 (0.6%)
+  Dead-end rate: 28/5000 (0.6%)
 
 --- Late-Game Gate Blocking ---
 
 --- Secret Reachability ---
-  page_secret_mureed                          392 (7.8%)
+  page_secret_mureed                          177 (3.5%)
 
 --- Property Distributions ---
   char_player.Faith_Doubt                        mean=+0.2284  std=0.0439
@@ -50,6 +48,7 @@ MONTE CARLO RESULTS (5000 runs)
 --- Unreachable Endings ---
   page_end_convert
   page_end_hattin
+  page_end_legend
   page_end_salahudin
   page_end_betray_suhrawardi
 ```
