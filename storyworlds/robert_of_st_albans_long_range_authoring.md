@@ -3,14 +3,18 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_regret: 97.6%
-- page_end_betray_salahudin: 2.1%
-- page_end_salahudin: 0.3%
-- DEAD_END: 0.0%
+- page_end_legend: 59.1%
+- page_end_exile: 21.1%
+- page_end_betray_salahudin: 14.2%
+- page_end_suhrawardi: 3.8%
+- page_end_regret: 0.6%
+- page_end_templar: 0.6%
+- DEAD_END: 0.6%
 
 ## Tuning Notes
-- page_end_regret too high: raise acceptability or lower desirability.
-- page_end_salahudin too low: lower acceptability or raise desirability.
+- page_end_legend too high: raise acceptability or lower desirability.
+- page_end_regret too low: lower acceptability or raise desirability.
+- page_end_templar too low: lower acceptability or raise desirability.
 
 ## Raw Monte Carlo Output
 ```
@@ -20,17 +24,20 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_regret                       4879 ( 97.6%) ################################################
-  page_end_betray_salahudin              103 (  2.1%) #
-  page_end_salahudin                      17 (  0.3%) 
-  DEAD_END                                 1 (  0.0%) 
+  page_end_legend                       2954 ( 59.1%) #############################
+  page_end_exile                        1055 ( 21.1%) ##########
+  page_end_betray_salahudin              712 ( 14.2%) #######
+  page_end_suhrawardi                    191 (  3.8%) #
+  page_end_regret                         30 (  0.6%) 
+  page_end_templar                        29 (  0.6%) 
+  DEAD_END                                29 (  0.6%) 
 
-  Dead-end rate: 1/5000 (0.0%)
+  Dead-end rate: 29/5000 (0.6%)
 
 --- Late-Game Gate Blocking ---
 
 --- Secret Reachability ---
-  page_secret_mureed                          817 (16.3%)
+  page_secret_mureed                          392 (7.8%)
 
 --- Property Distributions ---
   char_player.Faith_Doubt                        mean=+0.2284  std=0.0439
@@ -41,11 +48,8 @@ MONTE CARLO RESULTS (5000 runs)
   char_player.pLoyalty_Betrayal                  mean=+0.0019  std=0.0041
 
 --- Unreachable Endings ---
-  page_end_templar
   page_end_convert
   page_end_hattin
-  page_end_legend
-  page_end_exile
-  page_end_suhrawardi
+  page_end_salahudin
   page_end_betray_suhrawardi
 ```
