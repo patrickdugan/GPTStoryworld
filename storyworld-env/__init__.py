@@ -1200,6 +1200,10 @@ def benchmark_targets() -> Dict[str, float]:
         "gated_ratio_min": 0.03,
         "gated_ratio_max": 0.05,
         "major_turns_min": 1.0,
+        "ending_entropy_min": 1.5,
+        "ending_entropy_soft_min": 1.2,
+        "secret_reachability_max": 0.08,
+        "ending_effective_min": 4.0,
     }
 
 
@@ -1211,8 +1215,20 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
     if total and report["ending_counts"]:
         max_share = max(report["ending_counts"].values()) / total
         min_share = min(report["ending_counts"].values()) / total
+        # Shannon entropy over ending distribution
+        import math
+        entropy = 0.0
+        for count in report["ending_counts"].values():
+            if count <= 0:
+                continue
+            p = count / total
+            entropy -= p * math.log(p + 1e-12, 2)
+        # Effective number of endings
+        effective = 2 ** entropy if entropy > 0 else 0.0
     else:
         max_share, min_share = 1.0, 0.0
+        entropy = 0.0
+        effective = 0.0
     late_block = (report["late_blocks"] / report["late_total"]) if report["late_total"] else 0.0
     secret_reach = (report.get("secret_any", 0) / total) if total else 0.0
     secret_gate_quality = SweepweaveValidator.compute_secret_gate_quality(data)
@@ -1223,6 +1239,8 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         "dead_end_rate": dead_end_rate,
         "max_ending_share": max_share,
         "min_ending_share": min_share,
+        "ending_entropy": entropy,
+        "ending_effective": effective,
         "late_block_rate": late_block,
         "secret_reachability": secret_reach,
         "secret_gate_quality": secret_gate_quality,
@@ -1241,9 +1259,12 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and metrics["min_ending_share"] >= targets["min_ending_share_min"]
         and (not late_applicable or (targets["late_block_min"] <= metrics["late_block_rate"] <= targets["late_block_max"]))
         and metrics["secret_reachability"] >= targets["secret_reachability_min"]
+        and metrics["secret_reachability"] <= targets["secret_reachability_max"]
         and metrics.get("secret_gate_quality", 0.0) >= targets["secret_gate_quality_min"]
         and metrics.get("gated_ratio_score", 0.0) >= 0.8
         and metrics.get("major_turn_quality", 0.0) >= targets["major_turns_min"]
+        and metrics.get("ending_entropy", 0.0) >= targets["ending_entropy_soft_min"]
+        and metrics.get("ending_effective", 0.0) >= targets["ending_effective_min"]
     )
 
 

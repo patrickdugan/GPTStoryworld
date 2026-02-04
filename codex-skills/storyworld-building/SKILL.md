@@ -30,6 +30,7 @@ Load the matching task file when the user requests one of these actions, then fo
 - Production-quality floor: `references/PRODUCTION_QUALITY.md`
 - Secret ending gates: `references/SECRET_ENDINGS.md`
 - Multi-path gate analysis: `references/MULTIPLE_PATHS.md`
+- Multi-variant balancing: `references/MULTI_VARIANT_BALANCING.md`
 
 ## Core Scripts (scripts/)
 Use these tools to make deterministic, validated edits:
@@ -38,6 +39,7 @@ Use these tools to make deterministic, validated edits:
 - `monte_carlo_rehearsal.py`, `late_stage_balance.py`, `ending_reachability_balance.py`, `late_stage_tail_tuning.py`, `long_range_authoring.py`
 - `secret_endings_gates.py`
 - `multiple_paths.py`
+- `multi_variant_balance.py`
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
 
 ## References
@@ -49,6 +51,7 @@ Use these tools to make deterministic, validated edits:
 - `references/PRODUCTION_QUALITY.md` for minimum production-ready requirements
 - `references/SECRET_ENDINGS.md` for gated secret ending patterns and checks
 - `references/MULTIPLE_PATHS.md` for analyzing which paths satisfy gate thresholds
+- `references/MULTI_VARIANT_BALANCING.md` for multi-seed ending stability
 - `references/Storyworld.gd` for engine-side expectations
 - `references/meta-calc.js` for calculation logic
 - Use `C:/projects/GPTStoryworld/ideaFactory/tropes/*.md` and `C:/projects/GPTStoryworld/ideaFactory/sources/*.md` for diversity overlays and math heuristics.
