@@ -19401,23 +19401,29 @@
         "value": "You convert, but doubt never stops following you. You are neither fully inside nor outside."
       },
       "acceptability_script": {
-        "operator_type": "Arithmetic Comparator",
-        "operator_subtype": "Greater Than or Equal To",
+        "operator_type": "And",
         "script_element_type": "Operator",
         "operands": [
           {
-            "pointer_type": "Bounded Number Pointer",
-            "script_element_type": "Pointer",
-            "character": "char_player",
-            "keyring": [
-              "Faith_Doubt"
-            ],
-            "coefficient": 1.0
-          },
-          {
-            "pointer_type": "Bounded Number Constant",
-            "script_element_type": "Pointer",
-            "value": 0.045
+            "operator_type": "Arithmetic Comparator",
+            "operator_subtype": "Greater Than or Equal To",
+            "script_element_type": "Operator",
+            "operands": [
+              {
+                "pointer_type": "Bounded Number Pointer",
+                "script_element_type": "Pointer",
+                "character": "char_player",
+                "keyring": [
+                  "Faith_Doubt"
+                ],
+                "coefficient": 1.0
+              },
+              {
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer",
+                "value": 0.065
+              }
+            ]
           }
         ]
       },
@@ -19437,7 +19443,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.38
+            "value": 0.28
           }
         ]
       },
@@ -19591,7 +19597,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.035
+                "value": 0.055
               }
             ]
           },
@@ -19612,55 +19618,29 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.02
+                "value": 0.04
               }
             ]
           }
         ]
       },
       "desirability_script": {
-        "operator_type": "Addition",
+        "operator_type": "Multiplication",
         "script_element_type": "Operator",
         "operands": [
           {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.28
-              }
-            ]
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Faith_Doubt"
+            ],
+            "coefficient": 1.0
           },
           {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.22
-              }
-            ]
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.22
           }
         ]
       },
@@ -22208,7 +22188,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.055
+                "value": 0.065
               }
             ]
           },
@@ -22229,7 +22209,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.035
+                "value": 0.045
               }
             ]
           }
@@ -22251,7 +22231,7 @@
           {
             "pointer_type": "Bounded Number Constant",
             "script_element_type": "Pointer",
-            "value": 0.32
+            "value": 0.22
           }
         ]
       },
@@ -22301,7 +22281,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.045
+                "value": 0.038
               }
             ]
           },
@@ -22394,7 +22374,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.085
+                "value": 0.16
               }
             ]
           },
@@ -22415,55 +22395,29 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.06
+                "value": 0.12
               }
             ]
           }
         ]
       },
       "desirability_script": {
-        "operator_type": "Addition",
+        "operator_type": "Multiplication",
         "script_element_type": "Operator",
         "operands": [
           {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Faith_Doubt"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.22
-              }
-            ]
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Faith_Doubt"
+            ],
+            "coefficient": 1.0
           },
           {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.2
-              }
-            ]
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.08
           }
         ]
       },
@@ -22632,7 +22586,7 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.06
+                "value": 0.075
               }
             ]
           },
@@ -22653,55 +22607,29 @@
               {
                 "pointer_type": "Bounded Number Constant",
                 "script_element_type": "Pointer",
-                "value": 0.05
+                "value": 0.06
               }
             ]
           }
         ]
       },
       "desirability_script": {
-        "operator_type": "Addition",
+        "operator_type": "Multiplication",
         "script_element_type": "Operator",
         "operands": [
           {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Loyalty_Betrayal"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.3
-              }
-            ]
+            "pointer_type": "Bounded Number Pointer",
+            "script_element_type": "Pointer",
+            "character": "char_player",
+            "keyring": [
+              "Loyalty_Betrayal"
+            ],
+            "coefficient": 1.0
           },
           {
-            "operator_type": "Multiplication",
-            "script_element_type": "Operator",
-            "operands": [
-              {
-                "pointer_type": "Bounded Number Pointer",
-                "script_element_type": "Pointer",
-                "character": "char_player",
-                "keyring": [
-                  "Honor_Expediency"
-                ],
-                "coefficient": 1.0
-              },
-              {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.25
-              }
-            ]
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer",
+            "value": 0.22
           }
         ]
       },

@@ -3,14 +3,14 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_regret: 57.6%
-- page_end_legend: 22.3%
-- page_end_betray_salahudin: 12.9%
-- page_end_templar: 7.2%
+- page_end_regret: 48.7%
+- page_end_templar: 45.1%
+- page_end_convert: 6.2%
 - DEAD_END: 0.0%
 
 ## Tuning Notes
 - page_end_regret too high: raise acceptability or lower desirability.
+- page_end_templar too high: raise acceptability or lower desirability.
 
 ## Raw Monte Carlo Output
 ```
@@ -20,17 +20,16 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_regret                       2882 ( 57.6%) ############################
-  page_end_legend                       1113 ( 22.3%) ###########
-  page_end_betray_salahudin              643 ( 12.9%) ######
-  page_end_templar                       362 (  7.2%) ###
+  page_end_regret                       2435 ( 48.7%) ########################
+  page_end_templar                      2257 ( 45.1%) ######################
+  page_end_convert                       308 (  6.2%) ###
 
   Dead-end rate: 0/5000 (0.0%)
 
 --- Late-Game Gate Blocking ---
 
 --- Secret Reachability ---
-  page_secret_mureed                         3081 (61.6%)
+  page_secret_mureed                          504 (10.1%)
 
 --- Property Distributions ---
   char_player.Faith_Doubt                        mean=+0.1910  std=0.0303
@@ -41,10 +40,11 @@ MONTE CARLO RESULTS (5000 runs)
   char_player.pLoyalty_Betrayal                  mean=+0.0019  std=0.0041
 
 --- Unreachable Endings ---
-  page_end_convert
   page_end_hattin
+  page_end_legend
   page_end_exile
   page_end_suhrawardi
   page_end_salahudin
   page_end_betray_suhrawardi
+  page_end_betray_salahudin
 ```
