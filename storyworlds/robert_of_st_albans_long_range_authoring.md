@@ -3,18 +3,17 @@
 Runs: 5000 | Seed: 42
 
 ## Ending Distribution
-- page_end_suhrawardi: 70.7%
-- page_end_convert: 6.6%
-- page_end_regret: 4.7%
-- page_end_exile: 0.9%
-- page_end_betray_salahudin: 0.1%
-- DEAD_END: 17.0%
+- page_end_exile: 13.0%
+- page_end_betray_salahudin: 11.1%
+- page_end_regret: 2.9%
+- page_end_suhrawardi: 0.3%
+- page_end_convert: 0.2%
+- DEAD_END: 72.5%
 
 ## Tuning Notes
 - Dead-end rate high: widen fallback ending gate.
-- page_end_suhrawardi too high: raise acceptability or lower desirability.
-- page_end_exile too low: lower acceptability or raise desirability.
-- page_end_betray_salahudin too low: lower acceptability or raise desirability.
+- page_end_suhrawardi too low: lower acceptability or raise desirability.
+- page_end_convert too low: lower acceptability or raise desirability.
 
 ## Raw Monte Carlo Output
 ```
@@ -24,14 +23,14 @@ MONTE CARLO RESULTS (5000 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_suhrawardi                   3534 ( 70.7%) ###################################
-  DEAD_END                               851 ( 17.0%) ########
-  page_end_convert                       329 (  6.6%) ###
-  page_end_regret                        236 (  4.7%) ##
-  page_end_exile                          47 (  0.9%) 
-  page_end_betray_salahudin                3 (  0.1%) 
+  DEAD_END                              3625 ( 72.5%) ####################################
+  page_end_exile                         649 ( 13.0%) ######
+  page_end_betray_salahudin              554 ( 11.1%) #####
+  page_end_regret                        146 (  2.9%) #
+  page_end_suhrawardi                     15 (  0.3%) 
+  page_end_convert                        11 (  0.2%) 
 
-  Dead-end rate: 851/5000 (17.0%)
+  Dead-end rate: 3625/5000 (72.5%)
 
 --- Late-Game Gate Blocking ---
 
