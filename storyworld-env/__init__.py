@@ -310,6 +310,57 @@ class SweepweaveValidator:
         if gated_options == 0:
             return 0.0
         return gated_ok / gated_options
+
+    @staticmethod
+    def _reaction_has_flip_or_blend(rxn: Dict[str, Any]) -> bool:
+        desirability = rxn.get("desirability_script")
+        blend = False
+        if isinstance(desirability, dict) and desirability.get("script_element_type") == "Operator":
+            op_type = desirability.get("operator_type")
+            operands = desirability.get("operands", [])
+            if op_type in ("Addition", "Multiplication") and len(operands) >= 2:
+                if any(SweepweaveValidator._script_has_variable_pointer(op) for op in operands):
+                    blend = True
+
+        effects = rxn.get("after_effects", [])
+        deltas = []
+        for eff in effects:
+            to = eff.get("to", {})
+            if isinstance(to, dict) and to.get("operator_type") == "Nudge":
+                ops = to.get("operands", [])
+                for op in ops:
+                    if isinstance(op, dict) and op.get("pointer_type") == "Bounded Number Constant":
+                        try:
+                            deltas.append(float(op.get("value", 0.0)))
+                        except (TypeError, ValueError):
+                            pass
+        flip = any(d >= 0.03 for d in deltas) and any(d <= -0.02 for d in deltas)
+        return blend or flip
+
+    @staticmethod
+    def compute_major_turn_quality(data: Dict[str, Any]) -> float:
+        """Score presence of Act II/III gated options with flip/blend reactions."""
+        act2_ok = False
+        act3_ok = False
+        for enc in data.get("encounters", []):
+            spools = enc.get("connected_spools", [])
+            in_act2 = any("act2" in s for s in spools)
+            in_act3 = any("act3" in s for s in spools)
+            if not (in_act2 or in_act3):
+                continue
+            for opt in enc.get("options", []):
+                vis = opt.get("visibility_script")
+                if not (vis and isinstance(vis, dict) and vis.get("pointer_type") != "Boolean Constant"):
+                    continue
+                for rxn in opt.get("reactions", []):
+                    if SweepweaveValidator._reaction_has_flip_or_blend(rxn):
+                        if in_act2:
+                            act2_ok = True
+                        if in_act3:
+                            act3_ok = True
+                if act2_ok and act3_ok:
+                    break
+        return 1.0 if (act2_ok and act3_ok) else 0.5 if (act2_ok or act3_ok) else 0.0
     
     @staticmethod
     def compute_gating_score(data: Dict[str, Any]) -> float:
@@ -330,9 +381,18 @@ class SweepweaveValidator:
         if total_options == 0:
             return 0.0
         
-        # Reward some gating but not over-gating
+        # Reward narrow gating ratio (3-5%)
         ratio = gated_options / total_options
-        return min(ratio * 2, 1.0)  # Optimal around 50% gating
+        if ratio <= 0.0:
+            return 0.0
+        if ratio < 0.03:
+            return max(0.0, ratio / 0.03)
+        if ratio <= 0.05:
+            return 1.0
+        if ratio >= 0.12:
+            return 0.0
+        # Linear falloff between 5% and 12%
+        return max(0.0, 1.0 - ((ratio - 0.05) / 0.07))
     
     @staticmethod
     def compute_ending_diversity(data: Dict[str, Any]) -> float:
@@ -1005,6 +1065,20 @@ def reward_secret_gate_quality(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_major_turns(prompt, completion, info) -> float:
+    """Reward: 0-1 based on Act II/III gated flip/blend turning points."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_major_turn_quality(data)
+    except:
+        return 0.0
+
+
 def reward_multiple_endings(prompt, completion, info) -> float:
     """Reward: 0-1 based on number of distinct endings"""
     try:
@@ -1123,6 +1197,9 @@ def benchmark_targets() -> Dict[str, float]:
         "late_block_max": 0.30,
         "secret_reachability_min": 0.02,
         "secret_gate_quality_min": 0.30,
+        "gated_ratio_min": 0.03,
+        "gated_ratio_max": 0.05,
+        "major_turns_min": 1.0,
     }
 
 
@@ -1139,6 +1216,8 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
     late_block = (report["late_blocks"] / report["late_total"]) if report["late_total"] else 0.0
     secret_reach = (report.get("secret_any", 0) / total) if total else 0.0
     secret_gate_quality = SweepweaveValidator.compute_secret_gate_quality(data)
+    gating_ratio = SweepweaveValidator.compute_gating_score(data)
+    major_turn_quality = SweepweaveValidator.compute_major_turn_quality(data)
     late_block_applicable = report["late_total"] > 0
     return {
         "dead_end_rate": dead_end_rate,
@@ -1147,6 +1226,8 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         "late_block_rate": late_block,
         "secret_reachability": secret_reach,
         "secret_gate_quality": secret_gate_quality,
+        "gated_ratio_score": gating_ratio,
+        "major_turn_quality": major_turn_quality,
         "late_block_applicable": 1.0 if late_block_applicable else 0.0,
     }
 
@@ -1161,6 +1242,8 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and (not late_applicable or (targets["late_block_min"] <= metrics["late_block_rate"] <= targets["late_block_max"]))
         and metrics["secret_reachability"] >= targets["secret_reachability_min"]
         and metrics.get("secret_gate_quality", 0.0) >= targets["secret_gate_quality_min"]
+        and metrics.get("gated_ratio_score", 0.0) >= 0.8
+        and metrics.get("major_turn_quality", 0.0) >= targets["major_turns_min"]
     )
 
 
@@ -1209,6 +1292,7 @@ def load_environment(
             reward_effect_diversity,     # Diverse Dirac operators
             reward_secret_paths,         # Gated options
             reward_secret_gate_quality,  # Gated options with variable desirability
+            reward_major_turns,          # Act II/III flip/blend turning points
             reward_multiple_endings,     # Multiple terminal states
             reward_dead_end_rate,        # Monte Carlo dead-end rate
             reward_ending_balance,       # Ending distribution balance
@@ -1223,6 +1307,7 @@ def load_environment(
             0.5,   # Effect diversity (nice to have)
             0.5,   # Secret paths (nice to have)
             0.6,   # Secret gate quality (accumulated thresholds)
+            0.6,   # Major Act II/III turn quality
             0.5,   # Multiple endings (nice to have)
             0.5,   # Dead-end rate (should be low)
             0.5,   # Ending balance (avoid dominance)

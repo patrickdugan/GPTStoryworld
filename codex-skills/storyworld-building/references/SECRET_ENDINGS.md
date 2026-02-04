@@ -22,6 +22,19 @@ reaction that provides a meaningful effect boost or spool trigger.
 - Each reaction must apply >= 3 after_effects with meaningful Nudges.
 - One reaction should give a higher boost or trigger a spool change.
 
+## Gated Option Ratio
+- Target gated options: 3–5% of all options.
+- Avoid over-gating: too many gated options will flatten exploration.
+
+## Major Act II/III Turning Point
+- Include one major Act II and one major Act III gated option->reaction.
+- Each should use math that flips or blends values to reduce metric distance
+  toward a different ending (e.g., a late reversal).
+- Examples:
+  - Blend: desirability uses Addition/Multiplication across 2–3 variables.
+  - Flip: a reaction applies both a strong positive Nudge to one axis and
+    a countervailing negative Nudge to another, shifting ending eligibility.
+
 ## Threshold Guidance
 - Use thresholds in the 0.02–0.08 range for bounded numbers (tune per world).
 - A single variable gate can be higher (e.g., 0.08).
