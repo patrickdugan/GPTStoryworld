@@ -43,6 +43,8 @@ Use these tools to make deterministic, validated edits:
 - `references/LONG_RANGE_AUTHORING.md` for long-range balancing loops
 - `references/Storyworld.gd` for engine-side expectations
 - `references/meta-calc.js` for calculation logic
+- Use `C:/projects/GPTStoryworld/ideaFactory/tropes/*.md` and `C:/projects/GPTStoryworld/ideaFactory/sources/*.md` for diversity overlays and math heuristics.
+- Use `C:/projects/GPTStoryworld/ideaFactory/tropes/overlays.md` for myth-to-math mappings.
 
 ## Validation Rule
 Never bypass `scripts/sweepweave_validator.py` when the task touches storyworld JSON.
