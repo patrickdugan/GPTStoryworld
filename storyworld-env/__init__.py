@@ -214,6 +214,28 @@ class SweepweaveValidator:
                     score += 1.0
                 else:
                     score += avg_opts / requirements["min_options_per_encounter"]
+
+        # Reactions per option
+        if "min_reactions_per_option" in requirements:
+            max_score += 1.0
+            options = [o for e in data.get("encounters", []) for o in e.get("options", [])]
+            if options:
+                avg_rxn = sum(len(o.get("reactions", [])) for o in options) / len(options)
+                if avg_rxn >= requirements["min_reactions_per_option"]:
+                    score += 1.0
+                else:
+                    score += avg_rxn / requirements["min_reactions_per_option"]
+
+        # Effects per reaction
+        if "min_effects_per_reaction" in requirements:
+            max_score += 1.0
+            reactions = [r for e in data.get("encounters", []) for o in e.get("options", []) for r in o.get("reactions", [])]
+            if reactions:
+                avg_eff = sum(len(r.get("after_effects", []) or []) for r in reactions) / len(reactions)
+                if avg_eff >= requirements["min_effects_per_reaction"]:
+                    score += 1.0
+                else:
+                    score += avg_eff / requirements["min_effects_per_reaction"]
         
         return score / max_score if max_score > 0 else 0.0
     
@@ -495,6 +517,84 @@ class SweepweaveValidator:
             if has_distance and vars_count >= 2:
                 ok += 1
         return ok / len(secrets)
+
+    @staticmethod
+    def _is_transition_encounter(enc: Dict[str, Any]) -> bool:
+        eid = (enc.get("id") or "").lower()
+        title = (enc.get("title") or "").lower()
+        return eid.startswith("page_transition_") or "transition" in title
+
+    @staticmethod
+    def compute_min_spec_compliance(
+        data: Dict[str, Any],
+        min_options: int = 3,
+        min_reactions: int = 2,
+        min_effects: int = 4,
+    ) -> float:
+        """Fraction of non-ending, non-transition encounters meeting min spec."""
+        encounters = data.get("encounters", [])
+        eligible = 0
+        ok = 0
+        for enc in encounters:
+            eid = enc.get("id", "")
+            if eid.startswith("page_end_") or eid.startswith("page_secret_"):
+                continue
+            if SweepweaveValidator._is_transition_encounter(enc):
+                continue
+            eligible += 1
+            options = enc.get("options", []) or []
+            if len(options) < min_options:
+                continue
+            reactions_ok = True
+            effects_ok = True
+            for opt in options:
+                reactions = opt.get("reactions", []) or []
+                if len(reactions) < min_reactions:
+                    reactions_ok = False
+                    break
+                for rxn in reactions:
+                    if len(rxn.get("after_effects", []) or []) < min_effects:
+                        effects_ok = False
+                        break
+                if not reactions_ok or not effects_ok:
+                    break
+            if reactions_ok and effects_ok:
+                ok += 1
+        if eligible == 0:
+            return 0.0
+        return ok / eligible
+
+    @staticmethod
+    def compute_text_length_compliance(
+        data: Dict[str, Any],
+        encounter_min: int = 50,
+        encounter_max: int = 300,
+        reaction_min: int = 20,
+        reaction_max: int = 150,
+    ) -> float:
+        """Fraction of encounter/reaction texts within word-count ranges."""
+        def count_words(text: str) -> int:
+            return len([w for w in text.split() if w.strip()])
+
+        encounters = data.get("encounters", [])
+        total = 0
+        ok = 0
+        for enc in encounters:
+            text = enc.get("text_script", {}).get("value", "") if isinstance(enc.get("text_script"), dict) else ""
+            wc = count_words(text)
+            total += 1
+            if encounter_min <= wc <= encounter_max:
+                ok += 1
+            for opt in enc.get("options", []) or []:
+                for rxn in opt.get("reactions", []) or []:
+                    rtext = rxn.get("text_script", {}).get("value", "") if isinstance(rxn.get("text_script"), dict) else ""
+                    rwc = count_words(rtext)
+                    total += 1
+                    if reaction_min <= rwc <= reaction_max:
+                        ok += 1
+        if total == 0:
+            return 0.0
+        return ok / total
     
     @staticmethod
     def compute_gating_score(data: Dict[str, Any]) -> float:
@@ -895,11 +995,12 @@ THEMES: {', '.join(themes)}
 REQUIREMENTS:
 - {num_characters} characters with distinct personalities
 - {num_properties} character property axes: {', '.join(property_list)}
-- {num_encounters} interconnected encounters
+- Infer encounter count from the setting and spools (do not state a fixed number); ensure it meets the minimum required for structural completeness
 - {num_spools} narrative spools controlling encounter availability
-- Each encounter has 2-3 options
-- Each option has 1-3 reactions with different consequences
-- Each reaction has after_effects modifying character properties
+- Each non-ending, non-transition encounter has at least 3 options
+- Each option has at least 2 reactions with different consequences
+- Each reaction has at least 4 after_effects modifying character properties
+- Encounter descriptions are 50-300 words; reaction texts are 20-150 words
 - Multiple endings (2-5 distinct terminal states)
 - Some options should be gated by character property conditions
 
@@ -1040,9 +1141,9 @@ STRUCTURE TEMPLATE:
   ],
   "unique_id_seeds": {{
     "character": {num_characters},
-    "encounter": {num_encounters},
-    "option": {num_encounters * 2},
-    "reaction": {num_encounters * 4},
+    "encounter": "[auto]",
+    "option": "[auto]",
+    "reaction": "[auto]",
     "spool": {num_spools},
     "authored_property": {num_properties * 2}
   }}
@@ -1085,7 +1186,9 @@ def create_dataset(
             "min_characters": num_chars,
             "min_encounters": num_encs,
             "min_spools": num_spools,
-            "min_options_per_encounter": 2,
+            "min_options_per_encounter": 3,
+            "min_reactions_per_option": 2,
+            "min_effects_per_reaction": 4,
         }
         
         prompts.append(prompt)
@@ -1165,6 +1268,34 @@ def reward_effect_diversity(prompt, completion, info) -> float:
         
         data = json.loads(text.strip())
         return SweepweaveValidator.compute_effect_diversity(data)
+    except:
+        return 0.0
+
+
+def reward_min_spec_compliance(prompt, completion, info) -> float:
+    """Reward: 0-1 based on min options/reactions/effects per non-ending encounter."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_min_spec_compliance(data)
+    except:
+        return 0.0
+
+
+def reward_text_length_compliance(prompt, completion, info) -> float:
+    """Reward: 0-1 based on encounter/reaction word counts."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_text_length_compliance(data)
     except:
         return 0.0
 
@@ -1453,6 +1584,8 @@ def benchmark_targets() -> Dict[str, float]:
         "act3_gate_pct_min": 8.0,
         "act3_gate_vars_min": 1.5,
         "secret_metric_distance_min": 1.0,
+        "min_spec_compliance_min": 1.0,
+        "text_length_compliance_min": 1.0,
     }
 
 
@@ -1492,6 +1625,8 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
     act2_pct, act2_vars = act_stats["act2"]
     act3_pct, act3_vars = act_stats["act3"]
     secret_metric_distance = SweepweaveValidator.compute_secret_metric_distance_quality(data)
+    min_spec_compliance = SweepweaveValidator.compute_min_spec_compliance(data)
+    text_length_compliance = SweepweaveValidator.compute_text_length_compliance(data)
     return {
         "dead_end_rate": dead_end_rate,
         "max_ending_share": max_share,
@@ -1513,6 +1648,8 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         "act3_gate_pct": act3_pct,
         "act3_gate_vars": act3_vars,
         "secret_metric_distance": secret_metric_distance,
+        "min_spec_compliance": min_spec_compliance,
+        "text_length_compliance": text_length_compliance,
     }
 
 
@@ -1540,6 +1677,8 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and metrics.get("act3_gate_pct", 0.0) >= targets["act3_gate_pct_min"]
         and metrics.get("act3_gate_vars", 0.0) >= targets["act3_gate_vars_min"]
         and metrics.get("secret_metric_distance", 0.0) >= targets["secret_metric_distance_min"]
+        and metrics.get("min_spec_compliance", 0.0) >= targets["min_spec_compliance_min"]
+        and metrics.get("text_length_compliance", 0.0) >= targets["text_length_compliance_min"]
     )
 
 
@@ -1586,6 +1725,8 @@ def load_environment(
             reward_schema_soft,          # Soft penalty for missing fields
             reward_structural_completeness,  # Must meet size requirements
             reward_effect_diversity,     # Diverse Dirac operators
+            reward_min_spec_compliance,  # Min options/reactions/effects compliance
+            reward_text_length_compliance, # Word-count compliance
             reward_effects_per_reaction, # Effect density per reaction
             reward_reactions_per_option, # Reaction density per option
             reward_options_per_encounter, # Options per encounter
@@ -1608,6 +1749,8 @@ def load_environment(
             0.3,   # Soft schema completeness
             1.0,   # Structural completeness
             0.5,   # Effect diversity (nice to have)
+            0.6,   # Min spec compliance
+            0.6,   # Text length compliance
             0.6,   # Effects per reaction
             0.6,   # Reactions per option
             0.6,   # Options per encounter

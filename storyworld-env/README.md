@@ -141,6 +141,8 @@ The environment uses a multi-component reward function:
 | `schema_soft` | 0.3 | Penalize missing pronoun/depth |
 | `structural_completeness` | 1.0 | Meets character/encounter/spool counts |
 | `effect_diversity` | 0.5 | Variety of character property effects |
+| `min_spec_compliance` | 0.6 | Non-ending encounters meet min options/reactions/effects |
+| `text_length_compliance` | 0.6 | Encounter 50-300 words; reaction text 20-150 words |
 | `effects_per_reaction` | 0.6 | Average after-effects per reaction (target 4.5) |
 | `reactions_per_option` | 0.6 | Average reactions per option (target 2.5) |
 | `options_per_encounter` | 0.6 | Average options per encounter (target 3.2) |
@@ -157,7 +159,7 @@ The environment uses a multi-component reward function:
 | `late_blocking` | 0.5 | Late-game blocking target band (10-30%) |
 | `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
-Total maximum reward: **12.5**
+Total maximum reward: **13.7**
 
 ## Ending Gate Sanity Checklist
 
