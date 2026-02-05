@@ -23,3 +23,8 @@ Field conventions:
 Effect density:
 - Each reaction should carry at least two effects, with at least one negative consequence path for refusal/hesitation.
 - Include at least one reaction per turn that mutates both Trust and Threat.
+
+PValue/P2Value layering (short negotiation focus):
+- Use pValues in turns 1-2 to encode direct perceptions (A about B, A about C).
+- Introduce p2Values only in turns 3-4 to encode second-order beliefs (A about B's belief on C).
+- Gate betrayal/defection options on p2Values rather than base properties.

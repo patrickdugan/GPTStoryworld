@@ -53,6 +53,9 @@ Use these tools to make deterministic, validated edits:
 - `references/SECRET_ENDINGS.md` for gated secret ending patterns and checks
 - `references/MULTIPLE_PATHS.md` for analyzing which paths satisfy gate thresholds
 - `references/MULTI_VARIANT_BALANCING.md` for multi-seed ending stability
+- `references/PVALUES.md` for first-order belief pointers
+- `references/P2VALUES.md` for second-order belief pointers
+- `references/NEGOTIATION_PVALUES.md` for 4-turn negotiation templates with pValues/p2Values
 - `references/Storyworld.gd` for engine-side expectations
 - `references/meta-calc.js` for calculation logic
 - Use `C:/projects/GPTStoryworld/ideaFactory/tropes/*.md` and `C:/projects/GPTStoryworld/ideaFactory/sources/*.md` for diversity overlays and math heuristics.
