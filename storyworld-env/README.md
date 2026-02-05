@@ -141,14 +141,23 @@ The environment uses a multi-component reward function:
 | `schema_soft` | 0.3 | Penalize missing pronoun/depth |
 | `structural_completeness` | 1.0 | Meets character/encounter/spool counts |
 | `effect_diversity` | 0.5 | Variety of character property effects |
+| `effects_per_reaction` | 0.6 | Average after-effects per reaction (target 4.5) |
+| `reactions_per_option` | 0.6 | Average reactions per option (target 2.5) |
+| `options_per_encounter` | 0.6 | Average options per encounter (target 3.2) |
+| `desirability_var_usage` | 0.5 | Variables per desirability formula (target 1.6) |
 | `secret_paths` | 0.5 | Options with conditional visibility |
+| `secret_gate_quality` | 0.6 | Gated options with variable desirability and stronger effects |
+| `major_turns` | 0.6 | Act II/III flip/blend turning points |
+| `act2_gating` | 0.5 | Act II gating ratio/variable richness |
+| `act3_gating` | 0.5 | Act III gating ratio/variable richness |
+| `secret_metric_distance` | 0.4 | Secret encounters gated by 2-var metric distance |
 | `multiple_endings` | 0.5 | 2-5 distinct terminal states |
 | `dead_end_rate` | 0.5 | Monte Carlo dead-end rate (<5% target) |
 | `ending_balance` | 0.5 | Ending distribution (avoid dominance) |
 | `late_blocking` | 0.5 | Late-game blocking target band (10-30%) |
 | `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
-Total maximum reward: **8.1**
+Total maximum reward: **12.5**
 
 ## Ending Gate Sanity Checklist
 
