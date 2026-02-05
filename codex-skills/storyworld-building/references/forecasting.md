@@ -34,3 +34,9 @@ Focused harness logging contract:
 - Emit `reasoning_interpret_log` as stepwise inferences from pValues and p2Values.
 - Emit `negotiation_diary` as turn-by-turn coalition/defection rationale with cited variables.
 - For every coalition or defection recommendation, include the exact pointer keyrings that justified it.
+
+Compact manifold contract:
+- Use a fixed-dimension projection for analysis: `N = 5 + pValue_dims + p2Value_dims`.
+- Base 5 dims: coalition count, coalition stability, betrayal surprise, betrayal flag, active party count.
+- Map pValue keyrings (length 2) into the pValue compact block.
+- Map p2Value keyrings (length 3) into the p2Value compact block.

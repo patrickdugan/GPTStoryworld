@@ -164,6 +164,25 @@ The environment uses a multi-component reward function:
 
 Total maximum reward: **15.3**
 
+## Compact Belief Manifold
+
+For focused diplomacy runs, project logs into a fixed-size manifold with explicit compact belief subspaces:
+
+```bash
+python manifold_projection.py \
+  --log logs/diplomacy_run.jsonl \
+  --pvalue-dims 8 \
+  --p2value-dims 8 \
+  --out logs/diplomacy_run.manifold.json
+```
+
+Dimension layout:
+- Base (5): coalition count, coalition mean stability, betrayal surprise, betrayal flag, active party count.
+- Compact pValue block: hash-bucket embedding of keyrings with length 2.
+- Compact p2Value block: hash-bucket embedding of keyrings with length 3.
+
+This keeps global dimensionality stable while preserving high-cardinality belief evidence.
+
 ## Ending Gate Sanity Checklist
 
 If you use a terminal gate encounter (for example `page_endings_gate`), ensure:

@@ -155,6 +155,16 @@ Required artifacts:
 - `negotiation_diary`: turn-by-turn rationale for joining or defecting from coalitions.
 - Each recommendation must cite the variable keyrings used in the inference.
 
+Compact manifold export:
+
+```bash
+python manifold_projection.py \
+  --log logs/diplomacy_run.jsonl \
+  --pvalue-dims 8 \
+  --p2value-dims 8 \
+  --out logs/diplomacy_run.manifold.json
+```
+
 ### Production: Deploy to Prime Intellect
 
 ```bash
