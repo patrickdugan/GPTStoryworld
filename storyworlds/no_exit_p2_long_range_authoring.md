@@ -3,32 +3,32 @@
 Runs: 500 | Seed: 42
 
 ## Ending Distribution
-- page_end_stay: 50.0%
-- page_end_fallback: 50.0%
+- page_end_two_leave: 27.6%
+- page_end_stay: 27.4%
+- page_end_fallback: 24.6%
+- page_end_three_leave: 20.4%
 - DEAD_END: 0.0%
 
 ## Tuning Notes
-- page_end_stay too high: raise acceptability or lower desirability.
-- page_end_fallback too high: raise acceptability or lower desirability.
 
 ## Structural Metrics
-- Effects per reaction: 4.90
-- Reactions per option: 2.86
-- Options per encounter: 3.05
+- Effects per reaction: 6.83
+- Reactions per option: 2.82
+- Options per encounter: 3.21
 - Vars per reaction desirability: 1.95
-- Act II visibility gating: 0.0% (avg vars 0.00, gated 0/36)
-- Act III visibility gating: 0.0% (avg vars 0.00, gated 0/18)
+- Act II visibility gating: 7.9% (avg vars 2.00, gated 3/38)
+- Act III visibility gating: 10.5% (avg vars 2.00, gated 2/19)
 - Secret gate check: no secret encounters found
 
 ## Threshold Checks
-- Effects per reaction: 4.90 (target 4.5) -> OK
-- Reactions per option: 2.86 (target 2.5) -> OK
-- Options per encounter: 3.05 (target 3.2) -> LOW
+- Effects per reaction: 6.83 (target 4.5) -> OK
+- Reactions per option: 2.82 (target 2.5) -> OK
+- Options per encounter: 3.21 (target 3.2) -> OK
 - Vars per reaction desirability: 1.95 (target 1.6) -> OK
-- Act II gated %: 0.00 (target 5.0) -> LOW
-- Act II gated vars: 0.00 (target 1.2) -> LOW
-- Act III gated %: 0.00 (target 8.0) -> LOW
-- Act III gated vars: 0.00 (target 1.5) -> LOW
+- Act II gated %: 7.89 (target 5.0) -> OK
+- Act II gated vars: 2.00 (target 1.2) -> OK
+- Act III gated %: 10.53 (target 8.0) -> OK
+- Act III gated vars: 2.00 (target 1.5) -> OK
 
 ## Raw Monte Carlo Output
 ```
@@ -38,8 +38,10 @@ MONTE CARLO RESULTS (500 runs)
 ======================================================================
 
 --- Ending Distribution ---
-  page_end_stay                          250 ( 50.0%) #########################
-  page_end_fallback                      250 ( 50.0%) #########################
+  page_end_two_leave                     138 ( 27.6%) #############
+  page_end_stay                          137 ( 27.4%) #############
+  page_end_fallback                      123 ( 24.6%) ############
+  page_end_three_leave                   102 ( 20.4%) ##########
 
   Dead-end rate: 0/500 (0.0%)
 
@@ -49,14 +51,12 @@ MONTE CARLO RESULTS (500 runs)
   None reachable
 
 --- Property Distributions ---
-  char_estelle.Compassion_Cruelty                mean=-0.1197  std=0.1673
-  char_estelle.Escape_Resign                     mean=+0.3549  std=0.2683
-  char_garcin.Escape_Resign                      mean=-0.0802  std=0.1681
-  char_garcin.Pride_Shame                        mean=+0.3654  std=0.2670
-  char_inez.Compassion_Cruelty                   mean=+0.3597  std=0.2680
-  char_inez.Pride_Shame                          mean=-0.1201  std=0.1686
+  char_estelle.Compassion_Cruelty                mean=-0.0872  std=0.1503
+  char_estelle.Escape_Resign                     mean=+0.3469  std=0.3647
+  char_garcin.Escape_Resign                      mean=-0.0413  std=0.1473
+  char_garcin.Pride_Shame                        mean=+0.6374  std=0.3760
+  char_inez.Compassion_Cruelty                   mean=+0.3712  std=0.3683
+  char_inez.Pride_Shame                          mean=-0.1732  std=0.1688
 
 --- Unreachable Endings ---
-  page_end_two_leave
-  page_end_three_leave
 ```
