@@ -14,6 +14,7 @@ Recommended use:
 - Store under `C:/projects/GPTStoryworld/storyworlds/diplomacy`.
 - Validate with `scripts/sweepweave_validator.py`.
 - Convert to AI_Diplomacy storyworld bank using `scripts/extract_storyworld_templates.py`.
+- Keep `forecast_evidence` as a terminal encounter (`options: []`) so the run has an explicit end state.
 
 Field conventions:
 - `meta.proposer`: primary narrative voice.
@@ -28,3 +29,8 @@ PValue/P2Value layering (short negotiation focus):
 - Use pValues in turns 1-2 to encode direct perceptions (A about B, A about C).
 - Introduce p2Values only in turns 3-4 to encode second-order beliefs (A about B's belief on C).
 - Gate betrayal/defection options on p2Values rather than base properties.
+
+Focused harness logging contract:
+- Emit `reasoning_interpret_log` as stepwise inferences from pValues and p2Values.
+- Emit `negotiation_diary` as turn-by-turn coalition/defection rationale with cited variables.
+- For every coalition or defection recommendation, include the exact pointer keyrings that justified it.

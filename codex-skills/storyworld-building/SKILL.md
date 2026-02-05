@@ -64,4 +64,10 @@ Use these tools to make deterministic, validated edits:
 ## Validation Rule
 Never bypass `scripts/sweepweave_validator.py` when the task touches storyworld JSON.
 
+Focused diplomacy QA loop:
+- Run a UI pass in SweepWeave and confirm all target diplomacy encounters load without console errors.
+- Ensure each forecasting storyworld has at least one terminal encounter (for example `forecast_evidence` with zero options).
+- Collect two artifacts per run: `reasoning_interpret_log` and `negotiation_diary`.
+- Require at least one coalition path and one defection path justified by pValue/p2Value terms in desirability formulas.
+
 Note: For late-stage polish, target higher structural density: average 4.5 after-effects per reaction, 2.5 reactions per option, 3.2 options per encounter, and 1.6 variables per reaction desirability formula. Gate 5% of total options in Act II (1.2 variables average) and 8% in Act III (1.5 variables average). Ensure secret-ending encounters are gated by availability scripts that use a metric distance over two variables, and tune Monte Carlo so the secret ending is reachable in >5% of runs. All encounter descriptions should be 50-300 words, all reaction texts 20-150 words, and every non-ending, non-transition encounter must meet min options/reactions/effects.
