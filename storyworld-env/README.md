@@ -158,10 +158,11 @@ The environment uses a multi-component reward function:
 | `multiple_endings` | 0.5 | 2-5 distinct terminal states |
 | `dead_end_rate` | 0.5 | Monte Carlo dead-end rate (<5% target) |
 | `ending_balance` | 0.5 | Ending distribution (avoid dominance) |
+| `unreachable_endings` | 0.6 | Penalize endings not reachable in Monte Carlo |
 | `late_blocking` | 0.5 | Late-game blocking target band (10-30%) |
 | `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
-Total maximum reward: **14.7**
+Total maximum reward: **15.3**
 
 ## Ending Gate Sanity Checklist
 

@@ -9,12 +9,13 @@ Fine-tune models to generate valid Sweepweave storyworld JSON with:
 - Multiple endings and secret paths
 - Thematic continuity and Dirac operator effects
 
-Quality criteria:
-1. Valid JSON loadable by Sweepweave Godot engine
-2. Structural completeness (characters, spools, encounters)
-3. Effect diversity (Dirac operators on character properties)
-4. Narrative coherence (thematic consistency)
-5. Explorable complexity (gated options, secret paths)
+  Quality criteria:
+  1. Valid JSON loadable by Sweepweave Godot engine
+  2. Structural completeness (characters, spools, encounters)
+  3. Effect diversity (Dirac operators on character properties)
+  4. Narrative coherence (thematic consistency)
+  5. Explorable complexity (gated options, secret paths)
+  6. Ending balance and reachability (avoid unreachable endings)
 """
 
 import json
@@ -778,6 +779,16 @@ class SweepweaveValidator:
         if total == 0:
             return 0.0
         return report.get("secret_any", 0) / total
+
+    @staticmethod
+    def compute_unreachable_endings_score(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> float:
+        """Score 1.0 if all endings are reachable, otherwise proportional to reachability."""
+        report = run_monte_carlo(data, num_runs=runs, seed=seed)
+        endings = [e["id"] for e in report.get("endings", [])]
+        if not endings:
+            return 0.0
+        reachable = sum(1 for eid in endings if report.get("ending_counts", {}).get(eid, 0) > 0)
+        return reachable / len(endings)
 
 
 # ============================================================================
@@ -1659,6 +1670,20 @@ def reward_ending_balance(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_unreachable_endings(prompt, completion, info) -> float:
+    """Reward: 0-1 based on all endings being reachable."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_unreachable_endings_score(data)
+    except:
+        return 0.0
+
+
 def reward_late_blocking(prompt, completion, info) -> float:
     """Reward: 0-1 based on late-game blocking rate target (10-30%)."""
     try:
@@ -1877,6 +1902,7 @@ def load_environment(
             reward_multiple_endings,     # Multiple terminal states
             reward_dead_end_rate,        # Monte Carlo dead-end rate
             reward_ending_balance,       # Ending distribution balance
+            reward_unreachable_endings,  # All endings reachable
             reward_late_blocking,        # Late-game blocking rate
             reward_secret_reachability,  # Secret reachability
         ],
@@ -1903,6 +1929,7 @@ def load_environment(
             0.5,   # Multiple endings (nice to have)
             0.5,   # Dead-end rate (should be low)
             0.5,   # Ending balance (avoid dominance)
+            0.6,   # Unreachable endings
             0.5,   # Late-game blocking (target band)
             0.3,   # Secret reachability (occasional)
         ],

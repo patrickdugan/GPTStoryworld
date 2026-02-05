@@ -740,6 +740,20 @@ def reward_secret_paths(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_unreachable_endings(prompt, completion, info) -> float:
+    """Reward: 0-1 based on all endings being reachable."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_unreachable_endings_score(data)
+    except:
+        return 0.0
+
+
 def reward_multiple_endings(prompt, completion, info) -> float:
     """Reward: 0-1 based on number of distinct endings"""
     try:
@@ -801,6 +815,7 @@ def load_environment(
             reward_pvalue_desirability_alignment, # pValues for actors/witnesses
             reward_effect_script_quality, # Non-zero operator effects
             reward_secret_paths,         # Gated options
+            reward_unreachable_endings,  # All endings reachable
             reward_multiple_endings,     # Multiple terminal states
         ],
         weights=[
@@ -811,6 +826,7 @@ def load_environment(
             0.5,   # pValue desirability alignment
             0.5,   # Effect script quality
             0.5,   # Secret paths (nice to have)
+            0.6,   # Unreachable endings
             0.5,   # Multiple endings (nice to have)
         ],
     )
