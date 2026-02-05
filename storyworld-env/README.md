@@ -148,6 +148,7 @@ The environment uses a multi-component reward function:
 | `options_per_encounter` | 0.6 | Average options per encounter (target 3.2) |
 | `desirability_var_usage` | 0.5 | Variables per desirability formula (target 1.6) |
 | `pvalue_desirability_alignment` | 0.5 | pValues in desirability when reactions modify properties |
+| `effect_script_quality` | 0.5 | After_effect scripts use operators with non-zero constants |
 | `secret_paths` | 0.5 | Options with conditional visibility |
 | `secret_gate_quality` | 0.6 | Gated options with variable desirability and stronger effects |
 | `major_turns` | 0.6 | Act II/III flip/blend turning points |
@@ -160,7 +161,7 @@ The environment uses a multi-component reward function:
 | `late_blocking` | 0.5 | Late-game blocking target band (10-30%) |
 | `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
-Total maximum reward: **14.2**
+Total maximum reward: **14.7**
 
 ## Ending Gate Sanity Checklist
 
