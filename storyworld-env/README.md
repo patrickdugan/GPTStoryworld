@@ -25,6 +25,19 @@ Models are rewarded for generating storyworlds that:
 6. **Provide multiple endings** (2-5 distinct terminal states)
 7. **Keep ending gates complete** (every `page_end_*` reachable from the final gate and not blocked by acceptability fallbacks)
 
+## Raised Polish Thresholds
+
+Use these higher targets when running late-stage polish (`late_stage_balance.py`, `long_range_authoring.py`, `multiple_paths.py`):
+
+- Average after-effects per reaction: **4.5**
+- Reactions per option: **2.5**
+- Options per encounter: **3.2**
+- Variables per reaction desirability formula: **1.6**
+- Act II visibility gating: **5% of total options**, gated by **1.2 variables** on average
+- Act III visibility gating: **8% of total options**, gated by **1.5 variables** on average
+- Secret-ending encounters must be gated by an availability script that uses a **metric distance** over **two variables**
+- Monte Carlo tuning: secret ending reachable in **>5%** of runs
+
 ## Installation
 
 ### From Source
