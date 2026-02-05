@@ -466,6 +466,49 @@ class SweepweaveValidator:
         return (sum(counts) / len(counts)) if counts else 0.0
 
     @staticmethod
+    def compute_pvalue_desirability_alignment(data: Dict[str, Any]) -> float:
+        """Fraction of reactions with property effects whose desirability uses pValues for actors and witnesses."""
+        total = 0
+        ok = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                for rxn in opt.get("reactions", []):
+                    effects = rxn.get("after_effects", []) or []
+                    affected: List[Tuple[str, str]] = []
+                    for eff in effects:
+                        if eff.get("effect_type") != "Bounded Number Effect":
+                            continue
+                        ptr = eff.get("Set", {})
+                        char = ptr.get("character")
+                        keyring = ptr.get("keyring") or []
+                        if not char or not keyring:
+                            continue
+                        prop = keyring[0]
+                        if isinstance(prop, str) and not prop.startswith("p"):
+                            affected.append((char, prop))
+                    if not affected:
+                        continue
+                    total += 1
+                    desirability = rxn.get("desirability_script")
+                    vars_in_script: set = set()
+                    SweepweaveValidator._collect_vars(desirability, vars_in_script)
+                    pvalue_by_prop: Dict[str, set] = {}
+                    for ch, key in vars_in_script:
+                        if isinstance(key, str) and key.startswith("p") and len(key) > 1:
+                            prop = key[1:]
+                            if prop:
+                                pvalue_by_prop.setdefault(prop, set()).add(ch)
+                    hit = False
+                    for ch, prop in affected:
+                        witnesses = pvalue_by_prop.get(prop)
+                        if witnesses and len(witnesses) >= 2 and ch in witnesses:
+                            hit = True
+                            break
+                    if hit:
+                        ok += 1
+        return (ok / total) if total else 0.0
+
+    @staticmethod
     def compute_act_gating_stats(data: Dict[str, Any]) -> Dict[str, Tuple[float, float]]:
         encounters = data.get("encounters", [])
         enc_by_id = {e.get("id"): e for e in encounters if e.get("id")}
@@ -1001,6 +1044,8 @@ REQUIREMENTS:
 - Each option has at least 2 reactions with different consequences
 - Each reaction has at least 4 after_effects modifying character properties
 - Encounter descriptions are 50-300 words; reaction texts are 20-150 words
+- When reactions modify character properties, desirability formulas should reference pValues (p{property}) for the
+  affected character and at least one witness character
 - Multiple endings (2-5 distinct terminal states)
 - Some options should be gated by character property conditions
 
@@ -1356,6 +1401,20 @@ def reward_desirability_var_usage(prompt, completion, info) -> float:
         data = json.loads(text.strip())
         val = SweepweaveValidator.compute_desirability_vars_per_reaction(data)
         return min(1.0, val / 1.6)
+    except:
+        return 0.0
+
+
+def reward_pvalue_desirability_alignment(prompt, completion, info) -> float:
+    """Reward: 0-1 based on pValues used in desirability when reactions modify properties."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_pvalue_desirability_alignment(data)
     except:
         return 0.0
 
@@ -1731,6 +1790,7 @@ def load_environment(
             reward_reactions_per_option, # Reaction density per option
             reward_options_per_encounter, # Options per encounter
             reward_desirability_var_usage, # Vars per desirability
+            reward_pvalue_desirability_alignment, # pValues for actors/witnesses
             reward_secret_paths,         # Gated options
             reward_secret_gate_quality,  # Gated options with variable desirability
             reward_major_turns,          # Act II/III flip/blend turning points
@@ -1755,6 +1815,7 @@ def load_environment(
             0.6,   # Reactions per option
             0.6,   # Options per encounter
             0.5,   # Desirability var usage
+            0.5,   # pValue desirability alignment
             0.5,   # Secret paths (nice to have)
             0.6,   # Secret gate quality (accumulated thresholds)
             0.6,   # Major Act II/III turn quality
