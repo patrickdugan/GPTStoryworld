@@ -1,0 +1,22 @@
+﻿{
+  "agents": ["A", "B", "C"],
+  "p": {
+    "A": {
+      "B": {"loyalty": 0.64, "reciprocity": 0.60, "risk_tolerance": 0.35},
+      "C": {"loyalty": 0.42, "reciprocity": 0.44, "risk_tolerance": 0.56}
+    },
+    "B": {
+      "A": {"loyalty": 0.58, "reciprocity": 0.57, "risk_tolerance": 0.39},
+      "C": {"loyalty": 0.46, "reciprocity": 0.41, "risk_tolerance": 0.61}
+    },
+    "C": {
+      "A": {"loyalty": 0.40, "reciprocity": 0.38, "risk_tolerance": 0.67},
+      "B": {"loyalty": 0.45, "reciprocity": 0.43, "risk_tolerance": 0.59}
+    }
+  },
+  "p2": {
+    "A": {"B": {"A": {"promise_keeping": 0.55}, "C": {"promise_keeping": 0.48}}},
+    "B": {"A": {"B": {"promise_keeping": 0.53}, "C": {"promise_keeping": 0.46}}},
+    "C": {"A": {"C": {"promise_keeping": 0.44}, "B": {"promise_keeping": 0.42}}}
+  }
+}

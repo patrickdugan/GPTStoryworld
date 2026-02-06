@@ -24,4 +24,5 @@ Use this skill for focused diplomacy sessions where the objective is forecast-qu
 ## Output Requirements
 - Include at least one coalition recommendation and one defection recommendation.
 - For each recommendation, include cited pValue/p2Value keyrings.
+- Reaction desirability scripts should be formula-based (not constants) and include proposer/proposee pValues in both directions plus at least one p2Value term.
 - Keep total manifold dimensions fixed for downstream modeling stability.

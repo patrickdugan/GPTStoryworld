@@ -1,0 +1,253 @@
+2026-02-05 14:15:41 - INFO - __main__ - [main:401] - General game logs will be appended to: C:\projects\GPTStoryworld\results\forecasting_zoom_20260205_141540\general_game.log
+2026-02-05 14:15:41 - INFO - ai_diplomacy.game_logic - [load_game_state:187] - Loading game state from: C:\projects\GPTStoryworld\results\forecasting_zoom_20260205_141540\lmvsgame.json
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.game_logic - [load_game_state:255] - Missing state_agents in save; building fresh agents without LLM initialization.
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting
+2026-02-05 14:15:41 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:111] - [AUSTRIA] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting\austria_system_prompt.txt
+2026-02-05 14:15:41 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for AUSTRIA with goals: []
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting
+2026-02-05 14:15:41 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:111] - [ENGLAND] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting\england_system_prompt.txt
+2026-02-05 14:15:41 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for ENGLAND with goals: []
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting
+2026-02-05 14:15:41 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:111] - [FRANCE] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting\france_system_prompt.txt
+2026-02-05 14:15:41 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for FRANCE with goals: []
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting
+2026-02-05 14:15:41 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:111] - [GERMANY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting\germany_system_prompt.txt
+2026-02-05 14:15:41 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for GERMANY with goals: []
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting
+2026-02-05 14:15:41 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:111] - [ITALY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting\italy_system_prompt.txt
+2026-02-05 14:15:41 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for ITALY with goals: []
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting
+2026-02-05 14:15:41 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:111] - [RUSSIA] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting\russia_system_prompt.txt
+2026-02-05 14:15:41 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for RUSSIA with goals: []
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:41 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting
+2026-02-05 14:15:41 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:111] - [TURKEY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_forecasting\turkey_system_prompt.txt
+2026-02-05 14:15:41 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for TURKEY with goals: []
+2026-02-05 14:15:41 - INFO - __main__ - [main:423] - Successfully resumed game from phase: S1915M.
+2026-02-05 14:15:41 - INFO - __main__ - [main:480] - PHASE: S1915M (time so far: 0.14s)
+2026-02-05 14:15:41 - INFO - negotiations - [conduct_negotiations:38] - Starting negotiation phase.
+2026-02-05 14:15:41 - INFO - negotiations - [conduct_negotiations:43] - Active powers for negotiations: ['AUSTRIA', 'ENGLAND', 'FRANCE', 'GERMANY', 'ITALY', 'RUSSIA', 'TURKEY']
+2026-02-05 14:15:41 - INFO - negotiations - [conduct_negotiations:47] - No eliminated powers yet.
+2026-02-05 14:15:41 - INFO - negotiations - [conduct_negotiations:56] - Negotiation Round 1/1
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [AUSTRIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [AUSTRIA] No diary entries found when formatting for prompt
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ENGLAND] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ENGLAND] No diary entries found when formatting for prompt
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [FRANCE] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [FRANCE] No diary entries found when formatting for prompt
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [GERMANY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [GERMANY] No diary entries found when formatting for prompt
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ITALY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ITALY] No diary entries found when formatting for prompt
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [RUSSIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [RUSSIA] No diary entries found when formatting for prompt
+2026-02-05 14:15:41 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [TURKEY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:15:41 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [TURKEY] No diary entries found when formatting for prompt
+2026-02-05 14:15:41 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to AUSTRIA across 1 phases
+2026-02-05 14:15:41 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for AUSTRIA to respond to
+2026-02-05 14:15:41 - INFO - client - [build_conversation_prompt:654] - [AUSTRIA] Found 0 high priority messages to respond to
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to ENGLAND across 1 phases
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for ENGLAND to respond to
+2026-02-05 14:15:42 - INFO - client - [build_conversation_prompt:654] - [ENGLAND] Found 0 high priority messages to respond to
+2026-02-05 14:15:42 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 14:15:42 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 14:15:42 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 14:15:42 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: None
+2026-02-05 14:15:42 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to FRANCE across 1 phases
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for FRANCE to respond to
+2026-02-05 14:15:42 - INFO - client - [build_conversation_prompt:654] - [FRANCE] Found 0 high priority messages to respond to
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to GERMANY across 1 phases
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for GERMANY to respond to
+2026-02-05 14:15:42 - INFO - client - [build_conversation_prompt:654] - [GERMANY] Found 0 high priority messages to respond to
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to ITALY across 1 phases
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for ITALY to respond to
+2026-02-05 14:15:42 - INFO - client - [build_conversation_prompt:654] - [ITALY] Found 0 high priority messages to respond to
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to RUSSIA across 1 phases
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for RUSSIA to respond to
+2026-02-05 14:15:42 - INFO - client - [build_conversation_prompt:654] - [RUSSIA] Found 0 high priority messages to respond to
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to TURKEY across 1 phases
+2026-02-05 14:15:42 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for TURKEY to respond to
+2026-02-05 14:15:42 - INFO - client - [build_conversation_prompt:654] - [TURKEY] Found 0 high priority messages to respond to
+2026-02-05 14:15:53 - WARNING - client - [get_conversation_reply:845] - [gpt-5-mini] Failed to parse formatted response as JSON, falling back to regex
+2026-02-05 14:15:54 - WARNING - client - [get_conversation_reply:845] - [gpt-5-mini] Failed to parse formatted response as JSON, falling back to regex
+2026-02-05 14:15:54 - WARNING - client - [get_conversation_reply:845] - [gpt-5-mini] Failed to parse formatted response as JSON, falling back to regex
+2026-02-05 14:15:55 - WARNING - client - [get_conversation_reply:845] - [gpt-5-mini] Failed to parse formatted response as JSON, falling back to regex
+2026-02-05 14:15:55 - WARNING - client - [get_conversation_reply:845] - [gpt-5-mini] Failed to parse formatted response as JSON, falling back to regex
+2026-02-05 14:16:04 - ERROR - client - [generate_response:1424] - [gpt-5-mini] HTTP client error in generate_response: Server disconnected
+2026-02-05 14:16:04 - WARNING - utils - [run_llm_and_log:452] - LLM call failed for gpt-5-mini/ENGLAND (Attempt 1/5). Error: ServerDisconnectedError('Server disconnected'). Retrying in 1.22 seconds.
+2026-02-05 14:16:16 - WARNING - client - [get_conversation_reply:845] - [gpt-5-mini] Failed to parse formatted response as JSON, falling back to regex
+2026-02-05 14:16:38 - WARNING - client - [get_conversation_reply:845] - [gpt-5-mini] Failed to parse formatted response as JSON, falling back to regex
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [AUSTRIA -> GERMANY] From Austria, candid: I am stretched thin in the Balkans and survival-driven. Russia and Turkey are ...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [AUSTRIA -> TURKEY] From Austria: bluntly, my Balkan line is fragile. Your units in BUL and GRE project immediate pressu...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [AUSTRIA -> ITALY] From Austria: frank request. Italy sits at VEN/ROM/NAP and could threaten TRI. I will not contest It...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> GLOBAL] To all: The present balance in 1915 is fragile. My fleets and forces are positioned to secure the Ch...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> FRANCE] Friend in Paris — Your position is perilous and I favour steady, reliable support rather than risky ...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> GERMANY] To Berlin — I speak plainly: England values stability of the seas and a balanced continental order. ...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> GLOBAL] Fellow powers — France here. The map is stark: England dominates the sea, Germany retains central st...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> ENGLAND] England — a frank proposal from Paris. I accept that your naval dominance makes Channel seizures att...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [GERMANY -> GLOBAL] To all: Germany seeks stability in Central Europe and clear, dependable arrangements on the western ...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [GERMANY -> AUSTRIA] Austria — we face a fragile Balkans situation. My forecast: given the scenario data, there is a >50%...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [GERMANY -> ENGLAND] England — Germany is disciplined and security-focused. The STORYWORLD_FORECAST_ARTIFACT highlights a...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [ITALY -> AUSTRIA] My Austrian friends — Italy here. The map in the Adriatic is tight and I value stability on our mutu...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [ITALY -> TURKEY] Turkey — Italy speaking frankly and opportunistically. The eastern Mediterranean clashes between you...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [ITALY -> FRANCE] France — Italy here. I note your precarious situation and England's dominance at sea. I can offer li...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [RUSSIA -> GLOBAL] To all powers: Russia seeks stability on our western front so we can resolve the Black Sea and Cauca...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [RUSSIA -> AUSTRIA] Austria—this is a direct offer. I prefer a calm Balkan settlement. I propose: Austria refrains from ...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [RUSSIA -> TURKEY] Turkey—Russia will not contest your holdings in GRE or CON if you avoid amphibious or naval operatio...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [TURKEY -> GLOBAL] To all: I am Turkey. The Black Sea and the Balkans are tinderboxes—our priority is secure borders an...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [TURKEY -> RUSSIA] Russia — We share a direct frontier and overlapping interests in the Black Sea and Rumania. I will n...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [TURKEY -> AUSTRIA] Austria — The Balkans are unstable and Austria's position is vulnerable. I will maintain my frontier...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:182] - [TURKEY -> ENGLAND] England — Your naval dominance is evident and important for wider stability. I seek your tacit suppo...
+2026-02-05 14:16:38 - INFO - negotiations - [conduct_negotiations:184] - Negotiation phase complete.
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [AUSTRIA] Generating negotiation diary entry for S1915M...
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [AUSTRIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:16:38 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [AUSTRIA] No diary entries found when formatting for prompt
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:609] - [AUSTRIA] Successfully formatted prompt template after preprocessing.
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [ENGLAND] Generating negotiation diary entry for S1915M...
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ENGLAND] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:16:38 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ENGLAND] No diary entries found when formatting for prompt
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:609] - [ENGLAND] Successfully formatted prompt template after preprocessing.
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [FRANCE] Generating negotiation diary entry for S1915M...
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [FRANCE] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:16:38 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [FRANCE] No diary entries found when formatting for prompt
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:609] - [FRANCE] Successfully formatted prompt template after preprocessing.
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [GERMANY] Generating negotiation diary entry for S1915M...
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [GERMANY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:16:38 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [GERMANY] No diary entries found when formatting for prompt
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:609] - [GERMANY] Successfully formatted prompt template after preprocessing.
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [ITALY] Generating negotiation diary entry for S1915M...
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ITALY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:16:38 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ITALY] No diary entries found when formatting for prompt
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:609] - [ITALY] Successfully formatted prompt template after preprocessing.
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [RUSSIA] Generating negotiation diary entry for S1915M...
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [RUSSIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:16:38 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [RUSSIA] No diary entries found when formatting for prompt
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:609] - [RUSSIA] Successfully formatted prompt template after preprocessing.
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [TURKEY] Generating negotiation diary entry for S1915M...
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [TURKEY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 14:16:38 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [TURKEY] No diary entries found when formatting for prompt
+2026-02-05 14:16:38 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:609] - [TURKEY] Successfully formatted prompt template after preprocessing.
+2026-02-05 14:16:48 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:671] - [ITALY] Could not find valid summary field in diary response. Using fallback.
+2026-02-05 14:16:48 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ITALY] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:50 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:671] - [TURKEY] Could not find valid summary field in diary response. Using fallback.
+2026-02-05 14:16:50 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [TURKEY] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:51 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:671] - [GERMANY] Could not find valid summary field in diary response. Using fallback.
+2026-02-05 14:16:51 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [GERMANY] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:51 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:671] - [FRANCE] Could not find valid summary field in diary response. Using fallback.
+2026-02-05 14:16:51 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [FRANCE] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:52 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:671] - [AUSTRIA] Could not find valid summary field in diary response. Using fallback.
+2026-02-05 14:16:52 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [AUSTRIA] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:53 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:671] - [RUSSIA] Could not find valid summary field in diary response. Using fallback.
+2026-02-05 14:16:53 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [RUSSIA] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:54 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:346] - [ENGLAND] Last resort json-repair succeeded, got dict.
+2026-02-05 14:16:54 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:660] - [ENGLAND] Successfully extracted 'negotiation_summary' for diary.
+2026-02-05 14:16:54 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:679] - [ENGLAND] Successfully extracted 'updated_relationships' for relationship updates.
+2026-02-05 14:16:54 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:697] - [ENGLAND] Relationship with FRANCE changing from Neutral to Friendly based on diary.
+2026-02-05 14:16:54 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ENGLAND] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: England has communicated a posture of naval deterrence: maintain Channel/North Sea dominance, preser...
+2026-02-05 14:16:54 - INFO - __main__ - [main:535] - Getting orders from agents...
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [AUSTRIA] CONSOLIDATION START ? 1 total full entries
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [AUSTRIA] ? 1 distinct years ? skipping consolidation
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [ENGLAND] CONSOLIDATION START ? 1 total full entries
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [ENGLAND] ? 1 distinct years ? skipping consolidation
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [FRANCE] CONSOLIDATION START ? 1 total full entries
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [FRANCE] ? 1 distinct years ? skipping consolidation
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [GERMANY] CONSOLIDATION START ? 1 total full entries
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [GERMANY] ? 1 distinct years ? skipping consolidation
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [ITALY] CONSOLIDATION START ? 1 total full entries
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [ITALY] ? 1 distinct years ? skipping consolidation
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [RUSSIA] CONSOLIDATION START ? 1 total full entries
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [RUSSIA] ? 1 distinct years ? skipping consolidation
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [TURKEY] CONSOLIDATION START ? 1 total full entries
+2026-02-05 14:16:54 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [TURKEY] ? 1 distinct years ? skipping consolidation
+2026-02-05 14:16:59 - INFO - client - [get_orders:348] - [ENGLAND] Some LLM-proposed moves were invalid. Using fallbacks/validated. Invalid: ['A HOL S A HOL - KIE']
+2026-02-05 14:16:59 - INFO - __main__ - [main:607] - Results for S1915M:
+2026-02-05 14:16:59 - INFO - __main__ - [main:609] - AUSTRIA: ['BUD', 'VIE', 'TRI', 'SER']
+2026-02-05 14:16:59 - INFO - __main__ - [main:609] - ENGLAND: ['EDI', 'LON', 'LVP', 'SWE', 'DEN', 'HOL', 'BEL', 'SPA', 'POR']
+2026-02-05 14:16:59 - INFO - __main__ - [main:609] - FRANCE: ['BRE', 'PAR', 'MAR']
+2026-02-05 14:16:59 - INFO - __main__ - [main:609] - GERMANY: ['BER', 'MUN', 'KIE']
+2026-02-05 14:16:59 - INFO - __main__ - [main:609] - ITALY: ['ROM', 'VEN', 'NAP', 'TUN']
+2026-02-05 14:16:59 - INFO - __main__ - [main:609] - RUSSIA: ['MOS', 'SEV', 'WAR', 'STP', 'RUM']
+2026-02-05 14:16:59 - INFO - __main__ - [main:609] - TURKEY: ['ANK', 'CON', 'SMY', 'BUL', 'GRE']
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:897] - [AUSTRIA] Generating phase result diary entry for F1915M...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [AUSTRIA] Formatting diary for prompt. Total context entries: 1
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [AUSTRIA] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:897] - [ENGLAND] Generating phase result diary entry for F1915M...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ENGLAND] Formatting diary for prompt. Total context entries: 1
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [ENGLAND] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] England has communicated a posture of naval deterrence: maintain Channel/North Sea dominance, preserve free maritime lanes, and consult before moves in the Low Countries or North Sea. France accepted coastal...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:897] - [FRANCE] Generating phase result diary entry for F1915M...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [FRANCE] Formatting diary for prompt. Total context entries: 1
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [FRANCE] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:897] - [GERMANY] Generating phase result diary entry for F1915M...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [GERMANY] Formatting diary for prompt. Total context entries: 1
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [GERMANY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:897] - [ITALY] Generating phase result diary entry for F1915M...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ITALY] Formatting diary for prompt. Total context entries: 1
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [ITALY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:897] - [RUSSIA] Generating phase result diary entry for F1915M...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [RUSSIA] Formatting diary for prompt. Total context entries: 1
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [RUSSIA] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:897] - [TURKEY] Generating phase result diary entry for F1915M...
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [TURKEY] Formatting diary for prompt. Total context entries: 1
+2026-02-05 14:16:59 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [TURKEY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 14:17:03 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ENGLAND] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: The forecast indicating ~60% German pressure toward the Low Countries proved prescient and shaped my...
+2026-02-05 14:17:03 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:964] - [ENGLAND] Phase result diary entry generated and added.
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [GERMANY] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: Austria moved into GAL as ordered and reinforced Vienna’s attempt — reliable cooperation from Vienna...
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:964] - [GERMANY] Phase result diary entry generated and added.
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [TURKEY] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: The Black Sea remains tense: my fleet moved from ANK to ARM successfully, supported by SMY — diploma...
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:964] - [TURKEY] Phase result diary entry generated and added.
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [AUSTRIA] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: My orders to take GAL from VIE succeeded — my double support worked and I now firmly hold Galicia. M...
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:964] - [AUSTRIA] Phase result diary entry generated and added.
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ITALY] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: Austria pushed hard into Galicia with two units supporting VIE–GAL; their follow?through shows they’...
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:964] - [ITALY] Phase result diary entry generated and added.
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [RUSSIA] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: Austria’s push into GAL succeeded with coordinated support from VIE/BUD — likely prearranged; consid...
+2026-02-05 14:17:04 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:964] - [RUSSIA] Phase result diary entry generated and added.
+2026-02-05 14:17:05 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [FRANCE] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: Austria’s push into Galicia succeeded as signaled by mutual Austrian coordination — no surprise; Aus...
+2026-02-05 14:17:05 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:964] - [FRANCE] Phase result diary entry generated and added.
+2026-02-05 14:17:05 - INFO - ai_diplomacy.game_logic - [save_game_state:98] - Saving game state to C:\projects\GPTStoryworld\results\forecasting_zoom_20260205_141540\lmvsgame.json…
+2026-02-05 14:17:05 - INFO - ai_diplomacy.game_logic - [save_game_state:167] - Game state saved successfully.
+2026-02-05 14:17:05 - INFO - __main__ - [main:712] - Phase S1915M took 83.57s
+2026-02-05 14:17:05 - INFO - __main__ - [main:473] - Reached end phase F1915M, stopping simulation.
+2026-02-05 14:17:05 - INFO - __main__ - [main:716] - Game ended after 83.71s. Final state saved in C:\projects\GPTStoryworld\results\forecasting_zoom_20260205_141540
+2026-02-05 14:17:05 - INFO - __main__ - [main:734] - Done.

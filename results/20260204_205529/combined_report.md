@@ -1,0 +1,71 @@
+# Storyworld Impact Report
+
+Run: C:\projects\GPTStoryworld\results\20260204_205529
+
+## Impact Narrative
+England used storyworld `russia_to_austria_grudger` targeting `AUSTRIA` with confidence 0.6. The messages included explicit forecast language (matches: forecast, likelihood, austria), so impact is flagged as `explicit`.
+
+## Data (Original Impact Report)
+# Storyworld Impact Report
+
+Run: C:\projects\GPTStoryworld\results\20260204_205529
+
+## Forecasts
+- Power: `ENGLAND` | Storyworld: `russia_to_austria_grudger` | Target: `AUSTRIA` | Confidence: `0.6`
+
+## Impact Flags
+- Power: `ENGLAND` | Storyworld: `russia_to_austria_grudger` | Target: `AUSTRIA` | Impact: `explicit` | Matches: `forecast,likelihood,austria` | Messages: `7`
+
+
+## Data (Negotiation Messages)
+
+# Negotiation Messages Report
+
+Run: C:\projects\GPTStoryworld\results\20260204_205529
+
+## AUSTRIA
+- `private` -> `Italy`: Italy — frank talk from Austria. We are surrounded on three fronts in the Balkans and the Adriatic. My immediate priority is to hold Vienna, Budapest and Trieste this year; I cannot afford a southern flank war with you. I propose the following for S1901: A VIE → TYR (to threaten Bohemia/maintain flexibility), A BUD → GAL (to contest Galicia and deter Russia), F TRI → ADR (to secure the Adriatic). If you leave VEN and NAP neutral (no move into ADR or TRI) I will not contest your hold of the peninsula and will not support any moves against you. If you prefer a different configuration (for example you want us to keep F TRI off ADR), tell me now. I need clear words — will you respect my Adriatic/Slavic front if I respect your Italian coast?
+- `private` -> `Germany`: Germany — Austria speaking plainly. My center count is minimal (BUD, VIE, TRI). The Balkans threaten to collapse me early if left unchecked. I ask for a guaranteed non-aggression posture from you in the south for this year: no moves into BOH or through to GAL that would force my units away from home centers. In return I will not contest your moves in the Low Countries or France and will support a stable central front between us. Can I count on you to avoid aggressive action toward BOH/MUN from spring to allow me to stabilize?
+
+## ENGLAND
+- `global` -> ``: To all powers: England expects measured, maritime-minded diplomacy this year. My fleets will prioritize securing the Channel and North Sea to keep supply lanes open. I prefer flexible understandings rather than rigid entanglements — a continental hegemon would be bad for everyone. I'll avoid rash continental offensives so long as my northern sea lanes remain uncontested. If any power contemplates naval moves into the Channel/North Sea or a sudden push for Belgian/Dutch centers, I will meet them with coordinated fleet responses.
+- `private` -> `FRANCE`: France — a frank note from the Channel: I value a discreet understanding between us. I intend to secure LON/EDI/LVP as a base and to patrol NTH. Your fleet in BRE and armies in PAR/MAR make us natural partners vs. any German push north. I propose: this year I hold to peaceful posts in the Channel if you avoid an early move on BEL or ENG/NTH waters that would force my hand. In return I can support limited French operations on the continent against Germany if needed. Forecast note: I have a projection (confidence ~60%) that Austria may act aggressively if pressured — this can ricochet; keeping flexible lines is wiser. Thoughts?
+- `private` -> `GERMANY`: Germany — England will be cautious and maritime. My fleets will watch the North Sea and Channel; I have no desire for an immediate clash. If you preserve neutral behavior toward the Low Countries and avoid probing ENG/NTH in S1901, I will refrain from moves which might threaten your Kiel/Berlin flank. Practical offer: non-aggression in NTH and recognition of your central holdings this year; I will signal fleet patterns early so neither of us misreads intentions. Additionally, a shared interest: avoid giving Austria or Russia a continental free-for-all that forces reactive alliances.
+- `private` -> `RUSSIA`: Russia — England is open to cautious coordination. My immediate focus is the sea: safe lanes through the North Sea and Channel. I note a storyworld forecast about Russia→Austria dynamics indicating a 60% chance of Austrian aggression if provoked. If you intend pressure on Austria or Turkey, consider timing — sudden moves can push Central Europe into a punitive stance that destabilizes the whole balance. I offer to keep the British fleets conservative this turn and communicate fleet movements openly if you likewise avoid sudden pushes that might force Austria into grudges. Can we share intentions for the next two phases?
+- `private` -> `AUSTRIA`: Austria — a practical word from England: I am not seeking to meddle in the Balkans, but I watch for any chain reaction from Austrian aggression. A forecast I have seen gives a 60% likelihood Austria might act aggressively next phase under certain pressures; that tends to harden grudges. If you stay measured against neighbors, I will keep my fleets focused on the North Sea and not interfere. If you prefer, I can act as an impartial broker between you and Russia/Italy to defuse spirals — I value a stable central Europe that prevents a single continental hegemon.
+- `private` -> `ITALY`: Italy — England seeks stable seas and flexible friends. I will hold LON/EDI/LVP and patrol the NTH/Channel, not meddling in Mediterranean affairs. If you and Austria/Turkey can avoid sudden Balkan flare-ups, I will avoid naval pressure in the west that could force continental alignments. If helpful, I can provide early warnings about German or French fleet moves into ENG/NTH to let you plan Mediterranean operations without surprise.
+- `private` -> `TURKEY`: Turkey — England expresses a preference for stability. My fleets will be preoccupied with the North Sea and Channel; I have no designs on the Eastern Mediterranean. I pass along a cautionary forecast: there is a projection indicating Austria might act aggressively when feeling threatened, producing grudging reprisals — worth considering in any Balkan dealings. I am willing to be a neutral channel for messages between you and powers in Central Europe to reduce misperception-driven escalations.
+
+## FRANCE
+- `global` -> ``: Fellow powers — France speaks plainly. Our immediate aim is security against a strong Germany while avoiding an expensive naval duel in the Channel. I will open flexibly this move: my fleet in Brest can pressure English home waters or guard Biscay, while my armies in Paris and Marseilles can hold Burgundy and contest Italy in the Alps. I prefer diplomatic solutions: I will not rashly move on England if England keeps hands reasonably off the Channel. Germany: expect me to watch the Low Countries and the Franco-German frontier. Italy and Austria: I favour a firm Mediterranean balance — Marseilles may contest Piedmont or Spain depending on signals from Rome and Vienna. Russia and Turkey: your eastern commitments matter to me; if you restrain ambitions versus Germany or Austria, I will refrain from contesting the north too aggressively. Consider this forecast: if Germany seeks a quick strike through Belgium, I will be forced to commit to Picardy and the Channel, stressing English supply centers. Conversely, if Germany favours the east, I can push naval pressure toward Iberia and encourage Spanish ports as bargaining chips. Let us state intentions so misunderstandings don’t create wars we all regret.
+
+## GERMANY
+- `private` -> `England`: England — This is Germany. I propose we open with a neutral, predictable 1901 to avoid early friction. I will hold my western border: F KIE to BAL or HEL only with prior notice; A BER and A MUN will not advance into France if you do not press into Belgium. If you respect my northern flank (no convoy to Belgium, no fleet into HOL), I will not contest the North Sea and will keep F KIE focused on the Baltic. This removes the immediate two-front risk for both of us. Confirmable? Germany.
+- `private` -> `France`: France — Germany here. For stability I propose a non-aggression understanding for 1901: you remain in your south/west (Marseilles/Brest/Paris) and I will not move A BER or A MUN into BUR or RUH this turn. If you likewise avoid moves into BUR/HOL/BER, we can both secure our interiors and consider coordinated pressure on England or Russia later. Please state your opening moves so we can avoid accidental clashes. Germany.
+- `private` -> `Austria`: Austria — Germany speaking. I value a dependable eastern flank. I will not move A MUN into BOH or TYR if you keep A VIE and F TRI focused on the Balkans and not west toward ITA/GER. In return I can offer to avoid moving A BER toward SIL this spring. If you feel threatened by Russia, tell me and we can coordinate supports. A clear, mutual plan reduces risk from the Russian build. Thoughts?
+
+## ITALY
+- `private` -> `Austria`: Friendly greetings, Austria. I value a calm Adriatic — my moves will reflect that if you do as well. I plan to keep a light footprint: NAP may go to TYS or stay; VEN and ROM can cover TYR/VEN/APU as needed. I will not provoke a grab for Trieste if you avoid aggression against my coasts. If you intend to contest the Adriatic, tell me now and we can discuss boundaries (Trieste/Budapest/Piedmont). Otherwise I propose non-aggression: I won't support powers into your inland centers; you don't attack my coastal approaches. Thoughts?
+- `private` -> `Turkey`: Salutations from Rome. I respect your southern flank and foresee mutual interest in keeping the central Mediterranean manageable. I may push NAP into Ionian waters to seize Tunis or pressure Greece depending on openings. If you want a quiet initial phase so you can focus east, I can avoid ION→AEG moves and instead look at TUN/APU. Or if you'd like cooperation against Russia in the Black Sea, we can coordinate timing. What do you prefer?
+- `private` -> `France`: Bonjour. Italy is exploring a cautious, flexible opening. I will likely keep VEN and ROM defensive while NAP patrols the Tyrrhenian/Ionian. I have no immediate designs on Marseille but could take PIE/TUS if the map opens. Would you prefer I keep a neutral posture toward Provence and Corsica so we both avoid early friction? I can also support moves against Austria if we agree the timing. Your read?
+
+## RUSSIA
+- `private` -> `Turkey`: Friend — Russia here. We intend to be patient and multi-front aware. I will keep Sevastopol and the Black Sea stable to avoid immediate clashes with you. I propose a simple understanding: I will not push into Arm/Ank/Bul if you leave Constantinople and Smyrna alone for now. In return, could you refrain from moving into the Black Sea (Ank or the BLA) this season so we can both consolidate? This lets us both build from our home SCs and avoid an early naval contest. If you agree, I can support a quiet southern frontier and consider cooperation versus Austria if useful.
+- `private` -> `Austria`: Austria — Russia speaking plainly. Our borders touch and tempo matters. I will not immediately rush into Galicia if you do not push into Ukraine or threaten Warsaw this spring. I am open to coordinating against common threats (Turkey in the Balkans or Germany in the North) and can lend support for moves into Rumania or Galicia in subsequent seasons if we build trust. For S1901M I plan to keep forces poised (War and Moscow flexible). Would you like to demilitarize Galicia/Ukraine for now, allowing each of us to build calmly?
+
+## TURKEY
+- `global` -> ``: To all: I am committed to a stable southeastern balance. I value secure Turkish coasts and the Straits above expansion for its own sake. I will defend my home centers and seek incremental, reliable gains only where they do not jeopardize secure borders. I prefer diplomatic solutions and clearly demarcated neutral zones in the Black Sea and the Balkans to reduce accidental conflict.
+- `private` -> `Russia`: Neighbor: I propose calm, practical arrangements in the Black Sea and the Caucasus. I will not contest Sevastopol or reach toward Moscow if you respect Turkish control of the Straits (Constantinople and the approaches) and refrain from naval activity directly through the Bosporus. A mutual understanding that the southern Black Sea (areas adjacent to ANK/SMY/CON) remains neutral would reduce the chance of accidental clashes. Are you willing to agree to a DMZ in the southeastern Black Sea and limit fleet movements through the Straits so we both avoid escalation?
+- `private` -> `Austria`: Neighbor: Our interests in the Balkans can align. I wish to keep Bulgarian and Romanian centers neutral for now to prevent a wider conflict along my northern flank. If Austria respects a neutral buffer in BUL/RUM and does not press past Serbia toward Constantinople, I will avoid moves into the western Black Sea. Would you consider formalizing a non-aggression understanding across the BUL–RUM line so we both have secure northern borders?
+
+
+## Data (Trace Table CSV)
+
+power,messages_sent,recipients,proposed_orders,final_positions
+AUSTRIA,2,Italy;Germany,A VIE S A BUD - GAL | A BUD - GAL | F TRI H,A VIE | F TRI | A GAL
+ENGLAND,7,FRANCE;GERMANY;RUSSIA;AUSTRIA;ITALY;TURKEY,F EDI - NTH | F LON H | A LVP H,F LON | A LVP | F NTH
+FRANCE,1,,F BRE H | A PAR H | A MAR H,F BRE | A MAR | A PAR
+GERMANY,3,England;France;Austria,F KIE - BAL | A BER H | A MUN H,A BER | A MUN | F BAL
+ITALY,3,Austria;Turkey;France,F NAP - TYS | A ROM - APU | A VEN - TYR,F TYS | A APU | A TYR
+RUSSIA,2,Turkey;Austria,F STP/SC H | F SEV H | A MOS H | A WAR H,A WAR | A MOS | F SEV | F STP/SC
+TURKEY,3,Russia;Austria,F ANK H | A CON H | A SMY H,F ANK | A CON | A SMY

@@ -1,0 +1,559 @@
+{
+  "meta": {
+    "actor": "power_france",
+    "target": "power_germany",
+    "witness": "power_england",
+    "notes": "Drop these fragments into reaction desirability_script and after_effects blocks."
+  },
+  "templates": {
+    "join_coalition": {
+      "desirability_script": {
+        "script_element_type": "Bounded Number Operator",
+        "operator_type": "Addition",
+        "operands": [
+          {
+            "coefficient": 0.2,
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer"
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": 0.55,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pTrust",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": 0.35,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pPromiseKeeping",
+                  "power_germany",
+                  "power_france"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": 0.1,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pTrust",
+                  "power_england"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        ]
+      },
+      "after_effects": [
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_france",
+            "keyring": [
+              "pTrust",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pTrust",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": 0.1,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        },
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_france",
+            "keyring": [
+              "pThreat",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pThreat",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": -0.06,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        },
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_england",
+            "keyring": [
+              "pPromiseKeeping",
+              "power_france",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_england",
+                "keyring": [
+                  "pPromiseKeeping",
+                  "power_france",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": 0.07,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "defect": {
+      "desirability_script": {
+        "script_element_type": "Bounded Number Operator",
+        "operator_type": "Addition",
+        "operands": [
+          {
+            "coefficient": 0.12,
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer"
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": 0.5,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pThreat",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": 0.3,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pPromiseKeeping",
+                  "power_england",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": -0.15,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pThreat",
+                  "power_england"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        ]
+      },
+      "after_effects": [
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_france",
+            "keyring": [
+              "pTrust",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pTrust",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": -0.12,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        },
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_france",
+            "keyring": [
+              "pThreat",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pThreat",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": 0.1,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        },
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_england",
+            "keyring": [
+              "pPromiseKeeping",
+              "power_france",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_england",
+                "keyring": [
+                  "pPromiseKeeping",
+                  "power_france",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": -0.08,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "betray": {
+      "desirability_script": {
+        "script_element_type": "Bounded Number Operator",
+        "operator_type": "Addition",
+        "operands": [
+          {
+            "coefficient": 0.08,
+            "pointer_type": "Bounded Number Constant",
+            "script_element_type": "Pointer"
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": -0.45,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pTrust",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": 0.5,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pPromiseKeeping",
+                  "power_england",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          },
+          {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Multiplication",
+            "operands": [
+              {
+                "coefficient": 0.2,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              },
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pTrust",
+                  "power_england"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        ]
+      },
+      "after_effects": [
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_france",
+            "keyring": [
+              "pTrust",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pTrust",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": -0.18,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        },
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_france",
+            "keyring": [
+              "pThreat",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_france",
+                "keyring": [
+                  "pThreat",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": 0.14,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        },
+        {
+          "effect_type": "Set",
+          "Set": {
+            "character": "power_england",
+            "keyring": [
+              "pPromiseKeeping",
+              "power_france",
+              "power_germany"
+            ],
+            "coefficient": 1,
+            "pointer_type": "Bounded Number Property",
+            "script_element_type": "Pointer"
+          },
+          "to": {
+            "script_element_type": "Bounded Number Operator",
+            "operator_type": "Addition",
+            "operands": [
+              {
+                "character": "power_england",
+                "keyring": [
+                  "pPromiseKeeping",
+                  "power_france",
+                  "power_germany"
+                ],
+                "coefficient": 1,
+                "pointer_type": "Bounded Number Property",
+                "script_element_type": "Pointer"
+              },
+              {
+                "coefficient": -0.14,
+                "pointer_type": "Bounded Number Constant",
+                "script_element_type": "Pointer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "agents": [
+    "A",
+    "B",
+    "C"
+  ],
+  "by_pair": {
+    "A->B": {
+      "coalition": 0.652,
+      "defection": 0.1103,
+      "betrayal": 0.2377,
+      "coalition_logit": 0.469,
+      "defection_logit": -1.308,
+      "betrayal_logit": -0.54
+    },
+    "A->C": {
+      "coalition": 0.1856,
+      "defection": 0.2546,
+      "betrayal": 0.5598,
+      "coalition_logit": -0.736,
+      "defection_logit": -0.42,
+      "betrayal_logit": 0.368
+    },
+    "B->A": {
+      "coalition": 0.5371,
+      "defection": 0.1445,
+      "betrayal": 0.3184,
+      "coalition_logit": 0.199,
+      "defection_logit": -1.114,
+      "betrayal_logit": -0.324
+    },
+    "B->C": {
+      "coalition": 0.1663,
+      "defection": 0.2733,
+      "betrayal": 0.5604,
+      "coalition_logit": -0.843,
+      "defection_logit": -0.346,
+      "betrayal_logit": 0.372
+    },
+    "C->A": {
+      "coalition": 0.0921,
+      "defection": 0.2854,
+      "betrayal": 0.6225,
+      "coalition_logit": -1.203,
+      "defection_logit": -0.072,
+      "betrayal_logit": 0.708
+    },
+    "C->B": {
+      "coalition": 0.191,
+      "defection": 0.2659,
+      "betrayal": 0.5431,
+      "coalition_logit": -0.773,
+      "defection_logit": -0.442,
+      "betrayal_logit": 0.272
+    }
+  },
+  "aggregate": {
+    "coalition": 0.304,
+    "defection": 0.2223,
+    "betrayal": 0.4736
+  },
+  "strategic_tension": 0.5967,
+  "recommended_global_action": "betray"
+}

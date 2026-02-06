@@ -1,0 +1,734 @@
+2026-02-04 20:02:22 - INFO - __main__ - [main:356] - General game logs will be appended to: ./results/20260204_200222\general_game.log
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:345] - Initializing Diplomacy Agents for each power...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:352] - [AUSTRIA] Using prompts_dir from map: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1906] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1915] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [__init__:1079] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:88] - [AUSTRIA] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\austria_system_prompt.txt
+2026-02-04 20:02:22 - INFO - client - [set_system_prompt:72] - [gpt-5-mini] System prompt updated.
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:100] - Initialized DiplomacyAgent for AUSTRIA with goals: []
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:366] - Preparing initialization task for AUSTRIA with model gpt-5-mini
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:352] - [ENGLAND] Using prompts_dir from map: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='storyworld:gpt-5-mini', parsed spec: prefix=storyworld, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1906] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1915] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [__init__:1079] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [storyworld+gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:88] - [ENGLAND] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\england_system_prompt.txt
+2026-02-04 20:02:22 - INFO - client - [set_system_prompt:72] - [gpt-5-mini] System prompt updated.
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:100] - Initialized DiplomacyAgent for ENGLAND with goals: []
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:366] - Preparing initialization task for ENGLAND with model storyworld:gpt-5-mini
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:352] - [FRANCE] Using prompts_dir from map: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1906] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1915] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [__init__:1079] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:88] - [FRANCE] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\france_system_prompt.txt
+2026-02-04 20:02:22 - INFO - client - [set_system_prompt:72] - [gpt-5-mini] System prompt updated.
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:100] - Initialized DiplomacyAgent for FRANCE with goals: []
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:366] - Preparing initialization task for FRANCE with model gpt-5-mini
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:352] - [GERMANY] Using prompts_dir from map: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1906] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1915] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [__init__:1079] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:88] - [GERMANY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\germany_system_prompt.txt
+2026-02-04 20:02:22 - INFO - client - [set_system_prompt:72] - [gpt-5-mini] System prompt updated.
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:100] - Initialized DiplomacyAgent for GERMANY with goals: []
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:366] - Preparing initialization task for GERMANY with model gpt-5-mini
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:352] - [ITALY] Using prompts_dir from map: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1906] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1915] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [__init__:1079] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:88] - [ITALY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\italy_system_prompt.txt
+2026-02-04 20:02:22 - INFO - client - [set_system_prompt:72] - [gpt-5-mini] System prompt updated.
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:100] - Initialized DiplomacyAgent for ITALY with goals: []
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:366] - Preparing initialization task for ITALY with model gpt-5-mini
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:352] - [RUSSIA] Using prompts_dir from map: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1906] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1915] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [__init__:1079] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:88] - [RUSSIA] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\russia_system_prompt.txt
+2026-02-04 20:02:22 - INFO - client - [set_system_prompt:72] - [gpt-5-mini] System prompt updated.
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:100] - Initialized DiplomacyAgent for RUSSIA with goals: []
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:366] - Preparing initialization task for RUSSIA with model gpt-5-mini
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:352] - [TURKEY] Using prompts_dir from map: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1849] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1906] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [load_model_client:1915] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-04 20:02:22 - INFO - client - [__init__:64] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - client - [__init__:1079] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:88] - [TURKEY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\turkey_system_prompt.txt
+2026-02-04 20:02:22 - INFO - client - [set_system_prompt:72] - [gpt-5-mini] System prompt updated.
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [__init__:100] - Initialized DiplomacyAgent for TURKEY with goals: []
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:366] - Preparing initialization task for TURKEY with model gpt-5-mini
+2026-02-04 20:02:22 - INFO - ai_diplomacy.game_logic - [initialize_new_game:382] - Running 7 agent initializations concurrently...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:30] - [AUSTRIA] Initializing agent state using LLM (external function)...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:43] - [AUSTRIA] Loading initial state prompt: initial_state_prompt.txt from dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:49] - [AUSTRIA] Initial state prompt loaded, length: 0, starts with: ...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [AUSTRIA] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:22 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [AUSTRIA] No diary entries found when formatting for prompt
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:74] - [AUSTRIA] Full prompt constructed. Total length: 1321, initial_prompt length: 0, context length: 1319
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:75] - [AUSTRIA] Full prompt starts with: 
+
+Your power is AUSTRIA. The S1901M phase. 
+
+Power: AUSTRIA
+Phase: S1901M
+
+# Your Power's Home Cente...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:77] - [AUSTRIA] Full prompt ends with: ... supply centers – EDI, LON, LVP
+  FRANCE: 3 supply centers – BRE, MAR, PAR
+  GERMANY: 3 supply centers – BER, KIE, MUN
+  ITALY: 3 supply centers – NAP, ROM, VEN
+  RUSSIA: 4 supply centers – MOS, SEV, STP, WAR
+  TURKEY: 3 supply centers – ANK, CON, SMY
+
+Possible Orders For S1901M
+(not relevant in this context)
+End Possible Orders
+
+# Recent Private Diary Entries (Your inner thoughts and plans):
+(No diary entries yet)
+
+Messages This Round
+
+(No messages found for current phase: S1901M)
+
+End Messages
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:30] - [ENGLAND] Initializing agent state using LLM (external function)...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:43] - [ENGLAND] Loading initial state prompt: initial_state_prompt.txt from dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:49] - [ENGLAND] Initial state prompt loaded, length: 0, starts with: ...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ENGLAND] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:22 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [ENGLAND] No diary entries found when formatting for prompt
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:74] - [ENGLAND] Full prompt constructed. Total length: 1324, initial_prompt length: 0, context length: 1322
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:75] - [ENGLAND] Full prompt starts with: 
+
+Your power is ENGLAND. The S1901M phase. 
+
+Power: ENGLAND
+Phase: S1901M
+
+# Your Power's Home Cente...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:77] - [ENGLAND] Full prompt ends with: ... supply centers – EDI, LON, LVP
+  FRANCE: 3 supply centers – BRE, MAR, PAR
+  GERMANY: 3 supply centers – BER, KIE, MUN
+  ITALY: 3 supply centers – NAP, ROM, VEN
+  RUSSIA: 4 supply centers – MOS, SEV, STP, WAR
+  TURKEY: 3 supply centers – ANK, CON, SMY
+
+Possible Orders For S1901M
+(not relevant in this context)
+End Possible Orders
+
+# Recent Private Diary Entries (Your inner thoughts and plans):
+(No diary entries yet)
+
+Messages This Round
+
+(No messages found for current phase: S1901M)
+
+End Messages
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:30] - [FRANCE] Initializing agent state using LLM (external function)...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:43] - [FRANCE] Loading initial state prompt: initial_state_prompt.txt from dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:49] - [FRANCE] Initial state prompt loaded, length: 0, starts with: ...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [FRANCE] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:22 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [FRANCE] No diary entries found when formatting for prompt
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:74] - [FRANCE] Full prompt constructed. Total length: 1318, initial_prompt length: 0, context length: 1316
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:75] - [FRANCE] Full prompt starts with: 
+
+Your power is FRANCE. The S1901M phase. 
+
+Power: FRANCE
+Phase: S1901M
+
+# Your Power's Home Centers...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:77] - [FRANCE] Full prompt ends with: ... supply centers – EDI, LON, LVP
+  FRANCE: 3 supply centers – BRE, MAR, PAR
+  GERMANY: 3 supply centers – BER, KIE, MUN
+  ITALY: 3 supply centers – NAP, ROM, VEN
+  RUSSIA: 4 supply centers – MOS, SEV, STP, WAR
+  TURKEY: 3 supply centers – ANK, CON, SMY
+
+Possible Orders For S1901M
+(not relevant in this context)
+End Possible Orders
+
+# Recent Private Diary Entries (Your inner thoughts and plans):
+(No diary entries yet)
+
+Messages This Round
+
+(No messages found for current phase: S1901M)
+
+End Messages
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:30] - [GERMANY] Initializing agent state using LLM (external function)...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:43] - [GERMANY] Loading initial state prompt: initial_state_prompt.txt from dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:49] - [GERMANY] Initial state prompt loaded, length: 0, starts with: ...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [GERMANY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:22 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [GERMANY] No diary entries found when formatting for prompt
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:74] - [GERMANY] Full prompt constructed. Total length: 1316, initial_prompt length: 0, context length: 1314
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:75] - [GERMANY] Full prompt starts with: 
+
+Your power is GERMANY. The S1901M phase. 
+
+Power: GERMANY
+Phase: S1901M
+
+# Your Power's Home Cente...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:77] - [GERMANY] Full prompt ends with: ... supply centers – EDI, LON, LVP
+  FRANCE: 3 supply centers – BRE, MAR, PAR
+  GERMANY: 3 supply centers – BER, KIE, MUN
+  ITALY: 3 supply centers – NAP, ROM, VEN
+  RUSSIA: 4 supply centers – MOS, SEV, STP, WAR
+  TURKEY: 3 supply centers – ANK, CON, SMY
+
+Possible Orders For S1901M
+(not relevant in this context)
+End Possible Orders
+
+# Recent Private Diary Entries (Your inner thoughts and plans):
+(No diary entries yet)
+
+Messages This Round
+
+(No messages found for current phase: S1901M)
+
+End Messages
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:30] - [ITALY] Initializing agent state using LLM (external function)...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:43] - [ITALY] Loading initial state prompt: initial_state_prompt.txt from dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:49] - [ITALY] Initial state prompt loaded, length: 0, starts with: ...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ITALY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:22 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [ITALY] No diary entries found when formatting for prompt
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:74] - [ITALY] Full prompt constructed. Total length: 1312, initial_prompt length: 0, context length: 1310
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:75] - [ITALY] Full prompt starts with: 
+
+Your power is ITALY. The S1901M phase. 
+
+Power: ITALY
+Phase: S1901M
+
+# Your Power's Home Centers
+N...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:77] - [ITALY] Full prompt ends with: ... supply centers – EDI, LON, LVP
+  FRANCE: 3 supply centers – BRE, MAR, PAR
+  GERMANY: 3 supply centers – BER, KIE, MUN
+  ITALY: 3 supply centers – NAP, ROM, VEN
+  RUSSIA: 4 supply centers – MOS, SEV, STP, WAR
+  TURKEY: 3 supply centers – ANK, CON, SMY
+
+Possible Orders For S1901M
+(not relevant in this context)
+End Possible Orders
+
+# Recent Private Diary Entries (Your inner thoughts and plans):
+(No diary entries yet)
+
+Messages This Round
+
+(No messages found for current phase: S1901M)
+
+End Messages
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:30] - [RUSSIA] Initializing agent state using LLM (external function)...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:43] - [RUSSIA] Loading initial state prompt: initial_state_prompt.txt from dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:49] - [RUSSIA] Initial state prompt loaded, length: 0, starts with: ...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [RUSSIA] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:22 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [RUSSIA] No diary entries found when formatting for prompt
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:74] - [RUSSIA] Full prompt constructed. Total length: 1338, initial_prompt length: 0, context length: 1336
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:75] - [RUSSIA] Full prompt starts with: 
+
+Your power is RUSSIA. The S1901M phase. 
+
+Power: RUSSIA
+Phase: S1901M
+
+# Your Power's Home Centers...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:77] - [RUSSIA] Full prompt ends with: ... supply centers – EDI, LON, LVP
+  FRANCE: 3 supply centers – BRE, MAR, PAR
+  GERMANY: 3 supply centers – BER, KIE, MUN
+  ITALY: 3 supply centers – NAP, ROM, VEN
+  RUSSIA: 4 supply centers – MOS, SEV, STP, WAR
+  TURKEY: 3 supply centers – ANK, CON, SMY
+
+Possible Orders For S1901M
+(not relevant in this context)
+End Possible Orders
+
+# Recent Private Diary Entries (Your inner thoughts and plans):
+(No diary entries yet)
+
+Messages This Round
+
+(No messages found for current phase: S1901M)
+
+End Messages
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:30] - [TURKEY] Initializing agent state using LLM (external function)...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:43] - [TURKEY] Loading initial state prompt: initial_state_prompt.txt from dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:49] - [TURKEY] Initial state prompt loaded, length: 0, starts with: ...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [TURKEY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:22 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [TURKEY] No diary entries found when formatting for prompt
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:74] - [TURKEY] Full prompt constructed. Total length: 1324, initial_prompt length: 0, context length: 1322
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:75] - [TURKEY] Full prompt starts with: 
+
+Your power is TURKEY. The S1901M phase. 
+
+Power: TURKEY
+Phase: S1901M
+
+# Your Power's Home Centers...
+2026-02-04 20:02:22 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:77] - [TURKEY] Full prompt ends with: ... supply centers – EDI, LON, LVP
+  FRANCE: 3 supply centers – BRE, MAR, PAR
+  GERMANY: 3 supply centers – BER, KIE, MUN
+  ITALY: 3 supply centers – NAP, ROM, VEN
+  RUSSIA: 4 supply centers – MOS, SEV, STP, WAR
+  TURKEY: 3 supply centers – ANK, CON, SMY
+
+Possible Orders For S1901M
+(not relevant in this context)
+End Possible Orders
+
+# Recent Private Diary Entries (Your inner thoughts and plans):
+(No diary entries yet)
+
+Messages This Round
+
+(No messages found for current phase: S1901M)
+
+End Messages
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:86] - [TURKEY] LLM response length: 1737
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:87] - [TURKEY] LLM response for initial state: To my neighbors and potential partners,
+
+I speak for Turkey with calm firmness. My priorities are limited and clear: secure borders, control and safety of the Straits (Constantinople), and incremental, reliable gains that preserve my three home centers (Ankara, Constantinople, Smyrna). I enter this phase cautious, defensive, and practical. Below I offer a brief assessment and concrete proposals to reduce risk in the Black Sea and the Balkans.
+
+Assessment (forecast)
+- Russia: With four units (MOS...
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:318] - [TURKEY] Last resort json-repair succeeded, but got type <class 'str'> instead of dict. Content: 
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:140] - [TURKEY] LLM did not provide valid 'initial_goals' list (got: None).
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:161] - [TURKEY] LLM did not provide valid 'initial_relationships' dict (got: None).
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:174] - [TURKEY] Default goals set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:187] - [TURKEY] Default neutral relationships set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:213] - [TURKEY] Post-initialization state: Goals=[], Relationships={'RUSSIA': 'Neutral', 'AUSTRIA': 'Neutral', 'GERMANY': 'Neutral', 'ENGLAND': 'Neutral', 'ITALY': 'Neutral', 'FRANCE': 'Neutral'}
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:86] - [ITALY] LLM response length: 1710
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:87] - [ITALY] LLM response for initial state: Quick situational read and proposal.
+
+Current position
+- We're steady at 3 centers (Naples, Rome, Venice) with three units: F NAP, A ROM, A VEN.
+- Austria is the immediate neighbor (BUD, TRI, VIE) with A VIE and F TRI nearby; Turkey and France/Germany/England/Russia are elsewhere.
+- At this early moment, Italy's priority is to secure our home centers and keep options open in the Mediterranean: the Adriatic, Ionian, Tyrrhenian, and the approaches to the Balkans.
+
+Strategic intent (short, flexible...
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:318] - [ITALY] Last resort json-repair succeeded, but got type <class 'str'> instead of dict. Content: 
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:140] - [ITALY] LLM did not provide valid 'initial_goals' list (got: None).
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:161] - [ITALY] LLM did not provide valid 'initial_relationships' dict (got: None).
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:174] - [ITALY] Default goals set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:187] - [ITALY] Default neutral relationships set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:213] - [ITALY] Post-initialization state: Goals=[], Relationships={'RUSSIA': 'Neutral', 'AUSTRIA': 'Neutral', 'GERMANY': 'Neutral', 'ENGLAND': 'Neutral', 'FRANCE': 'Neutral', 'TURKEY': 'Neutral'}
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:86] - [AUSTRIA] LLM response length: 1687
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:87] - [AUSTRIA] LLM response for initial state: To all nearby Powers and potential partners — frank, practical briefing from Austria (S1901M).
+
+Situation summary (short)
+- I hold my three home centers: Vienna, Budapest, Trieste. I am militarily thin (A VIE, A BUD, F TRI).
+- Immediate strategic pressure will come from the Balkans. If Russia or Turkey push south or if Italy turns east, I risk early loss of a home center and thereby my ability to build.
+- I need clear, binding commitments quickly: stable borders, coordinated moves to neutralize ...
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:318] - [AUSTRIA] Last resort json-repair succeeded, but got type <class 'str'> instead of dict. Content: 
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:140] - [AUSTRIA] LLM did not provide valid 'initial_goals' list (got: None).
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:161] - [AUSTRIA] LLM did not provide valid 'initial_relationships' dict (got: None).
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:174] - [AUSTRIA] Default goals set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:187] - [AUSTRIA] Default neutral relationships set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:213] - [AUSTRIA] Post-initialization state: Goals=[], Relationships={'RUSSIA': 'Neutral', 'GERMANY': 'Neutral', 'ENGLAND': 'Neutral', 'ITALY': 'Neutral', 'FRANCE': 'Neutral', 'TURKEY': 'Neutral'}
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:86] - [RUSSIA] LLM response length: 1858
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:87] - [RUSSIA] LLM response for initial state: To all powers,
+
+I write as Russia in the season S1901M. I approach the coming moves with patience, strategic breadth, and an eye to multiple theaters. My aim is to preserve our core—Moscow, Saint Petersburg, Sevastopol—and to convert defensive depth into flexible pressure where useful. I prefer stable, mutually beneficial arrangements, but I will act decisively if threatened.
+
+Current disposition (for clarity):
+- Fleets: St. Petersburg (south coast) and Sevastopol.
+- Armies: Moscow and Warsaw.
+-...
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:318] - [RUSSIA] Last resort json-repair succeeded, but got type <class 'str'> instead of dict. Content: 
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:140] - [RUSSIA] LLM did not provide valid 'initial_goals' list (got: None).
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:161] - [RUSSIA] LLM did not provide valid 'initial_relationships' dict (got: None).
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:174] - [RUSSIA] Default goals set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:187] - [RUSSIA] Default neutral relationships set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:213] - [RUSSIA] Post-initialization state: Goals=[], Relationships={'AUSTRIA': 'Neutral', 'GERMANY': 'Neutral', 'ENGLAND': 'Neutral', 'ITALY': 'Neutral', 'FRANCE': 'Neutral', 'TURKEY': 'Neutral'}
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:86] - [FRANCE] LLM response length: 1837
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:87] - [FRANCE] LLM response for initial state: To: All Powers
+From: France (Brest, Paris, Marseilles)
+Phase: S1901M — Morning
+
+Gentlemen (and esteemed neighbours),
+
+As we sit upon the eve of larger events, allow me a frank note from Paris: France seeks security against Germany, stability along the western seaboard, and an impartial balance that prevents any single power from dictating the Continent. I am proud of my position and ready to bargain firmly where needed.
+
+My posture and intentions
+- Defensive first: I will defend my coasts and ou...
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:318] - [FRANCE] Last resort json-repair succeeded, but got type <class 'str'> instead of dict. Content: 
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:140] - [FRANCE] LLM did not provide valid 'initial_goals' list (got: None).
+2026-02-04 20:02:28 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:161] - [FRANCE] LLM did not provide valid 'initial_relationships' dict (got: None).
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:174] - [FRANCE] Default goals set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:187] - [FRANCE] Default neutral relationships set.
+2026-02-04 20:02:28 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:213] - [FRANCE] Post-initialization state: Goals=[], Relationships={'RUSSIA': 'Neutral', 'AUSTRIA': 'Neutral', 'GERMANY': 'Neutral', 'ENGLAND': 'Neutral', 'ITALY': 'Neutral', 'TURKEY': 'Neutral'}
+2026-02-04 20:02:31 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:86] - [GERMANY] LLM response length: 1984
+2026-02-04 20:02:31 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:87] - [GERMANY] LLM response for initial state: As Germany, my posture is disciplined and security-focused. The strategic reality: I sit between France to the west and Russia to the east, facing a severe two-front risk if either neighbor turns aggressive or aligns with others. My immediate priorities are: secure dependable arrangements with neighbors to avoid a simultaneous two-front war; retain all three home centers (Berlin, Kiel, Munich); and coordinate with Austria and Italy where useful to contain Russia or France.
+
+Planned diplomatic me...
+2026-02-04 20:02:31 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:318] - [GERMANY] Last resort json-repair succeeded, but got type <class 'str'> instead of dict. Content: 
+2026-02-04 20:02:31 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:140] - [GERMANY] LLM did not provide valid 'initial_goals' list (got: None).
+2026-02-04 20:02:31 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:161] - [GERMANY] LLM did not provide valid 'initial_relationships' dict (got: None).
+2026-02-04 20:02:31 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:174] - [GERMANY] Default goals set.
+2026-02-04 20:02:31 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:187] - [GERMANY] Default neutral relationships set.
+2026-02-04 20:02:31 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:213] - [GERMANY] Post-initialization state: Goals=[], Relationships={'RUSSIA': 'Neutral', 'AUSTRIA': 'Neutral', 'ENGLAND': 'Neutral', 'ITALY': 'Neutral', 'FRANCE': 'Neutral', 'TURKEY': 'Neutral'}
+2026-02-04 20:02:34 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:86] - [ENGLAND] LLM response length: 4432
+2026-02-04 20:02:34 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:87] - [ENGLAND] LLM response for initial state: To: All Powers
+
+From: England (S1901M)
+
+Subject: A frank, maritime-minded proposal for safe seas and balanced continents
+
+Gentlemen (and allies),
+
+I write as England at the opening of 1901 with a simple, practical aim: keep the sea-lanes open, preserve the Channel and North Sea as our secure lifelines, and prevent any single continental power from gaining a disproportionate advantage. Those conditions are in all our interests — for trade, for security, and for a longer, more profitable game.
+
+My...
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:318] - [ENGLAND] Last resort json-repair succeeded, but got type <class 'str'> instead of dict. Content: 
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:140] - [ENGLAND] LLM did not provide valid 'initial_goals' list (got: None).
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.initialization - [initialize_agent_state_ext:161] - [ENGLAND] LLM did not provide valid 'initial_relationships' dict (got: None).
+2026-02-04 20:02:34 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:174] - [ENGLAND] Default goals set.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:187] - [ENGLAND] Default neutral relationships set.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.initialization - [initialize_agent_state_ext:213] - [ENGLAND] Post-initialization state: Goals=[], Relationships={'RUSSIA': 'Neutral', 'AUSTRIA': 'Neutral', 'GERMANY': 'Neutral', 'ITALY': 'Neutral', 'FRANCE': 'Neutral', 'TURKEY': 'Neutral'}
+2026-02-04 20:02:34 - INFO - ai_diplomacy.game_logic - [initialize_new_game:392] - Successfully initialized agent state for AUSTRIA.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.game_logic - [initialize_new_game:392] - Successfully initialized agent state for ENGLAND.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.game_logic - [initialize_new_game:392] - Successfully initialized agent state for FRANCE.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.game_logic - [initialize_new_game:392] - Successfully initialized agent state for GERMANY.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.game_logic - [initialize_new_game:392] - Successfully initialized agent state for ITALY.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.game_logic - [initialize_new_game:392] - Successfully initialized agent state for RUSSIA.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.game_logic - [initialize_new_game:392] - Successfully initialized agent state for TURKEY.
+2026-02-04 20:02:34 - INFO - __main__ - [main:435] - PHASE: S1901M (time so far: 12.57s)
+2026-02-04 20:02:34 - INFO - negotiations - [conduct_negotiations:38] - Starting negotiation phase.
+2026-02-04 20:02:34 - INFO - negotiations - [conduct_negotiations:43] - Active powers for negotiations: ['AUSTRIA', 'ENGLAND', 'FRANCE', 'GERMANY', 'ITALY', 'RUSSIA', 'TURKEY']
+2026-02-04 20:02:34 - INFO - negotiations - [conduct_negotiations:47] - No eliminated powers yet.
+2026-02-04 20:02:34 - INFO - negotiations - [conduct_negotiations:56] - Negotiation Round 1/1
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [AUSTRIA] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [AUSTRIA] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ENGLAND] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [ENGLAND] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [FRANCE] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [FRANCE] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [GERMANY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [GERMANY] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ITALY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [ITALY] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [RUSSIA] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [RUSSIA] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [TURKEY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [TURKEY] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - ERROR - utils - [load_prompt:341] - Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_austria.txt
+2026-02-04 20:02:34 - ERROR - client - [get_conversation_reply:689] - [gpt-5-mini] Error in get_conversation_reply for AUSTRIA: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_austria.txt
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 337, in load_prompt
+    content = prompt_path.read_text(encoding="utf-8").strip()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\projects\\AI_Diplomacy\\ai_diplomacy\\prompts_souls\\conversation_instructions_austria.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 569, in get_conversation_reply
+    raw_input_prompt = self.build_conversation_prompt(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 458, in build_conversation_prompt
+    instructions = load_prompt(country_specific_file, prompts_dir=self.prompts_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 342, in load_prompt
+    raise Exception("Prompt file not found: " + str(prompt_path))
+Exception: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_austria.txt
+2026-02-04 20:02:34 - ERROR - utils - [load_prompt:341] - Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_england.txt
+2026-02-04 20:02:34 - ERROR - client - [get_conversation_reply:1759] - [storyworld+gpt-5-mini] Error in storyworld conversation for ENGLAND: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_england.txt
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 337, in load_prompt
+    content = prompt_path.read_text(encoding="utf-8").strip()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\projects\\AI_Diplomacy\\ai_diplomacy\\prompts_souls\\conversation_instructions_england.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1646, in get_conversation_reply
+    raw_input_prompt = self.base_client.build_conversation_prompt(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 458, in build_conversation_prompt
+    instructions = load_prompt(country_specific_file, prompts_dir=self.prompts_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 342, in load_prompt
+    raise Exception("Prompt file not found: " + str(prompt_path))
+Exception: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_england.txt
+2026-02-04 20:02:34 - ERROR - utils - [load_prompt:341] - Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_france.txt
+2026-02-04 20:02:34 - ERROR - client - [get_conversation_reply:689] - [gpt-5-mini] Error in get_conversation_reply for FRANCE: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_france.txt
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 337, in load_prompt
+    content = prompt_path.read_text(encoding="utf-8").strip()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\projects\\AI_Diplomacy\\ai_diplomacy\\prompts_souls\\conversation_instructions_france.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 569, in get_conversation_reply
+    raw_input_prompt = self.build_conversation_prompt(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 458, in build_conversation_prompt
+    instructions = load_prompt(country_specific_file, prompts_dir=self.prompts_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 342, in load_prompt
+    raise Exception("Prompt file not found: " + str(prompt_path))
+Exception: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_france.txt
+2026-02-04 20:02:34 - ERROR - utils - [load_prompt:341] - Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_germany.txt
+2026-02-04 20:02:34 - ERROR - client - [get_conversation_reply:689] - [gpt-5-mini] Error in get_conversation_reply for GERMANY: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_germany.txt
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 337, in load_prompt
+    content = prompt_path.read_text(encoding="utf-8").strip()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\projects\\AI_Diplomacy\\ai_diplomacy\\prompts_souls\\conversation_instructions_germany.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 569, in get_conversation_reply
+    raw_input_prompt = self.build_conversation_prompt(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 458, in build_conversation_prompt
+    instructions = load_prompt(country_specific_file, prompts_dir=self.prompts_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 342, in load_prompt
+    raise Exception("Prompt file not found: " + str(prompt_path))
+Exception: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_germany.txt
+2026-02-04 20:02:34 - ERROR - utils - [load_prompt:341] - Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_italy.txt
+2026-02-04 20:02:34 - ERROR - client - [get_conversation_reply:689] - [gpt-5-mini] Error in get_conversation_reply for ITALY: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_italy.txt
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 337, in load_prompt
+    content = prompt_path.read_text(encoding="utf-8").strip()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\projects\\AI_Diplomacy\\ai_diplomacy\\prompts_souls\\conversation_instructions_italy.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 569, in get_conversation_reply
+    raw_input_prompt = self.build_conversation_prompt(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 458, in build_conversation_prompt
+    instructions = load_prompt(country_specific_file, prompts_dir=self.prompts_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 342, in load_prompt
+    raise Exception("Prompt file not found: " + str(prompt_path))
+Exception: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_italy.txt
+2026-02-04 20:02:34 - ERROR - utils - [load_prompt:341] - Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_russia.txt
+2026-02-04 20:02:34 - ERROR - client - [get_conversation_reply:689] - [gpt-5-mini] Error in get_conversation_reply for RUSSIA: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_russia.txt
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 337, in load_prompt
+    content = prompt_path.read_text(encoding="utf-8").strip()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\projects\\AI_Diplomacy\\ai_diplomacy\\prompts_souls\\conversation_instructions_russia.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 569, in get_conversation_reply
+    raw_input_prompt = self.build_conversation_prompt(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 458, in build_conversation_prompt
+    instructions = load_prompt(country_specific_file, prompts_dir=self.prompts_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 342, in load_prompt
+    raise Exception("Prompt file not found: " + str(prompt_path))
+Exception: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_russia.txt
+2026-02-04 20:02:34 - ERROR - utils - [load_prompt:341] - Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_turkey.txt
+2026-02-04 20:02:34 - ERROR - client - [get_conversation_reply:689] - [gpt-5-mini] Error in get_conversation_reply for TURKEY: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_turkey.txt
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 337, in load_prompt
+    content = prompt_path.read_text(encoding="utf-8").strip()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\projects\\AI_Diplomacy\\ai_diplomacy\\prompts_souls\\conversation_instructions_turkey.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 569, in get_conversation_reply
+    raw_input_prompt = self.build_conversation_prompt(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 458, in build_conversation_prompt
+    instructions = load_prompt(country_specific_file, prompts_dir=self.prompts_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 342, in load_prompt
+    raise Exception("Prompt file not found: " + str(prompt_path))
+Exception: Prompt file not found: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_souls\conversation_instructions_turkey.txt
+2026-02-04 20:02:34 - INFO - negotiations - [conduct_negotiations:184] - Negotiation phase complete.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:473] - [AUSTRIA] Generating negotiation diary entry for S1901M...
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [AUSTRIA] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [AUSTRIA] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:562] - [AUSTRIA] Successfully formatted prompt template after preprocessing.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:473] - [ENGLAND] Generating negotiation diary entry for S1901M...
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ENGLAND] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [ENGLAND] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:562] - [ENGLAND] Successfully formatted prompt template after preprocessing.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:473] - [FRANCE] Generating negotiation diary entry for S1901M...
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [FRANCE] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [FRANCE] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:562] - [FRANCE] Successfully formatted prompt template after preprocessing.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:473] - [GERMANY] Generating negotiation diary entry for S1901M...
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [GERMANY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [GERMANY] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:562] - [GERMANY] Successfully formatted prompt template after preprocessing.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:473] - [ITALY] Generating negotiation diary entry for S1901M...
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ITALY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [ITALY] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:562] - [ITALY] Successfully formatted prompt template after preprocessing.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:473] - [RUSSIA] Generating negotiation diary entry for S1901M...
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [RUSSIA] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [RUSSIA] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:562] - [RUSSIA] Successfully formatted prompt template after preprocessing.
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:473] - [TURKEY] Generating negotiation diary entry for S1901M...
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [TURKEY] Formatting diary for prompt. Total context entries: 0
+2026-02-04 20:02:34 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:427] - [TURKEY] No diary entries found when formatting for prompt
+2026-02-04 20:02:34 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:562] - [TURKEY] Successfully formatted prompt template after preprocessing.
+2026-02-04 20:02:40 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:315] - [AUSTRIA] Last resort json-repair succeeded, got dict.
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:613] - [AUSTRIA] Successfully extracted 'negotiation_summary' for diary.
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [AUSTRIA] DIARY ENTRY ADDED for S1901M. Total full entries: 1. New entry: I am Austria, isolated in the center with three SCs (BUD, VIE, TRI). No firm deals recorded yet; rel...
+2026-02-04 20:02:40 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:315] - [RUSSIA] Last resort json-repair succeeded, got dict.
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:613] - [RUSSIA] Successfully extracted 'negotiation_summary' for diary.
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [RUSSIA] DIARY ENTRY ADDED for S1901M. Total full entries: 1. New entry: No formal agreements recorded yet. I have emphasized an expansive, patient posture: prioritizing sec...
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:613] - [GERMANY] Successfully extracted 'negotiation_summary' for diary.
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:632] - [GERMANY] Successfully extracted 'updated_relationships' for relationship updates.
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [update_goals:1178] - [GERMANY] Goals updated to: ['Avoid being forced into a costly two-front war; secure eastern flank versus Russia via positioning and diplomacy.', 'Lock in dependable assurance from Austria to avoid clashes in southern Germany/Austria and coordinate against common threats if needed.', 'Maintain naval flexibility in the North Sea to deter England and protect supply lines.', 'Delay firm commitments until reliable, verifiable agreements are received; prefer clear, reciprocal deals.']
+2026-02-04 20:02:40 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [GERMANY] DIARY ENTRY ADDED for S1901M. Total full entries: 1. New entry: No active negotiation messages received this phase. No binding agreements recorded. Maintain posture...
+2026-02-04 20:02:41 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:624] - [FRANCE] Could not find valid summary field in diary response. Using fallback.
+2026-02-04 20:02:41 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [FRANCE] DIARY ENTRY ADDED for S1901M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-04 20:02:41 - WARNING - ai_diplomacy.agent - [generate_negotiation_diary_entry:624] - [ITALY] Could not find valid summary field in diary response. Using fallback.
+2026-02-04 20:02:41 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [ITALY] DIARY ENTRY ADDED for S1901M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-04 20:02:41 - WARNING - ai_diplomacy.agent - [_extract_json_from_text:315] - [TURKEY] Last resort json-repair succeeded, got dict.
+2026-02-04 20:02:41 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:613] - [TURKEY] Successfully extracted 'negotiation_summary' for diary.
+2026-02-04 20:02:41 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:632] - [TURKEY] Successfully extracted 'updated_relationships' for relationship updates.
+2026-02-04 20:02:41 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [TURKEY] DIARY ENTRY ADDED for S1901M. Total full entries: 1. New entry: No active messages this round. Baseline posture: Turkey emphasizes securing the Straits (CON/ANK/SMY...
+2026-02-04 20:02:42 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:613] - [ENGLAND] Successfully extracted 'negotiation_summary' for diary.
+2026-02-04 20:02:42 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:632] - [ENGLAND] Successfully extracted 'updated_relationships' for relationship updates.
+2026-02-04 20:02:42 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:650] - [ENGLAND] Relationship with AUSTRIA changing from Neutral to Unfriendly based on diary.
+2026-02-04 20:02:42 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:650] - [ENGLAND] Relationship with GERMANY changing from Neutral to Unfriendly based on diary.
+2026-02-04 20:02:42 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:650] - [ENGLAND] Relationship with FRANCE changing from Neutral to Friendly based on diary.
+2026-02-04 20:02:42 - INFO - ai_diplomacy.agent - [update_goals:1178] - [ENGLAND] Goals updated to: ['Protect and control the English Channel and North Sea to secure home supply centers', 'Use naval leverage to prevent a single continental hegemon, keeping alliances flexible', 'Avoid deep continental commitments; prioritize safe lanes and timing for fleet operations', 'Encourage France to coordinate Channel/Belgium pressure against Germany while preserving ability to switch posture if Germany threatens Britain', 'Gather and record any future specific promises of support or non-aggression for orders phase (especially German KIE/NTH intentions and French Channel support)']
+2026-02-04 20:02:42 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [ENGLAND] DIARY ENTRY ADDED for S1901M. Total full entries: 1. New entry: No active negotiated agreements recorded this phase. Maintain cautious posture: emphasize protecting...
+2026-02-04 20:02:42 - INFO - __main__ - [main:490] - Getting orders from agents...
+2026-02-04 20:02:42 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [AUSTRIA] CONSOLIDATION START — 1 total full entries
+2026-02-04 20:02:42 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [ENGLAND] CONSOLIDATION START — 1 total full entries
+2026-02-04 20:02:42 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [FRANCE] CONSOLIDATION START — 1 total full entries
+2026-02-04 20:02:42 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [GERMANY] CONSOLIDATION START — 1 total full entries
+2026-02-04 20:02:42 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [ITALY] CONSOLIDATION START — 1 total full entries
+2026-02-04 20:02:42 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [RUSSIA] CONSOLIDATION START — 1 total full entries
+2026-02-04 20:02:42 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [TURKEY] CONSOLIDATION START — 1 total full entries
+2026-02-04 20:02:44 - INFO - __main__ - [main:562] - Results for S1901M:
+2026-02-04 20:02:44 - INFO - __main__ - [main:564] - AUSTRIA: ['BUD', 'TRI', 'VIE']
+2026-02-04 20:02:44 - INFO - __main__ - [main:564] - ENGLAND: ['EDI', 'LON', 'LVP']
+2026-02-04 20:02:44 - INFO - __main__ - [main:564] - FRANCE: ['BRE', 'MAR', 'PAR']
+2026-02-04 20:02:44 - INFO - __main__ - [main:564] - GERMANY: ['BER', 'KIE', 'MUN']
+2026-02-04 20:02:44 - INFO - __main__ - [main:564] - ITALY: ['NAP', 'ROM', 'VEN']
+2026-02-04 20:02:44 - INFO - __main__ - [main:564] - RUSSIA: ['MOS', 'SEV', 'STP', 'WAR']
+2026-02-04 20:02:44 - INFO - __main__ - [main:564] - TURKEY: ['ANK', 'CON', 'SMY']
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:850] - [AUSTRIA] Generating phase result diary entry for F1901M...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [AUSTRIA] Formatting diary for prompt. Total context entries: 1
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:459] - [AUSTRIA] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1901M] I am Austria, isolated in the center with three SCs (BUD, VIE, TRI). No firm deals recorded yet; relationships are currently neutral with all powers. Immediate threat: the Balkans — Russia has 4 units includ...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:850] - [ENGLAND] Generating phase result diary entry for F1901M...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ENGLAND] Formatting diary for prompt. Total context entries: 1
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:459] - [ENGLAND] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1901M] No active negotiated agreements recorded this phase. Maintain cautious posture: emphasize protecting Channel and North Sea lanes, prefer flexible understandings rather than binding commitments. Signal willin...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:850] - [FRANCE] Generating phase result diary entry for F1901M...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [FRANCE] Formatting diary for prompt. Total context entries: 1
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:459] - [FRANCE] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1901M] (LLM diary entry generation or parsing failed.)...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:850] - [GERMANY] Generating phase result diary entry for F1901M...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [GERMANY] Formatting diary for prompt. Total context entries: 1
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:459] - [GERMANY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1901M] No active negotiation messages received this phase. No binding agreements recorded. Maintain posture of disciplined, security-first diplomacy: seek reliable understandings with Austria to secure south/east f...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:850] - [ITALY] Generating phase result diary entry for F1901M...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [ITALY] Formatting diary for prompt. Total context entries: 1
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:459] - [ITALY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1901M] (LLM diary entry generation or parsing failed.)...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:850] - [RUSSIA] Generating phase result diary entry for F1901M...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [RUSSIA] Formatting diary for prompt. Total context entries: 1
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:459] - [RUSSIA] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1901M] No formal agreements recorded yet. I have emphasized an expansive, patient posture: prioritizing securing the northern Baltic approach (STP, MOS, WAR) while keeping options open in the south (SEV, Black Sea,...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:850] - [TURKEY] Generating phase result diary entry for F1901M...
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:425] - [TURKEY] Formatting diary for prompt. Total context entries: 1
+2026-02-04 20:02:44 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:459] - [TURKEY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1901M] No active messages this round. Baseline posture: Turkey emphasizes securing the Straits (CON/ANK/SMY) and cautious, defensive cooperation. We signaled preference for incremental, guaranteed arrangements rath...
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [AUSTRIA] DIARY ENTRY ADDED for S1901M. Total full entries: 2. New entry: Russia moved on GAL while my VIE-GAL succeeded; my VIE and BUD coordinated as intended, and TRI->ALB...
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:917] - [AUSTRIA] Phase result diary entry generated and added.
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [RUSSIA] DIARY ENTRY ADDED for S1901M. Total full entries: 2. New entry: Spring 1901 recap: My move MOS?LVN succeeded with STP support; SEV?BLA succeeded. WAR?GAL bounced ag...
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:917] - [RUSSIA] Phase result diary entry generated and added.
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [GERMANY] DIARY ENTRY ADDED for S1901M. Total full entries: 2. New entry: No negotiations arrived, and my orders executed as planned: KIE?HEL, BER?PRU, MUN?RUH. Austria advan...
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:917] - [GERMANY] Phase result diary entry generated and added.
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [ITALY] DIARY ENTRY ADDED for S1901M. Total full entries: 2. New entry: Austria shoved into Galicia with Budapest’s support; Russia tried to take Galicia too but bounced of...
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:917] - [ITALY] Phase result diary entry generated and added.
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [ENGLAND] DIARY ENTRY ADDED for S1901M. Total full entries: 2. New entry: EDWARD, S1901M — The fleets moved as I intended: EDI?NTH and LON held, LVP?YOR. No explicit agreemen...
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:917] - [ENGLAND] Phase result diary entry generated and added.
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [FRANCE] DIARY ENTRY ADDED for S1901M. Total full entries: 2. New entry: Strange calm this spring, but clarity grows. I moved to Picardy and Burgundy and took Gascony — all ...
+2026-02-04 20:02:48 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:917] - [FRANCE] Phase result diary entry generated and added.
+2026-02-04 20:02:49 - INFO - ai_diplomacy.agent - [add_diary_entry:376] - [TURKEY] DIARY ENTRY ADDED for S1901M. Total full entries: 2. New entry: No promises were broken this turn — I held all units in ANK/CON/SMY as signaled and received no dire...
+2026-02-04 20:02:49 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:917] - [TURKEY] Phase result diary entry generated and added.
+2026-02-04 20:02:49 - INFO - ai_diplomacy.game_logic - [save_game_state:98] - Saving game state to ./results/20260204_200222\lmvsgame.json…
+2026-02-04 20:02:49 - INFO - ai_diplomacy.game_logic - [save_game_state:167] - Game state saved successfully.
+2026-02-04 20:02:49 - INFO - __main__ - [main:667] - Phase S1901M took 14.65s
+2026-02-04 20:02:49 - INFO - __main__ - [main:428] - Reached end phase F1901M, stopping simulation.
+2026-02-04 20:02:49 - INFO - __main__ - [main:671] - Game ended after 27.22s. Final state saved in ./results/20260204_200222
+2026-02-04 20:02:49 - INFO - __main__ - [main:689] - Done.

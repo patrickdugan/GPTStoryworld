@@ -1,0 +1,25 @@
+2026-02-05T23:20:29.113525Z  INFO codex_core::auth: Reloading auth
+2026-02-05T23:20:29.169108Z  INFO codex_core::auth: Reloaded auth, changed: true
+2026-02-05T23:20:38.251484Z  INFO codex_core::skills::manager: skills cache cleared (0 entries)
+2026-02-05T23:20:39.265461Z  INFO codex_core::skills::manager: skills cache cleared (1 entries)
+2026-02-05T23:20:40.140430Z  INFO session_init: codex_core::codex: new
+2026-02-05T23:20:40.289036Z  INFO session_init: codex_core::codex: close time.busy=16.9ms time.idle=132ms
+2026-02-05T23:20:40.289388Z  INFO session_loop{thread_id=019c301b-95cd-71c0-95f5-f91fbd470193}: codex_core::codex: new
+2026-02-05T23:20:47.943164Z  INFO codex_tui::chatwidget: Selected model: gpt-5.3-codex, Selected effort: xhigh
+2026-02-05T23:25:48.917440Z  INFO session_loop{thread_id=019c301b-95cd-71c0-95f5-f91fbd470193}: codex_core::codex: Turn error: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Feb 9th, 2026 2:59 PM.
+2026-02-05T23:29:28.641971Z  INFO codex_tui::chatwidget: Selected model: gpt-5.3-codex, Selected effort: high
+2026-02-05T23:29:42.538960Z  INFO session_loop{thread_id=019c301b-95cd-71c0-95f5-f91fbd470193}: codex_core::codex: Turn error: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Feb 9th, 2026 2:59 PM.
+2026-02-05T23:29:56.339597Z  INFO session_loop{thread_id=019c301b-95cd-71c0-95f5-f91fbd470193}: codex_core::codex::handlers: Shutting down Codex instance
+2026-02-05T23:29:56.339756Z  INFO session_loop{thread_id=019c301b-95cd-71c0-95f5-f91fbd470193}: codex_core::codex: close time.busy=143ms time.idle=556s
+2026-02-05T23:34:18.298788Z  INFO codex_tui::onboarding::auth: Esc pressed
+2026-02-05T23:36:00.603236Z  INFO codex_core::auth: Reloading auth
+2026-02-05T23:36:00.630647Z  INFO codex_core::auth: Reloaded auth, changed: true
+2026-02-05T23:36:22.602716Z  INFO session_init: codex_core::codex: new
+2026-02-05T23:36:22.752101Z  INFO session_init: codex_core::codex: close time.busy=16.9ms time.idle=133ms
+2026-02-05T23:36:22.752161Z  INFO session_loop{thread_id=019c3029-f74a-7113-880c-dabf7a4074d0}: codex_core::codex: new
+2026-02-05T23:36:30.595351Z  INFO session_loop{thread_id=019c3029-f74a-7113-880c-dabf7a4074d0}: codex_core::codex: interrupt received: abort current task, if any
+2026-02-05T23:37:02.495225Z  INFO session_loop{thread_id=019c3029-f74a-7113-880c-dabf7a4074d0}: codex_core::stream_events_utils: ToolCall: shell_command {"command":"Get-ChildItem -Force","workdir":"C:\\projects\\GPTStoryworld"} thread_id=019c3029-f74a-7113-880c-dabf7a4074d0
+2026-02-05T23:37:02.495317Z  INFO session_loop{thread_id=019c3029-f74a-7113-880c-dabf7a4074d0}: codex_core::stream_events_utils: ToolCall: shell_command {"command":"if (Get-Command rg -ErrorAction SilentlyContinue) { rg --files } else { Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName } }","workdir":"C:\\projects\\GPTStoryworld","timeout_ms":120000} thread_id=019c3029-f74a-7113-880c-dabf7a4074d0
+2026-02-05T23:37:11.952782Z  INFO session_loop{thread_id=019c3029-f74a-7113-880c-dabf7a4074d0}: codex_core::codex: interrupt received: abort current task, if any
+2026-02-05T23:37:11.953085Z  INFO session_loop{thread_id=019c3029-f74a-7113-880c-dabf7a4074d0}: codex_core::codex: post sampling token usage turn_id=5 total_usage_tokens=10245 estimated_token_count=Some(6971) auto_compact_limit=244800 token_limit_reached=false needs_follow_up=true
+2026-02-05T23:37:43.006215Z  INFO session_loop{thread_id=019c3029-f74a-7113-880c-dabf7a4074d0}: codex_core::codex: post sampling token usage turn_id=9 total_usage_tokens=8733 estimated_token_count=Some(5385) auto_compact_limit=244800 token_limit_reached=false needs_follow_up=false

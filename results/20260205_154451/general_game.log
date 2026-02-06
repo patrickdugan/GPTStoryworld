@@ -1,0 +1,528 @@
+2026-02-05 15:44:51 - INFO - __main__ - [main:402] - General game logs will be appended to: ./results/20260205_154451\general_game.log
+2026-02-05 15:44:51 - INFO - ai_diplomacy.game_logic - [load_game_state:187] - Loading game state from: ./results/20260205_154451\lmvsgame.json
+2026-02-05 15:44:51 - WARNING - ai_diplomacy.game_logic - [load_game_state:270] - Missing state_agents in save; building fresh agents without LLM initialization.
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='silent', parsed spec: prefix=None, model=silent, reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='silent', lower_id='silent'
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2285] - [load_model_client] Selected SilentClient for 'silent'
+2026-02-05 15:44:51 - INFO - client - [__init__:230] - [silent] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:51 - INFO - ai_diplomacy.agent - [__init__:111] - [AUSTRIA] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple\austria_system_prompt.txt
+2026-02-05 15:44:51 - INFO - client - [set_system_prompt:238] - [silent] System prompt updated.
+2026-02-05 15:44:51 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for AUSTRIA with goals: []
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='storyworld:gpt-5-mini', parsed spec: prefix=storyworld, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 15:44:51 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:51 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [__init__:230] - [storyworld+gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:51 - INFO - ai_diplomacy.agent - [__init__:111] - [ENGLAND] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple\england_system_prompt.txt
+2026-02-05 15:44:51 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 15:44:51 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for ENGLAND with goals: []
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='storyworld:gpt-5-mini', parsed spec: prefix=storyworld, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='gpt-5-mini', parsed spec: prefix=None, model=gpt-5-mini, reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='gpt-5-mini', lower_id='gpt-5-mini'
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2256] - [load_model_client] Selected OpenAIResponsesClient for 'gpt-5-mini'
+2026-02-05 15:44:51 - INFO - client - [__init__:230] - [gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:51 - INFO - client - [__init__:1307] - [gpt-5-mini] Initialized OpenAI Responses API client with reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [__init__:230] - [storyworld+gpt-5-mini] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:51 - INFO - ai_diplomacy.agent - [__init__:111] - [FRANCE] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple\france_system_prompt.txt
+2026-02-05 15:44:51 - INFO - client - [set_system_prompt:238] - [gpt-5-mini] System prompt updated.
+2026-02-05 15:44:51 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for FRANCE with goals: []
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='silent', parsed spec: prefix=None, model=silent, reasoning_effort=None
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='silent', lower_id='silent'
+2026-02-05 15:44:51 - INFO - client - [load_model_client:2285] - [load_model_client] Selected SilentClient for 'silent'
+2026-02-05 15:44:51 - INFO - client - [__init__:230] - [silent] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:51 - INFO - ai_diplomacy.agent - [__init__:111] - [GERMANY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple\germany_system_prompt.txt
+2026-02-05 15:44:52 - INFO - client - [set_system_prompt:238] - [silent] System prompt updated.
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for GERMANY with goals: []
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='silent', parsed spec: prefix=None, model=silent, reasoning_effort=None
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='silent', lower_id='silent'
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2285] - [load_model_client] Selected SilentClient for 'silent'
+2026-02-05 15:44:52 - INFO - client - [__init__:230] - [silent] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [__init__:111] - [ITALY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple\italy_system_prompt.txt
+2026-02-05 15:44:52 - INFO - client - [set_system_prompt:238] - [silent] System prompt updated.
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for ITALY with goals: []
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='silent', parsed spec: prefix=None, model=silent, reasoning_effort=None
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='silent', lower_id='silent'
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2285] - [load_model_client] Selected SilentClient for 'silent'
+2026-02-05 15:44:52 - INFO - client - [__init__:230] - [silent] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [__init__:111] - [RUSSIA] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple\russia_system_prompt.txt
+2026-02-05 15:44:52 - INFO - client - [set_system_prompt:238] - [silent] System prompt updated.
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for RUSSIA with goals: []
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='silent', parsed spec: prefix=None, model=silent, reasoning_effort=None
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='silent', lower_id='silent'
+2026-02-05 15:44:52 - INFO - client - [load_model_client:2285] - [load_model_client] Selected SilentClient for 'silent'
+2026-02-05 15:44:52 - INFO - client - [__init__:230] - [silent] BaseModelClient initialized with prompts_dir: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [__init__:111] - [TURKEY] Attempting to load power-specific prompt from: C:\projects\AI_Diplomacy\ai_diplomacy\prompts_simple\turkey_system_prompt.txt
+2026-02-05 15:44:52 - INFO - client - [set_system_prompt:238] - [silent] System prompt updated.
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [__init__:131] - Initialized DiplomacyAgent for TURKEY with goals: []
+2026-02-05 15:44:52 - INFO - __main__ - [main:424] - Successfully resumed game from phase: S1915M.
+2026-02-05 15:44:52 - INFO - __main__ - [main:481] - PHASE: S1915M (time so far: 0.23s)
+2026-02-05 15:44:52 - INFO - negotiations - [conduct_negotiations:38] - Starting negotiation phase.
+2026-02-05 15:44:52 - INFO - negotiations - [conduct_negotiations:43] - Active powers for negotiations: ['AUSTRIA', 'ENGLAND', 'FRANCE', 'GERMANY', 'ITALY', 'RUSSIA', 'TURKEY']
+2026-02-05 15:44:52 - INFO - negotiations - [conduct_negotiations:47] - No eliminated powers yet.
+2026-02-05 15:44:52 - INFO - negotiations - [conduct_negotiations:56] - Negotiation Round 1/1
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [AUSTRIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:44:52 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [AUSTRIA] No diary entries found when formatting for prompt
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ENGLAND] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:44:52 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ENGLAND] No diary entries found when formatting for prompt
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [FRANCE] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:44:52 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [FRANCE] No diary entries found when formatting for prompt
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [GERMANY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:44:52 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [GERMANY] No diary entries found when formatting for prompt
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ITALY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:44:52 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ITALY] No diary entries found when formatting for prompt
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [RUSSIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:44:52 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [RUSSIA] No diary entries found when formatting for prompt
+2026-02-05 15:44:52 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [TURKEY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:44:52 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [TURKEY] No diary entries found when formatting for prompt
+2026-02-05 15:44:52 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to ENGLAND across 1 phases
+2026-02-05 15:44:52 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for ENGLAND to respond to
+2026-02-05 15:44:52 - INFO - client - [build_conversation_prompt:654] - [ENGLAND] Found 0 high priority messages to respond to
+2026-02-05 15:44:52 - INFO - utils - [get_recent_messages_to_power:451] - Found 0 messages to FRANCE across 1 phases
+2026-02-05 15:44:52 - INFO - utils - [get_recent_messages_to_power:453] - No messages found for FRANCE to respond to
+2026-02-05 15:44:52 - INFO - client - [build_conversation_prompt:654] - [FRANCE] Found 0 high priority messages to respond to
+2026-02-05 15:44:53 - INFO - client - [load_model_client:2190] - [load_model_client] Loading client for model_id='codex-mini-latest#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', parsed spec: prefix=None, model=codex-mini-latest, reasoning_effort=None
+2026-02-05 15:44:53 - INFO - client - [load_model_client:2247] - [load_model_client] Heuristic path: checking model='codex-mini-latest', lower_id='codex-mini-latest'
+2026-02-05 15:44:53 - INFO - client - [load_model_client:2293] - [load_model_client] No specific match found, using default OpenAIClient for 'codex-mini-latest'
+2026-02-05 15:44:53 - INFO - client - [__init__:230] - [codex-mini-latest] BaseModelClient initialized with prompts_dir: None
+2026-02-05 15:44:54 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:44:54 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/ENGLAND: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/ENGLAND (Attempt 1/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 1.28 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:44:56 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:44:56 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/ENGLAND: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/ENGLAND (Attempt 2/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 2.15 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:44:58 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:44:58 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/FRANCE: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/FRANCE (Attempt 1/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 1.08 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:44:59 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:44:59 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/ENGLAND: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/ENGLAND (Attempt 3/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 4.21 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:00 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:00 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/FRANCE: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/FRANCE (Attempt 2/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 2.01 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:03 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:03 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/FRANCE: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/FRANCE (Attempt 3/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 4.19 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:03 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:03 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/ENGLAND: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/ENGLAND (Attempt 4/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 8.29 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:08 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:08 - ERROR - utils - [run_llm_and_log:471] - An unexpected error occurred during LLM call for codex-mini-latest/FRANCE: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}LLM call failed for codex-mini-latest/FRANCE (Attempt 4/5). Error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}'). Retrying in 8.07 seconds.
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:12 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:12 - ERROR - utils - [run_llm_and_log:484] - API Error after 5 attempts for codex-mini-latest/ENGLAND/codex_oracle_plan in phase S1915M. Final error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}')
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:12 - WARNING - client - [_run_oracle_call:192] - [oracle] Failed for ENGLAND in S1915M (plan): PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:16 - ERROR - client - [generate_response:1119] - [codex-mini-latest] OpenAI client error: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}} (status 403) – body: {"error": {"message": "Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`", "type": "invalid_request_error", "param": null, "code": "model_not_found"}}
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:16 - ERROR - utils - [run_llm_and_log:484] - API Error after 5 attempts for codex-mini-latest/FRANCE/codex_oracle_plan in phase S1915M. Final error: PermissionDeniedError('Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}')
+Traceback (most recent call last):
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\utils.py", line 435, in run_llm_and_log
+    raw_response = await client.generate_response(prompt, temperature=temperature)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\AI_Diplomacy\ai_diplomacy\clients.py", line 1080, in generate_response
+    response = await self.client.chat.completions.create(**completion_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2585, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1794, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\site-packages\openai\_base_client.py", line 1594, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:16 - WARNING - client - [_run_oracle_call:192] - [oracle] Failed for FRANCE in S1915M (plan): PermissionDeniedError: Error code: 403 - {'error': {'message': 'Project `proj_4lkk1vC6kpiIt7LYVNm29q5H` does not have access to model `codex-mini-latest`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> GLOBAL] To all: The map is clear — England holds the west and can press everywhere if we coordinate. France ...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> FRANCE] AgentC — you are between a rock and a hard place. I see the forecast you sent to Germany suggesting ...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> GERMANY] Agent? — France may well try a bold strike (I have credible intelligence indicating a 60% chance of ...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> RUSSIA] Agent? — The Balkans are messy and Turkey/Austria are busy. I will not open hostilities toward the e...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> AUSTRIA] AgentB — Austria, you are under strain in the Balkans. I offer not to interfere with your southern f...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> ITALY] Friend — Italy, you have room to maneuver in the Med while the western powers sort themselves out. I...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [ENGLAND -> TURKEY] Agent? — Turkey, you and Russia are locked. I will not intervene in the eastern Med so long as you d...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> GLOBAL] To all: France is on the ropes in 1915 and must act decisively. England controls the seas and threat...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> ENGLAND] England — we both know you dominate the sea and can easily remove me if you oppose. I propose neutra...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> GERMANY] Germany — France is weak but dangerous. I propose a short-term non-aggression: if you do not support...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> ITALY] Italy — you sit to our southeast and could be a valuable partner. I offer: I will not contest your h...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> AUSTRIA] Austria — to survive I need a stable southeast. I propose neutrality between us: do not attack my so...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:182] - [FRANCE -> RUSSIA] Russia — you are heavily engaged in the Balkans and Black Sea. I do not want an immediate clash with...
+2026-02-05 15:45:31 - INFO - negotiations - [conduct_negotiations:184] - Negotiation phase complete.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [AUSTRIA] Generating negotiation diary entry for S1915M...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [AUSTRIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:45:31 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [AUSTRIA] No diary entries found when formatting for prompt
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:610] - [AUSTRIA] Successfully formatted prompt template after preprocessing.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [ENGLAND] Generating negotiation diary entry for S1915M...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ENGLAND] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:45:31 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ENGLAND] No diary entries found when formatting for prompt
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:610] - [ENGLAND] Successfully formatted prompt template after preprocessing.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [FRANCE] Generating negotiation diary entry for S1915M...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [FRANCE] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:45:31 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [FRANCE] No diary entries found when formatting for prompt
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:610] - [FRANCE] Successfully formatted prompt template after preprocessing.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [GERMANY] Generating negotiation diary entry for S1915M...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [GERMANY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:45:31 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [GERMANY] No diary entries found when formatting for prompt
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:610] - [GERMANY] Successfully formatted prompt template after preprocessing.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [ITALY] Generating negotiation diary entry for S1915M...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ITALY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:45:31 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [ITALY] No diary entries found when formatting for prompt
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:610] - [ITALY] Successfully formatted prompt template after preprocessing.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [RUSSIA] Generating negotiation diary entry for S1915M...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [RUSSIA] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:45:31 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [RUSSIA] No diary entries found when formatting for prompt
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:610] - [RUSSIA] Successfully formatted prompt template after preprocessing.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:505] - [TURKEY] Generating negotiation diary entry for S1915M...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [TURKEY] Formatting diary for prompt. Total context entries: 0
+2026-02-05 15:45:31 - WARNING - ai_diplomacy.agent - [format_private_diary_for_prompt:458] - [TURKEY] No diary entries found when formatting for prompt
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:610] - [TURKEY] Successfully formatted prompt template after preprocessing.
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [AUSTRIA] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [GERMANY] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ITALY] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [RUSSIA] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:45:31 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [TURKEY] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:45:48 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:663] - [FRANCE] Successfully extracted 'negotiation_summary' for diary.
+2026-02-05 15:45:48 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:682] - [FRANCE] Successfully extracted 'updated_relationships' for relationship updates.
+2026-02-05 15:45:48 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:700] - [FRANCE] Relationship with AUSTRIA changing from Neutral to Unfriendly based on diary.
+2026-02-05 15:45:48 - INFO - ai_diplomacy.agent - [update_goals:1267] - [FRANCE] Goals updated to: ['Survive 1915 by preventing English naval elimination and holding Paris/Brest/Marseilles', "Create immediate pressure on England's Iberian flank (take POR or threaten SPA) via MAO/GAS moves", 'Contest German expansion into Burgundy/Picardy and retain leverage in the west', 'Exploit any Austrian aggression indicated by the forecast by aligning temporarily with Italy/England or Germany as needed to check Austria', 'Expand aggressively if opportunities open (capture supply centers while avoiding passive holds)']
+2026-02-05 15:45:48 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [FRANCE] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: England offered to stand down fleet pressure on Brest/Gascony if France commits to not contesting En...
+2026-02-05 15:45:51 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:663] - [ENGLAND] Successfully extracted 'negotiation_summary' for diary.
+2026-02-05 15:45:51 - INFO - ai_diplomacy.agent - [generate_negotiation_diary_entry:682] - [ENGLAND] Successfully extracted 'updated_relationships' for relationship updates.
+2026-02-05 15:45:51 - INFO - ai_diplomacy.agent - [update_goals:1267] - [ENGLAND] Goals updated to: ['Hold and consolidate current 10 supply centers', 'Exploit any German distraction to seize German or neutral centers in the Low Countries/Denmark if agreements break', 'Avoid wasting fleets in the Bay this phase to keep pressure and bargaining leverage', 'Preserve cordial neutrality with France this phase to prevent two-front sea/land conflict', 'Prepare rapid punitive offensive on any power that violates these negotiated restraints']
+2026-02-05 15:45:51 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ENGLAND] DIARY ENTRY ADDED for S1915M. Total full entries: 1. New entry: England publicly and privately signaled restraint in the west in exchange for assurances of no immed...
+2026-02-05 15:45:51 - INFO - __main__ - [main:536] - Getting orders from agents...
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [AUSTRIA] CONSOLIDATION START ? 1 total full entries
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [AUSTRIA] ? 1 distinct years ? skipping consolidation
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [ENGLAND] CONSOLIDATION START ? 1 total full entries
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [ENGLAND] ? 1 distinct years ? skipping consolidation
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [FRANCE] CONSOLIDATION START ? 1 total full entries
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [FRANCE] ? 1 distinct years ? skipping consolidation
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [GERMANY] CONSOLIDATION START ? 1 total full entries
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [GERMANY] ? 1 distinct years ? skipping consolidation
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [ITALY] CONSOLIDATION START ? 1 total full entries
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [ITALY] ? 1 distinct years ? skipping consolidation
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [RUSSIA] CONSOLIDATION START ? 1 total full entries
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [RUSSIA] ? 1 distinct years ? skipping consolidation
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:33] - [TURKEY] CONSOLIDATION START ? 1 total full entries
+2026-02-05 15:45:51 - INFO - ai_diplomacy.diary_logic - [run_diary_consolidation:72] - [TURKEY] ? 1 distinct years ? skipping consolidation
+2026-02-05 15:46:12 - INFO - client - [get_orders:348] - [ENGLAND] Some LLM-proposed moves were invalid. Using fallbacks/validated. Invalid: ['A SWE S A DEN - KIE']
+2026-02-05 15:46:12 - INFO - __main__ - [main:625] - Results for S1915M:
+2026-02-05 15:46:12 - INFO - __main__ - [main:627] - AUSTRIA: ['BUD', 'VIE', 'TRI', 'SER']
+2026-02-05 15:46:12 - INFO - __main__ - [main:627] - ENGLAND: ['EDI', 'LON', 'LVP', 'NWY', 'SWE', 'DEN', 'HOL', 'BEL', 'SPA', 'POR']
+2026-02-05 15:46:12 - INFO - __main__ - [main:627] - FRANCE: ['BRE', 'PAR', 'MAR']
+2026-02-05 15:46:12 - INFO - __main__ - [main:627] - GERMANY: ['BER', 'MUN', 'KIE']
+2026-02-05 15:46:12 - INFO - __main__ - [main:627] - ITALY: ['ROM', 'VEN', 'NAP', 'TUN']
+2026-02-05 15:46:12 - INFO - __main__ - [main:627] - RUSSIA: ['MOS', 'SEV', 'WAR', 'STP', 'RUM']
+2026-02-05 15:46:12 - INFO - __main__ - [main:627] - TURKEY: ['ANK', 'CON', 'SMY', 'BUL', 'GRE']
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:939] - [AUSTRIA] Generating phase result diary entry for F1915M...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [AUSTRIA] Formatting diary for prompt. Total context entries: 1
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [AUSTRIA] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [AUSTRIA] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: {}...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:1006] - [AUSTRIA] Phase result diary entry generated and added.
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:939] - [ENGLAND] Generating phase result diary entry for F1915M...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ENGLAND] Formatting diary for prompt. Total context entries: 1
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [ENGLAND] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] England publicly and privately signaled restraint in the west in exchange for assurances of no immediate French or German opportunistic grabs of Belgian/Holland/Picardy/Gascony. France requested neutrality i...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:939] - [FRANCE] Generating phase result diary entry for F1915M...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [FRANCE] Formatting diary for prompt. Total context entries: 1
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [FRANCE] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] England offered to stand down fleet pressure on Brest/Gascony if France commits to not contesting England's northern/Iberian holdings and to refrain from supporting German moves into Belgium/Low Countries. E...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:939] - [GERMANY] Generating phase result diary entry for F1915M...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [GERMANY] Formatting diary for prompt. Total context entries: 1
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [GERMANY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [GERMANY] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: {}...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:1006] - [GERMANY] Phase result diary entry generated and added.
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:939] - [ITALY] Generating phase result diary entry for F1915M...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [ITALY] Formatting diary for prompt. Total context entries: 1
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [ITALY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ITALY] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: {}...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:1006] - [ITALY] Phase result diary entry generated and added.
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:939] - [RUSSIA] Generating phase result diary entry for F1915M...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [RUSSIA] Formatting diary for prompt. Total context entries: 1
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [RUSSIA] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [RUSSIA] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: {}...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:1006] - [RUSSIA] Phase result diary entry generated and added.
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:939] - [TURKEY] Generating phase result diary entry for F1915M...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:456] - [TURKEY] Formatting diary for prompt. Total context entries: 1
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [format_private_diary_for_prompt:491] - [TURKEY] Formatted diary with 0 consolidated and 1 recent entries. Preview: --- RECENT FULL DIARY ENTRIES ---
+[S1915M] (LLM diary entry generation or parsing failed.)...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [TURKEY] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: {}...
+2026-02-05 15:46:12 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:1006] - [TURKEY] Phase result diary entry generated and added.
+2026-02-05 15:46:16 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [ENGLAND] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: France honored the western restraint — no fleet into the Bay and Brest moved to MAO, while Paris and...
+2026-02-05 15:46:16 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:1006] - [ENGLAND] Phase result diary entry generated and added.
+2026-02-05 15:46:16 - INFO - ai_diplomacy.agent - [add_diary_entry:407] - [FRANCE] DIARY ENTRY ADDED for S1915M. Total full entries: 2. New entry: England largely honored tacit non?aggression: they didn’t contest Brest/Paris/Marseilles and instead...
+2026-02-05 15:46:16 - INFO - ai_diplomacy.agent - [generate_phase_result_diary_entry:1006] - [FRANCE] Phase result diary entry generated and added.
+2026-02-05 15:46:16 - INFO - ai_diplomacy.game_logic - [save_game_state:98] - Saving game state to ./results/20260205_154451\lmvsgame.json…
+2026-02-05 15:46:16 - INFO - ai_diplomacy.game_logic - [save_game_state:167] - Game state saved successfully.
+2026-02-05 15:46:16 - INFO - __main__ - [main:816] - Phase S1915M took 84.89s
+2026-02-05 15:46:16 - INFO - __main__ - [main:474] - Reached end phase F1915M, stopping simulation.
+2026-02-05 15:46:16 - INFO - __main__ - [main:820] - Game ended after 85.13s. Final state saved in ./results/20260205_154451
+2026-02-05 15:46:16 - INFO - __main__ - [main:838] - Done.

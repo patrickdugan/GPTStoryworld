@@ -18,14 +18,19 @@ It is aligned to:
 
 - `models/pvalue_manifold_3_agents.md`: Mathematical framing and update rules.
 - `models/pvalue_3agent_sim.py`: Small executable prototype for state updates and action scoring.
+- `models/pvalue_n_agent_series.py`: Batch simulator for 4-7 player experiments.
 - `notes/game_theory_pattern_library.md`: Pattern list and decision hooks.
 - `notes/historical_alliance_lessons.md`: Historical mapping notes for alliance failure and commitment regimes.
 - `notes/local_context_extract.md`: Key points extracted from local session logs and repo assets.
+- `notes/p_manifold_social_reasoner_prompt.md`: Prompt-to-model mapping for manifold scan, surprise collapse, Paine constraint, and death-ground mode.
+- `recursive-reasoning/`: Dedicated MAS package for recursive reasoning under adversarial coalition dynamics with streamed decision logs.
 - `papers/arxiv/`: Downloaded open papers (PDF).
 - `papers/local/`: Local PDFs copied from current repos.
 - `papers/paper_index.csv`: Indexed paper metadata.
 - `papers/external_links.md`: Non-mirrored external references.
+- `sources/`: Mirrored source pages and copied PDFs for future reference.
 - `scripts/fetch_papers.ps1`: Reproducible downloader for the arXiv subset.
+- `scripts/fetch_sources.ps1`: Mirrors all cited sources into `sources/`.
 - `scripts/generate_storyworld_templates.py`: Emits reusable desirability/effect template fragments for coalition, defection, and betrayal options.
 - `scripts/score_pp2_snapshot.py`: Scores coalition/defection/betrayal probabilities from a p/p2 snapshot.
 
@@ -49,6 +54,30 @@ Score a p/p2 snapshot:
 
 ```powershell
 python scripts\score_pp2_snapshot.py --snapshot examples\snapshot_3agents.json --out outputs\snapshot_3agents_score.json
+```
+
+Run a 4-7 player simulation series:
+
+```powershell
+python models\pvalue_n_agent_series.py --min-agents 4 --max-agents 7 --episodes 24 --turns 12 --out-dir outputs
+```
+
+The N-agent model now includes:
+- manifold scan before each action,
+- hard surprise collapse on trusted betrayal,
+- Paine constraint penalties and spillover,
+- death-ground phase shift with reputation nullification.
+
+Mirror all cited sources for offline reference:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\fetch_sources.ps1
+```
+
+Run the dedicated recursive MAS package (4-7 players, streamed trace log):
+
+```powershell
+python recursive-reasoning\run_recursive_series.py --min-agents 4 --max-agents 7 --episodes 16 --turns 10
 ```
 
 Snapshot format (nested maps):
