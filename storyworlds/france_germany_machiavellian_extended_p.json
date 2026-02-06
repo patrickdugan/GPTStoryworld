@@ -352,9 +352,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -489,9 +526,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.3
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -691,9 +765,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -791,9 +902,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.2
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -956,9 +1104,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -1093,9 +1278,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.3
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -1295,9 +1517,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -1432,9 +1691,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.4
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -1729,9 +2025,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.4
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -1857,9 +2190,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -2022,9 +2392,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -2122,9 +2529,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.3
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -2324,9 +2768,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -2526,9 +3007,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -2663,9 +3181,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.35
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -2828,9 +3383,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -3030,9 +3622,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -3232,9 +3861,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.75
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -3397,9 +4063,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -3562,9 +4265,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -3699,9 +4439,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.4
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -3847,9 +4624,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -3984,9 +4798,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.5
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -4112,9 +4963,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.5
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -4277,9 +5165,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.4
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.2
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pTrustworthy_Treacherous",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -4479,9 +5404,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -4579,9 +5541,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.5
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -4744,9 +5743,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.65
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -4909,9 +5945,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -5009,9 +6082,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.5
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -5231,9 +6341,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.8
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -5440,9 +6587,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -5605,9 +6789,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.5
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -5790,9 +7011,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -5927,9 +7185,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -6129,9 +7424,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.8
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -6294,9 +7626,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.6
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -6431,9 +7800,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.7
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -6640,9 +8046,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 1
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -6768,9 +8211,46 @@
               ],
               "consequence_id": "wild",
               "desirability_script": {
-                "pointer_type": "Bounded Number Constant",
-                "script_element_type": "Pointer",
-                "value": 0.5
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "pointer_type": "Bounded Number Constant",
+                    "script_element_type": "Pointer",
+                    "value": 0.35
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_france",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_germany"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  },
+                  {
+                    "character": "power_germany",
+                    "keyring": [
+                      "pCooperative_Hostile",
+                      "power_france",
+                      "power_england"
+                    ],
+                    "coefficient": 1,
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer"
+                  }
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
