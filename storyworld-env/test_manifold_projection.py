@@ -45,3 +45,6 @@ def test_project_turn_emits_expected_dimensions():
     assert len(row["vector"]) == 12
     assert row["evidence_counts"]["pvalue"] == 2
     assert row["evidence_counts"]["p2value"] == 1
+    assert "sidecar_probabilities" in row
+    assert "aggregate" in row["sidecar_probabilities"]
+    assert "recommended_global_action" in row["sidecar_probabilities"]

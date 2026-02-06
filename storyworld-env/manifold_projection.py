@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import math
 import json
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
@@ -44,6 +45,147 @@ def _extract_logs_from_action(action: Dict[str, Any]) -> tuple[List[Dict[str, An
     if not isinstance(diary, list):
         diary = []
     return ril, diary
+
+
+def _sigmoid(x: float) -> float:
+    return 1.0 / (1.0 + math.exp(-x))
+
+
+def _softmax3(a: float, b: float, c: float) -> tuple[float, float, float]:
+    m = max(a, b, c)
+    ea = math.exp(a - m)
+    eb = math.exp(b - m)
+    ec = math.exp(c - m)
+    z = ea + eb + ec
+    return ea / z, eb / z, ec / z
+
+
+def _get_p(snap: Dict[str, Any], observer: str, target: str, trait: str, default: float = 0.5) -> float:
+    p = snap.get("p", {})
+    if isinstance(p, dict):
+        val = p.get(observer, {}).get(target, {}).get(trait)
+        if isinstance(val, (int, float)):
+            return float(val)
+    return default
+
+
+def _get_p2(
+    snap: Dict[str, Any],
+    observer: str,
+    mediator: str,
+    target: str,
+    trait: str,
+    default: float = 0.5,
+) -> float:
+    p2 = snap.get("p2", {})
+    if isinstance(p2, dict):
+        val = p2.get(observer, {}).get(mediator, {}).get(target, {}).get(trait)
+        if isinstance(val, (int, float)):
+            return float(val)
+    return default
+
+
+def _score_snapshot(snap: Dict[str, Any]) -> Dict[str, Any]:
+    agents = snap.get("agents", [])
+    if not isinstance(agents, list) or len(agents) < 2:
+        return {}
+
+    by_pair: Dict[str, Dict[str, float]] = {}
+    totals = {"coalition": 0.0, "defection": 0.0, "betrayal": 0.0}
+    n = 0
+
+    for observer in agents:
+        for target in agents:
+            if observer == target:
+                continue
+            witness = next((x for x in agents if x not in {observer, target}), target)
+
+            trust = _get_p(snap, observer, target, "loyalty", 0.5)
+            reciprocity = _get_p(snap, observer, target, "reciprocity", 0.5)
+            threat = _get_p(snap, observer, target, "risk_tolerance", 0.5)
+            meta_self = _get_p2(snap, observer, target, observer, "promise_keeping", 0.5)
+            meta_target = _get_p2(snap, observer, witness, target, "promise_keeping", 0.5)
+
+            coalition_logit = 2.2 * reciprocity + 1.6 * trust + 1.2 * meta_self - 2.1 * threat - 1.8
+            defection_logit = 2.0 * threat + 1.0 * meta_target - 1.2 * trust - 1.4 * reciprocity - 0.9
+            betrayal_logit = 2.4 * threat + 1.8 * meta_target - 2.0 * trust - 1.0
+
+            p_coal, p_def, p_bet = _softmax3(coalition_logit, defection_logit, betrayal_logit)
+            by_pair[f"{observer}->{target}"] = {
+                "coalition": round(p_coal, 4),
+                "defection": round(p_def, 4),
+                "betrayal": round(p_bet, 4),
+            }
+            totals["coalition"] += p_coal
+            totals["defection"] += p_def
+            totals["betrayal"] += p_bet
+            n += 1
+
+    avg = {k: round(v / max(1, n), 4) for k, v in totals.items()}
+    strategic_tension = round(_sigmoid((avg["betrayal"] + avg["defection"]) - avg["coalition"]), 4)
+    recommended = (
+        "join_coalition"
+        if avg["coalition"] >= max(avg["defection"], avg["betrayal"])
+        else "defect"
+        if avg["defection"] >= avg["betrayal"]
+        else "betray"
+    )
+
+    return {
+        "by_pair": by_pair,
+        "aggregate": avg,
+        "strategic_tension": strategic_tension,
+        "recommended_global_action": recommended,
+    }
+
+
+def _normalize_trust_to_unit(v: float) -> float:
+    # Supports both [-1,1] and [0,1] trust ranges.
+    if v < 0.0 or v > 1.0:
+        return max(0.0, min(1.0, (v + 1.0) / 2.0))
+    return max(0.0, min(1.0, v))
+
+
+def _build_snapshot_from_payload(step_payload: Dict[str, Any]) -> Dict[str, Any]:
+    explicit = step_payload.get("pp2_snapshot")
+    if isinstance(explicit, dict):
+        return explicit
+
+    beliefs = step_payload.get("beliefs")
+    if not isinstance(beliefs, dict):
+        return {}
+
+    agents = [a for a in beliefs.keys() if isinstance(a, str)]
+    if len(agents) < 2:
+        return {}
+
+    p: Dict[str, Dict[str, Dict[str, float]]] = {}
+    p2: Dict[str, Dict[str, Dict[str, Dict[str, float]]]] = {}
+
+    for obs in agents:
+        p.setdefault(obs, {})
+        p2.setdefault(obs, {})
+        trust_map = beliefs.get(obs, {}).get("trust", {})
+        if not isinstance(trust_map, dict):
+            trust_map = {}
+        for tgt in agents:
+            if obs == tgt:
+                continue
+            raw_trust = trust_map.get(tgt, 0.0)
+            t = _normalize_trust_to_unit(float(raw_trust) if isinstance(raw_trust, (int, float)) else 0.0)
+            p[obs][tgt] = {
+                "loyalty": t,
+                "reciprocity": t,
+                "risk_tolerance": 1.0 - t,
+                "promise_keeping": t,
+            }
+            p2[obs].setdefault(tgt, {})
+            for third in agents:
+                if third == tgt:
+                    continue
+                p2[obs][tgt][third] = {"promise_keeping": 0.5}
+
+    return {"agents": agents, "p": p, "p2": p2}
 
 
 def project_turn(
@@ -100,6 +242,7 @@ def project_turn(
                     p2value_evidence += 1
 
     vector = base + pvalue_vec + p2value_vec
+    sidecar = _score_snapshot(_build_snapshot_from_payload(step_payload))
     return {
         "turn": step_payload.get("turn"),
         "outcome": outcome,
@@ -111,6 +254,7 @@ def project_turn(
             "pvalue": pvalue_evidence,
             "p2value": p2value_evidence,
         },
+        "sidecar_probabilities": sidecar,
     }
 
 

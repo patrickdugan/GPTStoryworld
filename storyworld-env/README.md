@@ -180,6 +180,7 @@ Dimension layout:
 - Base (5): coalition count, coalition mean stability, betrayal surprise, betrayal flag, active party count.
 - Compact pValue block: hash-bucket embedding of keyrings with length 2.
 - Compact p2Value block: hash-bucket embedding of keyrings with length 3.
+- Sidecar per turn: coalition/defection/betrayal probabilities and recommended global action.
 
 This keeps global dimensionality stable while preserving high-cardinality belief evidence.
 
