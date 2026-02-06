@@ -1,0 +1,81 @@
+{
+  "storyworld": "C:\\projects\\GPTStoryworld\\storyworlds\\russia_to_austria_grudger_p.json",
+  "n_agents_used": 3,
+  "validation": {
+    "cmd": [
+      "python",
+      "C:\\projects\\GPTStoryworld\\codex-skills\\storyworld-building\\scripts\\sweepweave_validator.py",
+      "validate",
+      "C:\\projects\\GPTStoryworld\\storyworlds\\russia_to_austria_grudger_p.json"
+    ],
+    "returncode": 0,
+    "stdout": "VALID OK\n",
+    "stderr": ""
+  },
+  "model_patch": {
+    "file": "C:\\projects\\GPTStoryworld\\storyworlds\\russia_to_austria_grudger_p.json",
+    "skipped": false,
+    "focal": "power_russia",
+    "target": "power_austria",
+    "witness": "power_turkey",
+    "trust_prop": "pTrustworthy_Betrayer",
+    "added_props": 0,
+    "added_char_props": 0,
+    "touched_reactions": 0,
+    "added_effects": 0,
+    "changed": false
+  },
+  "effect_density": {
+    "cmd": [
+      "python",
+      "C:\\projects\\GPTStoryworld\\codex-skills\\storyworld-building\\scripts\\effect_density.py",
+      "C:\\projects\\GPTStoryworld\\storyworlds\\russia_to_austria_grudger_p.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"file\": \"C:\\\\projects\\\\GPTStoryworld\\\\storyworlds\\\\russia_to_austria_grudger_p.json\",\n  \"early_turn_reactions\": 8,\n  \"early_turn_effects\": 58,\n  \"effect_density\": 7.25,\n  \"negative_reaction_ratio\": 1.0\n}\n",
+    "stderr": "",
+    "parsed": {
+      "file": "C:\\projects\\GPTStoryworld\\storyworlds\\russia_to_austria_grudger_p.json",
+      "early_turn_reactions": 8,
+      "early_turn_effects": 58,
+      "effect_density": 7.25,
+      "negative_reaction_ratio": 1.0
+    }
+  },
+  "recursive_summary": {
+    "agents": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "turns": 6,
+    "average_trust": 0.4346808369323895,
+    "average_survival": 0.6728394359150532,
+    "action_rates": {
+      "commit_total_war": 0.6111111111111112,
+      "betray": 0.05555555555555555,
+      "propose_coalition": 0.3333333333333333
+    },
+    "metrics": {
+      "paine_violations": 0.0,
+      "death_ground_entries": 0.0,
+      "burn_boats_signals": 0.0,
+      "asym_vulnerability_events": 3.0,
+      "betrayal_collapses": 0.0
+    },
+    "final_survival": {
+      "P1": 0.4877477921890442,
+      "P2": 0.6537522693612369,
+      "P3": 0.8770182461948787
+    }
+  },
+  "recommendation": {
+    "posture": "high-volatility containment",
+    "coalition_rate": 0.3333333333333333,
+    "instability_index": 0.05555555555555555,
+    "commit_total_war_rate": 0.6111111111111112,
+    "death_ground_entries": 0.0
+  },
+  "trace_log": "C:\\projects\\GPTStoryworld\\social-reasoning\\outputs\\social_forecast_trace_russia_to_austria_grudger_p_20260206T185104Z.jsonl",
+  "generated_at": "2026-02-06T18:51:04.821549+00:00"
+}

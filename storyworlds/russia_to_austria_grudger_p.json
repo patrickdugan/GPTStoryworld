@@ -77,6 +77,42 @@
       "modified_time": 1732000000,
       "property_name": "pAllied_Hostile",
       "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 6,
+      "creation_time": "2026-02-05T23:11:14.601012Z",
+      "default_value": 0.65,
+      "depth": 0,
+      "id": "Survival_Resource",
+      "modified_time": "2026-02-05T23:11:14.601012Z",
+      "property_name": "Survival_Resource",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 7,
+      "creation_time": "2026-02-05T23:11:14.601012Z",
+      "default_value": 0.0,
+      "depth": 0,
+      "id": "Death_Ground_Signal",
+      "modified_time": "2026-02-05T23:11:14.601012Z",
+      "property_name": "Death_Ground_Signal",
+      "property_type": "bounded number"
+    },
+    {
+      "affected_characters": [],
+      "attribution_target": "all cast members",
+      "creation_index": 8,
+      "creation_time": "2026-02-05T23:11:14.601012Z",
+      "default_value": 0.0,
+      "depth": 0,
+      "id": "Strategic_Pressure",
+      "modified_time": "2026-02-05T23:11:14.601012Z",
+      "property_name": "Strategic_Pressure",
+      "property_type": "bounded number"
     }
   ],
   "characters": [
@@ -87,7 +123,12 @@
         "Threat_Level": 0,
         "Trustworthy_Betrayer": 0.3,
         "pAllied_Hostile": {},
-        "pTrustworthy_Betrayer": {}
+        "pTrustworthy_Betrayer": {},
+        "Survival_Resource": 0.65,
+        "Death_Ground_Signal": 0.0,
+        "Strategic_Pressure": 0.0,
+        "pTrust": {},
+        "pThreat": {}
       },
       "creation_index": 0,
       "creation_time": 1732000000,
@@ -103,7 +144,12 @@
         "Threat_Level": 0,
         "Trustworthy_Betrayer": 0,
         "pAllied_Hostile": {},
-        "pTrustworthy_Betrayer": {}
+        "pTrustworthy_Betrayer": {},
+        "Survival_Resource": 0.65,
+        "Death_Ground_Signal": 0.0,
+        "Strategic_Pressure": 0.0,
+        "pTrust": {},
+        "pThreat": {}
       },
       "creation_index": 1,
       "creation_time": 1732000000,
@@ -119,7 +165,12 @@
         "Threat_Level": 0.6,
         "Trustworthy_Betrayer": -0.8,
         "pAllied_Hostile": {},
-        "pTrustworthy_Betrayer": {}
+        "pTrustworthy_Betrayer": {},
+        "Survival_Resource": 0.65,
+        "Death_Ground_Signal": 0.0,
+        "Strategic_Pressure": 0.0,
+        "pTrust": {},
+        "pThreat": {}
       },
       "creation_index": 2,
       "creation_time": 1732000000,
@@ -245,6 +296,138 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Survival_Resource"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.08
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.07
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.11
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.1
+                      }
+                    ]
+                  }
                 }
               ],
               "consequence_id": "wild",
@@ -253,40 +436,65 @@
                 "operator_type": "Addition",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.35
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.35
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_russia"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_russia",
+                          "power_turkey"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      }
+                    ]
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pTrustworthy_Betrayer",
-                      "power_russia"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
-                  },
-                  {
+                    "script_element_type": "Pointer",
                     "character": "power_russia",
                     "keyring": [
-                      "pTrustworthy_Betrayer",
+                      "pThreat",
                       "power_austria"
                     ],
-                    "coefficient": 1,
-                    "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "coefficient": 0.15
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pTrustworthy_Betrayer",
-                      "power_russia",
-                      "power_turkey"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": -0.18
                   }
                 ]
               },
@@ -382,6 +590,138 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Survival_Resource"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
                 }
               ],
               "consequence_id": "wild",
@@ -390,40 +730,78 @@
                 "operator_type": "Addition",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.2
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.2
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_russia"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_russia",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_austria"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_russia",
+                          "power_turkey"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      }
+                    ]
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pAllied_Hostile",
-                      "power_russia"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
-                  },
-                  {
+                    "script_element_type": "Pointer",
                     "character": "power_russia",
                     "keyring": [
-                      "pAllied_Hostile",
-                      "power_austria"
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
                     ],
-                    "coefficient": 1,
-                    "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "coefficient": 0.05
                   },
                   {
-                    "character": "power_austria",
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
                     "keyring": [
-                      "pAllied_Hostile",
-                      "power_russia",
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
                       "power_turkey"
                     ],
-                    "coefficient": 1,
+                    "coefficient": 0.03
+                  },
+                  {
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pThreat",
+                      "power_austria"
+                    ],
+                    "coefficient": 0.03
                   }
                 ]
               },
@@ -584,45 +962,224 @@
                       }
                     ]
                   }
-                }
-              ],
-              "consequence_id": "wild",
-              "desirability_script": {
-                "operands": [
-                  {
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
                     "operands": [
                       {
-                        "character": "power_turkey",
-                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
                         "keyring": [
-                          "Trustworthy_Betrayer"
+                          "Survival_Resource"
                         ],
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer"
+                        "coefficient": 1.0
                       },
                       {
                         "pointer_type": "Bounded Number Constant",
                         "script_element_type": "Pointer",
-                        "value": -0.5
+                        "value": -0.08
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.07
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.11
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.1
+                      }
+                    ]
+                  }
+                }
+              ],
+              "consequence_id": "wild",
+              "desirability_script": {
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
+                "operands": [
+                  {
+                    "operands": [
+                      {
+                        "operands": [
+                          {
+                            "character": "power_turkey",
+                            "coefficient": 1,
+                            "keyring": [
+                              "Trustworthy_Betrayer"
+                            ],
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer"
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": -0.5
+                          }
+                        ],
+                        "operator_subtype": "LTE",
+                        "operator_type": "Arithmetic Comparator",
+                        "script_element_type": "Operator"
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.7
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.2
                       }
                     ],
-                    "operator_subtype": "LTE",
-                    "operator_type": "Arithmetic Comparator",
+                    "operator_type": "If Then",
                     "script_element_type": "Operator"
                   },
                   {
-                    "pointer_type": "Bounded Number Constant",
+                    "pointer_type": "Bounded Number Property",
                     "script_element_type": "Pointer",
-                    "value": 0.7
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": -0.12
                   },
                   {
-                    "pointer_type": "Bounded Number Constant",
+                    "pointer_type": "Bounded Number Property",
                     "script_element_type": "Pointer",
-                    "value": 0.2
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_turkey"
+                    ],
+                    "coefficient": -0.06
+                  },
+                  {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pThreat",
+                      "power_austria"
+                    ],
+                    "coefficient": 0.15
+                  },
+                  {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": -0.18
                   }
-                ],
-                "operator_type": "If Then",
-                "script_element_type": "Operator"
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -798,6 +1355,172 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Survival_Resource"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.05
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.05
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.04
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.08
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_turkey"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_turkey"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.04
+                      }
+                    ]
+                  }
                 }
               ],
               "consequence_id": "wild",
@@ -806,40 +1529,65 @@
                 "operator_type": "Addition",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.35
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.35
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_russia"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_russia",
+                          "power_turkey"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      }
+                    ]
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pTrustworthy_Betrayer",
-                      "power_russia"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
-                  },
-                  {
+                    "script_element_type": "Pointer",
                     "character": "power_russia",
                     "keyring": [
-                      "pTrustworthy_Betrayer",
+                      "pThreat",
                       "power_austria"
                     ],
-                    "coefficient": 1,
-                    "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "coefficient": -0.1
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pTrustworthy_Betrayer",
-                      "power_russia",
-                      "power_turkey"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 0.1
                   }
                 ]
               },
@@ -935,6 +1683,138 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Survival_Resource"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.02
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.01
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.01
+                      }
+                    ]
+                  }
                 }
               ],
               "consequence_id": "wild",
@@ -943,40 +1823,78 @@
                 "operator_type": "Addition",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.2
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.2
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_russia"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_russia",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_austria"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_russia",
+                          "power_turkey"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      }
+                    ]
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pAllied_Hostile",
-                      "power_russia"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
-                  },
-                  {
+                    "script_element_type": "Pointer",
                     "character": "power_russia",
                     "keyring": [
-                      "pAllied_Hostile",
-                      "power_austria"
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
                     ],
-                    "coefficient": 1,
-                    "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "coefficient": 0.05
                   },
                   {
-                    "character": "power_austria",
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
                     "keyring": [
-                      "pAllied_Hostile",
-                      "power_russia",
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
                       "power_turkey"
                     ],
-                    "coefficient": 1,
+                    "coefficient": 0.03
+                  },
+                  {
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pThreat",
+                      "power_austria"
+                    ],
+                    "coefficient": 0.03
                   }
                 ]
               },
@@ -1191,21 +2109,172 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Survival_Resource"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.08
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.07
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.11
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.1
+                      }
+                    ]
+                  }
                 }
               ],
               "consequence_id": "enc_revenge_sealed",
               "desirability_script": {
+                "script_element_type": "Bounded Number Operator",
+                "operator_type": "Addition",
                 "operands": [
                   {
                     "operands": [
                       {
-                        "character": "power_austria",
-                        "coefficient": 1,
-                        "keyring": [
-                          "Threat_Level"
+                        "operands": [
+                          {
+                            "character": "power_austria",
+                            "coefficient": 1,
+                            "keyring": [
+                              "Threat_Level"
+                            ],
+                            "pointer_type": "Bounded Number Pointer",
+                            "script_element_type": "Pointer"
+                          },
+                          {
+                            "pointer_type": "Bounded Number Constant",
+                            "script_element_type": "Pointer",
+                            "value": 0.3
+                          }
                         ],
-                        "pointer_type": "Bounded Number Pointer",
-                        "script_element_type": "Pointer"
+                        "operator_subtype": "GTE",
+                        "operator_type": "Arithmetic Comparator",
+                        "script_element_type": "Operator"
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.8
                       },
                       {
                         "pointer_type": "Bounded Number Constant",
@@ -1213,23 +2282,51 @@
                         "value": 0.3
                       }
                     ],
-                    "operator_subtype": "GTE",
-                    "operator_type": "Arithmetic Comparator",
+                    "operator_type": "If Then",
                     "script_element_type": "Operator"
                   },
                   {
-                    "pointer_type": "Bounded Number Constant",
+                    "pointer_type": "Bounded Number Property",
                     "script_element_type": "Pointer",
-                    "value": 0.8
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": -0.12
                   },
                   {
-                    "pointer_type": "Bounded Number Constant",
+                    "pointer_type": "Bounded Number Property",
                     "script_element_type": "Pointer",
-                    "value": 0.3
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_turkey"
+                    ],
+                    "coefficient": -0.06
+                  },
+                  {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pThreat",
+                      "power_austria"
+                    ],
+                    "coefficient": 0.15
+                  },
+                  {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": -0.18
                   }
-                ],
-                "operator_type": "If Then",
-                "script_element_type": "Operator"
+                ]
               },
               "graph_offset_x": 0,
               "graph_offset_y": 0,
@@ -1323,6 +2420,138 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Survival_Resource"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.08
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.07
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.11
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.1
+                      }
+                    ]
+                  }
                 }
               ],
               "consequence_id": "wild",
@@ -1331,40 +2560,87 @@
                 "operator_type": "Addition",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.2
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.2
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_russia"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_russia",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_austria"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pAllied_Hostile",
+                          "power_russia",
+                          "power_turkey"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      }
+                    ]
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pAllied_Hostile",
-                      "power_russia"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
-                  },
-                  {
+                    "script_element_type": "Pointer",
                     "character": "power_russia",
                     "keyring": [
-                      "pAllied_Hostile",
-                      "power_austria"
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
                     ],
-                    "coefficient": 1,
-                    "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "coefficient": -0.12
                   },
                   {
-                    "character": "power_austria",
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
                     "keyring": [
-                      "pAllied_Hostile",
-                      "power_russia",
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
                       "power_turkey"
                     ],
-                    "coefficient": 1,
+                    "coefficient": -0.06
+                  },
+                  {
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pThreat",
+                      "power_austria"
+                    ],
+                    "coefficient": 0.15
+                  },
+                  {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": -0.18
                   }
                 ]
               },
@@ -1557,6 +2833,138 @@
                       }
                     ]
                   }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Survival_Resource"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.08
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Strategic_Pressure"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Strategic_Pressure"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.07
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Death_Ground_Signal"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "Death_Ground_Signal"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.11
+                      }
+                    ]
+                  }
+                },
+                {
+                  "effect_type": "Set",
+                  "Set": {
+                    "pointer_type": "Bounded Number Property",
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "pTrustworthy_Betrayer",
+                      "power_austria",
+                      "power_russia"
+                    ],
+                    "coefficient": 1.0
+                  },
+                  "to": {
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer",
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria",
+                          "power_russia"
+                        ],
+                        "coefficient": 1.0
+                      },
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": -0.1
+                      }
+                    ]
+                  }
                 }
               ],
               "consequence_id": "wild",
@@ -1565,40 +2973,65 @@
                 "operator_type": "Addition",
                 "operands": [
                   {
-                    "pointer_type": "Bounded Number Constant",
-                    "script_element_type": "Pointer",
-                    "value": 0.35
+                    "script_element_type": "Bounded Number Operator",
+                    "operator_type": "Addition",
+                    "operands": [
+                      {
+                        "pointer_type": "Bounded Number Constant",
+                        "script_element_type": "Pointer",
+                        "value": 0.35
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_russia"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_russia",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_austria"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      },
+                      {
+                        "character": "power_austria",
+                        "keyring": [
+                          "pTrustworthy_Betrayer",
+                          "power_russia",
+                          "power_turkey"
+                        ],
+                        "coefficient": 1,
+                        "pointer_type": "Bounded Number Property",
+                        "script_element_type": "Pointer"
+                      }
+                    ]
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pTrustworthy_Betrayer",
-                      "power_russia"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
-                  },
-                  {
+                    "script_element_type": "Pointer",
                     "character": "power_russia",
                     "keyring": [
-                      "pTrustworthy_Betrayer",
+                      "pThreat",
                       "power_austria"
                     ],
-                    "coefficient": 1,
-                    "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "coefficient": 0.15
                   },
                   {
-                    "character": "power_austria",
-                    "keyring": [
-                      "pTrustworthy_Betrayer",
-                      "power_russia",
-                      "power_turkey"
-                    ],
-                    "coefficient": 1,
                     "pointer_type": "Bounded Number Property",
-                    "script_element_type": "Pointer"
+                    "script_element_type": "Pointer",
+                    "character": "power_russia",
+                    "keyring": [
+                      "Survival_Resource"
+                    ],
+                    "coefficient": -0.18
                   }
                 ]
               },
