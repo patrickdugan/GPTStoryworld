@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "inputs_5471",
+  "type": "object",
+  "required": ["tax_year", "taxpayer", "cfc", "fx_policy", "documents"],
+  "properties": {
+    "tax_year": { "type": "integer" },
+    "taxpayer": {
+      "type": "object",
+      "required": ["us_person"],
+      "properties": {
+        "filing_status": { "type": "string" },
+        "us_person": { "type": "boolean" }
+      }
+    },
+    "cfc": {
+      "type": "object",
+      "required": [
+        "name",
+        "country",
+        "functional_currency",
+        "ownership_pct",
+        "services_performed_country",
+        "has_dividends",
+        "has_shareholder_loans"
+      ],
+      "properties": {
+        "name": { "type": "string" },
+        "country": { "type": "string" },
+        "functional_currency": { "type": "string" },
+        "ownership_pct": { "type": "number" },
+        "services_performed_country": { "type": "string" },
+        "has_dividends": { "type": "boolean" },
+        "has_shareholder_loans": { "type": "boolean" },
+        "is_cfc": { "type": "boolean", "default": true },
+        "compute_tested_income": { "type": "boolean", "default": false }
+      }
+    },
+    "fx_policy": {
+      "type": "object",
+      "required": ["pnl", "balance_sheet"],
+      "properties": {
+        "pnl": {
+          "type": "object",
+          "required": ["method", "rate"],
+          "properties": {
+            "method": { "type": "string" },
+            "rate": { "type": "number" }
+          }
+        },
+        "balance_sheet": {
+          "type": "object",
+          "required": ["method", "rate"],
+          "properties": {
+            "method": { "type": "string" },
+            "rate": { "type": "number" }
+          }
+        }
+      }
+    },
+    "salary_to_us_shareholder_eur": { "type": "number" },
+    "documents": {
+      "type": "object",
+      "required": ["prior_year_5471_pdf", "current_year_financials_pdf"],
+      "properties": {
+        "prior_year_5471_pdf": { "type": "string" },
+        "current_year_financials_pdf": { "type": "string" }
+      }
+    }
+  }
+}

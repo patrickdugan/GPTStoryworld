@@ -1,0 +1,25 @@
+{
+  "tax_year": 2024,
+  "taxpayer": { "filing_status": "single", "us_person": true },
+  "cfc": {
+    "name": "Client UG",
+    "country": "DE",
+    "functional_currency": "EUR",
+    "ownership_pct": 100,
+    "services_performed_country": "DE",
+    "has_dividends": false,
+    "has_shareholder_loans": false,
+    "is_cfc": true,
+    "compute_tested_income": false
+  },
+  "fx_policy": {
+    "pnl": { "method": "avg_annual", "rate": 1.077 },
+    "balance_sheet": { "method": "year_end", "rate": 1.10 }
+  },
+  "salary_to_us_shareholder_eur": 100000,
+  "documents": {
+    "prior_year_5471_pdf": "inputs/5471_2023.pdf",
+    "current_year_financials_pdf": "inputs/abschluss_2024.pdf"
+  }
+}
+

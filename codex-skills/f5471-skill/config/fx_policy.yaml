@@ -1,0 +1,9 @@
+pnl:
+  method: avg_annual
+  source: inputs_5471.json.fx_policy.pnl.rate
+balance_sheet:
+  method: year_end
+  source: inputs_5471.json.fx_policy.balance_sheet.rate
+rounding:
+  decimals: 2
+  mode: half_up

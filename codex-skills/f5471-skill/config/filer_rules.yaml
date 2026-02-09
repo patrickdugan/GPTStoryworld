@@ -1,0 +1,28 @@
+version: 1
+rules:
+  category_4:
+    condition: ownership_pct_gte_10_and_control
+    emit: "4"
+  category_5:
+    condition: cfc_is_true
+    emit: "5"
+
+required_schedules_by_category:
+  "4":
+    - "G"
+    - "F"
+  "5":
+    - "F"
+    - "H"
+    - "J"
+    - "M"
+
+optional_schedules:
+  I-1:
+    required_if:
+      - cfc_is_true
+      - compute_tested_income_flag_true
+
+notes:
+  - "Rules are deterministic and rely on declared facts in inputs_5471.json."
+  - "No legal conclusions are inferred in this ruleset."

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "computed_outputs",
+  "type": "object",
+  "required": [
+    "tax_year",
+    "filer_categories",
+    "required_schedules",
+    "schedule_f",
+    "schedule_h",
+    "schedule_j",
+    "schedule_m"
+  ],
+  "properties": {
+    "tax_year": { "type": "integer" },
+    "filer_categories": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_schedules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "optional_schedules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "schedule_f": {
+      "type": "object",
+      "properties": {
+        "book_net_income_functional": { "type": "number" },
+        "book_net_income_usd": { "type": "number" },
+        "revenue_functional": { "type": "number" },
+        "expenses_functional": { "type": "number" },
+        "taxes_functional": { "type": "number" }
+      }
+    },
+    "schedule_h": {
+      "type": "object",
+      "properties": {
+        "line_1_book_net_income_functional": { "type": "number" },
+        "line_2_adjustments_functional": { "type": "number" },
+        "current_ep_functional": { "type": "number" }
+      }
+    },
+    "schedule_j": {
+      "type": "object",
+      "properties": {
+        "begin_accum_ep_functional": { "type": "number" },
+        "current_ep_addition_functional": { "type": "number" },
+        "distributions_functional": { "type": "number" },
+        "ending_accum_ep_functional": { "type": "number" }
+      }
+    },
+    "schedule_g_balance_sheet": {
+      "type": "object",
+      "properties": {
+        "assets_functional": { "type": "number" },
+        "liabilities_functional": { "type": "number" },
+        "equity_functional": { "type": "number" },
+        "assets_usd": { "type": "number" },
+        "liabilities_usd": { "type": "number" },
+        "equity_usd": { "type": "number" }
+      }
+    },
+    "schedule_m": {
+      "type": "object",
+      "properties": {
+        "salary_to_shareholder_functional": { "type": "number" },
+        "salary_to_shareholder_usd": { "type": "number" },
+        "dividends_functional": { "type": "number" },
+        "shareholder_loans_present": { "type": "boolean" }
+      }
+    },
+    "i1_if_required": {
+      "type": "object"
+    },
+    "facts_flags": {
+      "type": "object",
+      "properties": {
+        "fbc_services_not_expected": { "type": "boolean" },
+        "tested_income_compute_required": { "type": "boolean" }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

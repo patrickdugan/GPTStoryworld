@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "prior_year_extract",
+  "type": "object",
+  "required": ["carryforward"],
+  "properties": {
+    "carryforward": {
+      "type": "object",
+      "properties": {
+        "begin_accum_ep_functional": { "type": "number" },
+        "begin_total_assets_functional": { "type": "number" },
+        "begin_total_liabilities_functional": { "type": "number" },
+        "begin_total_equity_functional": { "type": "number" }
+      }
+    },
+    "prior_year_filer_categories": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
