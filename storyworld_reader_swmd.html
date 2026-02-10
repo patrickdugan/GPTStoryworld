@@ -1306,10 +1306,15 @@
         return { dt, dh };
       };
       const fmt2 = (x) => (x >= 0 ? `+${x.toFixed(2)}` : `${x.toFixed(2)}`);
+      const allSame = (vals) => {
+        if (!vals.length) return true;
+        const base = vals[0];
+        return vals.every(v => v === base);
+      };
 
       // Keep this template aligned with negotiation-storyworld/tools/build_swmd_controller_dataset.py
       const lines = ['<SWMD-CTRL>', `E ${encounter.id || 'enc'} turn=${encounter.turn_span || '?'}`];
-      sorted.forEach((opt, idx) => {
+      const scoreRows = sorted.map((opt) => {
         const rxns = (opt.reactions || []).slice().sort((a, b) => String(a.id || '').localeCompare(String(b.id || '')));
         const nextSet = Array.from(new Set(rxns.map(r => r.consequence_id || '').filter(Boolean))).sort();
         const next = nextSet.length ? nextSet.join(',') : 'none';
@@ -1327,7 +1332,17 @@
           dh /= rxns.length;
           d0 /= rxns.length;
         }
-        lines.push(`C${idx} ${opt.id || ('opt_' + idx)} -> ${next} | O:${engine.getText(opt.text_script)} | DT:${fmt2(dt)} | DH:${fmt2(dh)} | D0:${d0.toFixed(3)}`);
+        return { opt, next, dt, dh, d0 };
+      });
+      const keepT = !allSame(scoreRows.map(r => fmt2(r.dt)));
+      const keepH = !allSame(scoreRows.map(r => fmt2(r.dh)));
+      const keepD = !allSame(scoreRows.map(r => r.d0.toFixed(3)));
+      scoreRows.forEach((row, idx) => {
+        const parts = [`C${idx} ${row.opt.id || ('opt_' + idx)} -> ${row.next}`, `O:${engine.getText(row.opt.text_script)}`];
+        if (keepT) parts.push(`DT:${fmt2(row.dt)}`);
+        if (keepH) parts.push(`DH:${fmt2(row.dh)}`);
+        if (keepD) parts.push(`D0:${row.d0.toFixed(3)}`);
+        lines.push(parts.join(' | '));
       });
       lines.push('</SWMD-CTRL>');
       const prompt = lines.join('\n');
