@@ -41,7 +41,12 @@ Use these tools to make deterministic, validated edits:
 - `secret_endings_gates.py`
 - `multiple_paths.py`
 - `multi_variant_balance.py`
+- `json_to_swmd.py` (compact SWMD-0 markdown export for token-efficient training/inspection)
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
+
+`json_to_swmd.py` examples:
+- Full form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.md`
+- Minified form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.min.md --mode minified`
 
 ## References
 - `references/STORYWORLD_BALANCING.md` for balancing targets/heuristics
