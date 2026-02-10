@@ -935,6 +935,17 @@
         spools: [],
         encounters: []
       };
+      const turnKey = (span) => {
+        const s = String(span || '');
+        const m = s.match(/^(-?\d+)/);
+        return m ? Number(m[1]) : Number.MAX_SAFE_INTEGER;
+      };
+      const sortEncounters = (arr) => arr.slice().sort((a, b) => {
+        const ta = turnKey(a.turn_span);
+        const tb = turnKey(b.turn_span);
+        if (ta !== tb) return ta - tb;
+        return String(a.id || '').localeCompare(String(b.id || ''));
+      });
 
       if (isMin) {
         let currentEnc = null;
@@ -949,11 +960,16 @@
             currentEnc = {
               id: encMatch[1],
               title: encMatch[1],
+              turn_span: encMatch[2],
               connected_spools: ['spool_main'],
               text_script: { value: `Encounter ${encMatch[1]}` },
               options: []
             };
             encMap.set(currentEnc.id, currentEnc);
+            continue;
+          }
+          if (currentEnc && line.startsWith('T: ')) {
+            currentEnc.text_script = { value: line.slice(3).trim() || currentEnc.text_script.value };
             continue;
           }
           const orx = line.match(/^ORX\s+([^/]+)\/([^\s]+)\s+->\s+([^|]+)\|(.+)$/);
@@ -975,13 +991,15 @@
             }
             opt.reactions.push({
               id: rxnId,
-              text_script: { value: payload.O || optId },
+              text_script: { value: payload.R || '' },
               consequence_id: consequenceId,
+              swmd_effects_blob: payload.E || '',
+              swmd_desirability_blob: payload.D || 'C(0)',
               after_effects: []
             });
           }
         }
-        world.encounters = Array.from(encMap.values()).sort((a, b) => a.id.localeCompare(b.id));
+        world.encounters = sortEncounters(Array.from(encMap.values()));
         world.spools = [{ id: 'spool_main', spool_name: 'Main', encounters: world.encounters.map(e => e.id), starts_active: true }];
         return world;
       }
@@ -999,12 +1017,13 @@
         if (s.startsWith('id:')) world.id = s.split(':', 2)[1].trim();
         if (s.startsWith('about:')) world.about_text = { value: s.split(':', 2)[1].trim() };
         if (s === 'spools:') mode = 'spools';
-        const encHead = s.match(/^##\s+ENC\s+(\S+)\s+\|\s+(.+?)\s+\|\s+turn=[^|]+\|\s+spools=\[(.*?)\]\s*$/);
+        const encHead = s.match(/^##\s+ENC\s+(\S+)\s+\|\s+(.+?)\s+\|\s+turn=([^|]+)\|\s+spools=\[(.*?)\]\s*$/);
         if (encHead) {
           currentEnc = {
             id: encHead[1],
             title: encHead[2],
-            connected_spools: encHead[3] ? encHead[3].split(',').map(x => x.trim()).filter(Boolean) : ['spool_main'],
+            turn_span: encHead[3].trim(),
+            connected_spools: encHead[4] ? encHead[4].split(',').map(x => x.trim()).filter(Boolean) : ['spool_main'],
             text_script: { value: '' },
             options: []
           };
@@ -1045,7 +1064,7 @@
           continue;
         }
       }
-      world.encounters = Array.from(encMap.values()).sort((a, b) => a.id.localeCompare(b.id));
+      world.encounters = sortEncounters(Array.from(encMap.values()));
       if (!world.spools.some(s => s.id === 'spool_main')) {
         world.spools.unshift({ id: 'spool_main', spool_name: 'Main', encounters: world.encounters.map(e => e.id), starts_active: true });
       }
@@ -1263,11 +1282,52 @@
       const options = engine.getVisibleOptions(encounter);
       if (!options.length) return;
       const sorted = options.slice().sort((a, b) => String(a.id || '').localeCompare(String(b.id || '')));
-      const lines = ['<SWMD-CTRL>', `E ${encounter.id || 'enc'}`];
+      const parseD0 = (expr) => {
+        const matches = String(expr || '').match(/C\((-?\d+(?:\.\d+)?)\)/g) || [];
+        let s = 0;
+        for (const m of matches) {
+          const v = Number(m.replace(/^C\(/, '').replace(/\)$/, ''));
+          if (Number.isFinite(v)) s += v;
+        }
+        return s;
+      };
+      const parseDTDH = (effectsBlob) => {
+        let dt = 0;
+        let dh = 0;
+        for (const part of String(effectsBlob || '').split(';')) {
+          const m = part.trim().match(/SET\s+([^.]+)\.([^\s]+)\s+\+=\s+(-?\d+(?:\.\d+)?)/);
+          if (!m) continue;
+          const prop = m[2];
+          const v = Number(m[3]);
+          if (!Number.isFinite(v)) continue;
+          if (prop.endsWith('Trust') || prop.startsWith('Trust')) dt += v;
+          if (prop.endsWith('Threat') || prop.startsWith('Threat')) dh += v;
+        }
+        return { dt, dh };
+      };
+      const fmt2 = (x) => (x >= 0 ? `+${x.toFixed(2)}` : `${x.toFixed(2)}`);
+
+      // Keep this template aligned with negotiation-storyworld/tools/build_swmd_controller_dataset.py
+      const lines = ['<SWMD-CTRL>', `E ${encounter.id || 'enc'} turn=${encounter.turn_span || '?'}`];
       sorted.forEach((opt, idx) => {
-        const firstRxn = (opt.reactions || []).slice().sort((a, b) => String(a.id || '').localeCompare(String(b.id || '')))[0];
-        const next = firstRxn ? firstRxn.consequence_id || 'none' : 'none';
-        lines.push(`C${idx} ${opt.id || ('opt_' + idx)} -> ${next} | O:${engine.getText(opt.text_script)}`);
+        const rxns = (opt.reactions || []).slice().sort((a, b) => String(a.id || '').localeCompare(String(b.id || '')));
+        const nextSet = Array.from(new Set(rxns.map(r => r.consequence_id || '').filter(Boolean))).sort();
+        const next = nextSet.length ? nextSet.join(',') : 'none';
+        let dt = 0;
+        let dh = 0;
+        let d0 = 0;
+        if (rxns.length) {
+          for (const r of rxns) {
+            const agg = parseDTDH(r.swmd_effects_blob || '');
+            dt += agg.dt;
+            dh += agg.dh;
+            d0 += parseD0(r.swmd_desirability_blob || 'C(0)');
+          }
+          dt /= rxns.length;
+          dh /= rxns.length;
+          d0 /= rxns.length;
+        }
+        lines.push(`C${idx} ${opt.id || ('opt_' + idx)} -> ${next} | O:${engine.getText(opt.text_script)} | DT:${fmt2(dt)} | DH:${fmt2(dh)} | D0:${d0.toFixed(3)}`);
       });
       lines.push('</SWMD-CTRL>');
       const prompt = lines.join('\n');
