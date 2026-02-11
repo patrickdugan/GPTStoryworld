@@ -16,12 +16,14 @@ test('renders hero, carousel rows, and captures screenshot', async ({ page }) =>
   const genreTabs = page.locator('[data-testid="genre-tabs"]')
   const sizeTabs = page.locator('[data-testid="size-tabs"]')
   const readerPanel = page.locator('[data-testid="reader-panel"]')
+  const readerTemplate = page.locator('[data-testid="reader-template"]')
 
   await expect(hero).toBeVisible()
   await expect(rows.first()).toBeVisible()
   await expect(genreTabs).toBeVisible()
   await expect(sizeTabs).toBeVisible()
   await expect(readerPanel).toBeVisible()
+  await expect(readerTemplate).toBeVisible()
   expect(await cards.count()).toBeGreaterThanOrEqual(5)
 
   await page.screenshot({

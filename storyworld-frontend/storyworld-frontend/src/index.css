@@ -74,3 +74,144 @@ body {
   --sw-panel: #181818;
   --sw-border: rgba(120, 113, 108, 0.6);
 }
+
+.reader-template {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--reader-border, var(--sw-border));
+  background: linear-gradient(145deg, rgba(2, 6, 23, 0.94), rgba(2, 6, 23, 0.86));
+  --reader-accent: var(--sw-accent);
+  --reader-border: var(--sw-border);
+  --reader-chip: rgba(2, 6, 23, 0.58);
+  --reader-copy-bg: rgba(2, 6, 23, 0.68);
+  --reader-copy-border: rgba(51, 65, 85, 0.9);
+  --reader-choice-bg: rgba(15, 23, 42, 0.78);
+  --reader-choice-border: rgba(51, 65, 85, 0.95);
+  --reader-choice-active: var(--sw-accent-soft);
+}
+
+.reader-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.08), transparent 34%),
+    radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--reader-accent) 34%, transparent), transparent 36%);
+}
+
+.reader-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 100% 3px;
+  animation: readerScan 10s linear infinite;
+}
+
+.reader-copy {
+  border-color: var(--reader-copy-border);
+  background: var(--reader-copy-bg);
+}
+
+.reader-choice {
+  border-color: var(--reader-choice-border);
+  background: var(--reader-choice-bg);
+}
+
+.reader-choice-active {
+  border-color: var(--reader-accent);
+  background: var(--reader-choice-active);
+}
+
+.reader-footer {
+  border-color: var(--reader-choice-border);
+  background: color-mix(in srgb, var(--reader-choice-bg) 84%, transparent);
+}
+
+.reader-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 999px;
+  background: var(--reader-accent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--reader-accent) 65%, transparent);
+  animation: readerPulse 1.75s ease-out infinite;
+}
+
+.reader-template-diplomacy {
+  --reader-accent: #22d3ee;
+  --reader-border: rgba(8, 145, 178, 0.6);
+  --reader-chip: rgba(14, 116, 144, 0.26);
+  --reader-copy-bg: rgba(8, 47, 73, 0.28);
+  --reader-choice-bg: rgba(15, 23, 42, 0.72);
+  --reader-choice-active: rgba(8, 145, 178, 0.34);
+}
+
+.reader-template-strategy {
+  --reader-accent: #f97316;
+  --reader-border: rgba(194, 65, 12, 0.62);
+  --reader-chip: rgba(194, 65, 12, 0.24);
+  --reader-copy-bg: rgba(67, 20, 7, 0.4);
+  --reader-choice-bg: rgba(38, 15, 8, 0.7);
+  --reader-choice-active: rgba(234, 88, 12, 0.32);
+}
+
+.reader-template-mystery {
+  --reader-accent: #a78bfa;
+  --reader-border: rgba(109, 40, 217, 0.5);
+  --reader-chip: rgba(76, 29, 149, 0.34);
+  --reader-copy-bg: rgba(30, 27, 75, 0.4);
+  --reader-choice-bg: rgba(17, 24, 39, 0.78);
+  --reader-choice-active: rgba(109, 40, 217, 0.35);
+}
+
+.reader-template-scifi {
+  --reader-accent: #2dd4bf;
+  --reader-border: rgba(45, 212, 191, 0.55);
+  --reader-chip: rgba(20, 184, 166, 0.26);
+  --reader-copy-bg: rgba(15, 118, 110, 0.2);
+  --reader-choice-bg: rgba(8, 47, 73, 0.5);
+  --reader-choice-active: rgba(13, 148, 136, 0.3);
+}
+
+.reader-template-horror {
+  --reader-accent: #ef4444;
+  --reader-border: rgba(185, 28, 28, 0.62);
+  --reader-chip: rgba(127, 29, 29, 0.34);
+  --reader-copy-bg: rgba(68, 9, 9, 0.38);
+  --reader-choice-bg: rgba(30, 10, 10, 0.8);
+  --reader-choice-active: rgba(185, 28, 28, 0.38);
+}
+
+.reader-template-fantasy {
+  --reader-accent: #eab308;
+  --reader-border: rgba(202, 138, 4, 0.56);
+  --reader-chip: rgba(161, 98, 7, 0.32);
+  --reader-copy-bg: rgba(83, 51, 6, 0.35);
+  --reader-choice-bg: rgba(35, 25, 8, 0.78);
+  --reader-choice-active: rgba(180, 83, 9, 0.34);
+}
+
+@keyframes readerScan {
+  0% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.27;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes readerPulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--reader-accent) 62%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 11px transparent;
+  }
+}
