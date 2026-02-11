@@ -10,6 +10,11 @@ from typing import Any, Dict, Iterable, List
 
 from __init__ import benchmark_pass, benchmark_targets, evaluate_benchmark
 
+try:
+    from pathing_lab.pathing_metrics import simulate_pathing
+except Exception:
+    simulate_pathing = None
+
 
 def _clip01(x: float) -> float:
     return 0.0 if x < 0.0 else 1.0 if x > 1.0 else float(x)
@@ -105,6 +110,8 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Multi-dimensional storyworld quality scoring")
     p.add_argument("--storyworlds", nargs="+", required=True, help="JSON files to score")
     p.add_argument("--runs", type=int, default=200, help="Monte Carlo runs per world")
+    p.add_argument("--pathing-rollouts", type=int, default=120, help="Rollouts for pathing-lab probes")
+    p.add_argument("--with-pathing", action="store_true", help="Include experimental pathing_lab metrics in output")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--out", required=True, help="Output JSON report")
     return p.parse_args()
@@ -119,6 +126,15 @@ def main() -> int:
         data = json.loads(path.read_text(encoding="utf-8"))
         metrics = evaluate_benchmark(data, runs=args.runs, seed=args.seed)
         vector = quality_vector(metrics, targets)
+        pathing = None
+        if args.with_pathing and simulate_pathing is not None:
+            pathing = simulate_pathing(data, rollouts=args.pathing_rollouts, seed=args.seed)
+            # Pathing lab is experimental; blend softly so it informs ranking without dominating.
+            vector["pathing_conceptuality"] = round(float(pathing.get("pathing_composite", 0.0)), 4)
+            vector["composite_score"] = round(
+                0.82 * float(vector["composite_score"]) + 0.18 * float(vector["pathing_conceptuality"]),
+                4,
+            )
         row = {
             "storyworld": str(path),
             "title": data.get("title", ""),
@@ -126,6 +142,8 @@ def main() -> int:
             "metrics": metrics,
             "quality_vector": vector,
         }
+        if pathing is not None:
+            row["pathing_lab"] = pathing
         rows.append(row)
 
     rows.sort(key=lambda r: r["quality_vector"]["composite_score"], reverse=True)

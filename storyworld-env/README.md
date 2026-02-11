@@ -196,6 +196,18 @@ python quality_vector_score.py \
   --out logs/quality_vector_batch.json
 ```
 
+Optional experimental pathing sensitivity:
+
+```bash
+python quality_vector_score.py \
+  --storyworlds storyworlds/generated/batch_v1/a.json \
+  --runs 200 \
+  --with-pathing \
+  --pathing-rollouts 120 \
+  --seed 42 \
+  --out logs/quality_vector_batch_with_pathing.json
+```
+
 Output includes:
 - Full benchmark metrics from `evaluate_benchmark()`
 - Quality vector dimensions:
@@ -203,6 +215,7 @@ Output includes:
   - `secret_gating`
   - `ending_balance`
   - `pacing_control`
+- Optional (experimental): `pathing_conceptuality` from `pathing_lab/`
 - Weighted `composite_score` and benchmark pass flag for each world.
 
 ## Ending Gate Sanity Checklist
