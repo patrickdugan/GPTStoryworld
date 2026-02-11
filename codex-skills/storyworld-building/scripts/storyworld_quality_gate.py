@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import collections
 import json
 from pathlib import Path
 from statistics import mean
@@ -63,6 +64,27 @@ def _check(name: str, actual: float, target: float) -> Dict[str, Any]:
     }
 
 
+def _check_max(name: str, actual: float, target_max: float) -> Dict[str, Any]:
+    return {
+        "name": name,
+        "actual": round(actual, 4),
+        "target": target_max,
+        "pass": actual <= target_max,
+    }
+
+
+def _collect_operators(node: Any, out: collections.Counter) -> None:
+    if isinstance(node, dict):
+        op = node.get("operator_type")
+        if op:
+            out[str(op)] += 1
+        for value in node.values():
+            _collect_operators(value, out)
+    elif isinstance(node, list):
+        for item in node:
+            _collect_operators(item, out)
+
+
 def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> Dict[str, Any]:
     metrics = compute_metrics(data)
     encounters = data.get("encounters", []) or []
@@ -72,25 +94,44 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
     variable_counts: List[int] = []
     pvalue_refs = 0
     p2value_refs = 0
+    gated_options = 0
+    total_options = 0
+    desirability_ops: collections.Counter = collections.Counter()
+    effect_ops: collections.Counter = collections.Counter()
 
     for encounter in encounters:
         if not _is_ending(encounter):
             text_words = _word_count(encounter.get("text_script")) + _word_count(encounter.get("prompt_script"))
             encounter_words.append(text_words)
         for option in encounter.get("options", []) or []:
+            total_options += 1
+            vis = option.get("visibility_script", True)
+            if vis is not True:
+                gated_options += 1
+                _collect_operators(vis, desirability_ops)
             for reaction in option.get("reactions", []) or []:
                 reaction_words.append(_word_count(reaction.get("text_script")))
                 variable_counts.append(count_vars(reaction.get("desirability_script")))
+                _collect_operators(reaction.get("desirability_script"), desirability_ops)
 
                 refs: List[Tuple[str, int]] = []
                 _collect_pointer_refs(reaction.get("desirability_script"), refs)
                 _collect_pointer_refs(reaction.get("after_effects"), refs)
+                _collect_operators(reaction.get("after_effects"), effect_ops)
                 for prop, depth in refs:
                     if prop.startswith("p"):
                         if depth >= 2:
                             p2value_refs += 1
                         else:
                             pvalue_refs += 1
+
+    gated_pct = (100.0 * gated_options / total_options) if total_options else 0.0
+    des_ops_total = sum(desirability_ops.values())
+    eff_ops_total = sum(effect_ops.values())
+    des_ops_unique = len(desirability_ops)
+    eff_ops_unique = len(effect_ops)
+    des_top_share = (max(desirability_ops.values()) / des_ops_total) if des_ops_total else 1.0
+    eff_top_share = (max(effect_ops.values()) / eff_ops_total) if eff_ops_total else 1.0
 
     checks = [
         _check(
@@ -117,6 +158,11 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
         _check("avg_reaction_words", _safe_mean(reaction_words), 20.0),
         _check("pvalue_refs", float(pvalue_refs), 1.0),
         _check("p2value_refs", float(p2value_refs), 1.0),
+        _check("visibility_gated_options_pct", gated_pct, 3.0),
+        _check("desirability_operator_variety", float(des_ops_unique), 3.0),
+        _check("effect_operator_variety", float(eff_ops_unique), 2.0),
+        _check_max("desirability_operator_dominance", des_top_share, 0.9),
+        _check_max("effect_operator_dominance", eff_top_share, 0.92),
     ]
 
     checks.append(
@@ -141,6 +187,15 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
             "avg_desirability_vars": round(_safe_mean(variable_counts), 2),
             "pvalue_refs": pvalue_refs,
             "p2value_refs": p2value_refs,
+            "gated_options_pct": round(gated_pct, 2),
+            "desirability_operator_variety": des_ops_unique,
+            "effect_operator_variety": eff_ops_unique,
+            "desirability_operator_dominance": round(des_top_share, 4),
+            "effect_operator_dominance": round(eff_top_share, 4),
+        },
+        "operator_counts": {
+            "desirability": dict(desirability_ops),
+            "effects": dict(effect_ops),
         },
         "polish_metrics": metrics,
         "validator_errors": validation_errors,

@@ -8,6 +8,13 @@ description: Storyworld building and editing for GPTStoryworld/SweepWeave conten
 ## Overview
 Use this skill to build, edit, and validate SweepWeave storyworld content with the bundled scripts and task prompts.
 
+## Artistry Contract (Mandatory)
+- Do not ship reaction desirability as one repeated template across the world.
+- Do not ship effects as single-operator monoculture (for example all `Nudge`).
+- Use at least one reversal-style effect pattern in late-game reactions (for example signed multiplicative inversion or negative feedback updates).
+- Ensure non-trivial `visibility_script` gating exists for a meaningful option subset (global and Act II/III).
+- Use pValue/p2Value-aware desirability where belief dynamics are part of the premise.
+
 ## Quick Start
 - Prefer running the specific tool in `scripts/` for the task instead of manual edits.
 - When editing storyworld JSON, validate with `scripts/sweepweave_validator.py` before and after changes.
@@ -45,6 +52,8 @@ Use these tools to make deterministic, validated edits:
 - `storyworld_quality_gate.py`
 - `upgrade_storyworld_vnext.py`
 - `generate_storyworld_batch_vnext.py`
+- `apply_artistry_pass.py`
+- `one_shot_factory.py`
 - `json_to_swmd.py` (compact SWMD-0 markdown export for token-efficient training/inspection)
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
 
@@ -61,6 +70,12 @@ Use these tools to make deterministic, validated edits:
 
 `generate_storyworld_batch_vnext.py` example:
 - `python scripts/generate_storyworld_batch_vnext.py --base storyworld_v6.json --out-dir storyworlds/generated/batch_v1`
+
+`apply_artistry_pass.py` example:
+- `python scripts/apply_artistry_pass.py --in-json storyworld.json --out-json storyworld_artistry.json --gate-pct 0.09`
+
+`one_shot_factory.py` example (target ~40 encounters):
+- `python scripts/one_shot_factory.py --base base.json --out mashup_v0.json --target-encounters 40 --title \"Gone With the Wind: Clocktower Rebellion\" --about \"A Southern epic collides with time-loop politics\" --motif \"Tonight, reputations, timelines, and romances all get rewritten at 88 mph.\"`
 
 ## References
 - `references/STORYWORLD_BALANCING.md` for balancing targets/heuristics
