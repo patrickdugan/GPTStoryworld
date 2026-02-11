@@ -19,6 +19,10 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
   - reaction desirability: non-constant ratio near 1.0, complexity >= 1.2
   - option visibility/performability: non-constant + non-trivial complexity
   - encounter acceptability/desirability: non-constant + non-trivial complexity
+- Enforce text gate:
+  - every encounter text unique
+  - every reaction text unique
+  - encounter/reaction texts must remain thematically relevant to title/about/properties/characters
 
 ## Quick Start
 - Prefer running the specific tool in `scripts/` for the task instead of manual edits.

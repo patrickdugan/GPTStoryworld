@@ -122,13 +122,35 @@ def quality_vector(metrics: Dict[str, float], targets: Dict[str, float]) -> Dict
         ]
     )
 
+    text_gate = _mean(
+        [
+            _at_least(
+                metrics.get("encounter_text_uniqueness_ratio", 0.0),
+                targets["encounter_text_uniqueness_ratio_min"],
+            ),
+            _at_least(
+                metrics.get("reaction_text_uniqueness_ratio", 0.0),
+                targets["reaction_text_uniqueness_ratio_min"],
+            ),
+            _at_least(
+                metrics.get("encounter_theme_relevance_ratio", 0.0),
+                targets["encounter_theme_relevance_ratio_min"],
+            ),
+            _at_least(
+                metrics.get("reaction_theme_relevance_ratio", 0.0),
+                targets["reaction_theme_relevance_ratio_min"],
+            ),
+        ]
+    )
+
     # Weighted composite emphasizing structural + outcome reliability.
     composite = (
-        0.26 * structure_density
-        + 0.20 * secret_gating
-        + 0.23 * ending_balance
-        + 0.11 * pacing_control
-        + 0.20 * script_artistry
+        0.22 * structure_density
+        + 0.18 * secret_gating
+        + 0.20 * ending_balance
+        + 0.10 * pacing_control
+        + 0.18 * script_artistry
+        + 0.12 * text_gate
     )
     return {
         "structure_density": round(structure_density, 4),
@@ -136,6 +158,7 @@ def quality_vector(metrics: Dict[str, float], targets: Dict[str, float]) -> Dict
         "ending_balance": round(ending_balance, 4),
         "pacing_control": round(pacing_control, 4),
         "script_artistry": round(script_artistry, 4),
+        "text_gate": round(text_gate, 4),
         "composite_score": round(composite, 4),
     }
 

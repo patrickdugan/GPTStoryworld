@@ -20,6 +20,7 @@ Fine-tune models to generate valid Sweepweave storyworld JSON with:
 
 import json
 import random
+import re
 from collections import Counter, defaultdict
 from typing import Any, Dict, List, Optional, Tuple
 from datasets import Dataset
@@ -819,6 +820,85 @@ class SweepweaveValidator:
         if total == 0:
             return 0.0
         return ok / total
+
+    @staticmethod
+    def _extract_text(script: Any) -> str:
+        if isinstance(script, dict) and script.get("pointer_type") == "String Constant":
+            return str(script.get("value", "") or "")
+        if isinstance(script, str):
+            return script
+        return ""
+
+    @staticmethod
+    def _normalize_text(text: str) -> str:
+        text = text.strip().lower()
+        text = re.sub(r"\s+", " ", text)
+        text = re.sub(r"[^\w\s]", "", text)
+        return text.strip()
+
+    @staticmethod
+    def _tokenize(text: str) -> List[str]:
+        return re.findall(r"[a-zA-Z][a-zA-Z0-9_'-]{1,}", text.lower())
+
+    @staticmethod
+    def _theme_vocab(data: Dict[str, Any]) -> set:
+        stop = {
+            "the", "and", "for", "with", "that", "this", "from", "into", "over", "under", "then",
+            "they", "them", "their", "your", "you", "our", "ours", "its", "his", "her", "she", "he",
+            "was", "were", "are", "is", "be", "been", "being", "but", "not", "too", "very", "will",
+            "would", "could", "should", "have", "has", "had", "a", "an", "of", "to", "in", "on", "at",
+        }
+        seeds: List[str] = []
+        seeds.append(str(data.get("title", "") or ""))
+        seeds.append(SweepweaveValidator._extract_text(data.get("about_text")))
+        for c in data.get("characters", []) or []:
+            seeds.append(str(c.get("name", "") or ""))
+        for p in data.get("authored_properties", []) or []:
+            seeds.append(str(p.get("property_name", "") or "").replace("_", " "))
+        vocab = set()
+        for s in seeds:
+            for t in SweepweaveValidator._tokenize(s):
+                if len(t) >= 3 and t not in stop:
+                    vocab.add(t)
+        return vocab
+
+    @staticmethod
+    def compute_text_gate_metrics(data: Dict[str, Any]) -> Dict[str, float]:
+        """Compute text uniqueness + thematic relevance for encounter/reaction scripts."""
+        encounter_texts: List[str] = []
+        reaction_texts: List[str] = []
+        for enc in data.get("encounters", []) or []:
+            encounter_texts.append(SweepweaveValidator._extract_text(enc.get("text_script")))
+            for opt in enc.get("options", []) or []:
+                for rxn in opt.get("reactions", []) or []:
+                    reaction_texts.append(SweepweaveValidator._extract_text(rxn.get("text_script")))
+
+        def uniq_ratio(texts: List[str]) -> float:
+            cleaned = [SweepweaveValidator._normalize_text(t) for t in texts if str(t).strip()]
+            if not cleaned:
+                return 0.0
+            return len(set(cleaned)) / len(cleaned)
+
+        theme_vocab = SweepweaveValidator._theme_vocab(data)
+
+        def relevance_ratio(texts: List[str], min_hits: int) -> float:
+            cleaned = [str(t).strip() for t in texts if str(t).strip()]
+            if not cleaned:
+                return 0.0
+            ok = 0
+            for t in cleaned:
+                toks = set(SweepweaveValidator._tokenize(t))
+                hits = len(toks.intersection(theme_vocab))
+                if hits >= min_hits:
+                    ok += 1
+            return ok / len(cleaned)
+
+        return {
+            "encounter_text_uniqueness_ratio": uniq_ratio(encounter_texts),
+            "reaction_text_uniqueness_ratio": uniq_ratio(reaction_texts),
+            "encounter_theme_relevance_ratio": relevance_ratio(encounter_texts, min_hits=2),
+            "reaction_theme_relevance_ratio": relevance_ratio(reaction_texts, min_hits=1),
+        }
     
     @staticmethod
     def compute_gating_score(data: Dict[str, Any]) -> float:
@@ -1882,6 +1962,11 @@ def benchmark_targets() -> Dict[str, float]:
         "encounter_acceptability_complexity_min": 0.5,
         "encounter_desirability_nonconstant_ratio_min": 0.2,
         "encounter_desirability_complexity_min": 0.5,
+        # Text gate: uniqueness + thematic relevance
+        "encounter_text_uniqueness_ratio_min": 1.0,
+        "reaction_text_uniqueness_ratio_min": 1.0,
+        "encounter_theme_relevance_ratio_min": 0.7,
+        "reaction_theme_relevance_ratio_min": 0.7,
     }
 
 
@@ -1924,6 +2009,7 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
     min_spec_compliance = SweepweaveValidator.compute_min_spec_compliance(data)
     text_length_compliance = SweepweaveValidator.compute_text_length_compliance(data)
     script_suite = SweepweaveValidator.compute_script_complexity_suite(data)
+    text_gate = SweepweaveValidator.compute_text_gate_metrics(data)
     return {
         "dead_end_rate": dead_end_rate,
         "max_ending_share": max_share,
@@ -1963,6 +2049,10 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         "encounter_acceptability_complexity": script_suite["encounter_acceptability_complexity"],
         "encounter_desirability_nonconstant_ratio": script_suite["encounter_desirability_nonconstant_ratio"],
         "encounter_desirability_complexity": script_suite["encounter_desirability_complexity"],
+        "encounter_text_uniqueness_ratio": text_gate["encounter_text_uniqueness_ratio"],
+        "reaction_text_uniqueness_ratio": text_gate["reaction_text_uniqueness_ratio"],
+        "encounter_theme_relevance_ratio": text_gate["encounter_theme_relevance_ratio"],
+        "reaction_theme_relevance_ratio": text_gate["reaction_theme_relevance_ratio"],
     }
 
 
@@ -2008,6 +2098,10 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and metrics.get("encounter_acceptability_complexity", 0.0) >= targets["encounter_acceptability_complexity_min"]
         and metrics.get("encounter_desirability_nonconstant_ratio", 0.0) >= targets["encounter_desirability_nonconstant_ratio_min"]
         and metrics.get("encounter_desirability_complexity", 0.0) >= targets["encounter_desirability_complexity_min"]
+        and metrics.get("encounter_text_uniqueness_ratio", 0.0) >= targets["encounter_text_uniqueness_ratio_min"]
+        and metrics.get("reaction_text_uniqueness_ratio", 0.0) >= targets["reaction_text_uniqueness_ratio_min"]
+        and metrics.get("encounter_theme_relevance_ratio", 0.0) >= targets["encounter_theme_relevance_ratio_min"]
+        and metrics.get("reaction_theme_relevance_ratio", 0.0) >= targets["reaction_theme_relevance_ratio_min"]
     )
 
 

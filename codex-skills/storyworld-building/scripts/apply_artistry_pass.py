@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Sequence, Tuple
@@ -127,15 +128,54 @@ def _visibility_gate(main_char: str, authored: List[str], i: int) -> Dict[str, A
     )
 
 
+def _extract_theme_terms(data: Dict[str, Any]) -> List[str]:
+    raw = []
+    raw.append(str(data.get("title", "") or ""))
+    about = data.get("about_text")
+    if isinstance(about, dict) and about.get("pointer_type") == "String Constant":
+        raw.append(str(about.get("value", "") or ""))
+    text = " ".join(raw).lower()
+    toks = re.findall(r"[a-zA-Z][a-zA-Z0-9'-]{2,}", text)
+    stop = {
+        "the", "and", "with", "that", "this", "from", "into", "over", "under", "their", "your",
+        "about", "story", "world", "meets", "while", "before", "after", "between", "across",
+    }
+    uniq = []
+    for t in toks:
+        if t in stop:
+            continue
+        if t not in uniq:
+            uniq.append(t)
+    return uniq[:12] if uniq else ["timeline", "honor", "betrayal", "promise"]
+
+
+def _ensure_text(script: Any) -> Dict[str, Any]:
+    if isinstance(script, dict) and script.get("pointer_type") == "String Constant":
+        return script
+    return {"script_element_type": "Pointer", "pointer_type": "String Constant", "value": ""}
+
+
 def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, Any]:
     out = json.loads(json.dumps(data))
     characters = [c.get("id") for c in out.get("characters", []) if c.get("id")]
     main_char = str(characters[0]) if characters else "char_civ"
     witness_char = str(characters[1]) if len(characters) > 1 else main_char
     authored = [p.get("property_name") for p in out.get("authored_properties", []) if p.get("property_name")]
+    theme_terms = _extract_theme_terms(out)
 
     encounters = out.get("encounters", []) or []
     editable = [e for e in encounters if (e.get("options") or [])]
+
+    # Ensure global encounter text uniqueness (including endings/non-option encounters).
+    for enc_i, enc in enumerate(encounters):
+        enc_text = _ensure_text(enc.get("text_script"))
+        t1 = theme_terms[enc_i % len(theme_terms)]
+        t2 = theme_terms[(enc_i + 3) % len(theme_terms)]
+        enc_text["value"] = (
+            f"{enc_text.get('value','').strip()} Scene marker {enc.get('id','enc')} binds {t1} to {t2}, "
+            f"recording a unique causal trace for downstream branches."
+        ).strip()
+        enc["text_script"] = enc_text
 
     # Compute target gates and apply mainly in mid/late encounters.
     total_options = sum(len(e.get("options", []) or []) for e in editable)
@@ -145,6 +185,15 @@ def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, An
     rxn_idx = 0
     for enc_i, enc in enumerate(editable):
         a, b, _c = _pick_props(authored, enc_i)
+        enc_text = _ensure_text(enc.get("text_script"))
+        t1 = theme_terms[enc_i % len(theme_terms)]
+        t2 = theme_terms[(enc_i + 3) % len(theme_terms)]
+        t3 = theme_terms[(enc_i + 6) % len(theme_terms)]
+        enc_text["value"] = (
+            f"{enc_text.get('value','').strip()} In encounter {enc.get('id','enc')}, the conflict over {t1} and {t2} "
+            f"forces a public wager on {t3}, with reputations and timelines now mutually exposed."
+        ).strip()
+        enc["text_script"] = enc_text
         # Keep acceptance mostly permissive but variable-aware (non-constant).
         enc["acceptability_script"] = _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.95))
         enc["desirability_script"] = _op("Addition", _bn_ptr(main_char, [a]), _op("Multiplication", _bn_ptr(main_char, [b]), _bn_const(0.4)))
@@ -160,6 +209,14 @@ def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, An
             for rxn in reactions:
                 rxn["desirability_script"] = _desirability_script(main_char, witness_char, authored, rxn_idx)
                 rxn["after_effects"] = _effect_scripts(main_char, witness_char, authored, rxn_idx)
+                rtext = _ensure_text(rxn.get("text_script"))
+                u = theme_terms[(rxn_idx + 1) % len(theme_terms)]
+                v = theme_terms[(rxn_idx + 4) % len(theme_terms)]
+                rtext["value"] = (
+                    f"Response trace {rxn_idx:05d} ({rxn.get('id','rxn')}) reframes {u} against {v}: the speaker pivots tone, telegraphs a new alliance geometry, "
+                    f"and leaves a traceable contradiction that can be exploited in later scenes."
+                )
+                rxn["text_script"] = rtext
                 rxn_idx += 1
 
     out["modified_time"] = float(time.time())

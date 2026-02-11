@@ -216,6 +216,7 @@ Output includes:
   - `ending_balance`
   - `pacing_control`
   - `script_artistry` (non-constant ratios + operator complexity/diversity across effects/desirability/visibility/availability)
+  - `text_gate` (encounter/reaction uniqueness + thematic relevance)
 - Optional (experimental): `pathing_conceptuality` from `pathing_lab/`
 - Weighted `composite_score` and benchmark pass flag for each world.
 
