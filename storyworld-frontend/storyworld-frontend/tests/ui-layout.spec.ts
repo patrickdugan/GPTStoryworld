@@ -17,6 +17,7 @@ test('renders hero, carousel rows, and captures screenshot', async ({ page }) =>
   const sizeTabs = page.locator('[data-testid="size-tabs"]')
   const readerPanel = page.locator('[data-testid="reader-panel"]')
   const readerTemplate = page.locator('[data-testid="reader-template"]')
+  const templatePreviewStrip = page.locator('[data-testid="template-preview-strip"]')
 
   await expect(hero).toBeVisible()
   await expect(rows.first()).toBeVisible()
@@ -24,7 +25,11 @@ test('renders hero, carousel rows, and captures screenshot', async ({ page }) =>
   await expect(sizeTabs).toBeVisible()
   await expect(readerPanel).toBeVisible()
   await expect(readerTemplate).toBeVisible()
+  await expect(templatePreviewStrip).toBeVisible()
   expect(await cards.count()).toBeGreaterThanOrEqual(5)
+
+  await page.getByRole('button', { name: 'Horror' }).first().click()
+  await expect(readerTemplate).toContainText('Containment Status')
 
   await page.screenshot({
     path: 'tests/artifacts/storyworld-home-desktop.png',

@@ -54,7 +54,7 @@ const normalizeGenreKey = (genre) => {
   return normalized || 'default'
 }
 
-export default function ReaderPanel({ storyworld }) {
+export default function ReaderPanel({ storyworld, templateOverride = 'auto' }) {
   const [selectedChoice, setSelectedChoice] = useState('')
 
   useEffect(() => {
@@ -62,9 +62,10 @@ export default function ReaderPanel({ storyworld }) {
   }, [storyworld?.id])
 
   const template = useMemo(() => {
-    const key = normalizeGenreKey(storyworld?.genre)
+    const overrideKey = templateOverride === 'auto' ? '' : normalizeGenreKey(templateOverride)
+    const key = overrideKey || normalizeGenreKey(storyworld?.genre)
     return GENRE_TEMPLATES[key] || GENRE_TEMPLATES.default
-  }, [storyworld?.genre])
+  }, [storyworld?.genre, templateOverride])
 
   const details = useMemo(() => {
     if (!storyworld) {

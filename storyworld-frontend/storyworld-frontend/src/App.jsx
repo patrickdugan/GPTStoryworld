@@ -23,6 +23,16 @@ const toLowerTabOptions = (list, allLabel) => [
   ...list.map((label) => ({ value: String(label).toLowerCase(), label: String(label) }))
 ]
 
+const readerTemplateOptions = [
+  { value: 'auto', label: 'Auto' },
+  { value: 'diplomacy', label: 'Diplomacy' },
+  { value: 'strategy', label: 'Strategy' },
+  { value: 'mystery', label: 'Mystery' },
+  { value: 'scifi', label: 'Sci-Fi' },
+  { value: 'horror', label: 'Horror' },
+  { value: 'fantasy', label: 'Fantasy' }
+]
+
 function App() {
   const fileInputRef = useRef(null)
 
@@ -36,6 +46,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [statusText, setStatusText] = useState('Using demo data until backend responds.')
   const [reloadKey, setReloadKey] = useState(0)
+  const [readerTemplateOverride, setReaderTemplateOverride] = useState('auto')
 
   const activeVisualTheme = selectedTheme === 'all' ? 'midnight' : selectedTheme
 
@@ -219,11 +230,39 @@ function App() {
               onSelect={(selected) => {
                 const full = storyworlds.find((entry) => entry.id === selected.id)
                 setActiveStoryworld(full || null)
+                setReaderTemplateOverride('auto')
               }}
             />
           ))}
         </section>
-        <ReaderPanel storyworld={activeStoryworld} />
+        <aside className="flex flex-col gap-3">
+          <section
+            data-testid="template-preview-strip"
+            className="rounded-xl border border-[color:var(--sw-border)] bg-[color:var(--sw-panel)]/70 p-3"
+          >
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">Template Preview</p>
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {readerTemplateOptions.map((option) => {
+                const active = readerTemplateOverride === option.value
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setReaderTemplateOverride(option.value)}
+                    className={`shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan ${
+                      active
+                        ? 'border-cyan/60 bg-cyan/20 text-cyan'
+                        : 'border-slate-700 bg-slate-900/60 text-slate-300 hover:border-slate-500 hover:text-white'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                )
+              })}
+            </div>
+          </section>
+          <ReaderPanel storyworld={activeStoryworld} templateOverride={readerTemplateOverride} />
+        </aside>
       </main>
 
       <BottomNav />
