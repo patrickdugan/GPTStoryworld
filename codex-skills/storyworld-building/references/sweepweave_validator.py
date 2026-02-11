@@ -62,7 +62,7 @@ def validate_storyworld(path: str):
                 cid = r.get("consequence_id", "")
                 if not isinstance(cid, str) or cid.strip() == "":
                     errors.append(f"reaction missing consequence_id: encounter={eid} option={oid} reaction={rid}")
-                elif cid not in encounter_ids:
+                elif cid != "wild" and cid not in encounter_ids:
                     errors.append(f"reaction consequence_id not found: encounter={eid} option={oid} reaction={rid} -> {cid}")
     return errors
 

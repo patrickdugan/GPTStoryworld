@@ -9,12 +9,13 @@ Fine-tune models to generate valid Sweepweave storyworld JSON with:
 - Multiple endings and secret paths
 - Thematic continuity and Dirac operator effects
 
-Quality criteria:
-1. Valid JSON loadable by Sweepweave Godot engine
-2. Structural completeness (characters, spools, encounters)
-3. Effect diversity (Dirac operators on character properties)
-4. Narrative coherence (thematic consistency)
-5. Explorable complexity (gated options, secret paths)
+  Quality criteria:
+  1. Valid JSON loadable by Sweepweave Godot engine
+  2. Structural completeness (characters, spools, encounters)
+  3. Effect diversity (Dirac operators on character properties)
+  4. Narrative coherence (thematic consistency)
+  5. Explorable complexity (gated options, secret paths)
+  6. Ending balance and reachability (avoid unreachable endings)
 """
 
 import json
@@ -214,6 +215,28 @@ class SweepweaveValidator:
                     score += 1.0
                 else:
                     score += avg_opts / requirements["min_options_per_encounter"]
+
+        # Reactions per option
+        if "min_reactions_per_option" in requirements:
+            max_score += 1.0
+            options = [o for e in data.get("encounters", []) for o in e.get("options", [])]
+            if options:
+                avg_rxn = sum(len(o.get("reactions", [])) for o in options) / len(options)
+                if avg_rxn >= requirements["min_reactions_per_option"]:
+                    score += 1.0
+                else:
+                    score += avg_rxn / requirements["min_reactions_per_option"]
+
+        # Effects per reaction
+        if "min_effects_per_reaction" in requirements:
+            max_score += 1.0
+            reactions = [r for e in data.get("encounters", []) for o in e.get("options", []) for r in o.get("reactions", [])]
+            if reactions:
+                avg_eff = sum(len(r.get("after_effects", []) or []) for r in reactions) / len(reactions)
+                if avg_eff >= requirements["min_effects_per_reaction"]:
+                    score += 1.0
+                else:
+                    score += avg_eff / requirements["min_effects_per_reaction"]
         
         return score / max_score if max_score > 0 else 0.0
     
@@ -238,6 +261,445 @@ class SweepweaveValidator:
         density = min(total_effects / 10.0, 1.0)  # Reward having effects
         
         return (diversity + density) / 2.0
+
+    @staticmethod
+    def _script_is_constant(script: Any) -> bool:
+        if not isinstance(script, dict):
+            return True
+        if script.get("script_element_type") == "Pointer":
+            return script.get("pointer_type") in (
+                "Bounded Number Constant",
+                "Boolean Constant",
+                "String Constant",
+            )
+        if script.get("script_element_type") == "Operator":
+            ops = script.get("operands", [])
+            if not ops:
+                return True
+            return all(SweepweaveValidator._script_is_constant(op) for op in ops)
+        return False
+
+    @staticmethod
+    def _script_has_variable_pointer(script: Any) -> bool:
+        if not isinstance(script, dict):
+            return False
+        if script.get("pointer_type") == "Bounded Number Pointer":
+            return True
+        if script.get("script_element_type") == "Operator":
+            return any(SweepweaveValidator._script_has_variable_pointer(op) for op in script.get("operands", []))
+        return False
+
+    @staticmethod
+    def _extract_thresholds(script: Any) -> List[float]:
+        found: List[float] = []
+        if not isinstance(script, dict):
+            return found
+        if script.get("operator_type") == "Arithmetic Comparator":
+            for op in script.get("operands", []):
+                if isinstance(op, dict) and op.get("pointer_type") == "Bounded Number Constant":
+                    try:
+                        found.append(float(op.get("value", 0.0)))
+                    except (TypeError, ValueError):
+                        continue
+        for op in script.get("operands", []):
+            found.extend(SweepweaveValidator._extract_thresholds(op))
+        return found
+
+    @staticmethod
+    def _collect_vars(script: Any, out: set) -> None:
+        if script is None:
+            return
+        if isinstance(script, dict):
+            if script.get("pointer_type") == "Bounded Number Pointer":
+                char = script.get("character")
+                keyring = script.get("keyring") or []
+                if char and keyring:
+                    out.add((char, keyring[0]))
+            for v in script.values():
+                SweepweaveValidator._collect_vars(v, out)
+        elif isinstance(script, list):
+            for v in script:
+                SweepweaveValidator._collect_vars(v, out)
+
+    @staticmethod
+    def _count_vars(script: Any) -> int:
+        out: set = set()
+        SweepweaveValidator._collect_vars(script, out)
+        return len(out)
+
+    @staticmethod
+    def _script_has_operator(script: Any, operator_type: str) -> bool:
+        if isinstance(script, dict):
+            if script.get("operator_type") == operator_type:
+                return True
+            for v in script.values():
+                if SweepweaveValidator._script_has_operator(v, operator_type):
+                    return True
+        elif isinstance(script, list):
+            for v in script:
+                if SweepweaveValidator._script_has_operator(v, operator_type):
+                    return True
+        return False
+
+    @staticmethod
+    def _script_has_nonzero_constant(script: Any) -> bool:
+        if isinstance(script, dict):
+            if script.get("pointer_type") == "Bounded Number Constant":
+                try:
+                    return abs(float(script.get("value", 0.0))) > 1e-6
+                except (TypeError, ValueError):
+                    return False
+            for v in script.values():
+                if SweepweaveValidator._script_has_nonzero_constant(v):
+                    return True
+        elif isinstance(script, list):
+            for v in script:
+                if SweepweaveValidator._script_has_nonzero_constant(v):
+                    return True
+        return False
+
+    @staticmethod
+    def _is_visibility_gated(script: Any) -> bool:
+        if script is True:
+            return False
+        if isinstance(script, dict) and script.get("pointer_type") == "Boolean Constant":
+            return not bool(script.get("value", False)) if script.get("value") is not None else True
+        return True
+
+    @staticmethod
+    def compute_secret_gate_quality(data: Dict[str, Any], min_effects: int = 3, min_threshold: float = 0.02) -> float:
+        """Score secret gates that require accumulated variable thresholds."""
+        gated_options = 0
+        gated_ok = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                vis = opt.get("visibility_script")
+                if vis and isinstance(vis, dict) and vis.get("pointer_type") != "Boolean Constant":
+                    gated_options += 1
+                    thresholds = SweepweaveValidator._extract_thresholds(vis)
+                    threshold_ok = any(t >= min_threshold for t in thresholds) if thresholds else False
+                    reactions = opt.get("reactions", [])
+                    all_ok = True
+                    for rxn in reactions:
+                        ds = rxn.get("desirability_script")
+                        if not ds or SweepweaveValidator._script_is_constant(ds) or not SweepweaveValidator._script_has_variable_pointer(ds):
+                            all_ok = False
+                            break
+                        effects = rxn.get("after_effects", [])
+                        if not isinstance(effects, list) or len(effects) < min_effects:
+                            all_ok = False
+                            break
+                    if all_ok and threshold_ok:
+                        gated_ok += 1
+        if gated_options == 0:
+            return 0.0
+        return gated_ok / gated_options
+
+    @staticmethod
+    def _reaction_has_flip_or_blend(rxn: Dict[str, Any]) -> bool:
+        desirability = rxn.get("desirability_script")
+        blend = False
+        if isinstance(desirability, dict) and desirability.get("script_element_type") == "Operator":
+            op_type = desirability.get("operator_type")
+            operands = desirability.get("operands", [])
+            if op_type in ("Addition", "Multiplication") and len(operands) >= 2:
+                if any(SweepweaveValidator._script_has_variable_pointer(op) for op in operands):
+                    blend = True
+
+        effects = rxn.get("after_effects", [])
+        deltas = []
+        for eff in effects:
+            to = eff.get("to", {})
+            if isinstance(to, dict) and to.get("operator_type") == "Nudge":
+                ops = to.get("operands", [])
+                for op in ops:
+                    if isinstance(op, dict) and op.get("pointer_type") == "Bounded Number Constant":
+                        try:
+                            deltas.append(float(op.get("value", 0.0)))
+                        except (TypeError, ValueError):
+                            pass
+        flip = any(d >= 0.03 for d in deltas) and any(d <= -0.02 for d in deltas)
+        return blend or flip
+
+    @staticmethod
+    def compute_major_turn_quality(data: Dict[str, Any]) -> float:
+        """Score presence of Act II/III gated options with flip/blend reactions."""
+        act2_ok = False
+        act3_ok = False
+        for enc in data.get("encounters", []):
+            spools = enc.get("connected_spools", [])
+            in_act2 = any("act2" in s for s in spools)
+            in_act3 = any("act3" in s for s in spools)
+            if not (in_act2 or in_act3):
+                continue
+            for opt in enc.get("options", []):
+                vis = opt.get("visibility_script")
+                if not (vis and isinstance(vis, dict) and vis.get("pointer_type") != "Boolean Constant"):
+                    continue
+                for rxn in opt.get("reactions", []):
+                    if SweepweaveValidator._reaction_has_flip_or_blend(rxn):
+                        if in_act2:
+                            act2_ok = True
+                        if in_act3:
+                            act3_ok = True
+                if act2_ok and act3_ok:
+                    break
+        return 1.0 if (act2_ok and act3_ok) else 0.5 if (act2_ok or act3_ok) else 0.0
+
+    @staticmethod
+    def compute_effects_per_reaction(data: Dict[str, Any]) -> float:
+        total_effects = 0
+        total_reactions = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                for rxn in opt.get("reactions", []):
+                    total_reactions += 1
+                    total_effects += len(rxn.get("after_effects", []) or [])
+        return (total_effects / total_reactions) if total_reactions else 0.0
+
+    @staticmethod
+    def compute_reactions_per_option(data: Dict[str, Any]) -> float:
+        total_reactions = 0
+        total_options = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                total_options += 1
+                total_reactions += len(opt.get("reactions", []) or [])
+        return (total_reactions / total_options) if total_options else 0.0
+
+    @staticmethod
+    def compute_options_per_encounter(data: Dict[str, Any]) -> float:
+        encs = [e for e in data.get("encounters", []) if e.get("options")]
+        if not encs:
+            return 0.0
+        return sum(len(e.get("options", []) or []) for e in encs) / len(encs)
+
+    @staticmethod
+    def compute_desirability_vars_per_reaction(data: Dict[str, Any]) -> float:
+        counts: List[int] = []
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                for rxn in opt.get("reactions", []):
+                    counts.append(SweepweaveValidator._count_vars(rxn.get("desirability_script")))
+        return (sum(counts) / len(counts)) if counts else 0.0
+
+    @staticmethod
+    def compute_pvalue_desirability_alignment(data: Dict[str, Any]) -> float:
+        """Fraction of reactions with property effects whose desirability uses pValues for actors and witnesses."""
+        total = 0
+        ok = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                for rxn in opt.get("reactions", []):
+                    effects = rxn.get("after_effects", []) or []
+                    affected: List[Tuple[str, str]] = []
+                    for eff in effects:
+                        if eff.get("effect_type") != "Bounded Number Effect":
+                            continue
+                        ptr = eff.get("Set", {})
+                        char = ptr.get("character")
+                        keyring = ptr.get("keyring") or []
+                        if not char or not keyring:
+                            continue
+                        prop = keyring[0]
+                        if isinstance(prop, str) and not prop.startswith("p"):
+                            affected.append((char, prop))
+                    if not affected:
+                        continue
+                    total += 1
+                    desirability = rxn.get("desirability_script")
+                    vars_in_script: set = set()
+                    SweepweaveValidator._collect_vars(desirability, vars_in_script)
+                    pvalue_by_prop: Dict[str, Dict[str, set]] = {}
+                    for ch, key in vars_in_script:
+                        if not isinstance(key, str):
+                            continue
+                        pvalue_by_prop.setdefault(key, {}).setdefault(ch, set())
+                    # Capture keyring chains that include perceived character ids
+                    def collect_pvalue_targets(script: Any) -> None:
+                        if isinstance(script, dict):
+                            if script.get("pointer_type") == "Bounded Number Pointer":
+                                keyring = script.get("keyring") or []
+                                char = script.get("character")
+                                if char and isinstance(keyring, list) and len(keyring) > 1:
+                                    prop = keyring[0]
+                                    target = keyring[1]
+                                    if isinstance(prop, str) and isinstance(target, str):
+                                        pvalue_by_prop.setdefault(prop, {}).setdefault(char, set()).add(target)
+                            for v in script.values():
+                                collect_pvalue_targets(v)
+                        elif isinstance(script, list):
+                            for v in script:
+                                collect_pvalue_targets(v)
+                    collect_pvalue_targets(desirability)
+                    hit = False
+                    for ch, prop in affected:
+                        witnesses = pvalue_by_prop.get(prop) or {}
+                        if not witnesses:
+                            continue
+                        if any(ch in targets for targets in witnesses.values()):
+                            if len(witnesses.keys()) >= 2:
+                                hit = True
+                                break
+                    if hit:
+                        ok += 1
+        return (ok / total) if total else 0.0
+
+    @staticmethod
+    def compute_effect_script_quality(data: Dict[str, Any]) -> float:
+        """Fraction of after_effects with an operator and non-zero constant in the script."""
+        total = 0
+        ok = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                for rxn in opt.get("reactions", []):
+                    for eff in rxn.get("after_effects", []) or []:
+                        if eff.get("effect_type") != "Bounded Number Effect":
+                            continue
+                        total += 1
+                        to = eff.get("to")
+                        has_op = SweepweaveValidator._script_has_operator(to, "Nudge") or \
+                            SweepweaveValidator._script_has_operator(to, "Blend") or \
+                            SweepweaveValidator._script_has_operator(to, "Addition") or \
+                            SweepweaveValidator._script_has_operator(to, "Multiplication") or \
+                            SweepweaveValidator._script_has_operator(to, "Absolute Value") or \
+                            SweepweaveValidator._script_has_operator(to, "Maximum") or \
+                            SweepweaveValidator._script_has_operator(to, "Minimum")
+                        has_nonzero = SweepweaveValidator._script_has_nonzero_constant(to)
+                        if has_op and has_nonzero:
+                            ok += 1
+        return (ok / total) if total else 0.0
+
+    @staticmethod
+    def compute_act_gating_stats(data: Dict[str, Any]) -> Dict[str, Tuple[float, float]]:
+        encounters = data.get("encounters", [])
+        enc_by_id = {e.get("id"): e for e in encounters if e.get("id")}
+        spools = data.get("spools", [])
+        act2_ids = set()
+        act3_ids = set()
+        for sp in spools:
+            name = (sp.get("spool_name") or "").lower()
+            sid = (sp.get("id") or "").lower()
+            ids = sp.get("encounters", []) or []
+            if "act ii" in name or "act2" in sid or "act_2" in sid:
+                act2_ids.update(ids)
+            if "act iii" in name or "act3" in sid or "act_3" in sid:
+                act3_ids.update(ids)
+
+        def gate_stats(enc_ids):
+            opts = 0
+            gated = 0
+            gated_vars: List[int] = []
+            for eid in enc_ids:
+                enc = enc_by_id.get(eid)
+                if not enc:
+                    continue
+                for opt in enc.get("options", []) or []:
+                    opts += 1
+                    vis = opt.get("visibility_script", True)
+                    if SweepweaveValidator._is_visibility_gated(vis):
+                        gated += 1
+                        gated_vars.append(SweepweaveValidator._count_vars(vis))
+            pct = (gated / opts * 100.0) if opts else 0.0
+            avg_vars = (sum(gated_vars) / len(gated_vars)) if gated_vars else 0.0
+            return pct, avg_vars
+
+        return {
+            "act2": gate_stats(act2_ids),
+            "act3": gate_stats(act3_ids),
+        }
+
+    @staticmethod
+    def compute_secret_metric_distance_quality(data: Dict[str, Any]) -> float:
+        secrets = [e for e in data.get("encounters", []) if e.get("id", "").startswith("page_secret_")]
+        if not secrets:
+            return 0.0
+        ok = 0
+        for enc in secrets:
+            acc = enc.get("acceptability_script")
+            vars_count = SweepweaveValidator._count_vars(acc)
+            has_distance = SweepweaveValidator._script_has_operator(acc, "Absolute Value")
+            if has_distance and vars_count >= 2:
+                ok += 1
+        return ok / len(secrets)
+
+    @staticmethod
+    def _is_transition_encounter(enc: Dict[str, Any]) -> bool:
+        eid = (enc.get("id") or "").lower()
+        title = (enc.get("title") or "").lower()
+        return eid.startswith("page_transition_") or "transition" in title
+
+    @staticmethod
+    def compute_min_spec_compliance(
+        data: Dict[str, Any],
+        min_options: int = 3,
+        min_reactions: int = 2,
+        min_effects: int = 4,
+    ) -> float:
+        """Fraction of non-ending, non-transition encounters meeting min spec."""
+        encounters = data.get("encounters", [])
+        eligible = 0
+        ok = 0
+        for enc in encounters:
+            eid = enc.get("id", "")
+            if eid.startswith("page_end_") or eid.startswith("page_secret_"):
+                continue
+            if SweepweaveValidator._is_transition_encounter(enc):
+                continue
+            eligible += 1
+            options = enc.get("options", []) or []
+            if len(options) < min_options:
+                continue
+            reactions_ok = True
+            effects_ok = True
+            for opt in options:
+                reactions = opt.get("reactions", []) or []
+                if len(reactions) < min_reactions:
+                    reactions_ok = False
+                    break
+                for rxn in reactions:
+                    if len(rxn.get("after_effects", []) or []) < min_effects:
+                        effects_ok = False
+                        break
+                if not reactions_ok or not effects_ok:
+                    break
+            if reactions_ok and effects_ok:
+                ok += 1
+        if eligible == 0:
+            return 0.0
+        return ok / eligible
+
+    @staticmethod
+    def compute_text_length_compliance(
+        data: Dict[str, Any],
+        encounter_min: int = 50,
+        encounter_max: int = 300,
+        reaction_min: int = 20,
+        reaction_max: int = 150,
+    ) -> float:
+        """Fraction of encounter/reaction texts within word-count ranges."""
+        def count_words(text: str) -> int:
+            return len([w for w in text.split() if w.strip()])
+
+        encounters = data.get("encounters", [])
+        total = 0
+        ok = 0
+        for enc in encounters:
+            text = enc.get("text_script", {}).get("value", "") if isinstance(enc.get("text_script"), dict) else ""
+            wc = count_words(text)
+            total += 1
+            if encounter_min <= wc <= encounter_max:
+                ok += 1
+            for opt in enc.get("options", []) or []:
+                for rxn in opt.get("reactions", []) or []:
+                    rtext = rxn.get("text_script", {}).get("value", "") if isinstance(rxn.get("text_script"), dict) else ""
+                    rwc = count_words(rtext)
+                    total += 1
+                    if reaction_min <= rwc <= reaction_max:
+                        ok += 1
+        if total == 0:
+            return 0.0
+        return ok / total
     
     @staticmethod
     def compute_gating_score(data: Dict[str, Any]) -> float:
@@ -258,9 +720,18 @@ class SweepweaveValidator:
         if total_options == 0:
             return 0.0
         
-        # Reward some gating but not over-gating
+        # Reward narrow gating ratio (3-5%)
         ratio = gated_options / total_options
-        return min(ratio * 2, 1.0)  # Optimal around 50% gating
+        if ratio <= 0.0:
+            return 0.0
+        if ratio < 0.03:
+            return max(0.0, ratio / 0.03)
+        if ratio <= 0.05:
+            return 1.0
+        if ratio >= 0.12:
+            return 0.0
+        # Linear falloff between 5% and 12%
+        return max(0.0, 1.0 - ((ratio - 0.05) / 0.07))
     
     @staticmethod
     def compute_ending_diversity(data: Dict[str, Any]) -> float:
@@ -308,6 +779,16 @@ class SweepweaveValidator:
         if total == 0:
             return 0.0
         return report.get("secret_any", 0) / total
+
+    @staticmethod
+    def compute_unreachable_endings_score(data: Dict[str, Any], runs: int = 200, seed: int = 42) -> float:
+        """Score 1.0 if all endings are reachable, otherwise proportional to reachability."""
+        report = run_monte_carlo(data, num_runs=runs, seed=seed)
+        endings = [e["id"] for e in report.get("endings", [])]
+        if not endings:
+            return 0.0
+        reachable = sum(1 for eid in endings if report.get("ending_counts", {}).get(eid, 0) > 0)
+        return reachable / len(endings)
 
 
 # ============================================================================
@@ -629,11 +1110,15 @@ THEMES: {', '.join(themes)}
 REQUIREMENTS:
 - {num_characters} characters with distinct personalities
 - {num_properties} character property axes: {', '.join(property_list)}
-- {num_encounters} interconnected encounters
+- Infer encounter count from the setting and spools (do not state a fixed number); ensure it meets the minimum required for structural completeness
 - {num_spools} narrative spools controlling encounter availability
-- Each encounter has 2-3 options
-- Each option has 1-3 reactions with different consequences
-- Each reaction has after_effects modifying character properties
+- Each non-ending, non-transition encounter has at least 3 options
+- Each option has at least 2 reactions with different consequences
+- Each reaction has at least 4 after_effects modifying character properties
+- Encounter descriptions are 50-300 words; reaction texts are 20-150 words
+- When reactions modify character properties, desirability formulas should reference pValues using keyrings
+  (property id + perceived character id) for the affected character and at least one witness character
+- Every after_effect script must include at least one operator and at least one non-zero constant input
 - Multiple endings (2-5 distinct terminal states)
 - Some options should be gated by character property conditions
 
@@ -774,9 +1259,9 @@ STRUCTURE TEMPLATE:
   ],
   "unique_id_seeds": {{
     "character": {num_characters},
-    "encounter": {num_encounters},
-    "option": {num_encounters * 2},
-    "reaction": {num_encounters * 4},
+    "encounter": "[auto]",
+    "option": "[auto]",
+    "reaction": "[auto]",
     "spool": {num_spools},
     "authored_property": {num_properties * 2}
   }}
@@ -819,7 +1304,9 @@ def create_dataset(
             "min_characters": num_chars,
             "min_encounters": num_encs,
             "min_spools": num_spools,
-            "min_options_per_encounter": 2,
+            "min_options_per_encounter": 3,
+            "min_reactions_per_option": 2,
+            "min_effects_per_reaction": 4,
         }
         
         prompts.append(prompt)
@@ -903,6 +1390,168 @@ def reward_effect_diversity(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_min_spec_compliance(prompt, completion, info) -> float:
+    """Reward: 0-1 based on min options/reactions/effects per non-ending encounter."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_min_spec_compliance(data)
+    except:
+        return 0.0
+
+
+def reward_text_length_compliance(prompt, completion, info) -> float:
+    """Reward: 0-1 based on encounter/reaction word counts."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_text_length_compliance(data)
+    except:
+        return 0.0
+
+
+def reward_effects_per_reaction(prompt, completion, info) -> float:
+    """Reward: 0-1 based on average after-effects per reaction (target 4.5)."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        val = SweepweaveValidator.compute_effects_per_reaction(data)
+        return min(1.0, val / 4.5)
+    except:
+        return 0.0
+
+
+def reward_reactions_per_option(prompt, completion, info) -> float:
+    """Reward: 0-1 based on average reactions per option (target 2.5)."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        val = SweepweaveValidator.compute_reactions_per_option(data)
+        return min(1.0, val / 2.5)
+    except:
+        return 0.0
+
+
+def reward_options_per_encounter(prompt, completion, info) -> float:
+    """Reward: 0-1 based on average options per encounter (target 3.2)."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        val = SweepweaveValidator.compute_options_per_encounter(data)
+        return min(1.0, val / 3.2)
+    except:
+        return 0.0
+
+
+def reward_desirability_var_usage(prompt, completion, info) -> float:
+    """Reward: 0-1 based on average variable usage per desirability formula (target 1.6)."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        val = SweepweaveValidator.compute_desirability_vars_per_reaction(data)
+        return min(1.0, val / 1.6)
+    except:
+        return 0.0
+
+
+def reward_pvalue_desirability_alignment(prompt, completion, info) -> float:
+    """Reward: 0-1 based on pValues used in desirability when reactions modify properties."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_pvalue_desirability_alignment(data)
+    except:
+        return 0.0
+
+
+def reward_effect_script_quality(prompt, completion, info) -> float:
+    """Reward: 0-1 based on after_effect scripts using operators and non-zero constants."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_effect_script_quality(data)
+    except:
+        return 0.0
+
+
+def reward_act2_gating(prompt, completion, info) -> float:
+    """Reward: 0-1 based on Act II gated option ratio and variable richness."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        stats = SweepweaveValidator.compute_act_gating_stats(data)
+        pct, vars_avg = stats["act2"]
+        return min(1.0, (pct / 5.0 + vars_avg / 1.2) / 2.0)
+    except:
+        return 0.0
+
+
+def reward_act3_gating(prompt, completion, info) -> float:
+    """Reward: 0-1 based on Act III gated option ratio and variable richness."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        stats = SweepweaveValidator.compute_act_gating_stats(data)
+        pct, vars_avg = stats["act3"]
+        return min(1.0, (pct / 8.0 + vars_avg / 1.5) / 2.0)
+    except:
+        return 0.0
+
+
+def reward_secret_metric_distance(prompt, completion, info) -> float:
+    """Reward: 0-1 based on secret encounter availability using 2-var metric distance."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_secret_metric_distance_quality(data)
+    except:
+        return 0.0
+
+
 def reward_secret_paths(prompt, completion, info) -> float:
     """Reward: 0-1 based on gated options"""
     try:
@@ -915,6 +1564,34 @@ def reward_secret_paths(prompt, completion, info) -> float:
         
         data = json.loads(text.strip())
         return SweepweaveValidator.compute_gating_score(data)
+    except:
+        return 0.0
+
+
+def reward_secret_gate_quality(prompt, completion, info) -> float:
+    """Reward: 0-1 based on gated options with variable desirability and strong effects."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_secret_gate_quality(data)
+    except:
+        return 0.0
+
+
+def reward_major_turns(prompt, completion, info) -> float:
+    """Reward: 0-1 based on Act II/III gated flip/blend turning points."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_major_turn_quality(data)
     except:
         return 0.0
 
@@ -993,6 +1670,20 @@ def reward_ending_balance(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_unreachable_endings(prompt, completion, info) -> float:
+    """Reward: 0-1 based on all endings being reachable."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_unreachable_endings_score(data)
+    except:
+        return 0.0
+
+
 def reward_late_blocking(prompt, completion, info) -> float:
     """Reward: 0-1 based on late-game blocking rate target (10-30%)."""
     try:
@@ -1022,7 +1713,7 @@ def reward_secret_reachability(prompt, completion, info) -> float:
             text = text.split("```")[1].split("```")[0]
         data = json.loads(text.strip())
         reach = SweepweaveValidator.compute_secret_reachability(data)
-        return min(1.0, reach / 0.02) if reach > 0 else 0.0
+        return min(1.0, reach / 0.05) if reach > 0 else 0.0
     except:
         return 0.0
 
@@ -1035,7 +1726,26 @@ def benchmark_targets() -> Dict[str, float]:
         "min_ending_share_min": 0.01,
         "late_block_min": 0.10,
         "late_block_max": 0.30,
-        "secret_reachability_min": 0.02,
+        "secret_reachability_min": 0.05,
+        "secret_gate_quality_min": 0.30,
+        "gated_ratio_min": 0.03,
+        "gated_ratio_max": 0.05,
+        "major_turns_min": 1.0,
+        "ending_entropy_min": 1.5,
+        "ending_entropy_soft_min": 1.2,
+        "secret_reachability_max": 0.12,
+        "ending_effective_min": 4.0,
+        "effects_per_reaction_min": 4.5,
+        "reactions_per_option_min": 2.5,
+        "options_per_encounter_min": 3.2,
+        "desirability_vars_min": 1.6,
+        "act2_gate_pct_min": 5.0,
+        "act2_gate_vars_min": 1.2,
+        "act3_gate_pct_min": 8.0,
+        "act3_gate_vars_min": 1.5,
+        "secret_metric_distance_min": 1.0,
+        "min_spec_compliance_min": 1.0,
+        "text_length_compliance_min": 1.0,
     }
 
 
@@ -1047,18 +1757,59 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
     if total and report["ending_counts"]:
         max_share = max(report["ending_counts"].values()) / total
         min_share = min(report["ending_counts"].values()) / total
+        # Shannon entropy over ending distribution
+        import math
+        entropy = 0.0
+        for count in report["ending_counts"].values():
+            if count <= 0:
+                continue
+            p = count / total
+            entropy -= p * math.log(p + 1e-12, 2)
+        # Effective number of endings
+        effective = 2 ** entropy if entropy > 0 else 0.0
     else:
         max_share, min_share = 1.0, 0.0
+        entropy = 0.0
+        effective = 0.0
     late_block = (report["late_blocks"] / report["late_total"]) if report["late_total"] else 0.0
     secret_reach = (report.get("secret_any", 0) / total) if total else 0.0
+    secret_gate_quality = SweepweaveValidator.compute_secret_gate_quality(data)
+    gating_ratio = SweepweaveValidator.compute_gating_score(data)
+    major_turn_quality = SweepweaveValidator.compute_major_turn_quality(data)
     late_block_applicable = report["late_total"] > 0
+    effects_per_reaction = SweepweaveValidator.compute_effects_per_reaction(data)
+    reactions_per_option = SweepweaveValidator.compute_reactions_per_option(data)
+    options_per_encounter = SweepweaveValidator.compute_options_per_encounter(data)
+    desirability_vars = SweepweaveValidator.compute_desirability_vars_per_reaction(data)
+    act_stats = SweepweaveValidator.compute_act_gating_stats(data)
+    act2_pct, act2_vars = act_stats["act2"]
+    act3_pct, act3_vars = act_stats["act3"]
+    secret_metric_distance = SweepweaveValidator.compute_secret_metric_distance_quality(data)
+    min_spec_compliance = SweepweaveValidator.compute_min_spec_compliance(data)
+    text_length_compliance = SweepweaveValidator.compute_text_length_compliance(data)
     return {
         "dead_end_rate": dead_end_rate,
         "max_ending_share": max_share,
         "min_ending_share": min_share,
+        "ending_entropy": entropy,
+        "ending_effective": effective,
         "late_block_rate": late_block,
         "secret_reachability": secret_reach,
+        "secret_gate_quality": secret_gate_quality,
+        "gated_ratio_score": gating_ratio,
+        "major_turn_quality": major_turn_quality,
         "late_block_applicable": 1.0 if late_block_applicable else 0.0,
+        "effects_per_reaction": effects_per_reaction,
+        "reactions_per_option": reactions_per_option,
+        "options_per_encounter": options_per_encounter,
+        "desirability_vars": desirability_vars,
+        "act2_gate_pct": act2_pct,
+        "act2_gate_vars": act2_vars,
+        "act3_gate_pct": act3_pct,
+        "act3_gate_vars": act3_vars,
+        "secret_metric_distance": secret_metric_distance,
+        "min_spec_compliance": min_spec_compliance,
+        "text_length_compliance": text_length_compliance,
     }
 
 
@@ -1071,6 +1822,23 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and metrics["min_ending_share"] >= targets["min_ending_share_min"]
         and (not late_applicable or (targets["late_block_min"] <= metrics["late_block_rate"] <= targets["late_block_max"]))
         and metrics["secret_reachability"] >= targets["secret_reachability_min"]
+        and metrics["secret_reachability"] <= targets["secret_reachability_max"]
+        and metrics.get("secret_gate_quality", 0.0) >= targets["secret_gate_quality_min"]
+        and metrics.get("gated_ratio_score", 0.0) >= 0.8
+        and metrics.get("major_turn_quality", 0.0) >= targets["major_turns_min"]
+        and metrics.get("ending_entropy", 0.0) >= targets["ending_entropy_soft_min"]
+        and metrics.get("ending_effective", 0.0) >= targets["ending_effective_min"]
+        and metrics.get("effects_per_reaction", 0.0) >= targets["effects_per_reaction_min"]
+        and metrics.get("reactions_per_option", 0.0) >= targets["reactions_per_option_min"]
+        and metrics.get("options_per_encounter", 0.0) >= targets["options_per_encounter_min"]
+        and metrics.get("desirability_vars", 0.0) >= targets["desirability_vars_min"]
+        and metrics.get("act2_gate_pct", 0.0) >= targets["act2_gate_pct_min"]
+        and metrics.get("act2_gate_vars", 0.0) >= targets["act2_gate_vars_min"]
+        and metrics.get("act3_gate_pct", 0.0) >= targets["act3_gate_pct_min"]
+        and metrics.get("act3_gate_vars", 0.0) >= targets["act3_gate_vars_min"]
+        and metrics.get("secret_metric_distance", 0.0) >= targets["secret_metric_distance_min"]
+        and metrics.get("min_spec_compliance", 0.0) >= targets["min_spec_compliance_min"]
+        and metrics.get("text_length_compliance", 0.0) >= targets["text_length_compliance_min"]
     )
 
 
@@ -1117,10 +1885,24 @@ def load_environment(
             reward_schema_soft,          # Soft penalty for missing fields
             reward_structural_completeness,  # Must meet size requirements
             reward_effect_diversity,     # Diverse Dirac operators
+            reward_min_spec_compliance,  # Min options/reactions/effects compliance
+            reward_text_length_compliance, # Word-count compliance
+            reward_effects_per_reaction, # Effect density per reaction
+            reward_reactions_per_option, # Reaction density per option
+            reward_options_per_encounter, # Options per encounter
+            reward_desirability_var_usage, # Vars per desirability
+            reward_pvalue_desirability_alignment, # pValues for actors/witnesses
+            reward_effect_script_quality, # Non-zero operator effects
             reward_secret_paths,         # Gated options
+            reward_secret_gate_quality,  # Gated options with variable desirability
+            reward_major_turns,          # Act II/III flip/blend turning points
+            reward_act2_gating,          # Act II gating density
+            reward_act3_gating,          # Act III gating density
+            reward_secret_metric_distance,  # Secret metric distance gates
             reward_multiple_endings,     # Multiple terminal states
             reward_dead_end_rate,        # Monte Carlo dead-end rate
             reward_ending_balance,       # Ending distribution balance
+            reward_unreachable_endings,  # All endings reachable
             reward_late_blocking,        # Late-game blocking rate
             reward_secret_reachability,  # Secret reachability
         ],
@@ -1130,10 +1912,24 @@ def load_environment(
             0.3,   # Soft schema completeness
             1.0,   # Structural completeness
             0.5,   # Effect diversity (nice to have)
+            0.6,   # Min spec compliance
+            0.6,   # Text length compliance
+            0.6,   # Effects per reaction
+            0.6,   # Reactions per option
+            0.6,   # Options per encounter
+            0.5,   # Desirability var usage
+            0.5,   # pValue desirability alignment
+            0.5,   # Effect script quality
             0.5,   # Secret paths (nice to have)
+            0.6,   # Secret gate quality (accumulated thresholds)
+            0.6,   # Major Act II/III turn quality
+            0.5,   # Act II gating density
+            0.5,   # Act III gating density
+            0.4,   # Secret metric distance gates
             0.5,   # Multiple endings (nice to have)
             0.5,   # Dead-end rate (should be low)
             0.5,   # Ending balance (avoid dominance)
+            0.6,   # Unreachable endings
             0.5,   # Late-game blocking (target band)
             0.3,   # Secret reachability (occasional)
         ],

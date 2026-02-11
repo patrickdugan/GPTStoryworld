@@ -6,11 +6,24 @@ const THEMES = [
   "hierarchy vs. equality",
   "sacrifice vs. consent",
   "bias in training data",
-  "moral agency in war"
+  "moral agency in war",
+  "legitimacy vs. power",
+  "transparency vs. stability"
 ];
 
 function pickRandomTheme(themes) {
   return themes[Math.floor(Math.random() * themes.length)];
+}
+
+async function readIdeaFactory() {
+  try {
+    const tropes = await fs.readFile('./tropes/spool_design.md', 'utf-8');
+    const math = await fs.readFile('./tropes/math_patterns.md', 'utf-8');
+    const history = await fs.readFile('./tropes/myth_history.md', 'utf-8');
+    return [tropes, math, history].join('\n\n').trim();
+  } catch {
+    return '';
+  }
 }
 
 export async function buildNextPrompt() {
@@ -22,6 +35,8 @@ export async function buildNextPrompt() {
 
   const theme = pickRandomTheme(THEMES);
 
+  const ideaFactory = await readIdeaFactory();
+
   const prompt = `
 Generate a Sweepweave 1.9 JSON-format encounter in an interactive storyworld.
 
@@ -29,6 +44,7 @@ Generate a Sweepweave 1.9 JSON-format encounter in an interactive storyworld.
 - Focus: Add moral depth and effects on "${focusProperty}"
 - Structure: 2+ options, each with 1+ reactions, each with effects
 - Style: Characters should be thoughtful and distinct
+ - Diversity notes: ${ideaFactory}
 
 Respond with valid Sweepweave 1.9 JSON only.
 `;

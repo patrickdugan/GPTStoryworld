@@ -23,6 +23,20 @@ Models are rewarded for generating storyworlds that:
 4. **Demonstrate effect diversity** (varied Dirac operators modifying different properties)
 5. **Include secret paths** (some options gated by character property conditions)
 6. **Provide multiple endings** (2-5 distinct terminal states)
+7. **Keep ending gates complete** (every `page_end_*` reachable from the final gate and not blocked by acceptability fallbacks)
+
+## Raised Polish Thresholds
+
+Use these higher targets when running late-stage polish (`late_stage_balance.py`, `long_range_authoring.py`, `multiple_paths.py`):
+
+- Average after-effects per reaction: **4.5**
+- Reactions per option: **2.5**
+- Options per encounter: **3.2**
+- Variables per reaction desirability formula: **1.6**
+- Act II visibility gating: **5% of total options**, gated by **1.2 variables** on average
+- Act III visibility gating: **8% of total options**, gated by **1.5 variables** on average
+- Secret-ending encounters must be gated by an availability script that uses a **metric distance** over **two variables**
+- Monte Carlo tuning: secret ending reachable in **>5%** of runs
 
 ## Installation
 
@@ -127,14 +141,56 @@ The environment uses a multi-component reward function:
 | `schema_soft` | 0.3 | Penalize missing pronoun/depth |
 | `structural_completeness` | 1.0 | Meets character/encounter/spool counts |
 | `effect_diversity` | 0.5 | Variety of character property effects |
+| `min_spec_compliance` | 0.6 | Non-ending encounters meet min options/reactions/effects |
+| `text_length_compliance` | 0.6 | Encounter 50-300 words; reaction text 20-150 words |
+| `effects_per_reaction` | 0.6 | Average after-effects per reaction (target 4.5) |
+| `reactions_per_option` | 0.6 | Average reactions per option (target 2.5) |
+| `options_per_encounter` | 0.6 | Average options per encounter (target 3.2) |
+| `desirability_var_usage` | 0.5 | Variables per desirability formula (target 1.6) |
+| `pvalue_desirability_alignment` | 0.5 | pValues in desirability when reactions modify properties |
+| `effect_script_quality` | 0.5 | After_effect scripts use operators with non-zero constants |
 | `secret_paths` | 0.5 | Options with conditional visibility |
+| `secret_gate_quality` | 0.6 | Gated options with variable desirability and stronger effects |
+| `major_turns` | 0.6 | Act II/III flip/blend turning points |
+| `act2_gating` | 0.5 | Act II gating ratio/variable richness |
+| `act3_gating` | 0.5 | Act III gating ratio/variable richness |
+| `secret_metric_distance` | 0.4 | Secret encounters gated by 2-var metric distance |
 | `multiple_endings` | 0.5 | 2-5 distinct terminal states |
 | `dead_end_rate` | 0.5 | Monte Carlo dead-end rate (<5% target) |
 | `ending_balance` | 0.5 | Ending distribution (avoid dominance) |
+| `unreachable_endings` | 0.6 | Penalize endings not reachable in Monte Carlo |
 | `late_blocking` | 0.5 | Late-game blocking target band (10-30%) |
 | `secret_reachability` | 0.3 | Secrets reachable at least occasionally |
 
-Total maximum reward: **8.1**
+Total maximum reward: **15.3**
+
+## Compact Belief Manifold
+
+For focused diplomacy runs, project logs into a fixed-size manifold with explicit compact belief subspaces:
+
+```bash
+python manifold_projection.py \
+  --log logs/diplomacy_run.jsonl \
+  --pvalue-dims 8 \
+  --p2value-dims 8 \
+  --out logs/diplomacy_run.manifold.json
+```
+
+Dimension layout:
+- Base (5): coalition count, coalition mean stability, betrayal surprise, betrayal flag, active party count.
+- Compact pValue block: hash-bucket embedding of keyrings with length 2.
+- Compact p2Value block: hash-bucket embedding of keyrings with length 3.
+- Sidecar per turn: coalition/defection/betrayal probabilities and recommended global action.
+
+This keeps global dimensionality stable while preserving high-cardinality belief evidence.
+
+## Ending Gate Sanity Checklist
+
+If you use a terminal gate encounter (for example `page_endings_gate`), ensure:
+
+- Every `page_end_*` (and `page_secret_*`) is reachable via a reaction from the gate.
+- Ending encounters use permissive `acceptability_script` (usually `True`) so the gate, not the ending, decides eligibility.
+- Reaction desirability or acceptability bands, not fallback defaults, determine the ending mix.
 
 ## Sweepweave Format
 

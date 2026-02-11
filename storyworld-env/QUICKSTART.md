@@ -139,6 +139,32 @@ rubric = vf.Rubric(
 ./deploy.sh test
 ```
 
+### Diplomacy Focused Harness (Coalition vs Defection)
+
+```bash
+# 1) Generate/choose a diplomacy storyworld with pValues/p2Values
+# 2) Run focused playthrough instrumentation
+python negotiation-storyworld/tools/play_storyworld.py \
+  --storyworld storyworlds/diplomacy/forecast_coalition_p.json \
+  --emit reasoning_interpret_log \
+  --emit negotiation_diary
+```
+
+Required artifacts:
+- `reasoning_interpret_log`: stepwise belief updates and inferences.
+- `negotiation_diary`: turn-by-turn rationale for joining or defecting from coalitions.
+- Each recommendation must cite the variable keyrings used in the inference.
+
+Compact manifold export:
+
+```bash
+python manifold_projection.py \
+  --log logs/diplomacy_run.jsonl \
+  --pvalue-dims 8 \
+  --p2value-dims 8 \
+  --out logs/diplomacy_run.manifold.json
+```
+
 ### Production: Deploy to Prime Intellect
 
 ```bash

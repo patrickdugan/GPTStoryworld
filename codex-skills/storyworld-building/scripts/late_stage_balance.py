@@ -18,6 +18,8 @@ import os
 import sys
 import importlib.util
 
+from polish_metrics import POLISH_THRESHOLDS, compute_metrics
+
 
 def load_mc_module():
     here = os.path.dirname(os.path.abspath(__file__))
@@ -26,6 +28,8 @@ def load_mc_module():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
 
 
 def bn_ptr(char, prop):
@@ -128,6 +132,48 @@ def main():
     for k, v in report["ending_counts"].most_common():
         print(f"  {k:30s} {v:6d} ({(v/total)*100:5.1f}%)")
     print(f"\n{args.ending_id} share: {pct:.2f}%")
+
+    metrics = compute_metrics(data)
+    act2_pct, act2_vars, act2_opts, act2_gated = metrics["act2"]
+    act3_pct, act3_vars, act3_opts, act3_gated = metrics["act3"]
+
+    print("\nStructural Metrics")
+    print(f"- Effects per reaction: {metrics['effects_per_reaction']:.2f}")
+    print(f"- Reactions per option: {metrics['reactions_per_option']:.2f}")
+    print(f"- Options per encounter: {metrics['options_per_encounter']:.2f}")
+    print(f"- Vars per reaction desirability: {metrics['desirability_vars_avg']:.2f}")
+    print(f"- Act II visibility gating: {act2_pct:.1f}% (avg vars {act2_vars:.2f}, gated {act2_gated}/{act2_opts})")
+    print(f"- Act III visibility gating: {act3_pct:.1f}% (avg vars {act3_vars:.2f}, gated {act3_gated}/{act3_opts})")
+
+    if metrics["secret_checks"]:
+        for eid, vars_count, has_distance in metrics["secret_checks"]:
+            distance_note = "metric distance ok" if has_distance and vars_count >= 2 else "needs 2-var metric distance gate"
+            print(f"- Secret gate {eid}: vars={vars_count}, {distance_note}")
+    else:
+        print("- Secret gate check: no secret encounters found")
+
+    print("\nThreshold Checks")
+    def check(val, target, label, op="ge"):
+        ok = val >= target if op == "ge" else val <= target
+        status = "OK" if ok else "LOW"
+        print(f"- {label}: {val:.2f} (target {target}) -> {status}")
+
+    check(metrics["effects_per_reaction"], POLISH_THRESHOLDS["effects_per_reaction"], "Effects per reaction")
+    check(metrics["reactions_per_option"], POLISH_THRESHOLDS["reactions_per_option"], "Reactions per option")
+    check(metrics["options_per_encounter"], POLISH_THRESHOLDS["options_per_encounter"], "Options per encounter")
+    check(metrics["desirability_vars_avg"], POLISH_THRESHOLDS["desirability_vars_per_reaction"], "Vars per reaction desirability")
+    check(act2_pct, POLISH_THRESHOLDS["act2_gate_pct"], "Act II gated %")
+    check(act2_vars, POLISH_THRESHOLDS["act2_gate_vars"], "Act II gated vars")
+    check(act3_pct, POLISH_THRESHOLDS["act3_gate_pct"], "Act III gated %")
+    check(act3_vars, POLISH_THRESHOLDS["act3_gate_vars"], "Act III gated vars")
+
+    secret_hits = []
+    for gate, count in report["ending_counts"].items():
+        if gate.startswith("page_secret_"):
+            secret_hits.append((gate, count / total * 100.0))
+    for gate, pct in secret_hits:
+        status = "OK" if pct >= POLISH_THRESHOLDS["secret_reachability_pct"] else "LOW"
+        print(f"- Secret reachability {gate}: {pct:.1f}% (target {POLISH_THRESHOLDS['secret_reachability_pct']}) -> {status}")
 
     if args.target_min is not None and args.target_max is not None:
         ok = (pct >= args.target_min) and (pct <= args.target_max)

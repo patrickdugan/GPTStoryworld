@@ -231,7 +231,114 @@ class SweepweaveValidator:
         density = min(total_effects / 10.0, 1.0)  # Reward having effects
         
         return (diversity + density) / 2.0
-    
+
+    @staticmethod
+    def _collect_vars(script: Any, out: set) -> None:
+        if script is None:
+            return
+        if isinstance(script, dict):
+            if script.get("pointer_type") == "Bounded Number Pointer":
+                char = script.get("character")
+                keyring = script.get("keyring") or []
+                if char and keyring:
+                    out.add((char, keyring[0]))
+            for v in script.values():
+                SweepweaveValidator._collect_vars(v, out)
+        elif isinstance(script, list):
+            for v in script:
+                SweepweaveValidator._collect_vars(v, out)
+
+    @staticmethod
+    def _script_has_nonzero_constant(script: Any) -> bool:
+        if isinstance(script, dict):
+            if script.get("pointer_type") == "Bounded Number Constant":
+                try:
+                    return abs(float(script.get("value", 0.0))) > 1e-6
+                except (TypeError, ValueError):
+                    return False
+            for v in script.values():
+                if SweepweaveValidator._script_has_nonzero_constant(v):
+                    return True
+        elif isinstance(script, list):
+            for v in script:
+                if SweepweaveValidator._script_has_nonzero_constant(v):
+                    return True
+        return False
+
+    @staticmethod
+    def compute_pvalue_desirability_alignment(data: Dict[str, Any]) -> float:
+        """Fraction of reactions with property effects whose desirability uses pValues for actors and witnesses."""
+        total = 0
+        ok = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                for rxn in opt.get("reactions", []):
+                    effects = rxn.get("after_effects", []) or []
+                    affected = []
+                    for eff in effects:
+                        if eff.get("effect_type") != "Bounded Number Effect":
+                            continue
+                        ptr = eff.get("Set", {})
+                        char = ptr.get("character")
+                        keyring = ptr.get("keyring") or []
+                        if not char or not keyring:
+                            continue
+                        prop = keyring[0]
+                        if isinstance(prop, str):
+                            affected.append((char, prop))
+                    if not affected:
+                        continue
+                    total += 1
+                    desirability = rxn.get("desirability_script")
+                    pvalue_by_prop: Dict[str, Dict[str, set]] = {}
+                    def collect_pvalue_targets(script: Any) -> None:
+                        if isinstance(script, dict):
+                            if script.get("pointer_type") == "Bounded Number Pointer":
+                                keyring = script.get("keyring") or []
+                                char = script.get("character")
+                                if char and isinstance(keyring, list) and len(keyring) > 1:
+                                    prop = keyring[0]
+                                    target = keyring[1]
+                                    if isinstance(prop, str) and isinstance(target, str):
+                                        pvalue_by_prop.setdefault(prop, {}).setdefault(char, set()).add(target)
+                            for v in script.values():
+                                collect_pvalue_targets(v)
+                        elif isinstance(script, list):
+                            for v in script:
+                                collect_pvalue_targets(v)
+                    collect_pvalue_targets(desirability)
+                    hit = False
+                    for ch, prop in affected:
+                        witnesses = pvalue_by_prop.get(prop) or {}
+                        if not witnesses:
+                            continue
+                        if any(ch in targets for targets in witnesses.values()):
+                            if len(witnesses.keys()) >= 2:
+                                hit = True
+                                break
+                    if hit:
+                        ok += 1
+        return (ok / total) if total else 0.0
+
+    @staticmethod
+    def compute_effect_script_quality(data: Dict[str, Any]) -> float:
+        """Fraction of after_effects with an operator and non-zero constant in the script."""
+        total = 0
+        ok = 0
+        for enc in data.get("encounters", []):
+            for opt in enc.get("options", []):
+                for rxn in opt.get("reactions", []):
+                    for eff in rxn.get("after_effects", []) or []:
+                        if eff.get("effect_type") != "Bounded Number Effect":
+                            continue
+                        total += 1
+                        to = eff.get("to")
+                        has_op = isinstance(to, dict) and "operator_type" in to
+                        has_nonzero = SweepweaveValidator._script_has_nonzero_constant(to)
+                        if has_op and has_nonzero:
+                            ok += 1
+        return (ok / total) if total else 0.0
+
     @staticmethod
     def compute_gating_score(data: Dict[str, Any]) -> float:
         """Score based on conditional option visibility (secret paths)"""
@@ -317,6 +424,9 @@ REQUIREMENTS:
 - Each encounter has 2-3 options
 - Each option has 1-3 reactions with different consequences
 - Each reaction has after_effects modifying character properties
+- When reactions modify character properties, desirability formulas should reference pValues using keyrings
+  (property id + perceived character id) for the affected character and at least one witness character
+- Every after_effect script must include at least one operator and at least one non-zero constant input
 - Multiple endings (2-5 distinct terminal states)
 - Some options should be gated by character property conditions
 
@@ -586,6 +696,34 @@ def reward_effect_diversity(prompt, completion, info) -> float:
         return 0.0
 
 
+def reward_pvalue_desirability_alignment(prompt, completion, info) -> float:
+    """Reward: 0-1 based on pValues used in desirability when reactions modify properties."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_pvalue_desirability_alignment(data)
+    except:
+        return 0.0
+
+
+def reward_effect_script_quality(prompt, completion, info) -> float:
+    """Reward: 0-1 based on after_effect scripts using operators and non-zero constants."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_effect_script_quality(data)
+    except:
+        return 0.0
+
+
 def reward_secret_paths(prompt, completion, info) -> float:
     """Reward: 0-1 based on gated options"""
     try:
@@ -598,6 +736,20 @@ def reward_secret_paths(prompt, completion, info) -> float:
         
         data = json.loads(text.strip())
         return SweepweaveValidator.compute_gating_score(data)
+    except:
+        return 0.0
+
+
+def reward_unreachable_endings(prompt, completion, info) -> float:
+    """Reward: 0-1 based on all endings being reachable."""
+    try:
+        text = completion[-1]["content"] if completion else ""
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        data = json.loads(text.strip())
+        return SweepweaveValidator.compute_unreachable_endings_score(data)
     except:
         return 0.0
 
@@ -660,7 +812,10 @@ def load_environment(
             reward_schema_valid,         # Must match Sweepweave schema
             reward_structural_completeness,  # Must meet size requirements
             reward_effect_diversity,     # Diverse Dirac operators
+            reward_pvalue_desirability_alignment, # pValues for actors/witnesses
+            reward_effect_script_quality, # Non-zero operator effects
             reward_secret_paths,         # Gated options
+            reward_unreachable_endings,  # All endings reachable
             reward_multiple_endings,     # Multiple terminal states
         ],
         weights=[
@@ -668,7 +823,10 @@ def load_environment(
             2.0,   # Schema validity is most important
             1.0,   # Structural completeness
             0.5,   # Effect diversity (nice to have)
+            0.5,   # pValue desirability alignment
+            0.5,   # Effect script quality
             0.5,   # Secret paths (nice to have)
+            0.6,   # Unreachable endings
             0.5,   # Multiple endings (nice to have)
         ],
     )
