@@ -7,7 +7,8 @@
     "dev": "node server.js",
     "start": "node server.js",
     "db:migrate": "node scripts/migrate-local-db.js",
-    "db:seed": "node scripts/seed-local-db.js"
+    "db:seed": "node scripts/seed-local-db.js",
+    "research:export": "node scripts/export-play-data.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

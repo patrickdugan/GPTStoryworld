@@ -1,4 +1,4 @@
-import { Database, RefreshCw, Search, Upload } from 'lucide-react'
+import { Database, Download, RefreshCw, Search, Upload } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import BottomNav from './components/BottomNav'
 import FilterTabs from './components/FilterTabs'
@@ -35,6 +35,7 @@ const readerTemplateOptions = [
 
 function App() {
   const fileInputRef = useRef(null)
+  const playSessionRef = useRef(null)
 
   const [storyworlds, setStoryworlds] = useState(demoStoryworlds.map(normalizeStoryworld))
   const [facets, setFacets] = useState(defaultFacetState)
@@ -47,6 +48,7 @@ function App() {
   const [statusText, setStatusText] = useState('Using demo data until backend responds.')
   const [reloadKey, setReloadKey] = useState(0)
   const [readerTemplateOverride, setReaderTemplateOverride] = useState('auto')
+  const [playStatusText, setPlayStatusText] = useState('Telemetry idle.')
 
   const activeVisualTheme = selectedTheme === 'all' ? 'midnight' : selectedTheme
 
@@ -62,6 +64,97 @@ function App() {
       setActiveStoryworld(storyworlds[0])
     }
   }, [activeStoryworld, storyworlds])
+
+  useEffect(() => {
+    let cancelled = false
+
+    const closePrevious = async (session, status = 'completed') => {
+      if (!session?.id) return
+      try {
+        await fetch(`${API_BASE}/play/sessions/${session.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            status,
+            ended_at: new Date().toISOString()
+          })
+        })
+      } catch {
+        // Non-blocking close path for local dev.
+      }
+    }
+
+    const openCurrent = async () => {
+      const previous = playSessionRef.current
+      playSessionRef.current = null
+      if (previous?.id) {
+        await closePrevious(previous)
+      }
+
+      if (!activeStoryworld?.id) {
+        setPlayStatusText('Telemetry idle.')
+        return
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/play/sessions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            storyworld_id: activeStoryworld.id,
+            storyworld_title: activeStoryworld.title,
+            genre: activeStoryworld.genre,
+            size_tag: activeStoryworld.size,
+            theme_variant: activeStoryworld.theme,
+            source: 'storyworld-netflix-ui',
+            status: 'active',
+            meta: {
+              ui_template_override: readerTemplateOverride
+            }
+          })
+        })
+
+        if (!response.ok) throw new Error(`session create ${response.status}`)
+        const payload = await response.json()
+        const session = {
+          id: payload.session?.id || '',
+          seq: 0
+        }
+
+        if (cancelled) {
+          await closePrevious(session, 'abandoned')
+          return
+        }
+
+        playSessionRef.current = session
+        setPlayStatusText(`Capturing play telemetry (${session.id.slice(0, 8)}...)`)
+      } catch {
+        setPlayStatusText('Telemetry unavailable. Reader stays local-only.')
+      }
+    }
+
+    openCurrent()
+
+    return () => {
+      cancelled = true
+    }
+  }, [activeStoryworld?.id])
+
+  useEffect(
+    () => () => {
+      const session = playSessionRef.current
+      if (!session?.id) return
+      fetch(`${API_BASE}/play/sessions/${session.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          status: 'completed',
+          ended_at: new Date().toISOString()
+        })
+      }).catch(() => {})
+    },
+    []
+  )
 
   useEffect(() => {
     const controller = new AbortController()
@@ -151,6 +244,66 @@ function App() {
     }
   }
 
+  const handleExportPlayData = async () => {
+    setStatusText('Exporting play telemetry to TRM/HRM harness folders...')
+    try {
+      const response = await fetch(`${API_BASE}/research/export`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ max_sessions: 5000 })
+      })
+      if (!response.ok) {
+        const err = await response.json()
+        throw new Error(err.error || `Backend returned ${response.status}`)
+      }
+      const payload = await response.json()
+      const rows = payload?.manifest?.rows || {}
+      setStatusText(
+        `Exported play datasets: TRM SFT ${rows.trm_controller_sft || 0}, HRM episodes ${rows.hrm_storyworld_dataset || 0}.`
+      )
+    } catch (error) {
+      setStatusText(`Play-data export failed: ${error.message}`)
+    }
+  }
+
+  const handleReaderChoice = async ({ choice, choiceIndex }) => {
+    const activeSession = playSessionRef.current
+    if (!activeStoryworld || !activeSession?.id) return
+
+    const nextSeq = activeSession.seq
+    activeSession.seq += 1
+
+    try {
+      const response = await fetch(`${API_BASE}/play/events`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: activeSession.id,
+          seq: nextSeq,
+          event_type: 'choice',
+          encounter_id: `${activeStoryworld.id}:turn-${nextSeq}`,
+          choice_index: choiceIndex,
+          choice_text: choice,
+          narrative: activeStoryworld.readerText,
+          options: activeStoryworld.choices,
+          state: {
+            genre: activeStoryworld.genre,
+            size_tag: activeStoryworld.size,
+            theme_variant: activeStoryworld.theme
+          },
+          meta: {
+            template_override: readerTemplateOverride
+          }
+        })
+      })
+
+      if (!response.ok) throw new Error(`event create ${response.status}`)
+      setPlayStatusText(`Captured turn ${nextSeq + 1} for ${activeStoryworld.title}.`)
+    } catch {
+      setPlayStatusText('Telemetry sync failed for latest turn.')
+    }
+  }
+
   return (
     <div className={`theme-${activeVisualTheme} min-h-screen bg-ink font-body text-slate-100`}>
       <HeroBanner
@@ -189,6 +342,14 @@ function App() {
             >
               <Upload className="h-4 w-4" />
               Import JSON
+            </button>
+            <button
+              type="button"
+              onClick={handleExportPlayData}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200 hover:border-slate-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+            >
+              <Download className="h-4 w-4" />
+              Export Play Data
             </button>
             <input
               ref={fileInputRef}
@@ -261,7 +422,12 @@ function App() {
               })}
             </div>
           </section>
-          <ReaderPanel storyworld={activeStoryworld} templateOverride={readerTemplateOverride} />
+          <ReaderPanel
+            storyworld={activeStoryworld}
+            templateOverride={readerTemplateOverride}
+            onChoice={handleReaderChoice}
+            playStatusText={playStatusText}
+          />
         </aside>
       </main>
 

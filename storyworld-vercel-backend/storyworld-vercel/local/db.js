@@ -19,6 +19,8 @@ const ensureDataDir = () => {
 }
 
 const runMigrations = async (db) => {
+  await db.exec(`PRAGMA foreign_keys = ON;`)
+
   await db.exec(`
     CREATE TABLE IF NOT EXISTS storyworlds (
       id TEXT PRIMARY KEY,
@@ -49,6 +51,45 @@ const runMigrations = async (db) => {
     );
   `)
 
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS play_sessions (
+      id TEXT PRIMARY KEY,
+      storyworld_id TEXT,
+      storyworld_title TEXT,
+      genre TEXT,
+      size_tag TEXT,
+      theme_variant TEXT,
+      source TEXT DEFAULT 'storyworld-ui',
+      status TEXT DEFAULT 'active',
+      started_at TEXT NOT NULL DEFAULT (datetime('now')),
+      ended_at TEXT,
+      meta TEXT DEFAULT '{}',
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+  `)
+
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS play_events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      session_id TEXT NOT NULL,
+      seq INTEGER NOT NULL DEFAULT 0,
+      ts TEXT NOT NULL DEFAULT (datetime('now')),
+      event_type TEXT NOT NULL DEFAULT 'choice',
+      encounter_id TEXT,
+      next_encounter TEXT,
+      choice_index INTEGER,
+      choice_text TEXT,
+      narrative TEXT,
+      options_json TEXT DEFAULT '[]',
+      state_json TEXT DEFAULT '{}',
+      latency_ms INTEGER,
+      meta TEXT DEFAULT '{}',
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      FOREIGN KEY (session_id) REFERENCES play_sessions(id) ON DELETE CASCADE
+    );
+  `)
+
   await db.exec(`CREATE INDEX IF NOT EXISTS idx_storyworlds_public ON storyworlds (is_public);`)
   await db.exec(`CREATE INDEX IF NOT EXISTS idx_storyworlds_created ON storyworlds (created_at DESC);`)
   await db.exec(`CREATE INDEX IF NOT EXISTS idx_storyworlds_likes ON storyworlds (likes DESC);`)
@@ -56,6 +97,10 @@ const runMigrations = async (db) => {
   await db.exec(`CREATE INDEX IF NOT EXISTS idx_storyworlds_genre ON storyworlds (genre);`)
   await db.exec(`CREATE INDEX IF NOT EXISTS idx_storyworlds_size_tag ON storyworlds (size_tag);`)
   await db.exec(`CREATE INDEX IF NOT EXISTS idx_storyworlds_theme_variant ON storyworlds (theme_variant);`)
+  await db.exec(`CREATE INDEX IF NOT EXISTS idx_play_sessions_storyworld ON play_sessions (storyworld_id);`)
+  await db.exec(`CREATE INDEX IF NOT EXISTS idx_play_sessions_started ON play_sessions (started_at DESC);`)
+  await db.exec(`CREATE INDEX IF NOT EXISTS idx_play_events_session_seq ON play_events (session_id, seq);`)
+  await db.exec(`CREATE INDEX IF NOT EXISTS idx_play_events_created ON play_events (created_at DESC);`)
 }
 
 export const getDb = async () => {

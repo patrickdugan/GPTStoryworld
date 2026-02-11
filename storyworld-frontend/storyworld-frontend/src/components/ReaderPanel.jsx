@@ -54,7 +54,7 @@ const normalizeGenreKey = (genre) => {
   return normalized || 'default'
 }
 
-export default function ReaderPanel({ storyworld, templateOverride = 'auto' }) {
+export default function ReaderPanel({ storyworld, templateOverride = 'auto', onChoice, playStatusText = '' }) {
   const [selectedChoice, setSelectedChoice] = useState('')
 
   useEffect(() => {
@@ -110,13 +110,18 @@ export default function ReaderPanel({ storyworld, templateOverride = 'auto' }) {
       </article>
 
       <div className="mt-4 grid gap-2">
-        {details.choices.slice(0, 4).map((choice) => {
+        {details.choices.slice(0, 4).map((choice, choiceIndex) => {
           const active = choice === selectedChoice
           return (
             <button
               key={choice}
               type="button"
-              onClick={() => setSelectedChoice(choice)}
+              onClick={() => {
+                setSelectedChoice(choice)
+                if (typeof onChoice === 'function') {
+                  onChoice({ choice, choiceIndex })
+                }
+              }}
               className={`reader-choice rounded-md border px-3 py-2 text-left text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan ${
                 active
                   ? 'reader-choice-active text-white'
@@ -132,7 +137,7 @@ export default function ReaderPanel({ storyworld, templateOverride = 'auto' }) {
       <div className="reader-footer mt-4 rounded-md border p-2.5 text-xs text-slate-200">
         <span className="reader-status-dot" aria-hidden="true" />
         <Sparkles className="mr-2 inline h-4 w-4 text-[color:var(--reader-accent)]" />
-        TODO: Connect selected choice to live next-encounter generation and branch playback.
+        {playStatusText || 'TODO: Connect selected choice to live next-encounter generation and branch playback.'}
       </div>
     </section>
   )

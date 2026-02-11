@@ -1,9 +1,12 @@
 import { nanoid } from 'nanoid'
 import { getDb } from './db.js'
+import { exportHarnessDatasets } from './researchExport.js'
 
 const allowedSortFields = new Set(['created_at', 'views', 'likes', 'fork_count', 'encounter_length', 'title'])
 const allowedSize = new Set(['snack', 'standard', 'epic'])
 const allowedTheme = new Set(['midnight', 'ember', 'verdant', 'ivory'])
+const allowedSessionStatus = new Set(['active', 'completed', 'abandoned', 'errored'])
+const allowedEventType = new Set(['choice', 'start', 'state', 'end', 'system'])
 
 const clampInt = (value, min, max, fallback) => {
   const parsed = Number.parseInt(value, 10)
@@ -56,11 +59,31 @@ const toJson = (value, fallback) => {
   }
 }
 
+const toJsonText = (value, fallback) => {
+  try {
+    return JSON.stringify(value ?? fallback)
+  } catch {
+    return JSON.stringify(fallback)
+  }
+}
+
 const rowToStoryworld = (row) => ({
   ...row,
   is_public: Boolean(row.is_public),
   encounter: toJson(row.encounter, {}),
   tags: toJson(row.tags || '[]', [])
+})
+
+const rowToPlaySession = (row) => ({
+  ...row,
+  meta: toJson(row.meta || '{}', {})
+})
+
+const rowToPlayEvent = (row) => ({
+  ...row,
+  options: toJson(row.options_json || '[]', []),
+  state: toJson(row.state_json || '{}', {}),
+  meta: toJson(row.meta || '{}', {})
 })
 
 const parseEncounter = (value) => {
@@ -79,6 +102,248 @@ const parseEncounter = (value) => {
 export const registerLocalRoutes = (app) => {
   app.get('/api/health', async (_req, res) => {
     res.json({ ok: true, service: 'storyworld-local-backend' })
+  })
+
+  app.post('/api/play/sessions', async (req, res) => {
+    try {
+      const db = await getDb()
+      const body = req.body || {}
+
+      const id = norm(body.id, `sess_${nanoid(20)}`)
+      const statusRaw = norm(body.status, 'active').toLowerCase()
+      const status = allowedSessionStatus.has(statusRaw) ? statusRaw : 'active'
+      const source = norm(body.source, 'storyworld-ui')
+      const storyworldId = norm(body.storyworld_id, null)
+      const storyworldTitle = norm(body.storyworld_title, null)
+      const genre = norm(body.genre, null)
+      const sizeTag = norm(body.size_tag, null)
+      const themeVariant = norm(body.theme_variant, null)
+      const startedAt = norm(body.started_at, null)
+      const endedAt = norm(body.ended_at, null)
+      const meta = body.meta && typeof body.meta === 'object' ? body.meta : {}
+
+      await db.run(
+        `
+          INSERT INTO play_sessions (
+            id, storyworld_id, storyworld_title, genre, size_tag, theme_variant, source, status, started_at, ended_at, meta, created_at, updated_at
+          )
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, COALESCE(?, datetime('now')), ?, ?, datetime('now'), datetime('now'))
+        `,
+        [id, storyworldId, storyworldTitle, genre, sizeTag, themeVariant, source, status, startedAt, endedAt, toJsonText(meta, {})]
+      )
+
+      const row = await db.get(`SELECT * FROM play_sessions WHERE id = ? LIMIT 1`, [id])
+      res.status(201).json({ success: true, session: rowToPlaySession(row) })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to create play session', details: error.message })
+    }
+  })
+
+  app.patch('/api/play/sessions/:id', async (req, res) => {
+    try {
+      const db = await getDb()
+      const { id } = req.params
+      const body = req.body || {}
+
+      const updates = []
+      const values = []
+      const push = (field, value) => {
+        updates.push(`${field} = ?`)
+        values.push(value)
+      }
+
+      if (body.status !== undefined) {
+        const statusRaw = norm(body.status, 'active').toLowerCase()
+        if (!allowedSessionStatus.has(statusRaw)) {
+          return res.status(400).json({ error: 'Invalid play session status' })
+        }
+        push('status', statusRaw)
+        if (!body.ended_at && statusRaw !== 'active') {
+          push('ended_at', new Date().toISOString())
+        }
+      }
+      if (body.ended_at !== undefined) push('ended_at', norm(body.ended_at, null))
+      if (body.meta !== undefined && body.meta && typeof body.meta === 'object') {
+        push('meta', toJsonText(body.meta, {}))
+      }
+      if (body.source !== undefined) push('source', norm(body.source, 'storyworld-ui'))
+
+      if (updates.length === 0) return res.status(400).json({ error: 'No session fields to update' })
+
+      updates.push(`updated_at = datetime('now')`)
+      await db.run(`UPDATE play_sessions SET ${updates.join(', ')} WHERE id = ?`, [...values, id])
+      const row = await db.get(`SELECT * FROM play_sessions WHERE id = ? LIMIT 1`, [id])
+
+      if (!row) return res.status(404).json({ error: 'Play session not found' })
+      res.json({ success: true, session: rowToPlaySession(row) })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to update play session', details: error.message })
+    }
+  })
+
+  app.get('/api/play/sessions', async (req, res) => {
+    try {
+      const db = await getDb()
+      const limit = clampInt(req.query.limit, 1, 1000, 100)
+      const offset = clampInt(req.query.offset, 0, 20_000, 0)
+      const storyworldId = norm(req.query.storyworld_id, '')
+      const status = norm(req.query.status, '').toLowerCase()
+
+      const where = ['1=1']
+      const values = []
+      if (storyworldId) {
+        where.push(`storyworld_id = ?`)
+        values.push(storyworldId)
+      }
+      if (status) {
+        where.push(`status = ?`)
+        values.push(status)
+      }
+
+      const rows = await db.all(
+        `
+          SELECT *
+          FROM play_sessions
+          WHERE ${where.join(' AND ')}
+          ORDER BY started_at DESC
+          LIMIT ? OFFSET ?
+        `,
+        [...values, limit, offset]
+      )
+      const total = await db.get(
+        `SELECT COUNT(*) AS total FROM play_sessions WHERE ${where.join(' AND ')}`,
+        values
+      )
+
+      res.json({
+        sessions: rows.map(rowToPlaySession),
+        total: total?.total || 0,
+        limit,
+        offset
+      })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to list play sessions', details: error.message })
+    }
+  })
+
+  app.post('/api/play/events', async (req, res) => {
+    try {
+      const db = await getDb()
+      const body = req.body || {}
+      const sessionId = norm(body.session_id, '')
+      if (!sessionId) return res.status(400).json({ error: 'session_id is required' })
+
+      const session = await db.get(`SELECT id FROM play_sessions WHERE id = ? LIMIT 1`, [sessionId])
+      if (!session) return res.status(404).json({ error: 'Play session not found' })
+
+      const currentMax = await db.get(`SELECT COALESCE(MAX(seq), -1) AS max_seq FROM play_events WHERE session_id = ?`, [sessionId])
+      const fallbackSeq = Number(currentMax?.max_seq ?? -1) + 1
+      const seq = clampInt(body.seq, 0, 2_000_000, fallbackSeq)
+      const ts = norm(body.ts, null)
+      const eventTypeRaw = norm(body.event_type, 'choice').toLowerCase()
+      const eventType = allowedEventType.has(eventTypeRaw) ? eventTypeRaw : 'choice'
+      const encounterId = norm(body.encounter_id, null)
+      const nextEncounter = norm(body.next_encounter, null)
+      const choiceIndex = Number.isInteger(body.choice_index)
+        ? body.choice_index
+        : Number.isNaN(Number.parseInt(body.choice_index, 10))
+          ? null
+          : Number.parseInt(body.choice_index, 10)
+      const choiceText = norm(body.choice_text, '')
+      const narrative = norm(body.narrative, '')
+      const options = Array.isArray(body.options) ? body.options.slice(0, 16) : []
+      const state = body.state && typeof body.state === 'object' ? body.state : {}
+      const latencyMs = body.latency_ms === undefined ? null : clampInt(body.latency_ms, 0, 300_000, 0)
+      const meta = body.meta && typeof body.meta === 'object' ? body.meta : {}
+
+      const insertResult = await db.run(
+        `
+          INSERT INTO play_events (
+            session_id, seq, ts, event_type, encounter_id, next_encounter, choice_index, choice_text, narrative,
+            options_json, state_json, latency_ms, meta, created_at
+          )
+          VALUES (?, ?, COALESCE(?, datetime('now')), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+        `,
+        [
+          sessionId,
+          seq,
+          ts,
+          eventType,
+          encounterId,
+          nextEncounter,
+          choiceIndex,
+          choiceText,
+          narrative,
+          toJsonText(options, []),
+          toJsonText(state, {}),
+          latencyMs,
+          toJsonText(meta, {})
+        ]
+      )
+
+      await db.run(`UPDATE play_sessions SET updated_at = datetime('now') WHERE id = ?`, [sessionId])
+      const event = await db.get(`SELECT * FROM play_events WHERE id = ? LIMIT 1`, [insertResult.lastID])
+      res.status(201).json({ success: true, event: rowToPlayEvent(event) })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to record play event', details: error.message })
+    }
+  })
+
+  app.get('/api/play/sessions/:id/events', async (req, res) => {
+    try {
+      const db = await getDb()
+      const { id } = req.params
+      const limit = clampInt(req.query.limit, 1, 5000, 1000)
+      const rows = await db.all(
+        `
+          SELECT *
+          FROM play_events
+          WHERE session_id = ?
+          ORDER BY seq ASC, id ASC
+          LIMIT ?
+        `,
+        [id, limit]
+      )
+      res.json({
+        session_id: id,
+        events: rows.map(rowToPlayEvent),
+        total: rows.length
+      })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to list play events', details: error.message })
+    }
+  })
+
+  app.post('/api/research/export', async (req, res) => {
+    try {
+      const db = await getDb()
+      const body = req.body || {}
+      const manifest = await exportHarnessDatasets(db, {
+        maxSessions: clampInt(body.max_sessions, 1, 100_000, 5000),
+        trmRoot: norm(body.trm_root, ''),
+        hrmRoot: norm(body.hrm_root, ''),
+        backendRoot: process.cwd()
+      })
+      res.json({ success: true, manifest })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to export research datasets', details: error.message })
+    }
+  })
+
+  app.get('/api/research/summary', async (_req, res) => {
+    try {
+      const db = await getDb()
+      const [sessionStats, eventStats] = await Promise.all([
+        db.get(`SELECT COUNT(*) AS total_sessions FROM play_sessions`),
+        db.get(`SELECT COUNT(*) AS total_events FROM play_events`)
+      ])
+      res.json({
+        sessions: sessionStats?.total_sessions || 0,
+        events: eventStats?.total_events || 0
+      })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch research summary', details: error.message })
+    }
   })
 
   app.get('/api/storyworlds', async (req, res) => {
