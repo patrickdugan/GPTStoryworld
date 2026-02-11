@@ -29,6 +29,7 @@ Load the matching task file when the user requests one of these actions, then fo
 - Tail tuning: `references/LATE_STAGE_TAIL_TUNING.md`
 - Long-range authoring: `references/LONG_RANGE_AUTHORING.md`
 - Production-quality floor: `references/PRODUCTION_QUALITY.md`
+- One-shot idea factory contract: `references/IDEA_FACTORY_ONESHOT.md`
 - Secret ending gates: `references/SECRET_ENDINGS.md`
 - Multi-path gate analysis: `references/MULTIPLE_PATHS.md`
 - Multi-variant balancing: `references/MULTI_VARIANT_BALANCING.md`
@@ -41,12 +42,17 @@ Use these tools to make deterministic, validated edits:
 - `secret_endings_gates.py`
 - `multiple_paths.py`
 - `multi_variant_balance.py`
+- `storyworld_quality_gate.py`
 - `json_to_swmd.py` (compact SWMD-0 markdown export for token-efficient training/inspection)
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
 
 `json_to_swmd.py` examples:
 - Full form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.md`
 - Minified form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.min.md --mode minified`
+
+`storyworld_quality_gate.py` examples:
+- Human-readable report: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json`
+- Strict CI gate: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json --strict --report-out out/quality_report.json`
 
 ## References
 - `references/STORYWORLD_BALANCING.md` for balancing targets/heuristics
@@ -55,6 +61,7 @@ Use these tools to make deterministic, validated edits:
 - `references/LATE_STAGE_TAIL_TUNING.md` for dominant-ending control
 - `references/LONG_RANGE_AUTHORING.md` for long-range balancing loops
 - `references/PRODUCTION_QUALITY.md` for minimum production-ready requirements
+- `references/IDEA_FACTORY_ONESHOT.md` for one-pass generation prompt and constraints
 - `references/SECRET_ENDINGS.md` for gated secret ending patterns and checks
 - `references/MULTIPLE_PATHS.md` for analyzing which paths satisfy gate thresholds
 - `references/MULTI_VARIANT_BALANCING.md` for multi-seed ending stability
@@ -77,5 +84,7 @@ Focused diplomacy QA loop:
 - For proposer/proposee negotiation reactions, avoid constant desirability:
 Use proposer/proposee pValues in both directions (for example `["pTrust", proposer]` on proposee and `["pTrust", proposee]` on proposer), and include at least one p2Value keyring (for example `["pTrust", proposer, witness]` or `["pThreat", proposer, witness]`).
 - Project logs with `storyworld-env/manifold_projection.py` to keep fixed compact pValue/p2Value dimensions across variable-rich worlds.
+- Optional UI capture loop for taste-corpus building:
+  - `powershell -ExecutionPolicy Bypass -File tools/storyworld-plays/run_spotcheck.ps1 -Files "<story1.json>","<story2.json>"`
 
 Note: For late-stage polish, target higher structural density: average 4.5 after-effects per reaction, 2.5 reactions per option, 3.2 options per encounter, and 1.6 variables per reaction desirability formula. Gate 5% of total options in Act II (1.2 variables average) and 8% in Act III (1.5 variables average). Ensure secret-ending encounters are gated by availability scripts that use a metric distance over two variables, and tune Monte Carlo so the secret ending is reachable in >5% of runs. All encounter descriptions should be 50-300 words, all reaction texts 20-150 words, and every non-ending, non-transition encounter must meet min options/reactions/effects.
