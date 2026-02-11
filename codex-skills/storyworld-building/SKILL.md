@@ -43,6 +43,8 @@ Use these tools to make deterministic, validated edits:
 - `multiple_paths.py`
 - `multi_variant_balance.py`
 - `storyworld_quality_gate.py`
+- `upgrade_storyworld_vnext.py`
+- `generate_storyworld_batch_vnext.py`
 - `json_to_swmd.py` (compact SWMD-0 markdown export for token-efficient training/inspection)
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
 
@@ -53,6 +55,12 @@ Use these tools to make deterministic, validated edits:
 `storyworld_quality_gate.py` examples:
 - Human-readable report: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json`
 - Strict CI gate: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json --strict --report-out out/quality_report.json`
+
+`upgrade_storyworld_vnext.py` example:
+- `python scripts/upgrade_storyworld_vnext.py --in-json storyworld.json --out-json storyworld_v2.json --suffix v2`
+
+`generate_storyworld_batch_vnext.py` example:
+- `python scripts/generate_storyworld_batch_vnext.py --base storyworld_v6.json --out-dir storyworlds/generated/batch_v1`
 
 ## References
 - `references/STORYWORLD_BALANCING.md` for balancing targets/heuristics
@@ -86,5 +94,15 @@ Use proposer/proposee pValues in both directions (for example `["pTrust", propos
 - Project logs with `storyworld-env/manifold_projection.py` to keep fixed compact pValue/p2Value dimensions across variable-rich worlds.
 - Optional UI capture loop for taste-corpus building:
   - `powershell -ExecutionPolicy Bypass -File tools/storyworld-plays/run_spotcheck.ps1 -Files "<story1.json>","<story2.json>"`
+  - Storyworld reader capture + vision critique:
+    - `node tools/storyworld-plays/capture_storyworld_reader.cjs --storyworld "<story.json>"`
+    - `python tools/storyworld-plays/vision_review_openai.py --images "<shot1.png>" "<shot2.png>" --out "<vision_review.json>"`
+
+One-shot quality loop for production:
+1. Generate/upgrade storyworld JSON.
+2. Run validator and strict quality gate.
+3. Capture `storyworld_reader.html` screenshots and run vision critique.
+4. Apply text/legibility/gating fixes.
+5. Re-score in `storyworld-env/quality_vector_score.py` for multi-dimensional quality ranking.
 
 Note: For late-stage polish, target higher structural density: average 4.5 after-effects per reaction, 2.5 reactions per option, 3.2 options per encounter, and 1.6 variables per reaction desirability formula. Gate 5% of total options in Act II (1.2 variables average) and 8% in Act III (1.5 variables average). Ensure secret-ending encounters are gated by availability scripts that use a metric distance over two variables, and tune Monte Carlo so the secret ending is reachable in >5% of runs. All encounter descriptions should be 50-300 words, all reaction texts 20-150 words, and every non-ending, non-transition encounter must meet min options/reactions/effects.

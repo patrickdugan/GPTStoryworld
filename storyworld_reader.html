@@ -285,22 +285,31 @@
 
     .option-btn {
       padding: 15px 20px;
-      background: rgba(200, 170, 110, 0.05);
-      border: 1px solid rgba(200, 170, 110, 0.2);
+      background: rgba(200, 170, 110, 0.09);
+      border: 1px solid rgba(200, 170, 110, 0.36);
       border-radius: 4px;
-      color: #d4d0c5;
+      color: #ece7da;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 1.04rem;
+      font-weight: 500;
       text-align: left;
       cursor: pointer;
       transition: all 0.2s ease;
-      line-height: 1.5;
+      line-height: 1.45;
+      white-space: normal;
+      word-break: break-word;
     }
 
     .option-btn:hover {
       background: rgba(200, 170, 110, 0.12);
       border-color: #c8aa6e;
-      color: #e8e4d9;
+      color: #fff8e5;
+      box-shadow: 0 0 0 1px rgba(200, 170, 110, 0.25);
+    }
+
+    .option-btn:focus-visible {
+      outline: 2px solid #ddc07a;
+      outline-offset: 2px;
     }
 
     .option-btn:disabled {
@@ -310,18 +319,20 @@
 
     .continue-btn {
       padding: 15px 30px;
-      background: #c8aa6e;
-      border: none;
-      color: #0a0a0f;
+      background: #e2c98c;
+      border: 1px solid #f2ddaa;
+      color: #151518;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 1.02rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
       letter-spacing: 1px;
     }
 
     .continue-btn:hover {
-      background: #ddc07a;
+      background: #f0d7a0;
+      box-shadow: 0 0 0 1px rgba(242, 221, 170, 0.45);
     }
 
     /* Stats Panel */
@@ -358,14 +369,14 @@
     .stat-label {
       display: flex;
       justify-content: space-between;
-      font-size: 0.85rem;
-      color: #a8a498;
+      font-size: 0.92rem;
+      color: #c7c2b3;
       margin-bottom: 5px;
     }
 
     .stat-bar {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
+      height: 8px;
+      background: rgba(255, 255, 255, 0.16);
       border-radius: 3px;
       overflow: hidden;
       position: relative;
@@ -477,7 +488,7 @@
 
     /* Scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 10px;
     }
 
     ::-webkit-scrollbar-track {
@@ -485,12 +496,12 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: rgba(200, 170, 110, 0.3);
-      border-radius: 3px;
+      background: rgba(200, 170, 110, 0.52);
+      border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(200, 170, 110, 0.5);
+      background: rgba(200, 170, 110, 0.72);
     }
 
     /* Responsive */
@@ -994,10 +1005,18 @@
         return;
       }
 
-      for (const opt of options) {
+      const labelCounts = new Map();
+      for (let i = 0; i < options.length; i++) {
+        const opt = options[i];
+        let label = engine.getText(opt.text_script);
+        const seen = labelCounts.get(label) || 0;
+        labelCounts.set(label, seen + 1);
+        if (seen > 0) {
+          label = `${label} (Variant ${seen + 1})`;
+        }
         const btn = document.createElement('button');
         btn.className = 'option-btn';
-        btn.textContent = engine.getText(opt.text_script);
+        btn.textContent = `${i + 1}. ${label}`;
         btn.onclick = () => selectOption(opt.id);
         elements.optionsList.appendChild(btn);
       }

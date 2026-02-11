@@ -184,6 +184,27 @@ Dimension layout:
 
 This keeps global dimensionality stable while preserving high-cardinality belief evidence.
 
+## Multi-Dimensional Quality Vector
+
+For offline ranking across multiple worlds, use:
+
+```bash
+python quality_vector_score.py \
+  --storyworlds storyworlds/generated/batch_v1/a.json storyworlds/generated/batch_v1/b.json \
+  --runs 200 \
+  --seed 42 \
+  --out logs/quality_vector_batch.json
+```
+
+Output includes:
+- Full benchmark metrics from `evaluate_benchmark()`
+- Quality vector dimensions:
+  - `structure_density`
+  - `secret_gating`
+  - `ending_balance`
+  - `pacing_control`
+- Weighted `composite_score` and benchmark pass flag for each world.
+
 ## Ending Gate Sanity Checklist
 
 If you use a terminal gate encounter (for example `page_endings_gate`), ensure:
