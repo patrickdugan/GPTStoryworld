@@ -85,6 +85,54 @@ def _collect_operators(node: Any, out: collections.Counter) -> None:
             _collect_operators(item, out)
 
 
+def _script_is_constant(script: Any) -> bool:
+    if not isinstance(script, dict):
+        return True
+    if script.get("script_element_type") == "Pointer":
+        return script.get("pointer_type") in ("Bounded Number Constant", "Boolean Constant", "String Constant")
+    if script.get("script_element_type") == "Operator":
+        ops = script.get("operands", [])
+        if not ops:
+            return True
+        return all(_script_is_constant(op) for op in ops)
+    return False
+
+
+def _script_operator_count(script: Any) -> int:
+    if isinstance(script, dict):
+        c = 1 if script.get("operator_type") else 0
+        for value in script.values():
+            c += _script_operator_count(value)
+        return c
+    if isinstance(script, list):
+        return sum(_script_operator_count(item) for item in script)
+    return 0
+
+
+def _script_suite(scripts: List[Any]) -> Dict[str, float]:
+    if not scripts:
+        return {"nonconstant_ratio": 0.0, "avg_op_count": 0.0, "operator_variety": 0.0, "dominance": 1.0}
+    nonconst = 0
+    op_counts: List[int] = []
+    op_hist: collections.Counter = collections.Counter()
+    for s in scripts:
+        if not _script_is_constant(s):
+            nonconst += 1
+        op_counts.append(_script_operator_count(s))
+        local: collections.Counter = collections.Counter()
+        _collect_operators(s, local)
+        for k, v in local.items():
+            op_hist[k] += v
+    total_ops = sum(op_hist.values())
+    dominance = (max(op_hist.values()) / total_ops) if total_ops else 1.0
+    return {
+        "nonconstant_ratio": nonconst / len(scripts),
+        "avg_op_count": (sum(op_counts) / len(op_counts)) if op_counts else 0.0,
+        "operator_variety": float(len(op_hist)),
+        "dominance": dominance,
+    }
+
+
 def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> Dict[str, Any]:
     metrics = compute_metrics(data)
     encounters = data.get("encounters", []) or []
@@ -98,26 +146,40 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
     total_options = 0
     desirability_ops: collections.Counter = collections.Counter()
     effect_ops: collections.Counter = collections.Counter()
+    effect_scripts: List[Any] = []
+    des_scripts: List[Any] = []
+    vis_scripts: List[Any] = []
+    perf_scripts: List[Any] = []
+    enc_acc_scripts: List[Any] = []
+    enc_des_scripts: List[Any] = []
 
     for encounter in encounters:
+        enc_acc_scripts.append(encounter.get("acceptability_script", True))
+        enc_des_scripts.append(encounter.get("desirability_script", 0.0))
         if not _is_ending(encounter):
             text_words = _word_count(encounter.get("text_script")) + _word_count(encounter.get("prompt_script"))
             encounter_words.append(text_words)
         for option in encounter.get("options", []) or []:
             total_options += 1
             vis = option.get("visibility_script", True)
+            vis_scripts.append(vis)
+            perf_scripts.append(option.get("performability_script", True))
             if vis is not True:
                 gated_options += 1
                 _collect_operators(vis, desirability_ops)
             for reaction in option.get("reactions", []) or []:
                 reaction_words.append(_word_count(reaction.get("text_script")))
                 variable_counts.append(count_vars(reaction.get("desirability_script")))
+                des_scripts.append(reaction.get("desirability_script"))
                 _collect_operators(reaction.get("desirability_script"), desirability_ops)
 
                 refs: List[Tuple[str, int]] = []
                 _collect_pointer_refs(reaction.get("desirability_script"), refs)
                 _collect_pointer_refs(reaction.get("after_effects"), refs)
                 _collect_operators(reaction.get("after_effects"), effect_ops)
+                for eff in reaction.get("after_effects", []) or []:
+                    if isinstance(eff, dict):
+                        effect_scripts.append(eff.get("to"))
                 for prop, depth in refs:
                     if prop.startswith("p"):
                         if depth >= 2:
@@ -132,6 +194,12 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
     eff_ops_unique = len(effect_ops)
     des_top_share = (max(desirability_ops.values()) / des_ops_total) if des_ops_total else 1.0
     eff_top_share = (max(effect_ops.values()) / eff_ops_total) if eff_ops_total else 1.0
+    eff_suite = _script_suite(effect_scripts)
+    des_suite = _script_suite(des_scripts)
+    vis_suite = _script_suite(vis_scripts)
+    perf_suite = _script_suite(perf_scripts)
+    enc_acc_suite = _script_suite(enc_acc_scripts)
+    enc_des_suite = _script_suite(enc_des_scripts)
 
     checks = [
         _check(
@@ -163,6 +231,18 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
         _check("effect_operator_variety", float(eff_ops_unique), 2.0),
         _check_max("desirability_operator_dominance", des_top_share, 0.9),
         _check_max("effect_operator_dominance", eff_top_share, 0.92),
+        _check("effect_nonconstant_ratio", eff_suite["nonconstant_ratio"], 0.999),
+        _check("desirability_nonconstant_ratio", des_suite["nonconstant_ratio"], 0.999),
+        _check("effect_script_complexity", eff_suite["avg_op_count"], 1.2),
+        _check("desirability_script_complexity", des_suite["avg_op_count"], 1.2),
+        _check("option_visibility_nonconstant_ratio", vis_suite["nonconstant_ratio"], 0.03),
+        _check("option_visibility_complexity", vis_suite["avg_op_count"], 0.6),
+        _check("option_performability_nonconstant_ratio", perf_suite["nonconstant_ratio"], 0.03),
+        _check("option_performability_complexity", perf_suite["avg_op_count"], 0.6),
+        _check("encounter_acceptability_nonconstant_ratio", enc_acc_suite["nonconstant_ratio"], 0.2),
+        _check("encounter_acceptability_complexity", enc_acc_suite["avg_op_count"], 0.5),
+        _check("encounter_desirability_nonconstant_ratio", enc_des_suite["nonconstant_ratio"], 0.2),
+        _check("encounter_desirability_complexity", enc_des_suite["avg_op_count"], 0.5),
     ]
 
     checks.append(
@@ -192,6 +272,12 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
             "effect_operator_variety": eff_ops_unique,
             "desirability_operator_dominance": round(des_top_share, 4),
             "effect_operator_dominance": round(eff_top_share, 4),
+            "effect_nonconstant_ratio": round(eff_suite["nonconstant_ratio"], 4),
+            "desirability_nonconstant_ratio": round(des_suite["nonconstant_ratio"], 4),
+            "option_visibility_nonconstant_ratio": round(vis_suite["nonconstant_ratio"], 4),
+            "option_performability_nonconstant_ratio": round(perf_suite["nonconstant_ratio"], 4),
+            "encounter_acceptability_nonconstant_ratio": round(enc_acc_suite["nonconstant_ratio"], 4),
+            "encounter_desirability_nonconstant_ratio": round(enc_des_suite["nonconstant_ratio"], 4),
         },
         "operator_counts": {
             "desirability": dict(desirability_ops),

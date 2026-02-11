@@ -14,6 +14,11 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
 - Use at least one reversal-style effect pattern in late-game reactions (for example signed multiplicative inversion or negative feedback updates).
 - Ensure non-trivial `visibility_script` gating exists for a meaningful option subset (global and Act II/III).
 - Use pValue/p2Value-aware desirability where belief dynamics are part of the premise.
+- Enforce script non-constant and complexity floors via quality gate:
+  - effects: non-constant ratio near 1.0, complexity >= 1.2 operators/script
+  - reaction desirability: non-constant ratio near 1.0, complexity >= 1.2
+  - option visibility/performability: non-constant + non-trivial complexity
+  - encounter acceptability/desirability: non-constant + non-trivial complexity
 
 ## Quick Start
 - Prefer running the specific tool in `scripts/` for the task instead of manual edits.

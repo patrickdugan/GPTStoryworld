@@ -359,6 +359,125 @@ class SweepweaveValidator:
         return False
 
     @staticmethod
+    def _script_operator_count(script: Any) -> int:
+        if isinstance(script, dict):
+            c = 1 if script.get("operator_type") else 0
+            for v in script.values():
+                c += SweepweaveValidator._script_operator_count(v)
+            return c
+        if isinstance(script, list):
+            return sum(SweepweaveValidator._script_operator_count(v) for v in script)
+        return 0
+
+    @staticmethod
+    def _collect_operator_types(script: Any, out: set) -> None:
+        if isinstance(script, dict):
+            op = script.get("operator_type")
+            if op:
+                out.add(str(op))
+            for v in script.values():
+                SweepweaveValidator._collect_operator_types(v, out)
+        elif isinstance(script, list):
+            for v in script:
+                SweepweaveValidator._collect_operator_types(v, out)
+
+    @staticmethod
+    def _script_stats(script: Any) -> Dict[str, Any]:
+        ops: set = set()
+        SweepweaveValidator._collect_operator_types(script, ops)
+        return {
+            "nonconstant": 0 if SweepweaveValidator._script_is_constant(script) else 1,
+            "op_count": SweepweaveValidator._script_operator_count(script),
+            "op_types": ops,
+        }
+
+    @staticmethod
+    def compute_script_complexity_suite(data: Dict[str, Any]) -> Dict[str, float]:
+        """Script-quality metrics across effects/desirability/visibility/availability layers."""
+        buckets = {
+            "effect_to": [],
+            "reaction_desirability": [],
+            "option_visibility": [],
+            "option_performability": [],
+            "encounter_acceptability": [],
+            "encounter_desirability": [],
+        }
+        effect_op_hist = Counter()
+        des_op_hist = Counter()
+
+        for enc in data.get("encounters", []):
+            buckets["encounter_acceptability"].append(enc.get("acceptability_script", True))
+            buckets["encounter_desirability"].append(enc.get("desirability_script", 0.0))
+            for opt in enc.get("options", []) or []:
+                buckets["option_visibility"].append(opt.get("visibility_script", True))
+                buckets["option_performability"].append(opt.get("performability_script", True))
+                for rxn in opt.get("reactions", []) or []:
+                    buckets["reaction_desirability"].append(rxn.get("desirability_script", 0.0))
+                    for eff in rxn.get("after_effects", []) or []:
+                        if isinstance(eff, dict):
+                            to_script = eff.get("to")
+                            buckets["effect_to"].append(to_script)
+
+        def summarize(scripts: List[Any]) -> Dict[str, float]:
+            if not scripts:
+                return {"nonconstant_ratio": 0.0, "avg_op_count": 0.0, "operator_variety": 0.0}
+            nonconst = 0
+            op_counts: List[int] = []
+            op_types: set = set()
+            for s in scripts:
+                st = SweepweaveValidator._script_stats(s)
+                nonconst += st["nonconstant"]
+                op_counts.append(st["op_count"])
+                op_types.update(st["op_types"])
+            return {
+                "nonconstant_ratio": nonconst / len(scripts),
+                "avg_op_count": (sum(op_counts) / len(op_counts)) if op_counts else 0.0,
+                "operator_variety": float(len(op_types)),
+            }
+
+        for s in buckets["effect_to"]:
+            t: set = set()
+            SweepweaveValidator._collect_operator_types(s, t)
+            for op in t:
+                effect_op_hist[op] += 1
+        for s in buckets["reaction_desirability"]:
+            t: set = set()
+            SweepweaveValidator._collect_operator_types(s, t)
+            for op in t:
+                des_op_hist[op] += 1
+
+        effect_ops_total = sum(effect_op_hist.values())
+        des_ops_total = sum(des_op_hist.values())
+        effect_dominance = (max(effect_op_hist.values()) / effect_ops_total) if effect_ops_total else 1.0
+        des_dominance = (max(des_op_hist.values()) / des_ops_total) if des_ops_total else 1.0
+
+        eff = summarize(buckets["effect_to"])
+        des = summarize(buckets["reaction_desirability"])
+        vis = summarize(buckets["option_visibility"])
+        perf = summarize(buckets["option_performability"])
+        eacc = summarize(buckets["encounter_acceptability"])
+        edes = summarize(buckets["encounter_desirability"])
+
+        return {
+            "effect_nonconstant_ratio": eff["nonconstant_ratio"],
+            "effect_complexity": eff["avg_op_count"],
+            "effect_operator_variety": eff["operator_variety"],
+            "effect_operator_dominance": effect_dominance,
+            "des_nonconstant_ratio": des["nonconstant_ratio"],
+            "des_complexity": des["avg_op_count"],
+            "des_operator_variety": des["operator_variety"],
+            "des_operator_dominance": des_dominance,
+            "option_visibility_nonconstant_ratio": vis["nonconstant_ratio"],
+            "option_visibility_complexity": vis["avg_op_count"],
+            "option_performability_nonconstant_ratio": perf["nonconstant_ratio"],
+            "option_performability_complexity": perf["avg_op_count"],
+            "encounter_acceptability_nonconstant_ratio": eacc["nonconstant_ratio"],
+            "encounter_acceptability_complexity": eacc["avg_op_count"],
+            "encounter_desirability_nonconstant_ratio": edes["nonconstant_ratio"],
+            "encounter_desirability_complexity": edes["avg_op_count"],
+        }
+
+    @staticmethod
     def _is_visibility_gated(script: Any) -> bool:
         if script is True:
             return False
@@ -1746,6 +1865,23 @@ def benchmark_targets() -> Dict[str, float]:
         "secret_metric_distance_min": 1.0,
         "min_spec_compliance_min": 1.0,
         "text_length_compliance_min": 1.0,
+        # Script artistry/complexity floors
+        "effect_nonconstant_ratio_min": 0.999,
+        "des_nonconstant_ratio_min": 0.999,
+        "effect_complexity_min": 1.2,
+        "des_complexity_min": 1.2,
+        "effect_operator_variety_min": 2.0,
+        "des_operator_variety_min": 3.0,
+        "effect_operator_dominance_max": 0.92,
+        "des_operator_dominance_max": 0.9,
+        "option_visibility_nonconstant_ratio_min": 0.03,
+        "option_visibility_complexity_min": 0.6,
+        "option_performability_nonconstant_ratio_min": 0.03,
+        "option_performability_complexity_min": 0.6,
+        "encounter_acceptability_nonconstant_ratio_min": 0.2,
+        "encounter_acceptability_complexity_min": 0.5,
+        "encounter_desirability_nonconstant_ratio_min": 0.2,
+        "encounter_desirability_complexity_min": 0.5,
     }
 
 
@@ -1787,6 +1923,7 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
     secret_metric_distance = SweepweaveValidator.compute_secret_metric_distance_quality(data)
     min_spec_compliance = SweepweaveValidator.compute_min_spec_compliance(data)
     text_length_compliance = SweepweaveValidator.compute_text_length_compliance(data)
+    script_suite = SweepweaveValidator.compute_script_complexity_suite(data)
     return {
         "dead_end_rate": dead_end_rate,
         "max_ending_share": max_share,
@@ -1810,6 +1947,22 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         "secret_metric_distance": secret_metric_distance,
         "min_spec_compliance": min_spec_compliance,
         "text_length_compliance": text_length_compliance,
+        "effect_nonconstant_ratio": script_suite["effect_nonconstant_ratio"],
+        "des_nonconstant_ratio": script_suite["des_nonconstant_ratio"],
+        "effect_complexity": script_suite["effect_complexity"],
+        "des_complexity": script_suite["des_complexity"],
+        "effect_operator_variety": script_suite["effect_operator_variety"],
+        "des_operator_variety": script_suite["des_operator_variety"],
+        "effect_operator_dominance": script_suite["effect_operator_dominance"],
+        "des_operator_dominance": script_suite["des_operator_dominance"],
+        "option_visibility_nonconstant_ratio": script_suite["option_visibility_nonconstant_ratio"],
+        "option_visibility_complexity": script_suite["option_visibility_complexity"],
+        "option_performability_nonconstant_ratio": script_suite["option_performability_nonconstant_ratio"],
+        "option_performability_complexity": script_suite["option_performability_complexity"],
+        "encounter_acceptability_nonconstant_ratio": script_suite["encounter_acceptability_nonconstant_ratio"],
+        "encounter_acceptability_complexity": script_suite["encounter_acceptability_complexity"],
+        "encounter_desirability_nonconstant_ratio": script_suite["encounter_desirability_nonconstant_ratio"],
+        "encounter_desirability_complexity": script_suite["encounter_desirability_complexity"],
     }
 
 
@@ -1839,6 +1992,22 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and metrics.get("secret_metric_distance", 0.0) >= targets["secret_metric_distance_min"]
         and metrics.get("min_spec_compliance", 0.0) >= targets["min_spec_compliance_min"]
         and metrics.get("text_length_compliance", 0.0) >= targets["text_length_compliance_min"]
+        and metrics.get("effect_nonconstant_ratio", 0.0) >= targets["effect_nonconstant_ratio_min"]
+        and metrics.get("des_nonconstant_ratio", 0.0) >= targets["des_nonconstant_ratio_min"]
+        and metrics.get("effect_complexity", 0.0) >= targets["effect_complexity_min"]
+        and metrics.get("des_complexity", 0.0) >= targets["des_complexity_min"]
+        and metrics.get("effect_operator_variety", 0.0) >= targets["effect_operator_variety_min"]
+        and metrics.get("des_operator_variety", 0.0) >= targets["des_operator_variety_min"]
+        and metrics.get("effect_operator_dominance", 1.0) <= targets["effect_operator_dominance_max"]
+        and metrics.get("des_operator_dominance", 1.0) <= targets["des_operator_dominance_max"]
+        and metrics.get("option_visibility_nonconstant_ratio", 0.0) >= targets["option_visibility_nonconstant_ratio_min"]
+        and metrics.get("option_visibility_complexity", 0.0) >= targets["option_visibility_complexity_min"]
+        and metrics.get("option_performability_nonconstant_ratio", 0.0) >= targets["option_performability_nonconstant_ratio_min"]
+        and metrics.get("option_performability_complexity", 0.0) >= targets["option_performability_complexity_min"]
+        and metrics.get("encounter_acceptability_nonconstant_ratio", 0.0) >= targets["encounter_acceptability_nonconstant_ratio_min"]
+        and metrics.get("encounter_acceptability_complexity", 0.0) >= targets["encounter_acceptability_complexity_min"]
+        and metrics.get("encounter_desirability_nonconstant_ratio", 0.0) >= targets["encounter_desirability_nonconstant_ratio_min"]
+        and metrics.get("encounter_desirability_complexity", 0.0) >= targets["encounter_desirability_complexity_min"]
     )
 
 

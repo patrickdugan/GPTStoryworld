@@ -215,6 +215,7 @@ Output includes:
   - `secret_gating`
   - `ending_balance`
   - `pacing_control`
+  - `script_artistry` (non-constant ratios + operator complexity/diversity across effects/desirability/visibility/availability)
 - Optional (experimental): `pathing_conceptuality` from `pathing_lab/`
 - Weighted `composite_score` and benchmark pass flag for each world.
 

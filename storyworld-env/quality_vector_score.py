@@ -93,15 +93,49 @@ def quality_vector(metrics: Dict[str, float], targets: Dict[str, float]) -> Dict
         ]
     )
 
+    script_artistry = _mean(
+        [
+            _at_least(metrics.get("effect_nonconstant_ratio", 0.0), targets["effect_nonconstant_ratio_min"]),
+            _at_least(metrics.get("des_nonconstant_ratio", 0.0), targets["des_nonconstant_ratio_min"]),
+            _at_least(metrics.get("effect_complexity", 0.0), targets["effect_complexity_min"]),
+            _at_least(metrics.get("des_complexity", 0.0), targets["des_complexity_min"]),
+            _at_least(metrics.get("effect_operator_variety", 0.0), targets["effect_operator_variety_min"]),
+            _at_least(metrics.get("des_operator_variety", 0.0), targets["des_operator_variety_min"]),
+            _at_most(metrics.get("effect_operator_dominance", 1.0), targets["effect_operator_dominance_max"]),
+            _at_most(metrics.get("des_operator_dominance", 1.0), targets["des_operator_dominance_max"]),
+            _at_least(
+                metrics.get("option_visibility_nonconstant_ratio", 0.0),
+                targets["option_visibility_nonconstant_ratio_min"],
+            ),
+            _at_least(
+                metrics.get("option_performability_nonconstant_ratio", 0.0),
+                targets["option_performability_nonconstant_ratio_min"],
+            ),
+            _at_least(
+                metrics.get("encounter_acceptability_nonconstant_ratio", 0.0),
+                targets["encounter_acceptability_nonconstant_ratio_min"],
+            ),
+            _at_least(
+                metrics.get("encounter_desirability_nonconstant_ratio", 0.0),
+                targets["encounter_desirability_nonconstant_ratio_min"],
+            ),
+        ]
+    )
+
     # Weighted composite emphasizing structural + outcome reliability.
     composite = (
-        0.34 * structure_density + 0.24 * secret_gating + 0.30 * ending_balance + 0.12 * pacing_control
+        0.26 * structure_density
+        + 0.20 * secret_gating
+        + 0.23 * ending_balance
+        + 0.11 * pacing_control
+        + 0.20 * script_artistry
     )
     return {
         "structure_density": round(structure_density, 4),
         "secret_gating": round(secret_gating, 4),
         "ending_balance": round(ending_balance, 4),
         "pacing_control": round(pacing_control, 4),
+        "script_artistry": round(script_artistry, 4),
         "composite_score": round(composite, 4),
     }
 

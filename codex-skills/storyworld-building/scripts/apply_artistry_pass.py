@@ -144,8 +144,14 @@ def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, An
 
     rxn_idx = 0
     for enc_i, enc in enumerate(editable):
+        a, b, _c = _pick_props(authored, enc_i)
+        # Keep acceptance mostly permissive but variable-aware (non-constant).
+        enc["acceptability_script"] = _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.95))
+        enc["desirability_script"] = _op("Addition", _bn_ptr(main_char, [a]), _op("Multiplication", _bn_ptr(main_char, [b]), _bn_const(0.4)))
         options = enc.get("options", []) or []
         for opt_i, opt in enumerate(options):
+            # Performability also variable-aware while remaining permissive.
+            opt["performability_script"] = _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.98))
             # Gate only mid/late options to preserve onboarding flow.
             if gated < target_gates and enc_i >= int(0.35 * max(1, len(editable))) and (opt_i + enc_i) % 3 == 0:
                 opt["visibility_script"] = _visibility_gate(main_char, authored, rxn_idx)
