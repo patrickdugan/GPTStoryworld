@@ -64,6 +64,34 @@ export async function PATCH(request, { params }) {
       updates.push('is_public = $' + (updates.length + 1));
       values.push(body.is_public);
     }
+    if (body.genre !== undefined) {
+      updates.push('genre = $' + (updates.length + 1));
+      values.push(body.genre);
+    }
+    if (body.size_tag !== undefined) {
+      updates.push('size_tag = $' + (updates.length + 1));
+      values.push(String(body.size_tag).toLowerCase());
+    }
+    if (body.theme_variant !== undefined) {
+      updates.push('theme_variant = $' + (updates.length + 1));
+      values.push(String(body.theme_variant).toLowerCase());
+    }
+    if (body.cover_image !== undefined) {
+      updates.push('cover_image = $' + (updates.length + 1));
+      values.push(body.cover_image);
+    }
+    if (body.banner_image !== undefined) {
+      updates.push('banner_image = $' + (updates.length + 1));
+      values.push(body.banner_image);
+    }
+    if (body.tags !== undefined && Array.isArray(body.tags)) {
+      updates.push('tags = $' + (updates.length + 1));
+      values.push(body.tags.filter((tag) => typeof tag === 'string'));
+    }
+    if (body.encounter !== undefined) {
+      updates.push('encounter = $' + (updates.length + 1) + '::jsonb');
+      values.push(JSON.stringify(body.encounter));
+    }
     
     if (updates.length === 0) {
       return NextResponse.json(

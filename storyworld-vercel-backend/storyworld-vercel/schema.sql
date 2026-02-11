@@ -20,6 +20,12 @@ CREATE TABLE IF NOT EXISTS storyworlds (
   
   -- Metadata
   is_public BOOLEAN DEFAULT true,
+  genre VARCHAR(64) DEFAULT 'Diplomacy',
+  size_tag VARCHAR(16) DEFAULT 'standard',
+  theme_variant VARCHAR(24) DEFAULT 'midnight',
+  cover_image TEXT,
+  banner_image TEXT,
+  tags TEXT[] DEFAULT ARRAY[]::TEXT[],
   views INTEGER DEFAULT 0,
   likes INTEGER DEFAULT 0,
   fork_count INTEGER DEFAULT 0,
@@ -33,6 +39,14 @@ CREATE TABLE IF NOT EXISTS storyworlds (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Forward-compatible ALTER statements for already-created deployments
+ALTER TABLE storyworlds ADD COLUMN IF NOT EXISTS genre VARCHAR(64) DEFAULT 'Diplomacy';
+ALTER TABLE storyworlds ADD COLUMN IF NOT EXISTS size_tag VARCHAR(16) DEFAULT 'standard';
+ALTER TABLE storyworlds ADD COLUMN IF NOT EXISTS theme_variant VARCHAR(24) DEFAULT 'midnight';
+ALTER TABLE storyworlds ADD COLUMN IF NOT EXISTS cover_image TEXT;
+ALTER TABLE storyworlds ADD COLUMN IF NOT EXISTS banner_image TEXT;
+ALTER TABLE storyworlds ADD COLUMN IF NOT EXISTS tags TEXT[] DEFAULT ARRAY[]::TEXT[];
 
 -- Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_storyworlds_public 
@@ -51,6 +65,18 @@ CREATE INDEX IF NOT EXISTS idx_storyworlds_views
 CREATE INDEX IF NOT EXISTS idx_storyworlds_forked_from 
   ON storyworlds(forked_from) 
   WHERE forked_from IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_storyworlds_genre
+  ON storyworlds(genre);
+
+CREATE INDEX IF NOT EXISTS idx_storyworlds_size_tag
+  ON storyworlds(size_tag);
+
+CREATE INDEX IF NOT EXISTS idx_storyworlds_theme_variant
+  ON storyworlds(theme_variant);
+
+CREATE INDEX IF NOT EXISTS idx_storyworlds_tags
+  ON storyworlds USING GIN (tags);
 
 -- JSONB index for encounter content searches
 CREATE INDEX IF NOT EXISTS idx_storyworlds_encounter_gin 
@@ -92,6 +118,12 @@ SELECT
   num_themes,
   num_variables,
   encounter_length,
+  genre,
+  size_tag,
+  theme_variant,
+  cover_image,
+  banner_image,
+  tags,
   custom_prompt,
   encounter,
   views,
@@ -143,6 +175,12 @@ INSERT INTO storyworlds (
   num_themes,
   num_variables,
   encounter_length,
+  genre,
+  size_tag,
+  theme_variant,
+  cover_image,
+  banner_image,
+  tags,
   custom_prompt,
   encounter,
   system_prompt,
@@ -154,6 +192,12 @@ INSERT INTO storyworlds (
   2,
   5,
   500,
+  'Horror',
+  'standard',
+  'midnight',
+  'https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=1600&q=80',
+  ARRAY['gothic','supernatural','victorian'],
   'Create a spooky atmosphere with supernatural elements',
   '{"encounter": "You stand before the decrepit manor, its windows like hollow eyes staring into your soul. The rusty gate creaks as you push it open, revealing an overgrown path lined with dead roses.", "choices": ["Enter through the front door", "Investigate the basement window", "Circle around to the servants entrance"], "variables_affected": {"fear": 5, "curiosity": 3}, "metadata": {"characters_present": ["Player"], "themes_emphasized": ["horror", "mystery"], "narrative_weight": 8}}'::jsonb,
   'You are a gothic horror storyworld generator...',
