@@ -19,6 +19,7 @@ Fine-tune models to generate valid Sweepweave storyworld JSON with:
 """
 
 import json
+import math
 import random
 import re
 from collections import Counter, defaultdict
@@ -841,6 +842,47 @@ class SweepweaveValidator:
         return re.findall(r"[a-zA-Z][a-zA-Z0-9_'-]{1,}", text.lower())
 
     @staticmethod
+    def _hash_embed(text: str, dim: int = 512) -> List[float]:
+        """Deterministic local embedding via hashed token/ngram features."""
+        vec = [0.0] * dim
+        if not text:
+            return vec
+        norm = SweepweaveValidator._normalize_text(text)
+        toks = SweepweaveValidator._tokenize(norm)
+        # token features
+        for t in toks:
+            h = hash(("tok", t))
+            idx = abs(h) % dim
+            sign = -1.0 if (h & 1) else 1.0
+            vec[idx] += sign * 1.0
+        # bigram features
+        for i in range(len(toks) - 1):
+            bg = toks[i] + "_" + toks[i + 1]
+            h = hash(("bg", bg))
+            idx = abs(h) % dim
+            sign = -1.0 if (h & 1) else 1.0
+            vec[idx] += sign * 0.7
+        # character trigram features
+        compact = re.sub(r"\s+", " ", norm)
+        for i in range(max(0, len(compact) - 2)):
+            tri = compact[i : i + 3]
+            h = hash(("tri", tri))
+            idx = abs(h) % dim
+            sign = -1.0 if (h & 1) else 1.0
+            vec[idx] += sign * 0.2
+        # l2 normalize
+        n = math.sqrt(sum(v * v for v in vec))
+        if n > 1e-12:
+            vec = [v / n for v in vec]
+        return vec
+
+    @staticmethod
+    def _cosine(a: List[float], b: List[float]) -> float:
+        if not a or not b or len(a) != len(b):
+            return 0.0
+        return sum(x * y for x, y in zip(a, b))
+
+    @staticmethod
     def _theme_vocab(data: Dict[str, Any]) -> set:
         stop = {
             "the", "and", "for", "with", "that", "this", "from", "into", "over", "under", "then",
@@ -893,11 +935,34 @@ class SweepweaveValidator:
                     ok += 1
             return ok / len(cleaned)
 
+        # Embedding-style semantic coherence to reduce keyword-only pass-through.
+        theme_text_chunks = [
+            str(data.get("title", "") or ""),
+            SweepweaveValidator._extract_text(data.get("about_text")),
+        ]
+        for c in data.get("characters", []) or []:
+            theme_text_chunks.append(str(c.get("name", "") or ""))
+        for p in data.get("authored_properties", []) or []:
+            theme_text_chunks.append(str(p.get("property_name", "") or "").replace("_", " "))
+        theme_vec = SweepweaveValidator._hash_embed(" ".join(theme_text_chunks))
+
+        def semantic_coherence(texts: List[str]) -> float:
+            cleaned = [str(t).strip() for t in texts if str(t).strip()]
+            if not cleaned:
+                return 0.0
+            sims = []
+            for t in cleaned:
+                tv = SweepweaveValidator._hash_embed(t)
+                sims.append(SweepweaveValidator._cosine(theme_vec, tv))
+            return sum(sims) / len(sims) if sims else 0.0
+
         return {
             "encounter_text_uniqueness_ratio": uniq_ratio(encounter_texts),
             "reaction_text_uniqueness_ratio": uniq_ratio(reaction_texts),
             "encounter_theme_relevance_ratio": relevance_ratio(encounter_texts, min_hits=2),
             "reaction_theme_relevance_ratio": relevance_ratio(reaction_texts, min_hits=1),
+            "encounter_theme_semantic_coherence": semantic_coherence(encounter_texts),
+            "reaction_theme_semantic_coherence": semantic_coherence(reaction_texts),
         }
     
     @staticmethod
@@ -1967,6 +2032,8 @@ def benchmark_targets() -> Dict[str, float]:
         "reaction_text_uniqueness_ratio_min": 1.0,
         "encounter_theme_relevance_ratio_min": 0.7,
         "reaction_theme_relevance_ratio_min": 0.7,
+        "encounter_theme_semantic_coherence_min": 0.12,
+        "reaction_theme_semantic_coherence_min": 0.08,
     }
 
 
@@ -2053,6 +2120,8 @@ def evaluate_benchmark(data: Dict[str, Any], runs: int = 200, seed: int = 42) ->
         "reaction_text_uniqueness_ratio": text_gate["reaction_text_uniqueness_ratio"],
         "encounter_theme_relevance_ratio": text_gate["encounter_theme_relevance_ratio"],
         "reaction_theme_relevance_ratio": text_gate["reaction_theme_relevance_ratio"],
+        "encounter_theme_semantic_coherence": text_gate["encounter_theme_semantic_coherence"],
+        "reaction_theme_semantic_coherence": text_gate["reaction_theme_semantic_coherence"],
     }
 
 
@@ -2102,6 +2171,8 @@ def benchmark_pass(metrics: Dict[str, float]) -> bool:
         and metrics.get("reaction_text_uniqueness_ratio", 0.0) >= targets["reaction_text_uniqueness_ratio_min"]
         and metrics.get("encounter_theme_relevance_ratio", 0.0) >= targets["encounter_theme_relevance_ratio_min"]
         and metrics.get("reaction_theme_relevance_ratio", 0.0) >= targets["reaction_theme_relevance_ratio_min"]
+        and metrics.get("encounter_theme_semantic_coherence", 0.0) >= targets["encounter_theme_semantic_coherence_min"]
+        and metrics.get("reaction_theme_semantic_coherence", 0.0) >= targets["reaction_theme_semantic_coherence_min"]
     )
 
 

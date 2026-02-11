@@ -140,6 +140,14 @@ def quality_vector(metrics: Dict[str, float], targets: Dict[str, float]) -> Dict
                 metrics.get("reaction_theme_relevance_ratio", 0.0),
                 targets["reaction_theme_relevance_ratio_min"],
             ),
+            _at_least(
+                metrics.get("encounter_theme_semantic_coherence", 0.0),
+                targets["encounter_theme_semantic_coherence_min"],
+            ),
+            _at_least(
+                metrics.get("reaction_theme_semantic_coherence", 0.0),
+                targets["reaction_theme_semantic_coherence_min"],
+            ),
         ]
     )
 

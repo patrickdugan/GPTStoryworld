@@ -23,6 +23,7 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
   - every encounter text unique
   - every reaction text unique
   - encounter/reaction texts must remain thematically relevant to title/about/properties/characters
+  - semantic coherence with world theme (embedding-style relevance) must clear env floors
 
 ## Quick Start
 - Prefer running the specific tool in `scripts/` for the task instead of manual edits.
