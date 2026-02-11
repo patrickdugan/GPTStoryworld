@@ -130,4 +130,9 @@ One-shot quality loop for production:
 4. Apply text/legibility/gating fixes.
 5. Re-score in `storyworld-env/quality_vector_score.py` for multi-dimensional quality ranking.
 
+Text-quality rollout loop (new env):
+1. `python storyworld-text-quality-env/evaluate_text_quality.py --storyworld <world.json> --judge-model gpt-5-mini --out <judge_report.json>`
+2. `python storyworld-text-quality-env/iterate_text_quality_loop.py --in-json <world.json> --out-json <world_textloop.json> --threshold 0.8 --max-iters 4 --judge-model gpt-5-mini --writer-model gpt-5-mini --work-dir <loop_logs_dir>`
+3. Re-run structural/artistry validators and env benchmark gates after text loop.
+
 Note: For late-stage polish, target higher structural density: average 4.5 after-effects per reaction, 2.5 reactions per option, 3.2 options per encounter, and 1.6 variables per reaction desirability formula. Gate 5% of total options in Act II (1.2 variables average) and 8% in Act III (1.5 variables average). Ensure secret-ending encounters are gated by availability scripts that use a metric distance over two variables, and tune Monte Carlo so the secret ending is reachable in >5% of runs. All encounter descriptions should be 50-300 words, all reaction texts 20-150 words, and every non-ending, non-transition encounter must meet min options/reactions/effects.
