@@ -1,313 +1,234 @@
-import React, { useState } from 'react';
-import { Settings, Play, Download, Eye } from 'lucide-react';
-import './App.css';
+import { Database, RefreshCw, Search, Upload } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import BottomNav from './components/BottomNav'
+import FilterTabs from './components/FilterTabs'
+import HeroBanner from './components/HeroBanner'
+import ReaderPanel from './components/ReaderPanel'
+import StoryRow from './components/StoryRow'
+import { demoStoryworlds } from './data/demoStoryworlds'
+import {
+  buildRows,
+  defaultFacetState,
+  facetOptionsFromApi,
+  normalizeStoryworld,
+  storyworldJsonToPayload
+} from './lib/storyworldClient'
+
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api').replace(/\/$/, '')
+
+const toTabOptions = (list, allLabel) => [{ value: 'all', label: allLabel }, ...list.map((label) => ({ value: label, label }))]
+
+const toLowerTabOptions = (list, allLabel) => [
+  { value: 'all', label: allLabel },
+  ...list.map((label) => ({ value: String(label).toLowerCase(), label: String(label) }))
+]
 
 function App() {
-  const [config, setConfig] = useState({
-    numCharacters: 3,
-    numThemes: 2,
-    numVariables: 5,
-    encounterLength: 500
-  });
-  
-  const [customPrompt, setCustomPrompt] = useState('');
-  const [showConfig, setShowConfig] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [showPrompt, setShowPrompt] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const fileInputRef = useRef(null)
 
-  const handleSliderChange = (field, value) => {
-    setConfig(prev => ({ ...prev, [field]: parseInt(value) }));
-  };
+  const [storyworlds, setStoryworlds] = useState(demoStoryworlds.map(normalizeStoryworld))
+  const [facets, setFacets] = useState(defaultFacetState)
+  const [selectedGenre, setSelectedGenre] = useState('all')
+  const [selectedSize, setSelectedSize] = useState('all')
+  const [selectedTheme, setSelectedTheme] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [activeStoryworld, setActiveStoryworld] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [statusText, setStatusText] = useState('Using demo data until backend responds.')
+  const [reloadKey, setReloadKey] = useState(0)
 
-  const generateSystemPrompt = () => {
-    const basePrompt = `You are a Sweepweave Storyworld generator. Create an interactive narrative environment with the following parameters:
+  const activeVisualTheme = selectedTheme === 'all' ? 'midnight' : selectedTheme
 
-- Characters: ${config.numCharacters} distinct characters with unique motivations and relationships
-- Themes: ${config.numThemes} central thematic elements that weave through the narrative
-- Variables: ${config.numVariables} trackable state variables that affect story progression
-- Encounter Length: Approximately ${config.encounterLength} words per scene
+  const genreOptions = useMemo(() => toTabOptions(facets.genres, 'All Genres'), [facets.genres])
+  const sizeOptions = useMemo(() => toLowerTabOptions(facets.sizes, 'All Sizes'), [facets.sizes])
+  const themeOptions = useMemo(() => toLowerTabOptions(facets.themes, 'All Themes'), [facets.themes])
 
-Each encounter should:
-1. Present meaningful choices that affect character relationships and tracked variables
-2. Maintain consistency with established lore and character personalities
-3. Create branching possibilities for future encounters
-4. Balance narrative coherence with player agency
+  const rows = useMemo(() => buildRows(storyworlds), [storyworlds])
+  const featured = rows[0]?.items[0] || storyworlds[0] || demoStoryworlds[0]
 
-${customPrompt ? `\nAdditional Instructions:\n${customPrompt}` : ''}
-
-Structure each output as JSON with: {
-  "encounter": "narrative text",
-  "choices": ["choice1", "choice2", "choice3"],
-  "variables_affected": {"var_name": delta},
-  "metadata": {
-    "characters_present": [],
-    "themes_emphasized": [],
-    "narrative_weight": 0-10
-  }
-}`;
-    
-    return basePrompt;
-  };
-
-  const handleGenerate = async () => {
-    if (!apiKey) {
-      alert('Please configure your OpenAI API key in settings');
-      setShowConfig(true);
-      return;
+  useEffect(() => {
+    if (!activeStoryworld && storyworlds.length > 0) {
+      setActiveStoryworld(storyworlds[0])
     }
+  }, [activeStoryworld, storyworlds])
 
-    setIsGenerating(true);
-    const systemPrompt = generateSystemPrompt();
-    
-    try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-4.1',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: 'Generate the first encounter of this storyworld.' }
-          ],
-          temperature: 0.8,
-          max_tokens: config.encounterLength * 2
+  useEffect(() => {
+    const controller = new AbortController()
+
+    const fetchStoryworlds = async () => {
+      setLoading(true)
+      const params = new URLSearchParams({
+        limit: '60',
+        sort: 'likes',
+        order: 'desc'
+      })
+      if (selectedGenre !== 'all') params.set('genre', selectedGenre)
+      if (selectedSize !== 'all') params.set('size', selectedSize)
+      if (selectedTheme !== 'all') params.set('theme', selectedTheme)
+      if (searchQuery.trim()) params.set('q', searchQuery.trim())
+
+      try {
+        const response = await fetch(`${API_BASE}/storyworlds?${params.toString()}`, {
+          signal: controller.signal
         })
-      });
+        if (!response.ok) throw new Error(`Backend returned ${response.status}`)
 
-      const data = await response.json();
-      
-      if (data.error) {
-        alert(`API Error: ${data.error.message}`);
-      } else {
-        // Download the result
-        const blob = new Blob([data.choices[0].message.content], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `storyworld_${Date.now()}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
+        const payload = await response.json()
+        const normalized = (payload.storyworlds || []).map(normalizeStoryworld)
+        if (normalized.length === 0) {
+          setStoryworlds(demoStoryworlds.map(normalizeStoryworld))
+          setFacets(facetOptionsFromApi(payload.facets, demoStoryworlds.map(normalizeStoryworld)))
+          setStatusText('No DB rows for current filters. Showing demo catalog.')
+          return
+        }
+
+        setStoryworlds(normalized)
+        setFacets(facetOptionsFromApi(payload.facets, normalized))
+        setStatusText(`Loaded ${normalized.length} storyworlds from backend DB.`)
+      } catch (error) {
+        if (error.name === 'AbortError') return
+        const local = demoStoryworlds.map(normalizeStoryworld)
+        setStoryworlds(local)
+        setFacets(facetOptionsFromApi(null, local))
+        setStatusText(`Backend unavailable (${error.message}). Showing demo catalog.`)
+      } finally {
+        setLoading(false)
       }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
-    } finally {
-      setIsGenerating(false);
     }
-  };
+
+    fetchStoryworlds()
+    return () => controller.abort()
+  }, [selectedGenre, selectedSize, selectedTheme, searchQuery, reloadKey])
+
+  const refreshData = () => {
+    setStatusText('Refreshing data from backend...')
+    setReloadKey((value) => value + 1)
+  }
+
+  const openFilePicker = () => fileInputRef.current?.click()
+
+  const handleImportJson = async (event) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      const content = await file.text()
+      const json = JSON.parse(content)
+      const payload = storyworldJsonToPayload({
+        json,
+        fileName: file.name,
+        selectedGenre,
+        selectedSize,
+        selectedTheme
+      })
+
+      const response = await fetch(`${API_BASE}/storyworlds`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      if (!response.ok) {
+        const err = await response.json()
+        throw new Error(err.error || 'Failed to upload storyworld')
+      }
+      setStatusText(`Imported "${payload.title}" into backend DB.`)
+      setReloadKey((value) => value + 1)
+    } catch (error) {
+      setStatusText(`Import failed: ${error.message}`)
+    } finally {
+      event.target.value = ''
+    }
+  }
 
   return (
-    <div className="app">
-      {/* Header */}
-      <header className="header">
-        <div className="header-content">
-          <h1>GPT Storyworld</h1>
-          <p>Meta-GPT API prompter for Sweepweave Storyworlds</p>
-        </div>
-        <button 
-          className="config-btn"
-          onClick={() => setShowConfig(true)}
-          title="Configure API Key"
-        >
-          <Settings size={20} />
-        </button>
-      </header>
+    <div className={`theme-${activeVisualTheme} min-h-screen bg-ink font-body text-slate-100`}>
+      <HeroBanner
+        featured={{
+          ...featured,
+          image: featured.bannerImage || featured.coverImage
+        }}
+        onOpenReader={setActiveStoryworld}
+      />
 
-      {/* Main Content */}
-      <main className="main-content">
-        <div className="controls-panel">
-          {/* Number of Characters */}
-          <div className="control-group">
-            <label>
-              <span className="label-text">Characters</span>
-              <span className="value">{config.numCharacters}</span>
-            </label>
+      <section className="mx-auto flex max-w-screen-2xl flex-col gap-3 px-4 pt-4 sm:px-6 md:px-10">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[color:var(--sw-border)] bg-[color:var(--sw-panel)]/75 px-3 py-3">
+          <div className="relative min-w-[220px] flex-1">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input
-              type="range"
-              min="1"
-              max="10"
-              value={config.numCharacters}
-              onChange={(e) => handleSliderChange('numCharacters', e.target.value)}
-              className="slider"
-            />
-            <div className="range-labels">
-              <span>1</span>
-              <span>10</span>
-            </div>
-          </div>
-
-          {/* Number of Themes */}
-          <div className="control-group">
-            <label>
-              <span className="label-text">Themes</span>
-              <span className="value">{config.numThemes}</span>
-            </label>
-            <input
-              type="range"
-              min="1"
-              max="5"
-              value={config.numThemes}
-              onChange={(e) => handleSliderChange('numThemes', e.target.value)}
-              className="slider"
-            />
-            <div className="range-labels">
-              <span>1</span>
-              <span>5</span>
-            </div>
-          </div>
-
-          {/* Number of Variables */}
-          <div className="control-group">
-            <label>
-              <span className="label-text">Tracked Variables</span>
-              <span className="value">{config.numVariables}</span>
-            </label>
-            <input
-              type="range"
-              min="3"
-              max="20"
-              value={config.numVariables}
-              onChange={(e) => handleSliderChange('numVariables', e.target.value)}
-              className="slider"
-            />
-            <div className="range-labels">
-              <span>3</span>
-              <span>20</span>
-            </div>
-          </div>
-
-          {/* Encounter Length */}
-          <div className="control-group">
-            <label>
-              <span className="label-text">Encounter Length (words)</span>
-              <span className="value">{config.encounterLength}</span>
-            </label>
-            <input
-              type="range"
-              min="200"
-              max="1500"
-              step="50"
-              value={config.encounterLength}
-              onChange={(e) => handleSliderChange('encounterLength', e.target.value)}
-              className="slider"
-            />
-            <div className="range-labels">
-              <span>200</span>
-              <span>1500</span>
-            </div>
-          </div>
-
-          {/* Custom Prompt */}
-          <div className="control-group">
-            <label className="label-text">Additional Instructions</label>
-            <textarea
-              value={customPrompt}
-              onChange={(e) => setCustomPrompt(e.target.value)}
-              placeholder="Add custom instructions to the system prompt..."
-              className="custom-prompt"
-              rows="6"
+              aria-label="Search storyworlds"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search by title, description, or prompt..."
+              className="w-full rounded-md border border-slate-700 bg-slate-950/65 py-2 pl-9 pr-3 text-sm text-slate-100 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             />
           </div>
-
-          {/* Action Buttons */}
-          <div className="action-buttons">
-            <button 
-              className="btn btn-secondary"
-              onClick={() => setShowPrompt(true)}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={refreshData}
+              className="inline-flex items-center gap-2 rounded-md border border-slate-700 bg-slate-900/70 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200 hover:border-slate-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             >
-              <Eye size={18} />
-              Preview Prompt
+              <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+              Refresh
             </button>
-            <button 
-              className="btn btn-primary"
-              onClick={handleGenerate}
-              disabled={isGenerating}
+            <button
+              type="button"
+              onClick={openFilePicker}
+              className="inline-flex items-center gap-2 rounded-md border border-[color:var(--sw-accent)]/45 bg-[color:var(--sw-accent-soft)] px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             >
-              {isGenerating ? (
-                <>Generating...</>
-              ) : (
-                <>
-                  <Play size={18} />
-                  Generate Storyworld
-                </>
-              )}
+              <Upload className="h-4 w-4" />
+              Import JSON
             </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".json,application/json"
+              className="hidden"
+              onChange={handleImportJson}
+            />
           </div>
         </div>
+
+        <div className="grid gap-3 rounded-xl border border-[color:var(--sw-border)] bg-[color:var(--sw-panel)]/45 p-3">
+          <FilterTabs label="Genre" options={genreOptions} value={selectedGenre} onChange={setSelectedGenre} testId="genre-tabs" />
+          <FilterTabs label="Size" options={sizeOptions} value={selectedSize} onChange={setSelectedSize} testId="size-tabs" />
+          <FilterTabs label="Theme" options={themeOptions} value={selectedTheme} onChange={setSelectedTheme} testId="theme-tabs" />
+        </div>
+
+        <div className="inline-flex items-center gap-2 rounded-md border border-slate-700 bg-slate-900/55 px-3 py-2 text-xs text-slate-300">
+          <Database className="h-4 w-4 text-cyan" />
+          {statusText}
+        </div>
+      </section>
+
+      <main className="mx-auto grid max-w-screen-2xl gap-8 px-4 pb-24 pt-4 sm:px-6 md:grid-cols-[minmax(0,1fr)_360px] md:px-10">
+        <section className="flex min-w-0 flex-col gap-9">
+          {rows.map((row, rowIndex) => (
+            <StoryRow
+              key={row.id}
+              title={row.title}
+              rowIndex={rowIndex}
+              items={row.items.map((item) => ({
+                id: item.id,
+                title: item.title,
+                image: item.coverImage,
+                meta: `${item.likes} likes`,
+                genre: item.genre,
+                size: item.size
+              }))}
+              onSelect={(selected) => {
+                const full = storyworlds.find((entry) => entry.id === selected.id)
+                setActiveStoryworld(full || null)
+              }}
+            />
+          ))}
+        </section>
+        <ReaderPanel storyworld={activeStoryworld} />
       </main>
 
-      {/* Config Modal */}
-      {showConfig && (
-        <div className="modal-overlay" onClick={() => setShowConfig(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>API Configuration</h2>
-              <button onClick={() => setShowConfig(false)} className="close-btn">×</button>
-            </div>
-            <div className="modal-body">
-              <div className="form-group">
-                <label>OpenAI API Key</label>
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="sk-..."
-                  className="api-input"
-                />
-                <p className="help-text">
-                  Your API key is stored locally and never sent anywhere except OpenAI.
-                  Get your key at <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">platform.openai.com</a>
-                </p>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button 
-                className="btn btn-primary"
-                onClick={() => {
-                  localStorage.setItem('openai_api_key', apiKey);
-                  setShowConfig(false);
-                }}
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Prompt Preview Modal */}
-      {showPrompt && (
-        <div className="modal-overlay" onClick={() => setShowPrompt(false)}>
-          <div className="modal modal-large" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>System Prompt Preview</h2>
-              <button onClick={() => setShowPrompt(false)} className="close-btn">×</button>
-            </div>
-            <div className="modal-body">
-              <pre className="prompt-preview">{generateSystemPrompt()}</pre>
-            </div>
-            <div className="modal-footer">
-              <button 
-                className="btn btn-secondary"
-                onClick={() => {
-                  navigator.clipboard.writeText(generateSystemPrompt());
-                  alert('Copied to clipboard!');
-                }}
-              >
-                Copy to Clipboard
-              </button>
-              <button className="btn btn-primary" onClick={() => setShowPrompt(false)}>
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <BottomNav />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
