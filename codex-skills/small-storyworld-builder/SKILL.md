@@ -1,0 +1,76 @@
+---
+name: small-storyworld-builder
+description: Build and benchmark short dialogue-driven storyworlds with small local models (1.5B-3B) using MCP bounded-context cards, SWMD minified format, and deterministic quality gates.
+---
+
+# Small Storyworld Builder
+
+## When To Use
+- Use for low-VRAM local workflows where full-world prompting is not viable.
+- Use for short-form worlds (about 12-30 encounters, 2-4 characters) with encounter-at-a-time revision.
+- Use when token economics and reproducible benchmark logs matter.
+
+## Core Contract
+- Keep model context at or below 8k tokens equivalent.
+- Operate on one encounter block at a time using MCP context cards.
+- Keep IDs stable (`enc_*`/`page_*`, `opt_*`, `rxn_*`).
+- Always validate JSON structure before and after MCP passes.
+- Author in SWMD minified markdown first; export JSON only for editor/playable checks.
+
+## Required Inputs
+- Base world JSON.
+- Target world brief (tone, characters, encounter count).
+- Model profile (base model, optional adapter, max output tokens).
+
+## Pipeline
+1. Seed world:
+`python C:/projects/GPTStoryworld/codex-skills/storyworld-building/scripts/one_shot_factory.py --base <base.json> --out <seed.json> --target-encounters <n> --title "<title>" --about "<about>" --motif "<motif>"`
+2. Validate + gate:
+`python C:/projects/GPTStoryworld/codex-skills/storyworld-building/scripts/sweepweave_validator.py validate <seed.json>`
+`python C:/projects/GPTStoryworld/codex-skills/storyworld-building/scripts/storyworld_quality_gate.py --storyworld <seed.json> --strict --report-out <seed_gate.json>`
+3. Export SWMD-min:
+`python C:/projects/GPTStoryworld/codex-skills/storyworld-building/scripts/json_to_swmd.py <seed.json> <seed.swmd.min.md> --mode minified`
+4. Build encounter index:
+`python D:/Research_Engine/storyworld_mcp_stack/scripts/swmd_encounter_index.py --swmd <seed.swmd.min.md> --out-dir <enc_index_dir>`
+5. MCP phased loop (recommended sequence):
+- `plan`
+- `characterize`
+- `encounter_build`
+- `act_complete`
+- `recharacterize`
+- `late_stage_holistic`
+- Use `D:/Research_Engine/storyworld_mcp_stack/scripts/swmd_mcp_phase_pipeline.py` with 8k budgeted packets.
+
+Command:
+`python D:/Research_Engine/storyworld_mcp_stack/scripts/swmd_mcp_phase_pipeline.py --swmd <seed.swmd.min.md> --model-path D:/Research_Engine/Qwen_Storyworld/cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1 --adapter-path D:/Research_Engine/Qwen_Storyworld/adapters/qwen3b-overnight-20260213-071746/checkpoint-79 --max-encounters 20 --context-budget-tokens 8192 --reserve-output-tokens 1024 --planning-card-tokens 900 --max-new-tokens 220 --temperature 0 --out-jsonl <phase_events.jsonl> --state-json <phase_state.json> --apply`
+6. Re-score:
+`python C:/projects/GPTStoryworld/storyworld-env/quality_vector_score.py --storyworlds <world.json> --runs 120 --out <vector.json>`
+`python C:/projects/GPTStoryworld/storyworld-text-quality-env/evaluate_text_quality.py --storyworld <world.json> --judge-model gpt-4.1-mini --out <text.json>`
+
+## Phase Output Discipline
+- `plan`, `characterize`, `act_complete`, `recharacterize` must emit compact JSON objects (no prose wrappers).
+- `encounter_build` and `late_stage_holistic` must emit one valid SWMD encounter block only.
+- For holistic pass under small context windows, use chunk-aware mode and summarize from cards/index rather than whole-world text.
+
+## Math + Invariants Loop
+- Per encounter option, run invariant checks with numeric before/after values.
+- If any invariant fails, apply minimal correction and record it in phase logs.
+- Keep corrections deterministic so benchmark diffs remain attributable to model condition.
+
+## MCP Tools
+- `list_encounters`
+- `get_context_card`
+- `get_mathematical_poetics_card`
+- `get_iteration_packet`
+- `update_encounter_block`
+- `export_encounter_index`
+
+## Benchmark Discipline
+- Keep decoding parameters fixed across model conditions.
+- Keep encounter order fixed.
+- Keep max encounters/pass count fixed.
+- Log per-encounter latency, parse success, and ID-preservation.
+- Split parse metrics into:
+  - raw model formatting (`model_parse_ok`),
+  - repaired pipeline formatting (`parse_ok`).
+- Keep packet budgets fixed (`8192/1024/900`) so token economics are comparable across runs.

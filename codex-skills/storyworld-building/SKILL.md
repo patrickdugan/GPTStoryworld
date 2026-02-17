@@ -30,6 +30,39 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
 - When editing storyworld JSON, validate with `scripts/sweepweave_validator.py` before and after changes.
 - If you introduce a terminal gate (e.g., `page_endings_gate`), ensure it routes to every `page_end_*`/`page_secret_*` and keep ending encounter `acceptability_script` permissive so the gate controls reachability.
 
+## Token-Economics MCP Loop
+- Prefer bounded-context authoring for local 3B/4GB setups: one encounter card at a time, not whole-world prompts.
+- Use SWMD minified markdown as the authoring substrate (`json_to_swmd.py --mode minified`) and keep encounter+context card payloads under an 8k context budget.
+- Maintain external memory in files: encounter index JSONL, world card, and change ledger; keep the model context small and deterministic.
+- For MCP orchestration in GPTStoryworld, use `C:/projects/GPTStoryworld/mcp-storyworld-encounter/server.py` tools:
+  - `list_encounters`
+  - `get_context_card`
+  - `update_encounter_block`
+  - `export_encounter_index`
+- After MCP/local revisions, translate SWMD back to JSON and run `scripts/sweepweave_validator.py` before any benchmark run.
+
+## MCP Assembly Contract (Small-Model Hardened)
+- Treat `*.swmd.min.md` as the source of truth during MCP iteration. JSON is an export target for editor/playable validation.
+- Run the encounter assembly line in this order:
+  1) `plan` (structured objective/constraints),
+  2) `characterize` (voice/tension notes),
+  3) `encounter_build` (single encounter block rewrite),
+  4) `act_complete` (act-level continuity review),
+  5) `recharacterize`,
+  6) `late_stage_holistic` (chunked if needed).
+- Keep encounter generation deterministic and bounded:
+  - one target encounter per call,
+  - max 3 options per encounter in small-model mode unless user overrides,
+  - bounded effects fan-out per option,
+  - concise dialogue-forward text.
+- Require explicit invariant checks in review phases:
+  - include `value_before`, `value_after`, `status`,
+  - record minimal corrections when violations occur.
+- Holistic review is chunk-aware by default. If full world context does not fit, emit `partial_chunked` mode and use cards/summaries instead of full text.
+- Track two parse metrics during MCP runs:
+  - `model_parse_ok` for raw model output quality,
+  - `parse_ok` after MCP repair/fallback for pipeline robustness.
+
 ## Task Prompts (references/)
 Load the matching task file when the user requests one of these actions, then follow it verbatim:
 - New encounter: `references/task_new_encounter.md`
