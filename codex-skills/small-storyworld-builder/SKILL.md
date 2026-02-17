@@ -31,7 +31,7 @@ description: Build and benchmark short dialogue-driven storyworlds with small lo
 3. Export SWMD-min:
 `python C:/projects/GPTStoryworld/codex-skills/storyworld-building/scripts/json_to_swmd.py <seed.json> <seed.swmd.min.md> --mode minified`
 4. Build encounter index:
-`python D:/Research_Engine/storyworld_mcp_stack/scripts/swmd_encounter_index.py --swmd <seed.swmd.min.md> --out-dir <enc_index_dir>`
+`python C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_encounter_index.py --swmd <seed.swmd.min.md> --out-dir <enc_index_dir>`
 5. MCP phased loop (recommended sequence):
 - `plan`
 - `characterize`
@@ -39,10 +39,10 @@ description: Build and benchmark short dialogue-driven storyworlds with small lo
 - `act_complete`
 - `recharacterize`
 - `late_stage_holistic`
-- Use `D:/Research_Engine/storyworld_mcp_stack/scripts/swmd_mcp_phase_pipeline.py` with 8k budgeted packets.
+- Use `C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_mcp_phase_pipeline.py` with 8k budgeted packets.
 
 Command:
-`python D:/Research_Engine/storyworld_mcp_stack/scripts/swmd_mcp_phase_pipeline.py --swmd <seed.swmd.min.md> --model-path D:/Research_Engine/Qwen_Storyworld/cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1 --adapter-path D:/Research_Engine/Qwen_Storyworld/adapters/qwen3b-overnight-20260213-071746/checkpoint-79 --max-encounters 20 --context-budget-tokens 8192 --reserve-output-tokens 1024 --planning-card-tokens 900 --max-new-tokens 220 --temperature 0 --out-jsonl <phase_events.jsonl> --state-json <phase_state.json> --apply`
+`python C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_mcp_phase_pipeline.py --swmd <seed.swmd.min.md> --model-path D:/Research_Engine/Qwen_Storyworld/cache/models/Qwen3-1.7B --adapter-path <adapter_or_empty> --max-encounters 20 --context-budget-tokens 8192 --reserve-output-tokens 1024 --planning-card-tokens 900 --max-new-tokens 220 --temperature 0 --out-jsonl <phase_events.jsonl> --state-json <phase_state.json> --apply`
 6. Re-score:
 `python C:/projects/GPTStoryworld/storyworld-env/quality_vector_score.py --storyworlds <world.json> --runs 120 --out <vector.json>`
 `python C:/projects/GPTStoryworld/storyworld-text-quality-env/evaluate_text_quality.py --storyworld <world.json> --judge-model gpt-4.1-mini --out <text.json>`
