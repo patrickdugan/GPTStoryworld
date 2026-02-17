@@ -74,3 +74,10 @@ Command:
   - raw model formatting (`model_parse_ok`),
   - repaired pipeline formatting (`parse_ok`).
 - Keep packet budgets fixed (`8192/1024/900`) so token economics are comparable across runs.
+
+## Prompt Spec
+- Use `references/MCP_ASSEMBLY_PIPELINE.md` as the default codex contract for phased MCP generation:
+  - spool/encounter assembly in bounded chunks,
+  - invariant math review,
+  - act completion,
+  - chunk-aware holistic appraisal.
