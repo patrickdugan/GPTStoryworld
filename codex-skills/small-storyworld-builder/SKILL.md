@@ -13,6 +13,8 @@ description: Build and benchmark short dialogue-driven storyworlds with small lo
 ## Core Contract
 - Keep model context at or below 8k tokens equivalent.
 - Operate on one encounter block at a time using MCP context cards.
+- Treat the model as an operation engine, not a full-world memory store.
+- Offload world-scale context (even SWMD-min) to MCP cards/packets; never require full-world prompt loading.
 - Keep IDs stable (`enc_*`/`page_*`, `opt_*`, `rxn_*`).
 - Always validate JSON structure before and after MCP passes.
 - Author in SWMD minified markdown first; export JSON only for editor/playable checks.
@@ -32,7 +34,17 @@ description: Build and benchmark short dialogue-driven storyworlds with small lo
 `python C:/projects/GPTStoryworld/codex-skills/storyworld-building/scripts/json_to_swmd.py <seed.json> <seed.swmd.min.md> --mode minified`
 4. Build encounter index:
 `python C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_encounter_index.py --swmd <seed.swmd.min.md> --out-dir <enc_index_dir>`
-5. MCP phased loop (recommended sequence):
+5. Build derived QLoRA examples (compiler-style transforms):
+`python C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_build_qlora_examples.py --swmd-glob "<swmd_glob>" --out-dir <QLoraExamples_dir> --max-total-encounters 120 --examples-per-encounter 10 --val-ratio 0.05`
+Default task mix:
+- 40% compile
+- 25% compression
+- 20% repair
+- 15% targeted_edit
+Schema rule: keep `SWMD-MICRO-0.1` key structure identical across all outputs.
+Optional hard-negative expansion to ~2k rows:
+`python C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_expand_qlora_hard_negatives.py --in-dir <QLoraExamples_dir> --target-total 2000 --out-prefix aug`
+6. MCP phased loop (recommended sequence):
 - `plan`
 - `characterize`
 - `encounter_build`
@@ -42,8 +54,8 @@ description: Build and benchmark short dialogue-driven storyworlds with small lo
 - Use `C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_mcp_phase_pipeline.py` with 8k budgeted packets.
 
 Command:
-`python C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_mcp_phase_pipeline.py --swmd <seed.swmd.min.md> --model-path D:/Research_Engine/Qwen_Storyworld/cache/models/Qwen3-1.7B --adapter-path <adapter_or_empty> --max-encounters 20 --context-budget-tokens 8192 --reserve-output-tokens 1024 --planning-card-tokens 900 --max-new-tokens 220 --temperature 0 --out-jsonl <phase_events.jsonl> --state-json <phase_state.json> --apply`
-6. Re-score:
+`python C:/projects/GPTStoryworld/codex-skills/small-storyworld-builder/scripts/swmd_mcp_phase_pipeline.py --swmd <seed.swmd.min.md> --model-path D:/Research_Engine/Qwen_Storyworld/cache/models/Qwen3-1.7B --adapter-path <adapter_or_empty> --max-encounters 20 --context-budget-tokens 8192 --reserve-output-tokens 1024 --planning-card-tokens 900 --max-new-tokens 220 --temperature 0 --qlora-examples-jsonl <QLoraExamples_dir/aug_train.jsonl> --fewshot-count 1 --out-jsonl <phase_events.jsonl> --state-json <phase_state.json> --apply`
+7. Re-score:
 `python C:/projects/GPTStoryworld/storyworld-env/quality_vector_score.py --storyworlds <world.json> --runs 120 --out <vector.json>`
 `python C:/projects/GPTStoryworld/storyworld-text-quality-env/evaluate_text_quality.py --storyworld <world.json> --judge-model gpt-4.1-mini --out <text.json>`
 

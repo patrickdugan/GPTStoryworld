@@ -1,0 +1,222 @@
+{
+  "checks": [
+    {
+      "name": "options_per_encounter",
+      "actual": 3.0,
+      "target": 3.2,
+      "pass": false
+    },
+    {
+      "name": "reactions_per_option",
+      "actual": 2.5,
+      "target": 2.5,
+      "pass": true
+    },
+    {
+      "name": "effects_per_reaction",
+      "actual": 4.0,
+      "target": 4.5,
+      "pass": false
+    },
+    {
+      "name": "desirability_vars_per_reaction",
+      "actual": 2.803,
+      "target": 1.6,
+      "pass": true
+    },
+    {
+      "name": "avg_encounter_words",
+      "actual": 178.1705,
+      "target": 50.0,
+      "pass": true
+    },
+    {
+      "name": "avg_reaction_words",
+      "actual": 29.0,
+      "target": 20.0,
+      "pass": true
+    },
+    {
+      "name": "pvalue_refs",
+      "actual": 1057.0,
+      "target": 1.0,
+      "pass": true
+    },
+    {
+      "name": "p2value_refs",
+      "actual": 263.0,
+      "target": 1.0,
+      "pass": true
+    },
+    {
+      "name": "visibility_gated_options_pct",
+      "actual": 18.1818,
+      "target": 3.0,
+      "pass": true
+    },
+    {
+      "name": "desirability_operator_variety",
+      "actual": 8.0,
+      "target": 3.0,
+      "pass": true
+    },
+    {
+      "name": "effect_operator_variety",
+      "actual": 3.0,
+      "target": 2.0,
+      "pass": true
+    },
+    {
+      "name": "desirability_operator_dominance",
+      "actual": 0.4427,
+      "target": 0.9,
+      "pass": true
+    },
+    {
+      "name": "effect_operator_dominance",
+      "actual": 0.4,
+      "target": 0.92,
+      "pass": true
+    },
+    {
+      "name": "effect_nonconstant_ratio",
+      "actual": 1.0,
+      "target": 0.999,
+      "pass": true
+    },
+    {
+      "name": "desirability_nonconstant_ratio",
+      "actual": 1.0,
+      "target": 0.999,
+      "pass": true
+    },
+    {
+      "name": "effect_script_complexity",
+      "actual": 1.25,
+      "target": 1.2,
+      "pass": true
+    },
+    {
+      "name": "desirability_script_complexity",
+      "actual": 2.2015,
+      "target": 1.2,
+      "pass": true
+    },
+    {
+      "name": "option_visibility_nonconstant_ratio",
+      "actual": 0.1818,
+      "target": 0.03,
+      "pass": true
+    },
+    {
+      "name": "option_visibility_complexity",
+      "actual": 1.2727,
+      "target": 0.6,
+      "pass": true
+    },
+    {
+      "name": "option_performability_nonconstant_ratio",
+      "actual": 1.0,
+      "target": 0.03,
+      "pass": true
+    },
+    {
+      "name": "option_performability_complexity",
+      "actual": 1.0,
+      "target": 0.6,
+      "pass": true
+    },
+    {
+      "name": "encounter_acceptability_nonconstant_ratio",
+      "actual": 0.9565,
+      "target": 0.2,
+      "pass": true
+    },
+    {
+      "name": "encounter_acceptability_complexity",
+      "actual": 0.9565,
+      "target": 0.5,
+      "pass": true
+    },
+    {
+      "name": "encounter_desirability_nonconstant_ratio",
+      "actual": 0.9565,
+      "target": 0.2,
+      "pass": true
+    },
+    {
+      "name": "encounter_desirability_complexity",
+      "actual": 1.913,
+      "target": 0.5,
+      "pass": true
+    },
+    {
+      "name": "validator_errors",
+      "actual": 0,
+      "target": 0,
+      "pass": true
+    }
+  ],
+  "pass": false,
+  "failures": [
+    "options_per_encounter",
+    "effects_per_reaction"
+  ],
+  "summary": {
+    "encounters": 92,
+    "avg_encounter_words": 178.17,
+    "avg_reaction_words": 29.0,
+    "avg_desirability_vars": 2.8,
+    "pvalue_refs": 1057,
+    "p2value_refs": 263,
+    "gated_options_pct": 18.18,
+    "desirability_operator_variety": 8,
+    "effect_operator_variety": 3,
+    "desirability_operator_dominance": 0.4427,
+    "effect_operator_dominance": 0.4,
+    "effect_nonconstant_ratio": 1.0,
+    "desirability_nonconstant_ratio": 1.0,
+    "option_visibility_nonconstant_ratio": 0.1818,
+    "option_performability_nonconstant_ratio": 1.0,
+    "encounter_acceptability_nonconstant_ratio": 0.9565,
+    "encounter_desirability_nonconstant_ratio": 0.9565
+  },
+  "operator_counts": {
+    "desirability": {
+      "Addition": 792,
+      "Multiplication": 131,
+      "If Then": 133,
+      "Arithmetic Comparator": 325,
+      "Subtraction": 132,
+      "Arithmetic Mean": 132,
+      "Or": 48,
+      "And": 96
+    },
+    "effects": {
+      "Nudge": 1320,
+      "Addition": 660,
+      "Multiplication": 1320
+    }
+  },
+  "polish_metrics": {
+    "effects_per_reaction": 4.0,
+    "reactions_per_option": 2.5,
+    "options_per_encounter": 3.0,
+    "desirability_vars_avg": 2.803030303030303,
+    "act2": [
+      0.0,
+      0.0,
+      0,
+      0
+    ],
+    "act3": [
+      0.0,
+      0.0,
+      0,
+      0
+    ],
+    "secret_checks": []
+  },
+  "validator_errors": [],
+  "storyworld": "C:\\projects\\GPTStoryworld\\storyworlds\\2-23-2026-batch\\if_institutional_deadlock_mediator_line_v1.json"
+}

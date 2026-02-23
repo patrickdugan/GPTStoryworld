@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import time
 from pathlib import Path
@@ -101,14 +102,33 @@ def _effect_scripts(main_char: str, witness_char: str, authored: List[str], i: i
     ptr_pa = _bn_ptr(main_char, [pa])
     ptr_p2 = _bn_ptr(main_char, [pa, witness_char])
 
-    # Mixed dynamic patterns, including reversal-style updates.
-    return [
-        _effect(ptr_a, _op("Nudge", ptr_a, _bn_const(0.018))),
-        _effect(ptr_b, _op("Addition", ptr_b, _bn_const(-0.014))),
-        _effect(ptr_c, _op("Multiplication", ptr_c, _bn_const(-0.82))),  # directional reversal pattern
-        _effect(ptr_a, _op("Nudge", ptr_a, _op("Multiplication", ptr_pa, _bn_const(0.05)))),
-        _effect(ptr_b, _op("Addition", ptr_b, _op("Multiplication", ptr_p2, _bn_const(0.08)))),
+    # Effect policy:
+    # - Nudge is dominant baseline (slow walk toward outcomes).
+    # - Blend is sparse and relationship-mediated.
+    # - Invert is rare (act-level dramatic reversal).
+    # - Arithmetic Mean is primarily for desirability scripts, not frequent in effects.
+    nudge_mag = 0.10 if (i % 30 == 0) else 0.03
+    effects = [
+        _effect(ptr_a, _op("Nudge", ptr_a, _bn_const(nudge_mag))),
+        _effect(ptr_b, _op("Nudge", ptr_b, _bn_const(0.03))),
+        _effect(ptr_c, _op("Nudge", ptr_c, _op("Multiplication", ptr_pa, _bn_const(0.03)))),
     ]
+    m = i % 100
+    avg_slots = {0, 50}  # 2% of reactions -> ~0.5% effects
+    invert_slots = {5, 15, 25, 35, 45, 55, 65, 75, 85, 95}  # 10% of reactions -> ~2.5% effects
+    blend_slots = {
+        1, 2, 6, 7, 11, 12, 16, 17, 21, 22, 26, 27, 31, 32,
+        36, 37, 41, 42, 46, 47, 51, 52, 56, 57, 61, 62, 66, 67,
+    }  # 28% of reactions -> ~7% effects
+    if m in avg_slots:
+        effects.append(_effect(ptr_a, _op("Arithmetic Mean", ptr_a, ptr_pa, ptr_p2)))  # rare avg in effects
+    elif m in invert_slots:
+        effects.append(_effect(ptr_c, _op("Multiplication", ptr_c, _bn_const(-0.88))))  # dramatic inversion
+    elif m in blend_slots:
+        effects.append(_effect(ptr_b, _op("Addition", ptr_b, _op("Multiplication", ptr_p2, _bn_const(0.10)))))  # blend
+    else:
+        effects.append(_effect(ptr_a, _op("Nudge", ptr_a, _bn_const(0.03))))
+    return effects
 
 
 def _visibility_gate(main_char: str, authored: List[str], i: int) -> Dict[str, Any]:
@@ -177,10 +197,16 @@ def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, An
         ).strip()
         enc["text_script"] = enc_text
 
-    # Compute target gates and apply mainly in mid/late encounters.
-    total_options = sum(len(e.get("options", []) or []) for e in editable)
-    target_gates = max(1, int(total_options * max(0.03, gate_pct)))
-    gated = 0
+    # Compute act-staged targets for visibility gates.
+    act_targets = {3: 0.05, 4: 0.10, 5: max(0.20, gate_pct)}
+    act_totals = {3: 0, 4: 0, 5: 0}
+    n_editable = max(1, len(editable))
+    for enc_i, enc in enumerate(editable):
+        act = min(5, (enc_i * 5) // n_editable + 1)
+        if act in act_totals:
+            act_totals[act] += len(enc.get("options", []) or [])
+    act_gate_caps = {a: max(1, int(math.ceil(act_totals[a] * pct))) for a, pct in act_targets.items() if act_totals[a] > 0}
+    act_gated = {3: 0, 4: 0, 5: 0}
 
     rxn_idx = 0
     for enc_i, enc in enumerate(editable):
@@ -201,10 +227,13 @@ def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, An
         for opt_i, opt in enumerate(options):
             # Performability also variable-aware while remaining permissive.
             opt["performability_script"] = _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.98))
-            # Gate only mid/late options to preserve onboarding flow.
-            if gated < target_gates and enc_i >= int(0.35 * max(1, len(editable))) and (opt_i + enc_i) % 3 == 0:
+            act = min(5, (enc_i * 5) // n_editable + 1)
+            # Explicit stage targets: Act III 5%, Act IV 10%, Act V 20%+.
+            if act in act_gate_caps and act_gated[act] < act_gate_caps[act] and (opt_i + enc_i) % 2 == 0:
                 opt["visibility_script"] = _visibility_gate(main_char, authored, rxn_idx)
-                gated += 1
+                act_gated[act] += 1
+            elif act in (3, 4, 5):
+                opt["visibility_script"] = True
             reactions = opt.get("reactions", []) or []
             for rxn in reactions:
                 rxn["desirability_script"] = _desirability_script(main_char, witness_char, authored, rxn_idx)

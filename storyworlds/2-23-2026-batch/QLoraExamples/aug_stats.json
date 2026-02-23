@@ -1,0 +1,25 @@
+{
+  "source_rows": 1200,
+  "target_total": 2000,
+  "added_rows": 800,
+  "rows_total": 2000,
+  "rows_train": 1940,
+  "rows_val": 60,
+  "task_histogram": {
+    "compile": 480,
+    "compression": 300,
+    "repair": 469,
+    "targeted_edit": 180,
+    "id_stability_repair": 115,
+    "schema_normalize": 114,
+    "desirability_refine": 114,
+    "ore_saturation_design": 114,
+    "spool_flow_rewrite": 114
+  },
+  "files": {
+    "train": "storyworlds\\2-23-2026-batch\\QLoraExamples\\aug_train.jsonl",
+    "val": "storyworlds\\2-23-2026-batch\\QLoraExamples\\aug_val.jsonl",
+    "train_messages": "storyworlds\\2-23-2026-batch\\QLoraExamples\\aug_train_messages.jsonl",
+    "val_messages": "storyworlds\\2-23-2026-batch\\QLoraExamples\\aug_val_messages.jsonl"
+  }
+}

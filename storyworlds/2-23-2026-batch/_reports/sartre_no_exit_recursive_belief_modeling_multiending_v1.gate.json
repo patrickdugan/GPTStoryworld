@@ -1,0 +1,225 @@
+{
+  "checks": [
+    {
+      "name": "options_per_encounter",
+      "actual": 3.0,
+      "target": 3.2,
+      "pass": false
+    },
+    {
+      "name": "reactions_per_option",
+      "actual": 2.4978,
+      "target": 2.5,
+      "pass": false
+    },
+    {
+      "name": "effects_per_reaction",
+      "actual": 4.0,
+      "target": 4.5,
+      "pass": false
+    },
+    {
+      "name": "desirability_vars_per_reaction",
+      "actual": 2.8025,
+      "target": 1.6,
+      "pass": true
+    },
+    {
+      "name": "avg_encounter_words",
+      "actual": 185.1467,
+      "target": 50.0,
+      "pass": true
+    },
+    {
+      "name": "avg_reaction_words",
+      "actual": 29.0,
+      "target": 20.0,
+      "pass": true
+    },
+    {
+      "name": "pvalue_refs",
+      "actual": 902.0,
+      "target": 1.0,
+      "pass": true
+    },
+    {
+      "name": "p2value_refs",
+      "actual": 1346.0,
+      "target": 1.0,
+      "pass": true
+    },
+    {
+      "name": "visibility_gated_options_pct",
+      "actual": 7.1111,
+      "target": 3.0,
+      "pass": true
+    },
+    {
+      "name": "desirability_operator_variety",
+      "actual": 8.0,
+      "target": 3.0,
+      "pass": true
+    },
+    {
+      "name": "effect_operator_variety",
+      "actual": 4.0,
+      "target": 2.0,
+      "pass": true
+    },
+    {
+      "name": "desirability_operator_dominance",
+      "actual": 0.5004,
+      "target": 0.9,
+      "pass": true
+    },
+    {
+      "name": "effect_operator_dominance",
+      "actual": 0.4,
+      "target": 0.92,
+      "pass": true
+    },
+    {
+      "name": "effect_nonconstant_ratio",
+      "actual": 1.0,
+      "target": 0.999,
+      "pass": true
+    },
+    {
+      "name": "desirability_nonconstant_ratio",
+      "actual": 1.0,
+      "target": 0.999,
+      "pass": true
+    },
+    {
+      "name": "effect_script_complexity",
+      "actual": 1.25,
+      "target": 1.2,
+      "pass": true
+    },
+    {
+      "name": "desirability_script_complexity",
+      "actual": 2.2011,
+      "target": 1.2,
+      "pass": true
+    },
+    {
+      "name": "option_visibility_nonconstant_ratio",
+      "actual": 0.0711,
+      "target": 0.03,
+      "pass": true
+    },
+    {
+      "name": "option_visibility_complexity",
+      "actual": 0.4978,
+      "target": 0.6,
+      "pass": false
+    },
+    {
+      "name": "option_performability_nonconstant_ratio",
+      "actual": 1.0,
+      "target": 0.03,
+      "pass": true
+    },
+    {
+      "name": "option_performability_complexity",
+      "actual": 1.0,
+      "target": 0.6,
+      "pass": true
+    },
+    {
+      "name": "encounter_acceptability_nonconstant_ratio",
+      "actual": 0.95,
+      "target": 0.2,
+      "pass": true
+    },
+    {
+      "name": "encounter_acceptability_complexity",
+      "actual": 0.95,
+      "target": 0.5,
+      "pass": true
+    },
+    {
+      "name": "encounter_desirability_nonconstant_ratio",
+      "actual": 0.95,
+      "target": 0.2,
+      "pass": true
+    },
+    {
+      "name": "encounter_desirability_complexity",
+      "actual": 1.9,
+      "target": 0.5,
+      "pass": true
+    },
+    {
+      "name": "validator_errors",
+      "actual": 0,
+      "target": 0,
+      "pass": true
+    }
+  ],
+  "pass": false,
+  "failures": [
+    "options_per_encounter",
+    "reactions_per_option",
+    "effects_per_reaction",
+    "option_visibility_complexity"
+  ],
+  "summary": {
+    "encounters": 80,
+    "avg_encounter_words": 185.15,
+    "avg_reaction_words": 29.0,
+    "avg_desirability_vars": 2.8,
+    "pvalue_refs": 902,
+    "p2value_refs": 1346,
+    "gated_options_pct": 7.11,
+    "desirability_operator_variety": 8,
+    "effect_operator_variety": 4,
+    "desirability_operator_dominance": 0.5004,
+    "effect_operator_dominance": 0.4,
+    "effect_nonconstant_ratio": 1.0,
+    "desirability_nonconstant_ratio": 1.0,
+    "option_visibility_nonconstant_ratio": 0.0711,
+    "option_performability_nonconstant_ratio": 1.0,
+    "encounter_acceptability_nonconstant_ratio": 0.95,
+    "encounter_desirability_nonconstant_ratio": 0.95
+  },
+  "operator_counts": {
+    "desirability": {
+      "Addition": 675,
+      "Multiplication": 111,
+      "If Then": 113,
+      "Arithmetic Comparator": 177,
+      "Subtraction": 114,
+      "Arithmetic Mean": 111,
+      "Or": 16,
+      "And": 32
+    },
+    "effects": {
+      "Nudge": 562,
+      "Addition": 562,
+      "Multiplication": 1124,
+      "Arithmetic Mean": 562
+    }
+  },
+  "polish_metrics": {
+    "effects_per_reaction": 4.0,
+    "reactions_per_option": 2.497777777777778,
+    "options_per_encounter": 3.0,
+    "desirability_vars_avg": 2.802491103202847,
+    "act2": [
+      0.0,
+      0.0,
+      45,
+      0
+    ],
+    "act3": [
+      4.444444444444445,
+      4.0,
+      45,
+      2
+    ],
+    "secret_checks": []
+  },
+  "validator_errors": [],
+  "storyworld": "C:\\projects\\GPTStoryworld\\storyworlds\\2-23-2026-batch\\sartre_no_exit_recursive_belief_modeling_multiending_v1.json"
+}

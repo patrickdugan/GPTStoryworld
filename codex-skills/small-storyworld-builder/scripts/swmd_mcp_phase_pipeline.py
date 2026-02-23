@@ -97,6 +97,47 @@ def _phase_prompt(phase: str, packet: Dict[str, Any], act_label: str) -> str:
     raise ValueError(f"unsupported phase: {phase}")
 
 
+def _load_qlora_examples(path: Path) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    if not path.exists():
+        return rows
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        s = raw.strip()
+        if not s:
+            continue
+        try:
+            row = json.loads(s)
+        except Exception:
+            continue
+        if isinstance(row, dict) and "instruction" in row and "output" in row:
+            rows.append(row)
+    return rows
+
+
+def _fewshot_snippet(
+    examples: List[Dict[str, Any]],
+    phase: str,
+    encounter_id: str,
+    count: int,
+    max_chars_each: int = 340,
+) -> str:
+    if not examples or count <= 0:
+        return ""
+    # Use compile/compression/repair/edit examples for build-like phases only.
+    if phase not in ("encounter_build", "late_stage_holistic"):
+        return ""
+    salt = sum(ord(ch) for ch in encounter_id) + len(phase) * 17
+    start = salt % len(examples)
+    picked = [examples[(start + i) % len(examples)] for i in range(min(count, len(examples)))]
+    lines = ["FEWSHOT_TRANSFORMS"]
+    for i, ex in enumerate(picked, start=1):
+        ins = str(ex.get("instruction", ""))[:max_chars_each]
+        out = str(ex.get("output", ""))[:max_chars_each]
+        lines.append(f"[{i}] INSTRUCTION: {ins}")
+        lines.append(f"[{i}] OUTPUT_STYLE: {out}")
+    return "\n".join(lines) + "\n"
+
+
 def _load_model(model_path: Path, adapter_path: Path | None):
     import torch
     from peft import PeftModel
@@ -195,6 +236,8 @@ def main() -> int:
     p.add_argument("--temperature", type=float, default=0.0)
     p.add_argument("--out-jsonl", type=str, required=True)
     p.add_argument("--state-json", type=str, required=True)
+    p.add_argument("--qlora-examples-jsonl", type=str, default="")
+    p.add_argument("--fewshot-count", type=int, default=0)
     p.add_argument("--apply", action="store_true")
     args = p.parse_args()
 
@@ -203,6 +246,7 @@ def main() -> int:
     swmd_path = Path(args.swmd)
     doc = swmd_tools.parse_swmd_min(swmd_path)
     ids = doc.encounter_order[args.start_index : args.start_index + args.max_encounters]
+    qlora_examples = _load_qlora_examples(Path(args.qlora_examples_jsonl)) if args.qlora_examples_jsonl else []
 
     tok, model = _load_model(Path(args.model_path), Path(args.adapter_path) if args.adapter_path else None)
     out_path = Path(args.out_jsonl)
@@ -225,6 +269,9 @@ def main() -> int:
                 )
                 act = _act_label(i, len(ids))
                 prompt = _phase_prompt(phase, packet, act)
+                fewshot = _fewshot_snippet(qlora_examples, phase, encounter_id, args.fewshot_count)
+                if fewshot:
+                    prompt = f"{prompt}\n\n{fewshot}"
                 t0 = time.time()
                 output = _generate(tok, model, prompt, args.max_new_tokens, args.temperature)
                 latency_ms = int((time.time() - t0) * 1000)

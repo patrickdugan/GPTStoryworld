@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "swmd_train_0_1.schema.json",
+  "title": "SWMD Train Frame 0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "operation", "input_spec"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "SWMD-TRAIN-0.1"
+    },
+    "operation": {
+      "type": "string",
+      "enum": [
+        "compile",
+        "compression",
+        "repair",
+        "targeted_edit",
+        "desirability_refine",
+        "ore_saturation_design",
+        "spool_flow_rewrite",
+        "transition_extract",
+        "gate_schedule_edit",
+        "operator_mix_tune",
+        "id_stability_repair",
+        "schema_normalize"
+      ]
+    },
+    "input_spec": {
+      "type": "object"
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}
