@@ -12,8 +12,21 @@ Judge-and-revise loop for storyworld text quality using an OpenAI model as evalu
 ```powershell
 python storyworld-text-quality-env/evaluate_text_quality.py `
   --storyworld C:\projects\GPTStoryworld\storyworlds\gone_with_the_flux_capacitor_v6_textgate.json `
+  --source-format auto `
   --judge-model gpt-5-mini `
   --out C:\projects\GPTStoryworld\logs\text_quality\gone_v6_judge.json
+```
+
+SWMD-first (token-efficient):
+```powershell
+python storyworld-text-quality-env/evaluate_text_quality.py `
+  --storyworld C:\projects\GPTStoryworld\storyworlds\2-23-2026-batch\adapt_casablanca_crossroads_at_ricks_v1.json `
+  --source-format swmd `
+  --swmd-path C:\projects\GPTStoryworld\storyworlds\2-23-2026-batch\adapt_casablanca_crossroads_at_ricks_v1.swmd.min.md `
+  --judge-model gpt-4.1-mini `
+  --max-encounters 24 `
+  --max-reactions 72 `
+  --out C:\projects\GPTStoryworld\logs\text_quality\casablanca_swmd_judge.json
 ```
 
 Iterative loop:
@@ -37,3 +50,5 @@ Lookup order:
 ## Notes
 - Use `--dry-run` for offline smoke tests (heuristic scoring only).
 - Loop only rewrites encounter/reaction text fields; IDs and mechanics are preserved.
+- Judge now scores extra dimensions for mechanics relevance, characterization relevance, and holistic storyworld theme coherence (via a truncated `holistic_corpus`).
+- `--source-format auto` prefers sibling SWMD files (`.swmd.min.md`, then `.swmd.md`) when present to cut token load.
