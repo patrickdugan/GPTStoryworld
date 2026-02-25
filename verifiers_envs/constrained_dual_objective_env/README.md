@@ -9,5 +9,5 @@ If hard constitutional constraints fail, final score is clipped regardless of ne
 
 ## Usage
 ```powershell
-python src/constrained_dual_objective_env.py --constitutional examples/constitutional_result.json --needle examples/needle_result.json
+python src/constrained_dual_objective_env.py --constitutional examples/sample_constitutional_result.json --needle examples/sample_needle_result.json
 ```
