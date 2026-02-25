@@ -1,0 +1,12 @@
+﻿# Verifiers Envs
+
+Organized verifier environments for storyworld benchmarking:
+
+1. `constitutional_rubric_env`
+- Moral/constitutional scoring with weighted priority variables.
+
+2. `needle_pathfinding_env`
+- Needle-in-haystack ending inference benchmark (`plays_to_target`).
+
+3. `constrained_dual_objective_env`
+- Joint benchmark with means/end constraints (`end does not justify means`).
