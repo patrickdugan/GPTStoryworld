@@ -1,0 +1,20 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Needle Pathfinding Attempts",
+  "type": "object",
+  "properties": {
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "play_index": {"type": "integer", "minimum": 1},
+          "ending_id": {"type": "string"},
+          "path_notes": {"type": "string"}
+        },
+        "required": ["play_index", "ending_id"]
+      }
+    }
+  },
+  "required": ["attempts"]
+}
