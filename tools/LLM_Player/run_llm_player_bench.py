@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -38,6 +39,23 @@ def _script_text(value: Any) -> str:
 
 def _is_terminal(encounter: Dict[str, Any]) -> bool:
     return not bool(encounter.get("options") or [])
+
+
+def _pick_option_id_from_text(text: str, option_ids: List[str]) -> str:
+    s = str(text or "")
+    if not s or not option_ids:
+        return ""
+    ordered = sorted({str(x) for x in option_ids if str(x)}, key=len, reverse=True)
+    for oid in ordered:
+        pat = re.compile(rf"(?<![A-Za-z0-9_]){re.escape(oid)}(?![A-Za-z0-9_])", flags=re.IGNORECASE)
+        if pat.search(s):
+            return oid
+    m = re.search(r"PICK\s+(\d+)", s, flags=re.IGNORECASE)
+    if m:
+        ix = int(m.group(1))
+        if 1 <= ix <= len(ordered):
+            return ordered[ix - 1]
+    return ""
 
 
 def load_storyworld(path: Path) -> Dict[str, Any]:
@@ -239,6 +257,61 @@ class HFRunner:
             "latency_sec": round(latency, 4),
         }
 
+    def pick_option(self, prompt: str, option_ids: List[str], max_new_tokens: int = 24) -> Dict[str, Any]:
+        assert self.model is not None
+        assert self.tokenizer is not None
+        import torch  # type: ignore
+
+        tok = self.tokenizer
+        model = self.model
+        valid_ids = [str(x) for x in option_ids if str(x)]
+        sys_msg = (
+            "Choose exactly one option id from the allowed list. "
+            "Return only the id token and nothing else."
+        )
+        user_msg = (
+            f"{prompt}\n\n"
+            f"Allowed option ids: {', '.join(valid_ids)}\n"
+            "Output format: <option_id>"
+        )
+        messages = [
+            {"role": "system", "content": sys_msg},
+            {"role": "user", "content": user_msg},
+        ]
+        if hasattr(tok, "apply_chat_template"):
+            rendered = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        else:
+            rendered = f"System: {sys_msg}\nUser: {user_msg}\nAssistant:"
+
+        encoded = tok(rendered, return_tensors="pt")
+        device = next(model.parameters()).device
+        encoded = {k: v.to(device) for k, v in encoded.items()}
+
+        t0 = time.time()
+        with torch.no_grad():
+            out_ids = model.generate(
+                **encoded,
+                max_new_tokens=max(8, int(max_new_tokens)),
+                do_sample=False,
+                pad_token_id=tok.eos_token_id,
+            )
+        latency = time.time() - t0
+        new_ids = out_ids[0][encoded["input_ids"].shape[1] :]
+        raw_text = tok.decode(new_ids, skip_special_tokens=True).strip()
+        chosen = _pick_option_id_from_text(raw_text, valid_ids)
+        fallback = False
+        if not chosen and valid_ids:
+            chosen = valid_ids[0]
+            fallback = True
+        return {
+            "option_id": chosen,
+            "raw_text": raw_text,
+            "fallback": bool(fallback),
+            "prompt_tokens": int(encoded["input_ids"].shape[1]),
+            "completion_tokens": int(new_ids.shape[0]),
+            "latency_sec": round(latency, 4),
+        }
+
 
 def fake_generate(prompt: str, ix: int) -> Dict[str, Any]:
     text = (
@@ -315,6 +388,35 @@ def _effect_delta_tokens(effects: List[Dict[str, Any]], max_items: int) -> List[
     return out
 
 
+def _compact_text(text: str, max_len: int) -> str:
+    s = " ".join(str(text or "").split())
+    if len(s) <= max(1, int(max_len)):
+        return s
+    return s[: max(1, int(max_len))].rstrip() + "..."
+
+
+def _build_turn_response(
+    encounter_id: str,
+    chosen_id: str,
+    chosen_text: str,
+    reaction_text: str,
+    next_id: str,
+    deltas: List[str],
+) -> str:
+    parts = [
+        f"encounter={encounter_id}",
+        f"pick={chosen_id}",
+        f"option={_compact_text(chosen_text, 96)}",
+    ]
+    if reaction_text:
+        parts.append(f"reaction={_compact_text(reaction_text, 96)}")
+    if next_id:
+        parts.append(f"next={next_id}")
+    if deltas:
+        parts.append("deltas=" + ",".join(deltas))
+    return " | ".join(parts)
+
+
 def _build_turn_prompt(
     title: str,
     about: str,
@@ -323,8 +425,11 @@ def _build_turn_prompt(
     options: List[Tuple[str, str]],
     diary: List[str],
     context_window: int,
+    context_char_cap: int,
 ) -> str:
     diary_ctx = "\n".join(diary[-max(0, int(context_window)) :]) if diary else "(none)"
+    if int(context_char_cap) > 0 and len(diary_ctx) > int(context_char_cap):
+        diary_ctx = "... " + diary_ctx[-int(context_char_cap) :]
     options_txt = "\n".join([f"- {oid}: {otxt}" for oid, otxt in options])
     return (
         f"Storyworld: {title}\n"
@@ -346,8 +451,12 @@ def run_playthrough_condition(
     playthroughs: int,
     max_steps: int,
     context_window: int,
+    context_char_cap: int,
     max_diary_effects: int,
     include_option_text_in_diary: bool,
+    include_scene_text_in_diary: bool,
+    selection_mode: str,
+    pick_max_new_tokens: int,
     dry_run: bool,
 ) -> Dict[str, Any]:
     ensure_dir(out_dir)
@@ -396,8 +505,11 @@ def run_playthrough_condition(
                 options=[(oid, otext) for oid, otext, _ in options],
                 diary=diary,
                 context_window=context_window,
+                context_char_cap=context_char_cap,
             )
 
+            pick_raw = ""
+            pick_fallback = False
             if dry_run:
                 chosen_idx = 0
                 chosen = options[chosen_idx]
@@ -409,18 +521,37 @@ def run_playthrough_condition(
                 }
             else:
                 assert runner is not None
-                ranked: List[Tuple[float, Dict[str, Any], Tuple[str, str, Dict[str, Any]]]] = []
-                for opt in options:
-                    sp = runner.score_option(prompt, opt[1])
-                    ranked.append((float(sp["score"]), sp, opt))
-                ranked.sort(key=lambda x: x[0], reverse=True)
-                _, score_pack, chosen = ranked[0]
+                if str(selection_mode) == "score_all":
+                    ranked: List[Tuple[float, Dict[str, Any], Tuple[str, str, Dict[str, Any]]]] = []
+                    for opt in options:
+                        sp = runner.score_option(prompt, opt[1])
+                        ranked.append((float(sp["score"]), sp, opt))
+                    ranked.sort(key=lambda x: x[0], reverse=True)
+                    _, score_pack, chosen = ranked[0]
+                else:
+                    pick = runner.pick_option(
+                        prompt=prompt,
+                        option_ids=[oid for oid, _, _ in options],
+                        max_new_tokens=max(8, int(pick_max_new_tokens)),
+                    )
+                    pick_raw = str(pick.get("raw_text", "") or "")
+                    pick_fallback = bool(pick.get("fallback", False))
+                    chosen_id = str(pick.get("option_id", "") or "")
+                    by_id = {oid: (oid, otext, oobj) for oid, otext, oobj in options}
+                    chosen = by_id.get(chosen_id, options[0])
+                    score_pack = {
+                        "score": 0.0,
+                        "prompt_tokens": int(pick.get("prompt_tokens", 0) or 0),
+                        "completion_tokens": int(pick.get("completion_tokens", 0) or 0),
+                        "latency_sec": float(pick.get("latency_sec", 0.0) or 0.0),
+                    }
 
             chosen_id, chosen_text, chosen_opt = chosen
             cons = _option_consequences(chosen_opt)
             next_id = cons[0] if cons else ""
             reaction = _reaction_for_consequence(chosen_opt, next_id if next_id else "")
             reaction_id = str((reaction or {}).get("id", "") or "")
+            reaction_text = _script_text((reaction or {}).get("text_script"))
             deltas = _effect_delta_tokens(_effect_items(reaction), max_diary_effects)
             diary_token = f"p{play_ix:02d}t{step_ix:02d} e={cur} o={chosen_id}"
             if reaction_id:
@@ -428,10 +559,23 @@ def run_playthrough_condition(
             if next_id:
                 diary_token += f" -> {next_id}"
             if deltas:
-                diary_token += " Δ[" + ",".join(deltas) + "]"
+                diary_token += " d[" + ",".join(deltas) + "]"
             if include_option_text_in_diary:
-                diary_token += f" txt={chosen_text[:80].replace(chr(10), ' ')}"
+                diary_token += f" ot={_compact_text(chosen_text, 80)}"
+            if include_scene_text_in_diary:
+                diary_token += f" sc={_compact_text(_script_text(enc.get('text_script')), 64)}"
+            if reaction_text:
+                diary_token += f" rx={_compact_text(reaction_text, 64)}"
             local_diary.append(diary_token)
+
+            response_text = _build_turn_response(
+                encounter_id=cur,
+                chosen_id=chosen_id,
+                chosen_text=chosen_text,
+                reaction_text=reaction_text,
+                next_id=next_id,
+                deltas=deltas,
+            )
 
             rows.append(
                 {
@@ -441,13 +585,17 @@ def run_playthrough_condition(
                     "encounter_id": cur,
                     "is_terminal": False,
                     "prompt_text": prompt,
-                    "response_text": f"Chosen option: {chosen_id} | {chosen_text}",
+                    "response_text": response_text,
                     "chosen_option_id": chosen_id,
                     "chosen_option_text": chosen_text,
                     "chosen_reaction_id": reaction_id,
+                    "chosen_reaction_text": reaction_text,
                     "next_encounter_id": next_id,
                     "diary_diff": diary_token,
                     "effect_deltas": deltas,
+                    "selection_mode": str(selection_mode),
+                    "pick_raw_text": pick_raw,
+                    "pick_fallback": bool(pick_fallback),
                     "prompt_tokens": int(score_pack["prompt_tokens"]),
                     "completion_tokens": int(score_pack["completion_tokens"]),
                     "latency_sec": float(score_pack["latency_sec"]),
@@ -469,6 +617,7 @@ def run_playthrough_condition(
     summary = {
         "model_label": label,
         "run_mode": "playthrough",
+        "selection_mode": str(selection_mode),
         "playthroughs_requested": int(playthroughs),
         "playthroughs_completed": int(completed),
         "num_prompts": len(rows),
@@ -626,9 +775,11 @@ def export_bench_rows(run_dir: Path, baseline_dir: Path, adapter_dir: Path) -> D
 def main() -> int:
     ap = argparse.ArgumentParser(description="LLM Player benchmark harness for storyworld encounter prompts.")
     ap.add_argument("--run-mode", choices=["playthrough", "encounter_bench"], default="playthrough")
+    ap.add_argument("--selection-mode", choices=["generate_pick", "score_all"], default="generate_pick")
     ap.add_argument("--storyworld", required=True, help="Path to storyworld JSON.")
     ap.add_argument("--base-model-path", required=True, help="HF base model path (Qwen baseline).")
     ap.add_argument("--adapter-path", default="", help="Optional PEFT adapter path for constitution-tuned condition.")
+    ap.add_argument("--adapter-only", action=argparse.BooleanOptionalAction, default=False)
     ap.add_argument("--output-root", default=r"D:\Research_Engine\Storyworld_LLM_Plays")
     ap.add_argument("--run-id", default="")
     ap.add_argument("--max-encounters", type=int, default=0, help="Legacy encounter_bench cap.")
@@ -636,8 +787,11 @@ def main() -> int:
     ap.add_argument("--playthroughs", type=int, default=2)
     ap.add_argument("--max-steps", type=int, default=128)
     ap.add_argument("--context-window", type=int, default=48)
+    ap.add_argument("--context-char-cap", type=int, default=6000)
     ap.add_argument("--max-diary-effects", type=int, default=4)
-    ap.add_argument("--include-option-text-in-diary", action="store_true")
+    ap.add_argument("--include-option-text-in-diary", action=argparse.BooleanOptionalAction, default=True)
+    ap.add_argument("--include-scene-text-in-diary", action=argparse.BooleanOptionalAction, default=True)
+    ap.add_argument("--pick-max-new-tokens", type=int, default=24)
     ap.add_argument("--max-new-tokens", type=int, default=180)
     ap.add_argument("--temperature", type=float, default=0.2)
     ap.add_argument("--top-p", type=float, default=0.9)
@@ -646,6 +800,8 @@ def main() -> int:
     ap.add_argument("--dtype", choices=["auto", "float16", "bfloat16", "float32"], default="auto")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    if bool(args.adapter_only) and (not str(args.adapter_path).strip()):
+        raise SystemExit("--adapter-only requires --adapter-path.")
 
     story_path = Path(args.storyworld).resolve()
     data = load_storyworld(story_path)
@@ -672,12 +828,18 @@ def main() -> int:
             "storyworld": str(story_path),
             "base_model_path": args.base_model_path,
             "adapter_path": args.adapter_path,
+            "adapter_only": bool(args.adapter_only),
             "run_mode": str(args.run_mode),
+            "selection_mode": str(args.selection_mode),
             "max_encounters": int(args.max_encounters),
             "include_terminals": bool(args.include_terminals),
             "playthroughs": int(args.playthroughs),
             "max_steps": int(args.max_steps),
             "context_window": int(args.context_window),
+            "context_char_cap": int(args.context_char_cap),
+            "pick_max_new_tokens": int(args.pick_max_new_tokens),
+            "include_option_text_in_diary": bool(args.include_option_text_in_diary),
+            "include_scene_text_in_diary": bool(args.include_scene_text_in_diary),
             "max_new_tokens": int(args.max_new_tokens),
             "temperature": float(args.temperature),
             "top_p": float(args.top_p),
@@ -701,37 +863,43 @@ def main() -> int:
         ],
     )
 
-    baseline_runner = None if args.dry_run else HFRunner(
-        model_path=str(args.base_model_path),
-        adapter_path="",
-        device_map=str(args.device_map),
-        dtype=str(args.dtype),
-    )
-    if str(args.run_mode) == "playthrough":
-        baseline_summary = run_playthrough_condition(
-            label="baseline_qwen_1_7b",
-            data=data,
-            out_dir=run_dir / "baseline_qwen_1_7b",
-            runner=baseline_runner,
-            playthroughs=int(args.playthroughs),
-            max_steps=int(args.max_steps),
-            context_window=int(args.context_window),
-            max_diary_effects=int(args.max_diary_effects),
-            include_option_text_in_diary=bool(args.include_option_text_in_diary),
-            dry_run=bool(args.dry_run),
+    baseline_summary: Dict[str, Any] = {"status": "skipped_adapter_only"}
+    if not bool(args.adapter_only):
+        baseline_runner = None if args.dry_run else HFRunner(
+            model_path=str(args.base_model_path),
+            adapter_path="",
+            device_map=str(args.device_map),
+            dtype=str(args.dtype),
         )
-    else:
-        baseline_summary = run_condition(
-            label="baseline_qwen_1_7b",
-            prompts=prompts,
-            out_dir=run_dir / "baseline_qwen_1_7b",
-            runner=baseline_runner,
-            max_new_tokens=int(args.max_new_tokens),
-            temperature=float(args.temperature),
-            top_p=float(args.top_p),
-            do_sample=bool(args.do_sample),
-            dry_run=bool(args.dry_run),
-        )
+        if str(args.run_mode) == "playthrough":
+            baseline_summary = run_playthrough_condition(
+                label="baseline_qwen_1_7b",
+                data=data,
+                out_dir=run_dir / "baseline_qwen_1_7b",
+                runner=baseline_runner,
+                playthroughs=int(args.playthroughs),
+                max_steps=int(args.max_steps),
+                context_window=int(args.context_window),
+                context_char_cap=int(args.context_char_cap),
+                max_diary_effects=int(args.max_diary_effects),
+                include_option_text_in_diary=bool(args.include_option_text_in_diary),
+                include_scene_text_in_diary=bool(args.include_scene_text_in_diary),
+                selection_mode=str(args.selection_mode),
+                pick_max_new_tokens=int(args.pick_max_new_tokens),
+                dry_run=bool(args.dry_run),
+            )
+        else:
+            baseline_summary = run_condition(
+                label="baseline_qwen_1_7b",
+                prompts=prompts,
+                out_dir=run_dir / "baseline_qwen_1_7b",
+                runner=baseline_runner,
+                max_new_tokens=int(args.max_new_tokens),
+                temperature=float(args.temperature),
+                top_p=float(args.top_p),
+                do_sample=bool(args.do_sample),
+                dry_run=bool(args.dry_run),
+            )
 
     adapter_summary = {"status": "skipped_no_adapter"}
     if args.adapter_path:
@@ -750,8 +918,12 @@ def main() -> int:
                 playthroughs=int(args.playthroughs),
                 max_steps=int(args.max_steps),
                 context_window=int(args.context_window),
+                context_char_cap=int(args.context_char_cap),
                 max_diary_effects=int(args.max_diary_effects),
                 include_option_text_in_diary=bool(args.include_option_text_in_diary),
+                include_scene_text_in_diary=bool(args.include_scene_text_in_diary),
+                selection_mode=str(args.selection_mode),
+                pick_max_new_tokens=int(args.pick_max_new_tokens),
                 dry_run=bool(args.dry_run),
             )
         else:
@@ -767,21 +939,28 @@ def main() -> int:
                 dry_run=bool(args.dry_run),
             )
 
-    comparison = compare_conditions(
-        run_dir=run_dir,
-        baseline_dir=run_dir / "baseline_qwen_1_7b",
-        adapter_dir=run_dir / "adapter_claude_constitution_qlora",
-    )
-    bench_rows_export = export_bench_rows(
-        run_dir=run_dir,
-        baseline_dir=run_dir / "baseline_qwen_1_7b",
-        adapter_dir=run_dir / "adapter_claude_constitution_qlora",
-    )
+    if bool(args.adapter_only):
+        comparison = {"status": "skipped_adapter_only"}
+        bench_rows_export = {"status": "skipped_adapter_only"}
+    else:
+        comparison = compare_conditions(
+            run_dir=run_dir,
+            baseline_dir=run_dir / "baseline_qwen_1_7b",
+            adapter_dir=run_dir / "adapter_claude_constitution_qlora",
+        )
+        bench_rows_export = export_bench_rows(
+            run_dir=run_dir,
+            baseline_dir=run_dir / "baseline_qwen_1_7b",
+            adapter_dir=run_dir / "adapter_claude_constitution_qlora",
+        )
     manifest = {
         "run_id": run_id,
         "run_dir": str(run_dir),
         "storyworld": str(story_path),
         "prompt_count": len(prompts),
+        "run_mode": str(args.run_mode),
+        "selection_mode": str(args.selection_mode),
+        "adapter_only": bool(args.adapter_only),
         "baseline_summary": baseline_summary,
         "adapter_summary": adapter_summary,
         "comparison": comparison,
