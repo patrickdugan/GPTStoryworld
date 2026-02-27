@@ -426,18 +426,22 @@ def _build_turn_prompt(
     diary: List[str],
     context_window: int,
     context_char_cap: int,
+    about_char_cap: int,
+    scene_char_cap: int,
 ) -> str:
     diary_ctx = "\n".join(diary[-max(0, int(context_window)) :]) if diary else "(none)"
     if int(context_char_cap) > 0 and len(diary_ctx) > int(context_char_cap):
         diary_ctx = "... " + diary_ctx[-int(context_char_cap) :]
+    about_txt = _compact_text(about, max(1, int(about_char_cap)))
+    scene_txt = _compact_text(enc_text, max(1, int(scene_char_cap)))
     options_txt = "\n".join([f"- {oid}: {otxt}" for oid, otxt in options])
     return (
         f"Storyworld: {title}\n"
-        f"About: {about}\n"
+        f"About: {about_txt}\n"
         "Compact Prior Diary (diffs):\n"
         f"{diary_ctx}\n\n"
         f"Encounter: {enc_id}\n"
-        f"Scene:\n{enc_text}\n\n"
+        f"Scene:\n{scene_txt}\n\n"
         "Choose one option from this fixed list:\n"
         f"{options_txt}\n"
     )
@@ -452,6 +456,8 @@ def run_playthrough_condition(
     max_steps: int,
     context_window: int,
     context_char_cap: int,
+    about_char_cap: int,
+    scene_char_cap: int,
     max_diary_effects: int,
     include_option_text_in_diary: bool,
     include_scene_text_in_diary: bool,
@@ -506,6 +512,8 @@ def run_playthrough_condition(
                 diary=diary,
                 context_window=context_window,
                 context_char_cap=context_char_cap,
+                about_char_cap=about_char_cap,
+                scene_char_cap=scene_char_cap,
             )
 
             pick_raw = ""
@@ -788,6 +796,8 @@ def main() -> int:
     ap.add_argument("--max-steps", type=int, default=128)
     ap.add_argument("--context-window", type=int, default=48)
     ap.add_argument("--context-char-cap", type=int, default=6000)
+    ap.add_argument("--about-char-cap", type=int, default=240)
+    ap.add_argument("--scene-char-cap", type=int, default=900)
     ap.add_argument("--max-diary-effects", type=int, default=4)
     ap.add_argument("--include-option-text-in-diary", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--include-scene-text-in-diary", action=argparse.BooleanOptionalAction, default=True)
@@ -837,6 +847,8 @@ def main() -> int:
             "max_steps": int(args.max_steps),
             "context_window": int(args.context_window),
             "context_char_cap": int(args.context_char_cap),
+            "about_char_cap": int(args.about_char_cap),
+            "scene_char_cap": int(args.scene_char_cap),
             "pick_max_new_tokens": int(args.pick_max_new_tokens),
             "include_option_text_in_diary": bool(args.include_option_text_in_diary),
             "include_scene_text_in_diary": bool(args.include_scene_text_in_diary),
@@ -881,6 +893,8 @@ def main() -> int:
                 max_steps=int(args.max_steps),
                 context_window=int(args.context_window),
                 context_char_cap=int(args.context_char_cap),
+                about_char_cap=int(args.about_char_cap),
+                scene_char_cap=int(args.scene_char_cap),
                 max_diary_effects=int(args.max_diary_effects),
                 include_option_text_in_diary=bool(args.include_option_text_in_diary),
                 include_scene_text_in_diary=bool(args.include_scene_text_in_diary),
@@ -919,6 +933,8 @@ def main() -> int:
                 max_steps=int(args.max_steps),
                 context_window=int(args.context_window),
                 context_char_cap=int(args.context_char_cap),
+                about_char_cap=int(args.about_char_cap),
+                scene_char_cap=int(args.scene_char_cap),
                 max_diary_effects=int(args.max_diary_effects),
                 include_option_text_in_diary=bool(args.include_option_text_in_diary),
                 include_scene_text_in_diary=bool(args.include_scene_text_in_diary),
