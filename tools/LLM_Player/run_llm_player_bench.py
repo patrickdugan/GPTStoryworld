@@ -463,6 +463,9 @@ def run_playthrough_condition(
     include_scene_text_in_diary: bool,
     selection_mode: str,
     pick_max_new_tokens: int,
+    stop_on_cycle: bool,
+    max_cycle_repeats: int,
+    max_unique_encounters: int,
     dry_run: bool,
 ) -> Dict[str, Any]:
     ensure_dir(out_dir)
@@ -481,16 +484,30 @@ def run_playthrough_condition(
     global_diary: List[str] = []
     completed = 0
 
+    safety_step_cap = 2048
+    step_limit = int(max_steps) if int(max_steps) > 0 else safety_step_cap
+
     for play_ix in range(1, max(1, int(playthroughs)) + 1):
         cur = start_id
         local_diary: List[str] = []
         reached_terminal = False
-        for step_ix in range(1, max(1, int(max_steps)) + 1):
+        visited_counts: Dict[str, int] = {}
+        stop_reason = "unknown"
+        for step_ix in range(1, max(1, int(step_limit)) + 1):
+            if int(max_unique_encounters) > 0 and len(visited_counts) >= int(max_unique_encounters):
+                stop_reason = "max_unique_encounters"
+                break
+            visited_counts[cur] = int(visited_counts.get(cur, 0)) + 1
+            if bool(stop_on_cycle) and int(visited_counts[cur]) > max(1, int(max_cycle_repeats)):
+                stop_reason = "cycle_repeat_cap"
+                break
             enc = enc_by.get(cur)
             if not enc:
+                stop_reason = "missing_encounter"
                 break
             if _is_terminal(enc):
                 reached_terminal = True
+                stop_reason = "terminal"
                 break
             raw_opts = sorted(enc.get("options", []) or [], key=lambda o: str(o.get("id", "")))
             options: List[Tuple[str, str, Dict[str, Any]]] = []
@@ -556,7 +573,13 @@ def run_playthrough_condition(
 
             chosen_id, chosen_text, chosen_opt = chosen
             cons = _option_consequences(chosen_opt)
-            next_id = cons[0] if cons else ""
+            next_id = ""
+            if cons:
+                next_id = cons[0]
+                for cid in cons:
+                    if int(visited_counts.get(cid, 0)) == 0:
+                        next_id = cid
+                        break
             reaction = _reaction_for_consequence(chosen_opt, next_id if next_id else "")
             reaction_id = str((reaction or {}).get("id", "") or "")
             reaction_text = _script_text((reaction or {}).get("text_script"))
@@ -612,6 +635,7 @@ def run_playthrough_condition(
             )
 
             if not next_id:
+                stop_reason = "no_next_encounter"
                 break
             cur = next_id
 
@@ -626,6 +650,11 @@ def run_playthrough_condition(
         "model_label": label,
         "run_mode": "playthrough",
         "selection_mode": str(selection_mode),
+        "play_until_ending": bool(int(max_steps) <= 0),
+        "step_limit_applied": int(step_limit),
+        "stop_on_cycle": bool(stop_on_cycle),
+        "max_cycle_repeats": int(max_cycle_repeats),
+        "max_unique_encounters": int(max_unique_encounters),
         "playthroughs_requested": int(playthroughs),
         "playthroughs_completed": int(completed),
         "num_prompts": len(rows),
@@ -793,7 +822,7 @@ def main() -> int:
     ap.add_argument("--max-encounters", type=int, default=0, help="Legacy encounter_bench cap.")
     ap.add_argument("--include-terminals", action="store_true")
     ap.add_argument("--playthroughs", type=int, default=2)
-    ap.add_argument("--max-steps", type=int, default=128)
+    ap.add_argument("--max-steps", type=int, default=0, help="0 means play until terminal ending (with internal safety cap).")
     ap.add_argument("--context-window", type=int, default=48)
     ap.add_argument("--context-char-cap", type=int, default=6000)
     ap.add_argument("--about-char-cap", type=int, default=240)
@@ -802,6 +831,9 @@ def main() -> int:
     ap.add_argument("--include-option-text-in-diary", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--include-scene-text-in-diary", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--pick-max-new-tokens", type=int, default=24)
+    ap.add_argument("--stop-on-cycle", action=argparse.BooleanOptionalAction, default=True)
+    ap.add_argument("--max-cycle-repeats", type=int, default=2)
+    ap.add_argument("--max-unique-encounters", type=int, default=120)
     ap.add_argument("--max-new-tokens", type=int, default=180)
     ap.add_argument("--temperature", type=float, default=0.2)
     ap.add_argument("--top-p", type=float, default=0.9)
@@ -852,6 +884,9 @@ def main() -> int:
             "pick_max_new_tokens": int(args.pick_max_new_tokens),
             "include_option_text_in_diary": bool(args.include_option_text_in_diary),
             "include_scene_text_in_diary": bool(args.include_scene_text_in_diary),
+            "stop_on_cycle": bool(args.stop_on_cycle),
+            "max_cycle_repeats": int(args.max_cycle_repeats),
+            "max_unique_encounters": int(args.max_unique_encounters),
             "max_new_tokens": int(args.max_new_tokens),
             "temperature": float(args.temperature),
             "top_p": float(args.top_p),
@@ -900,6 +935,9 @@ def main() -> int:
                 include_scene_text_in_diary=bool(args.include_scene_text_in_diary),
                 selection_mode=str(args.selection_mode),
                 pick_max_new_tokens=int(args.pick_max_new_tokens),
+                stop_on_cycle=bool(args.stop_on_cycle),
+                max_cycle_repeats=int(args.max_cycle_repeats),
+                max_unique_encounters=int(args.max_unique_encounters),
                 dry_run=bool(args.dry_run),
             )
         else:
@@ -940,6 +978,9 @@ def main() -> int:
                 include_scene_text_in_diary=bool(args.include_scene_text_in_diary),
                 selection_mode=str(args.selection_mode),
                 pick_max_new_tokens=int(args.pick_max_new_tokens),
+                stop_on_cycle=bool(args.stop_on_cycle),
+                max_cycle_repeats=int(args.max_cycle_repeats),
+                max_unique_encounters=int(args.max_unique_encounters),
                 dry_run=bool(args.dry_run),
             )
         else:
