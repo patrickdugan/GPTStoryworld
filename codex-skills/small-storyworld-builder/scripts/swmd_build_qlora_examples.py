@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import re
 from pathlib import Path
@@ -259,7 +260,10 @@ def main() -> int:
     p.add_argument("--val-ratio", type=float, default=0.05)
     args = p.parse_args()
 
-    swmd_paths = sorted(Path().glob(args.swmd_glob))
+    if any(ch in args.swmd_glob for ch in "*?[]"):
+        swmd_paths = sorted(Path(p) for p in glob.glob(args.swmd_glob))
+    else:
+        swmd_paths = [Path(args.swmd_glob)] if Path(args.swmd_glob).exists() else []
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     if not swmd_paths:

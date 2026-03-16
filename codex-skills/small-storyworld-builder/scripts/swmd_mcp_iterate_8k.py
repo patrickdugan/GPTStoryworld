@@ -14,7 +14,7 @@ ORX_LINE_RE = re.compile(r"^ORX\s+[^/]+/[^\s]+\s+->\s+[^|]+\|.+$", re.M)
 
 
 def _load_swmd_tools() -> Any:
-    module_dir = Path(r"C:\projects\GPTStoryworld\mcp-storyworld-encounter")
+    module_dir = Path(__file__).resolve().parents[3] / "mcp-storyworld-encounter"
     if str(module_dir) not in sys.path:
         sys.path.insert(0, str(module_dir))
     import swmd_store  # type: ignore
@@ -42,10 +42,26 @@ def _extract_replacement_block(text: str, encounter_id: str) -> str:
     return "\n".join(out)
 
 
+def _packet_turn_span(packet: Dict[str, Any]) -> str:
+    direct = str(packet.get("turn_span", "") or "").strip()
+    if direct:
+        return direct
+    plan = packet.get("planning_card") or {}
+    planned = str(plan.get("turn_span", "") or "").strip()
+    if planned:
+        return planned
+    target = str(packet.get("target_block", "") or "")
+    m = ENC_LINE_RE.search(target)
+    if m:
+        return str(m.group(2)).strip()
+    return "0..0"
+
+
 def _build_prompt(packet: Dict[str, Any]) -> str:
     plan = packet["planning_card"]
     poetics = packet.get("mathematical_poetics", {})
     neighbors = packet.get("neighbors", [])
+    turn_span = _packet_turn_span(packet)
     neighbor_txt = "\n\n".join([f"NEIGHBOR {n['encounter_id']}\n{n['block']}" for n in neighbors])
     return (
         "You are revising one SWMD-0-MIN encounter block under tight context budget.\n"
@@ -61,7 +77,7 @@ def _build_prompt(packet: Dict[str, Any]) -> str:
         f"TARGET\n{packet['target_block']}\n\n"
         f"{neighbor_txt}\n\n"
         "BEGIN_OUTPUT_TEMPLATE\n"
-        f"ENC {packet['encounter_id']} turn={packet['turn_span']}\n"
+        f"ENC {packet['encounter_id']} turn={turn_span}\n"
         "ORX "
     )
 

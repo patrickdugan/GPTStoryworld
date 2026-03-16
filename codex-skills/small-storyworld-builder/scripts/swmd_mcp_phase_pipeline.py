@@ -14,7 +14,7 @@ ENC_RE = re.compile(r"^ENC\s+(\S+)\s+turn=([^\s]+)\s*$", re.M)
 
 
 def _load_swmd_tools() -> Any:
-    module_dir = Path(r"C:\projects\GPTStoryworld\mcp-storyworld-encounter")
+    module_dir = Path(__file__).resolve().parents[3] / "mcp-storyworld-encounter"
     if str(module_dir) not in sys.path:
         sys.path.insert(0, str(module_dir))
     import swmd_store  # type: ignore
@@ -42,12 +42,118 @@ def _extract_replacement_block(text: str, encounter_id: str) -> str:
     return "\n".join(out)
 
 
+def _extract_any_enc_block(text: str) -> str:
+    lines = [ln.rstrip() for ln in text.splitlines() if ln.strip()]
+    start = -1
+    for i, ln in enumerate(lines):
+        if ln.startswith("ENC "):
+            start = i
+            break
+    if start < 0:
+        return ""
+    out = [lines[start]]
+    for ln in lines[start + 1 :]:
+        if ln.startswith("ENC "):
+            break
+        if ln.startswith("ORX "):
+            out.append(ln)
+    if len(out) < 2:
+        return ""
+    return "\n".join(out)
+
+
+def _extract_orx_lines(text: str) -> List[str]:
+    return [ln.rstrip() for ln in text.splitlines() if ln.strip().startswith("ORX ")]
+
+
+def _parse_orx_id(line: str) -> str:
+    parts = line.split()
+    return parts[1] if len(parts) > 1 else ""
+
+
+def _score_block_quality(block: str, target_block: str, encounter_id: str, turn_span: str) -> Dict[str, Any]:
+    block_lines = [ln.rstrip() for ln in block.splitlines() if ln.strip()]
+    target_lines = [ln.rstrip() for ln in target_block.splitlines() if ln.strip()]
+    header_ok = bool(block_lines and block_lines[0] == f"ENC {encounter_id} turn={turn_span}")
+    target_orx = [ln for ln in target_lines if ln.startswith("ORX ")]
+    block_orx = [ln for ln in block_lines if ln.startswith("ORX ")]
+    target_ids = [_parse_orx_id(ln) for ln in target_orx]
+    block_ids = [_parse_orx_id(ln) for ln in block_orx]
+    matched_ids = [oid for oid in block_ids if oid in target_ids]
+    coverage = (len(set(matched_ids)) / max(1, len(set(target_ids)))) if target_ids else 0.0
+    changed_from_target = block.strip() != target_block.strip()
+    word_count = len(re.findall(r"[A-Za-z0-9_'-]+", block))
+    p_refs = len(re.findall(r"\bP\(", block))
+    p2_refs = len(re.findall(r"\bP2\(", block))
+    richness = min(1.0, word_count / 24.0)
+    score = (
+        0.35 * coverage
+        + 0.15 * (1.0 if header_ok else 0.0)
+        + 0.15 * (1.0 if changed_from_target else 0.0)
+        + 0.15 * richness
+        + 0.10 * min(1.0, p_refs / 2.0)
+        + 0.10 * min(1.0, p2_refs / 1.0)
+    )
+    return {
+        "score": round(score, 3),
+        "header_ok": header_ok,
+        "target_orx_count": len(target_orx),
+        "block_orx_count": len(block_orx),
+        "orx_coverage": round(coverage, 3),
+        "changed_from_target": changed_from_target,
+        "word_count": word_count,
+        "p_refs": p_refs,
+        "p2_refs": p2_refs,
+    }
+
+
+def _repair_replacement_block(text: str, encounter_id: str, turn_span: str, target_block: str) -> str:
+    candidate = _extract_replacement_block(text, encounter_id) or _extract_any_enc_block(text) or text
+    target_lines = [ln.rstrip() for ln in target_block.splitlines() if ln.strip()]
+    target_orx = [ln for ln in target_lines if ln.startswith("ORX ")]
+    if not target_orx:
+        return ""
+    target_ids = [_parse_orx_id(ln) for ln in target_orx]
+    picked: Dict[str, str] = {}
+    for ln in _extract_orx_lines(candidate):
+        orx_id = _parse_orx_id(ln)
+        if orx_id in target_ids and orx_id not in picked:
+            picked[orx_id] = ln
+    repaired_lines = [f"ENC {encounter_id} turn={turn_span}"]
+    for fallback in target_orx:
+        orx_id = _parse_orx_id(fallback)
+        repaired_lines.append(picked.get(orx_id, fallback))
+    if len(repaired_lines) < 2:
+        return ""
+    return "\n".join(repaired_lines)
+
+
+def _packet_turn_span(packet: Dict[str, Any]) -> str:
+    direct = str(packet.get("turn_span", "") or "").strip()
+    if direct:
+        return direct
+    plan = packet.get("planning_card") or {}
+    planned = str(plan.get("turn_span", "") or "").strip()
+    if planned:
+        return planned
+    target = str(packet.get("target_block", "") or "")
+    m = ENC_RE.search(target)
+    if m:
+        return str(m.group(2)).strip()
+    return "0..0"
+
+
 def _phase_prompt(phase: str, packet: Dict[str, Any], act_label: str) -> str:
     plan = packet["planning_card"]
     poetics = packet.get("mathematical_poetics", {})
     neighbors = packet.get("neighbors", [])
+    external_constraints = packet.get("external_constraints") or {}
+    turn_span = _packet_turn_span(packet)
     neighbor_txt = "\n\n".join([f"NEIGHBOR {n['encounter_id']}\n{n['block']}" for n in neighbors])
     target = packet["target_block"]
+    constraint_txt = ""
+    if external_constraints:
+        constraint_txt = f"\nTRM_PACKET\n{json.dumps(external_constraints, ensure_ascii=True)}\n"
 
     if phase == "plan":
         return (
@@ -56,7 +162,7 @@ def _phase_prompt(phase: str, packet: Dict[str, Any], act_label: str) -> str:
             "No prose wrappers.\n"
             f"ACT={act_label}\nPLAN_CARD\n{json.dumps(plan, ensure_ascii=True)}\n\n"
             f"POETICS\n{json.dumps(poetics, ensure_ascii=True)}\n\n"
-            f"TARGET\n{target}\n\n{neighbor_txt}\n"
+            f"TARGET\n{target}\n{constraint_txt}\n{neighbor_txt}\n"
         )
     if phase in ("characterize", "recharacterize"):
         return (
@@ -64,7 +170,7 @@ def _phase_prompt(phase: str, packet: Dict[str, Any], act_label: str) -> str:
             "Output JSON only with keys: voices, tensions, stance_shift, dialogue_style.\n"
             "No prose wrappers.\n"
             f"ACT={act_label}\nPLAN_CARD\n{json.dumps(plan, ensure_ascii=True)}\n\n"
-            f"TARGET\n{target}\n\n{neighbor_txt}\n"
+            f"TARGET\n{target}\n{constraint_txt}\n{neighbor_txt}\n"
         )
     if phase == "act_complete":
         return (
@@ -74,12 +180,15 @@ def _phase_prompt(phase: str, packet: Dict[str, Any], act_label: str) -> str:
             "No prose wrappers.\n"
             f"ACT={act_label}\nPLAN_CARD\n{json.dumps(plan, ensure_ascii=True)}\n\n"
             f"POETICS\n{json.dumps(poetics, ensure_ascii=True)}\n\n"
-            f"TARGET\n{target}\n\n{neighbor_txt}\n"
+            f"TARGET\n{target}\n{constraint_txt}\n{neighbor_txt}\n"
         )
     if phase in ("encounter_build", "late_stage_holistic"):
         return (
             "You are revising one SWMD-0-MIN encounter block.\n"
             "Output ONLY the revised block.\n"
+            "Do NOT output JSON.\n"
+            "Do NOT output prose explanation.\n"
+            "Do NOT output markdown fences.\n"
             "Rules:\n"
             "1) First line must be ENC <same id> turn=<same turn span>\n"
             "2) Keep ORX IDs stable\n"
@@ -87,11 +196,12 @@ def _phase_prompt(phase: str, packet: Dict[str, Any], act_label: str) -> str:
             "4) Include at least one ORX line\n"
             "5) Prefer concise, dialogue-forward lines\n"
             "6) Improve non-repetition and character voice distinctiveness\n\n"
+            "If you are unsure, copy the target block shape exactly and make only minimal textual edits inside O:/E:/D: payloads.\n\n"
             f"ACT={act_label}\nPLAN_CARD\n{json.dumps(plan, ensure_ascii=True)}\n\n"
             f"POETICS\n{json.dumps(poetics, ensure_ascii=True)}\n\n"
-            f"TARGET\n{target}\n\n{neighbor_txt}\n\n"
+            f"TARGET\n{target}\n{constraint_txt}\n{neighbor_txt}\n\n"
             "BEGIN_OUTPUT_TEMPLATE\n"
-            f"ENC {packet['encounter_id']} turn={packet['turn_span']}\n"
+            f"ENC {packet['encounter_id']} turn={turn_span}\n"
             "ORX "
         )
     raise ValueError(f"unsupported phase: {phase}")
@@ -109,9 +219,43 @@ def _load_qlora_examples(path: Path) -> List[Dict[str, Any]]:
             row = json.loads(s)
         except Exception:
             continue
-        if isinstance(row, dict) and "instruction" in row and "output" in row:
-            rows.append(row)
+        if not isinstance(row, dict):
+            continue
+        if "instruction" in row and "output" in row:
+            out = _extract_any_enc_block(str(row.get("output", ""))) or str(row.get("output", ""))
+            rows.append({"instruction": row.get("instruction", ""), "output": out})
+            continue
+        messages = row.get("messages")
+        if isinstance(messages, list):
+            assistant_outputs = [
+                _extract_any_enc_block(str(msg.get("content", "") or ""))
+                for msg in messages
+                if isinstance(msg, dict) and str(msg.get("role", "")) == "assistant"
+            ]
+            assistant_outputs = [x for x in assistant_outputs if x]
+            user_inputs = [
+                str(msg.get("content", "") or "")
+                for msg in messages
+                if isinstance(msg, dict) and str(msg.get("role", "")) == "user"
+            ]
+            if assistant_outputs:
+                rows.append(
+                    {
+                        "instruction": user_inputs[-1] if user_inputs else "Rewrite this encounter block with stable SWMD structure.",
+                        "output": assistant_outputs[-1],
+                    }
+                )
     return rows
+
+
+def _load_external_constraints(path: Path) -> Dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        loaded = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return loaded if isinstance(loaded, dict) else {}
 
 
 def _fewshot_snippet(
@@ -119,7 +263,7 @@ def _fewshot_snippet(
     phase: str,
     encounter_id: str,
     count: int,
-    max_chars_each: int = 340,
+    max_chars_each: int = 520,
 ) -> str:
     if not examples or count <= 0:
         return ""
@@ -134,11 +278,12 @@ def _fewshot_snippet(
         ins = str(ex.get("instruction", ""))[:max_chars_each]
         out = str(ex.get("output", ""))[:max_chars_each]
         lines.append(f"[{i}] INSTRUCTION: {ins}")
-        lines.append(f"[{i}] OUTPUT_STYLE: {out}")
+        lines.append(f"[{i}] VALID_SWMD_BLOCK:")
+        lines.append(out)
     return "\n".join(lines) + "\n"
 
 
-def _load_model(model_path: Path, adapter_path: Path | None):
+def _load_model_hf(model_path: Path, adapter_path: Path | None):
     import torch
     from peft import PeftModel
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
@@ -166,7 +311,7 @@ def _load_model(model_path: Path, adapter_path: Path | None):
     return tok, model
 
 
-def _generate(tok, model, prompt: str, max_new_tokens: int, temperature: float) -> str:
+def _generate_hf(tok, model, prompt: str, max_new_tokens: int, temperature: float) -> str:
     import torch
 
     if hasattr(tok, "apply_chat_template"):
@@ -196,6 +341,47 @@ def _generate(tok, model, prompt: str, max_new_tokens: int, temperature: float) 
     return tok.decode(new_tokens, skip_special_tokens=True).strip()
 
 
+def _generate_mlx(
+    model_path: Path,
+    adapter_path: Path | None,
+    prompt: str,
+    max_new_tokens: int,
+    temperature: float,
+) -> str:
+    import subprocess
+
+    cmd = [
+        sys.executable,
+        "-m",
+        "mlx_lm",
+        "generate",
+        "--model",
+        str(model_path),
+        "--prompt",
+        prompt,
+        "--max-tokens",
+        str(max_new_tokens),
+        "--temp",
+        str(temperature),
+        "--top-p",
+        "0.9",
+        "--seed",
+        "7",
+        "--ignore-chat-template",
+        "--verbose",
+        "false",
+    ]
+    if adapter_path and adapter_path.exists():
+        cmd.extend(["--adapter-path", str(adapter_path)])
+    proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    if proc.returncode != 0:
+        raise RuntimeError((proc.stderr or proc.stdout or "mlx_lm generate failed").strip())
+    text = (proc.stdout or "").strip()
+    if not text:
+        raise RuntimeError("mlx_lm returned empty output")
+    return text
+
+
 def _act_label(idx: int, total: int) -> str:
     if total <= 0:
         return "act2"
@@ -219,8 +405,9 @@ def main() -> int:
     p.add_argument(
         "--adapter-path",
         type=str,
-        default=r"D:\Research_Engine\Qwen_Storyworld\adapters\qwen3b-overnight-20260213-071746\checkpoint-79",
+        default="",
     )
+    p.add_argument("--backend", type=str, default="auto", choices=("auto", "hf", "mlx"))
     p.add_argument(
         "--phases",
         type=str,
@@ -238,6 +425,8 @@ def main() -> int:
     p.add_argument("--state-json", type=str, required=True)
     p.add_argument("--qlora-examples-jsonl", type=str, default="")
     p.add_argument("--fewshot-count", type=int, default=0)
+    p.add_argument("--external-constraints-json", type=str, default="")
+    p.add_argument("--repair-build-output", action="store_true")
     p.add_argument("--apply", action="store_true")
     args = p.parse_args()
 
@@ -247,8 +436,20 @@ def main() -> int:
     doc = swmd_tools.parse_swmd_min(swmd_path)
     ids = doc.encounter_order[args.start_index : args.start_index + args.max_encounters]
     qlora_examples = _load_qlora_examples(Path(args.qlora_examples_jsonl)) if args.qlora_examples_jsonl else []
+    external_constraints = _load_external_constraints(Path(args.external_constraints_json)) if args.external_constraints_json else {}
 
-    tok, model = _load_model(Path(args.model_path), Path(args.adapter_path) if args.adapter_path else None)
+    model_path = Path(args.model_path)
+    adapter_raw = str(args.adapter_path or "").strip()
+    adapter_path = Path(adapter_raw).expanduser() if adapter_raw else None
+    if adapter_path is not None and not adapter_path.exists():
+        adapter_path = None
+    backend = args.backend
+    if backend == "auto":
+        backend = "mlx" if sys.platform == "darwin" else "hf"
+    tok = None
+    model = None
+    if backend == "hf":
+        tok, model = _load_model_hf(model_path, adapter_path)
     out_path = Path(args.out_jsonl)
     state_path = Path(args.state_json)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -267,24 +468,41 @@ def main() -> int:
                     planning_card_tokens=args.planning_card_tokens,
                     include_poetics=True,
                 )
+                if external_constraints:
+                    packet["external_constraints"] = external_constraints
                 act = _act_label(i, len(ids))
                 prompt = _phase_prompt(phase, packet, act)
                 fewshot = _fewshot_snippet(qlora_examples, phase, encounter_id, args.fewshot_count)
                 if fewshot:
                     prompt = f"{prompt}\n\n{fewshot}"
                 t0 = time.time()
-                output = _generate(tok, model, prompt, args.max_new_tokens, args.temperature)
+                if backend == "mlx":
+                    output = _generate_mlx(model_path, adapter_path, prompt, args.max_new_tokens, args.temperature)
+                else:
+                    output = _generate_hf(tok, model, prompt, args.max_new_tokens, args.temperature)
                 latency_ms = int((time.time() - t0) * 1000)
 
                 applied = False
                 parse_ok = None
                 model_parse_ok = None
                 fallback_used = False
+                repaired_used = False
                 replacement = ""
                 if phase in ("encounter_build", "late_stage_holistic"):
                     replacement = _extract_replacement_block(output, encounter_id)
                     model_parse_ok = bool(replacement and ORX_LINE_RE.search(replacement))
                     parse_ok = model_parse_ok
+                    if not parse_ok and args.repair_build_output:
+                        repaired = _repair_replacement_block(
+                            output,
+                            encounter_id,
+                            _packet_turn_span(packet),
+                            packet["target_block"],
+                        )
+                        if repaired and ENC_RE.search(repaired) and ORX_LINE_RE.search(repaired):
+                            replacement = repaired
+                            parse_ok = True
+                            repaired_used = True
                     if not parse_ok:
                         # Keep pipeline stable: fallback to the current target block when raw model output is malformed.
                         replacement = packet["target_block"]
@@ -293,8 +511,15 @@ def main() -> int:
                     if args.apply and parse_ok:
                         swmd_tools.apply_encounter_block(swmd_path, encounter_id, replacement)
                         applied = True
+                    block_quality = _score_block_quality(
+                        replacement,
+                        packet["target_block"],
+                        encounter_id,
+                        _packet_turn_span(packet),
+                    )
                 else:
                     state.setdefault(encounter_id, {})[phase] = output[:1800]
+                    block_quality = None
 
                 row = {
                     "phase": phase,
@@ -302,11 +527,15 @@ def main() -> int:
                     "act": act,
                     "latency_ms": latency_ms,
                     "budget": packet["budget"],
+                    "backend": backend,
                     "prompt_estimated_tokens": packet["budget"]["estimated_tokens_used"],
+                    "external_constraints_loaded": bool(external_constraints),
                     "parse_ok": parse_ok,
                     "model_parse_ok": model_parse_ok,
+                    "repaired_used": repaired_used,
                     "fallback_used": fallback_used,
                     "applied": applied,
+                    "block_quality": block_quality,
                     "output_preview": (replacement if replacement else output)[:500],
                 }
                 handle.write(json.dumps(row, ensure_ascii=True) + "\n")

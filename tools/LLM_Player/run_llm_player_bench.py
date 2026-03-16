@@ -140,7 +140,8 @@ def ensure_dir(path: Path) -> None:
 
 def write_json(path: Path, obj: Dict[str, Any]) -> None:
     ensure_dir(path.parent)
-    path.write_text(json.dumps(obj, ensure_ascii=True, indent=2) + "\n", encoding="utf-8", newline="\n")
+    with path.open("w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(obj, ensure_ascii=True, indent=2) + "\n")
 
 
 def write_jsonl(path: Path, rows: List[Dict[str, Any]]) -> None:
@@ -359,7 +360,17 @@ class HFRunner:
             "latency_sec": round(latency, 4),
         }
 
-    def pick_option(self, prompt: str, option_ids: List[str], max_new_tokens: int = 24) -> Dict[str, Any]:
+    def pick_option(
+        self,
+        prompt: str,
+        option_ids: List[str],
+        max_new_tokens: int = 24,
+        option_meta: Optional[List[Dict[str, Any]]] = None,
+        candidate_count: int = 1,
+        candidate_temperature: float = 0.7,
+        candidate_top_p: float = 0.95,
+        secret_clue_bias: float = 0.0,
+    ) -> Dict[str, Any]:
         assert self.model is not None
         assert self.tokenizer is not None
         import torch  # type: ignore
@@ -367,6 +378,13 @@ class HFRunner:
         tok = self.tokenizer
         model = self.model
         valid_ids = [str(x) for x in option_ids if str(x)]
+        _ = (
+            option_meta,
+            candidate_count,
+            candidate_temperature,
+            candidate_top_p,
+            secret_clue_bias,
+        )
         sys_msg = "Return exactly one allowed option id token. No extra text."
         user_msg = (
             f"{prompt}\n\n"
@@ -450,11 +468,13 @@ class ApiRunner:
         model_name: str,
         api_key: str = "",
         timeout_sec: int = 180,
+        system_prompt: str = "",
     ) -> None:
         self.base_url = str(base_url or "").rstrip("/")
         self.model_name = str(model_name or "").strip()
         self.api_key = str(api_key or "")
         self.timeout_sec = max(1, int(timeout_sec))
+        self.system_prompt = str(system_prompt or "").strip()
         if not self.base_url:
             raise ValueError("API runner requires a base URL.")
         if not self.model_name:
@@ -527,9 +547,10 @@ class ApiRunner:
         top_p: float,
         do_sample: bool,
     ) -> Dict[str, Any]:
+        system_prompt = self.system_prompt or "You are an in-world player making coherent, morally aware decisions."
         return self._chat_completion(
             messages=[
-                {"role": "system", "content": "You are an in-world player making coherent, morally aware decisions."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt},
             ],
             max_tokens=max_new_tokens,
@@ -553,8 +574,11 @@ class ApiRunner:
         secret_clue_bias: float = 0.0,
     ) -> Dict[str, Any]:
         valid_ids = [str(x) for x in option_ids if str(x)]
+        system_parts = ["Return exactly one allowed option id token. No extra text."]
+        if self.system_prompt:
+            system_parts.append(self.system_prompt)
         messages = [
-            {"role": "system", "content": "Return exactly one allowed option id token. No extra text."},
+            {"role": "system", "content": "\n".join(system_parts)},
             {
                 "role": "user",
                 "content": (
@@ -1468,8 +1492,8 @@ def main() -> int:
     ap.add_argument(
         "--first-click-mode",
         choices=["generate_pick", "score_all"],
-        default="score_all",
-        help="Selection mode forced for step 1 of each playthrough. Default avoids first-turn generation stalls.",
+        default="generate_pick",
+        help="Selection mode forced for step 1 of each playthrough. Default stays on bounded local picking.",
     )
     ap.add_argument("--storyworld", required=True, help="Path to storyworld JSON.")
     ap.add_argument("--base-model-path", required=True, help="HF base model path (Qwen baseline).")
@@ -1479,6 +1503,7 @@ def main() -> int:
     ap.add_argument("--api-base-url", default="", help="OpenAI-compatible /v1 endpoint root for API runner.")
     ap.add_argument("--api-model", default="", help="Served model name for API runner.")
     ap.add_argument("--api-key", default="", help="Optional bearer token for API runner.")
+    ap.add_argument("--api-system-prompt", default="", help="Optional system prompt override for API runner.")
     ap.add_argument("--output-root", default=r"D:\Research_Engine\Storyworld_LLM_Plays")
     ap.add_argument("--run-id", default="")
     ap.add_argument("--max-encounters", type=int, default=0, help="Legacy encounter_bench cap.")
@@ -1499,7 +1524,7 @@ def main() -> int:
     ap.add_argument("--secret-clue-bias", type=float, default=0.0)
     ap.add_argument("--start-encounter-id", default="", help="Optional non-default encounter id to start each playthrough from.")
     ap.add_argument("--seed-diary-path", default="", help="Optional text or JSON file with prior diary lines used as initial context.")
-    ap.add_argument("--cross-play-memory-mode", choices=["full_diary", "summary", "none"], default="full_diary")
+    ap.add_argument("--cross-play-memory-mode", choices=["full_diary", "summary", "none"], default="summary")
     ap.add_argument("--cross-play-summary-items", type=int, default=6)
     ap.add_argument("--stop-on-cycle", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--max-cycle-repeats", type=int, default=2)
@@ -1553,6 +1578,7 @@ def main() -> int:
             "runner_backend": str(args.runner_backend),
             "api_base_url": str(args.api_base_url),
             "api_model": str(args.api_model),
+            "api_system_prompt": str(args.api_system_prompt),
             "run_mode": str(args.run_mode),
             "selection_mode": str(args.selection_mode),
             "first_click_mode": str(args.first_click_mode),
@@ -1653,6 +1679,7 @@ def main() -> int:
                         base_url=str(args.api_base_url),
                         model_name=str(args.api_model),
                         api_key=str(args.api_key),
+                        system_prompt=str(args.api_system_prompt),
                     )
                 else:
                     baseline_runner = HFRunner(
