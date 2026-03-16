@@ -1,3 +1,47 @@
+---
+title: "First and Last Men: Escape from the Solar Cul-de-sac"
+version: "0.1.9"
+storyworld_id: "SW-20256764-0c4a-48c3-8ba6-db44291fc2d3"
+environment_type: "SWEEPWEAVE_STORYWORLD"
+source_format: "SWMD-0-MIN"
+state_variables:
+  - "Cohesion_Fragmentation"
+  - "Cosmic_Ambition_Humility"
+  - "Countercraft"
+  - "Embodiment_Virtuality"
+  - "Grudge"
+  - "Hedonism_Austerity"
+  - "Influence"
+  - "Risk_Stasis"
+  - "Transgression_Order"
+endings:
+  - id: "page_end_0121"
+    type: "terminal"
+    condition: "true"
+    description: "Across this age, the civilizational wager is refracted through memory, scarcity, and ambition; every institutional move recasts trust, resentment, and the archive of prior catas..."
+    expected_critic_score: 0
+  - id: "page_end_0122"
+    type: "terminal"
+    condition: "true"
+    description: "Across this age, the civilizational wager is refracted through memory, scarcity, and ambition; every institutional move recasts trust, resentment, and the archive of prior catas..."
+    expected_critic_score: 0
+  - id: "page_end_0123"
+    type: "terminal"
+    condition: "true"
+    description: "Across this age, the civilizational wager is refracted through memory, scarcity, and ambition; every institutional move recasts trust, resentment, and the archive of prior catas..."
+    expected_critic_score: 0
+  - id: "page_end_0124"
+    type: "terminal"
+    condition: "true"
+    description: "Across this age, the civilizational wager is refracted through memory, scarcity, and ambition; every institutional move recasts trust, resentment, and the archive of prior catas..."
+    expected_critic_score: 0
+  - id: "page_secret_01"
+    type: "terminal"
+    condition: "true"
+    description: "Secret ending: the concealed coalition resolves the final contradiction offstage."
+    expected_critic_score: 0
+---
+
 # SWMD-0-MIN
 id: SW-20256764-0c4a-48c3-8ba6-db44291fc2d3
 title: First and Last Men: Escape from the Solar Cul-de-sac
