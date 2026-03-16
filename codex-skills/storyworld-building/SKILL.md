@@ -13,6 +13,43 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
 - When editing storyworld JSON, validate with `scripts/sweepweave_validator.py` before and after changes.
 - If you introduce a terminal gate (e.g., `page_endings_gate`), ensure it routes to every `page_end_*`/`page_secret_*` and keep ending encounter `acceptability_script` permissive so the gate controls reachability.
 
+<<<<<<< HEAD
+=======
+## Token-Economics MCP Loop
+- Prefer bounded-context authoring for local 3B/4GB setups: one encounter card at a time, not whole-world prompts.
+- Use SWMD minified markdown as the authoring substrate (`json_to_swmd.py --mode minified`) and keep encounter+context card payloads under an 8k context budget.
+- Require visible SWMD YAML frontmatter for benchmark metadata. At minimum include `title`, `storyworld_id`, `state_variables`, and `endings` (terminal IDs + type/condition/expected_critic_score).
+- Maintain external memory in files: encounter index JSONL, world card, and change ledger; keep the model context small and deterministic.
+- For MCP orchestration in GPTStoryworld, use `C:/projects/GPTStoryworld/mcp-storyworld-encounter/server.py` tools:
+  - `list_encounters`
+  - `get_context_card`
+  - `update_encounter_block`
+  - `export_encounter_index`
+- After MCP/local revisions, translate SWMD back to JSON and run `scripts/sweepweave_validator.py` before any benchmark run.
+
+## MCP Assembly Contract (Small-Model Hardened)
+- Treat `*.swmd.min.md` as the source of truth during MCP iteration. JSON is an export target for editor/playable validation.
+- Run the encounter assembly line in this order:
+  1) `plan` (structured objective/constraints),
+  2) `characterize` (voice/tension notes),
+  3) `encounter_build` (single encounter block rewrite),
+  4) `act_complete` (act-level continuity review),
+  5) `recharacterize`,
+  6) `late_stage_holistic` (chunked if needed).
+- Keep encounter generation deterministic and bounded:
+  - one target encounter per call,
+  - max 3 options per encounter in small-model mode unless user overrides,
+  - bounded effects fan-out per option,
+  - concise dialogue-forward text.
+- Require explicit invariant checks in review phases:
+  - include `value_before`, `value_after`, `status`,
+  - record minimal corrections when violations occur.
+- Holistic review is chunk-aware by default. If full world context does not fit, emit `partial_chunked` mode and use cards/summaries instead of full text.
+- Track two parse metrics during MCP runs:
+  - `model_parse_ok` for raw model output quality,
+  - `parse_ok` after MCP repair/fallback for pipeline robustness.
+
+>>>>>>> cf3e40f6 (Add codex storyworld builder and moral quandary skill updates)
 ## Task Prompts (references/)
 Load the matching task file when the user requests one of these actions, then follow it verbatim:
 - New encounter: `references/task_new_encounter.md`
@@ -43,6 +80,30 @@ Use these tools to make deterministic, validated edits:
 - `multi_variant_balance.py`
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
 
+<<<<<<< HEAD
+=======
+`json_to_swmd.py` examples:
+- Full form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.md`
+- Minified form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.min.md --mode minified`
+- Casablanca benchmark note: ensure `adapt_casablanca_crossroads_at_ricks_v1.swmd.min.md` frontmatter `endings` is present and machine-readable before judge/eval runs.
+
+`storyworld_quality_gate.py` examples:
+- Human-readable report: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json`
+- Strict CI gate: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json --strict --report-out out/quality_report.json`
+
+`upgrade_storyworld_vnext.py` example:
+- `python scripts/upgrade_storyworld_vnext.py --in-json storyworld.json --out-json storyworld_v2.json --suffix v2`
+
+`generate_storyworld_batch_vnext.py` example:
+- `python scripts/generate_storyworld_batch_vnext.py --base storyworld_v6.json --out-dir storyworlds/generated/batch_v1`
+
+`apply_artistry_pass.py` example:
+- `python scripts/apply_artistry_pass.py --in-json storyworld.json --out-json storyworld_artistry.json --gate-pct 0.09`
+
+`one_shot_factory.py` example (target ~40 encounters):
+- `python scripts/one_shot_factory.py --base base.json --out mashup_v0.json --target-encounters 40 --title \"Gone With the Wind: Clocktower Rebellion\" --about \"A Southern epic collides with time-loop politics\" --motif \"Tonight, reputations, timelines, and romances all get rewritten at 88 mph.\"`
+
+>>>>>>> cf3e40f6 (Add codex storyworld builder and moral quandary skill updates)
 ## References
 - `references/STORYWORLD_BALANCING.md` for balancing targets/heuristics
 - `references/LATE_STAGE_BALANCING.md` for tail-end balancing workflows
@@ -63,6 +124,15 @@ Use these tools to make deterministic, validated edits:
 
 ## Validation Rule
 Never bypass `scripts/sweepweave_validator.py` when the task touches storyworld JSON.
+
+## Windows Validation Note
+- On non-UTF8 Windows code pages, validator success output can raise `UnicodeEncodeError` on the checkmark glyph.
+- Prefer running validator with `PYTHONIOENCODING=utf-8` so valid files are not misclassified.
+
+## Batch Revision Gap Note
+- Some storyworld batches are deterministic `consequence_id` chains and use domain-specific character IDs, so fixed char-id heuristics are brittle.
+- For mixed-template spool/secret rewires with receipts, use:
+  - `C:/projects/AICOO/MoralityLab/AICOO/scripts/ml_storyworld_spool_secret_batch_revise.py`
 
 Focused diplomacy QA loop:
 - Run a UI pass in SweepWeave and confirm all target diplomacy encounters load without console errors.
