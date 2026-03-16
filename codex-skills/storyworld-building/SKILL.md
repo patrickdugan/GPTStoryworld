@@ -13,8 +13,6 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
 - When editing storyworld JSON, validate with `scripts/sweepweave_validator.py` before and after changes.
 - If you introduce a terminal gate (e.g., `page_endings_gate`), ensure it routes to every `page_end_*`/`page_secret_*` and keep ending encounter `acceptability_script` permissive so the gate controls reachability.
 
-<<<<<<< HEAD
-=======
 ## Token-Economics MCP Loop
 - Prefer bounded-context authoring for local 3B/4GB setups: one encounter card at a time, not whole-world prompts.
 - Use SWMD minified markdown as the authoring substrate (`json_to_swmd.py --mode minified`) and keep encounter+context card payloads under an 8k context budget.
@@ -49,7 +47,6 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
   - `model_parse_ok` for raw model output quality,
   - `parse_ok` after MCP repair/fallback for pipeline robustness.
 
->>>>>>> cf3e40f6 (Add codex storyworld builder and moral quandary skill updates)
 ## Task Prompts (references/)
 Load the matching task file when the user requests one of these actions, then follow it verbatim:
 - New encounter: `references/task_new_encounter.md`
@@ -80,8 +77,6 @@ Use these tools to make deterministic, validated edits:
 - `multi_variant_balance.py`
 - `sweepweave_validator.py` (authoritative contract for JSON validity)
 
-<<<<<<< HEAD
-=======
 `json_to_swmd.py` examples:
 - Full form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.md`
 - Minified form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.min.md --mode minified`
@@ -103,7 +98,6 @@ Use these tools to make deterministic, validated edits:
 `one_shot_factory.py` example (target ~40 encounters):
 - `python scripts/one_shot_factory.py --base base.json --out mashup_v0.json --target-encounters 40 --title \"Gone With the Wind: Clocktower Rebellion\" --about \"A Southern epic collides with time-loop politics\" --motif \"Tonight, reputations, timelines, and romances all get rewritten at 88 mph.\"`
 
->>>>>>> cf3e40f6 (Add codex storyworld builder and moral quandary skill updates)
 ## References
 - `references/STORYWORLD_BALANCING.md` for balancing targets/heuristics
 - `references/LATE_STAGE_BALANCING.md` for tail-end balancing workflows
@@ -142,3 +136,39 @@ Focused diplomacy QA loop:
 - Project logs with `storyworld-env/manifold_projection.py` to keep fixed compact pValue/p2Value dimensions across variable-rich worlds.
 
 Note: For late-stage polish, target higher structural density: average 4.5 after-effects per reaction, 2.5 reactions per option, 3.2 options per encounter, and 1.6 variables per reaction desirability formula. Gate 5% of total options in Act II (1.2 variables average) and 8% in Act III (1.5 variables average). Ensure secret-ending encounters are gated by availability scripts that use a metric distance over two variables, and tune Monte Carlo so the secret ending is reachable in >5% of runs. All encounter descriptions should be 50-300 words, all reaction texts 20-150 words, and every non-ending, non-transition encounter must meet min options/reactions/effects.
+
+## Structural Density Floor
+- Do not accept drafts that collapse ordinary encounters to a single option by default.
+- Default target for non-terminal encounters:
+  - average 3 options per encounter
+  - average 2 to 3 reactions per option
+  - average 3 to 5 effects per reaction
+- Hard floor for production-ready non-terminal encounters:
+  - at least 2 materially distinct options
+  - at least 2 reactions on each meaningful option
+  - at least 2 effects on each reaction unless the reaction is intentionally minimal
+- Reserve 1-option encounters for explicit bottlenecks only:
+  - terminal encounters
+  - forced transitions
+  - rare pacing choke points justified by gate logic
+- If a model produces too many 1-option scenes, run an explicit expansion pass before polish:
+  - add at least one real alternative choice
+  - add reactive variation, not paraphrase-only reactions
+  - add state, relationship, or gate effects so the extra branches matter
+
+## Visibility And Access Gating
+- Do not hide most options behind tight visibility or availability filters.
+- Default rule:
+  - early and mid-story options should be broadly visible unless there is a clear narrative reason not to
+  - new branches should usually be exposed by default and differentiated by desirability, consequences, or downstream gating
+- Use stronger visibility/access filters on only a small late-story slice:
+  - about 5% of all options in Act II
+  - about 8% of all options in Act III
+- Tight gating is appropriate mainly for:
+  - secret endings
+  - late payoff branches
+  - special route locks
+- If a draft has many options but players effectively see only one, loosen filters before adding more branches:
+  - reduce visibility thresholds
+  - simplify availability scripts
+  - preserve only the few gates that protect secrets or major route commitments

@@ -156,6 +156,15 @@ Treat these design targets as config metadata, not proof that the world meets th
 - average reactions per option
 - average effects per reaction
 
+When tuning those targets for actual generation quality:
+- push ordinary non-terminal encounters toward about 3 options on average
+- keep most options broadly visible by default
+- reserve stronger visibility/access gating for only a small late-story slice:
+  - about 5% of total options in Act II
+  - about 8% of total options in Act III
+- use tight filters mainly for secret endings, payoff branches, and route-lock moments
+- if the model emits many nominal options but only one is usually visible, loosen gating before adding more branches
+
 The config is valid if:
 - it is produced by `make_factory_config.py`
 - the resulting JSON exists on disk
