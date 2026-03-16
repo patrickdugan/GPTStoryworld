@@ -18,6 +18,7 @@ description: Build and benchmark short dialogue-driven storyworlds with small lo
 - Keep IDs stable (`enc_*`/`page_*`, `opt_*`, `rxn_*`).
 - Always validate JSON structure before and after MCP passes.
 - Author in SWMD minified markdown first; export JSON only for editor/playable checks.
+- Keep YAML frontmatter at top of SWMD-min with explicit terminal `endings` metadata so evaluators can grade terminal states without replaying full graph traversal.
 
 ## Required Inputs
 - Base world JSON.
@@ -58,6 +59,7 @@ Command:
 7. Re-score:
 `python C:/projects/GPTStoryworld/storyworld-env/quality_vector_score.py --storyworlds <world.json> --runs 120 --out <vector.json>`
 `python C:/projects/GPTStoryworld/storyworld-text-quality-env/evaluate_text_quality.py --storyworld <world.json> --judge-model gpt-4.1-mini --out <text.json>`
+For Casablanca and similar moral-crucible benchmarks, include `expected_critic_score` per ending in SWMD frontmatter and compare against critic welfare output.
 
 ## Phase Output Discipline
 - `plan`, `characterize`, `act_complete`, `recharacterize` must emit compact JSON objects (no prose wrappers).

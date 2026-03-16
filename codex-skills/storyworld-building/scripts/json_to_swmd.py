@@ -170,6 +170,134 @@ def fmt_list(values: Iterable[str]) -> str:
     return ", ".join(vals)
 
 
+def yaml_scalar(value: Any) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, (int, float)):
+        return normalize_number(value)
+    text = str(value or "")
+    escaped = text.replace("\\", "\\\\").replace('"', '\\"')
+    return f'"{escaped}"'
+
+
+def is_terminal(enc: Dict[str, Any]) -> bool:
+    return not bool(enc.get("options") or [])
+
+
+def infer_ending_type(enc: Dict[str, Any]) -> str:
+    eid = str(enc.get("id", "")).lower()
+    title = str(enc.get("title", "")).lower()
+    text = script_text(enc.get("text_script")).lower()
+    hay = " ".join([eid, title, text])
+    if any(k in hay for k in ("success", "victory", "aligned", "rescued", "escape")):
+        return "success"
+    if any(k in hay for k in ("failure", "defeat", "captured", "collapse", "dead", "loss")):
+        return "failure"
+    return "terminal"
+
+
+def extract_threshold_clauses(node: Any) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    if isinstance(node, bool):
+        return out
+    if not isinstance(node, dict):
+        return out
+    if str(node.get("operator_type", "")) == "And":
+        for operand in node.get("operands", []) or []:
+            out.extend(extract_threshold_clauses(operand))
+        return out
+    if str(node.get("operator_type", "")) != "Arithmetic Comparator":
+        return out
+    operands = list(node.get("operands", []) or [])
+    if len(operands) != 2:
+        return out
+    left, right = operands
+    left_keyring = list(left.get("keyring", []) or []) if isinstance(left, dict) else []
+    right_keyring = list(right.get("keyring", []) or []) if isinstance(right, dict) else []
+    left_val = left.get("value") if isinstance(left, dict) else None
+    right_val = right.get("value") if isinstance(right, dict) else None
+    subtype = str(node.get("operator_subtype", "") or "")
+    op_map = {
+        "Greater Than or Equal To": ">=",
+        "Greater Than": ">",
+        "Less Than or Equal To": "<=",
+        "Less Than": "<",
+        "Equal To": "==",
+    }
+    op = op_map.get(subtype, "")
+    if left_keyring and isinstance(right_val, (int, float)) and op:
+        out.append({"var": str(left_keyring[0]), "op": op, "threshold": float(right_val)})
+    elif right_keyring and isinstance(left_val, (int, float)) and op:
+        invert = {">=": "<=", ">": "<", "<=": ">=", "<": ">", "==": "=="}
+        out.append({"var": str(right_keyring[0]), "op": invert[op], "threshold": float(left_val)})
+    return out
+
+
+def ending_expected_score(ending_type: str) -> float:
+    if ending_type == "success":
+        return 1.0
+    if ending_type == "failure":
+        return -1.0
+    return 0.0
+
+
+def build_frontmatter_lines(data: Dict[str, Any]) -> List[str]:
+    terminals = sorted(
+        [e for e in data.get("encounters", []) if is_terminal(e)],
+        key=lambda e: str(e.get("id", "")),
+    )
+    state_vars = sorted(
+        [
+            str(p.get("id", ""))
+            for p in data.get("authored_properties", [])
+            if str(p.get("id", "")) and int(p.get("depth", 0) or 0) == 0
+        ]
+    )
+    lines: List[str] = []
+    lines.append("---")
+    lines.append(f'title: {yaml_scalar(data.get("storyworld_title", ""))}')
+    lines.append(f'version: {yaml_scalar(data.get("sweepweave_version", ""))}')
+    lines.append(f'storyworld_id: {yaml_scalar(data.get("IFID", ""))}')
+    lines.append('environment_type: "SWEEPWEAVE_STORYWORLD"')
+    lines.append('source_format: "SWMD-0-MIN"')
+    lines.append("state_variables:")
+    if state_vars:
+        for p in state_vars:
+            lines.append(f"  - {yaml_scalar(p)}")
+    else:
+        lines.append('  - "none"')
+    lines.append("endings:")
+    if terminals:
+        for enc in terminals:
+            ending_id = str(enc.get("id", ""))
+            ending_type = infer_ending_type(enc)
+            acceptability = enc.get("acceptability_script", True)
+            condition = expr(acceptability) if isinstance(acceptability, dict) else ("true" if bool(acceptability) else "false")
+            desc = script_text(enc.get("text_script")) or str(enc.get("title", "")) or ending_id
+            if len(desc) > 180:
+                desc = desc[:177] + "..."
+            lines.append(f"  - id: {yaml_scalar(ending_id)}")
+            lines.append(f"    type: {yaml_scalar(ending_type)}")
+            lines.append(f"    condition: {yaml_scalar(condition)}")
+            lines.append(f"    description: {yaml_scalar(desc)}")
+            lines.append(f"    expected_critic_score: {normalize_number(ending_expected_score(ending_type))}")
+            clauses = extract_threshold_clauses(enc.get("acceptability_script", True))
+            if clauses:
+                lines.append("    proximity_spec:")
+                for clause in clauses:
+                    lines.append(f"      - var: {yaml_scalar(clause['var'])}")
+                    lines.append(f"        op: {yaml_scalar(clause['op'])}")
+                    lines.append(f"        threshold: {normalize_number(clause['threshold'])}")
+    else:
+        lines.append('  - id: "none"')
+        lines.append('    type: "terminal"')
+        lines.append('    condition: "false"')
+        lines.append('    description: "No terminal encounter detected."')
+        lines.append("    expected_critic_score: 0")
+    lines.append("---")
+    return lines
+
+
 def emit_full(data: Dict[str, Any]) -> str:
     characters = [c.get("id", "") for c in data.get("characters", [])]
     props = [p.get("id", "") for p in data.get("authored_properties", [])]
@@ -180,6 +308,8 @@ def emit_full(data: Dict[str, Any]) -> str:
     spool_ids = [s.get("id", "") for s in spools]
 
     lines: List[str] = []
+    lines.extend(build_frontmatter_lines(data))
+    lines.append("")
     lines.append("# SWMD-0")
     lines.append(f"id: {data.get('IFID', '')}")
     lines.append(f"title: {data.get('storyworld_title', '')}")
@@ -241,6 +371,8 @@ def emit_full(data: Dict[str, Any]) -> str:
 
 def emit_minified(data: Dict[str, Any]) -> str:
     lines: List[str] = []
+    lines.extend(build_frontmatter_lines(data))
+    lines.append("")
     lines.append("# SWMD-0-MIN")
     lines.append(f"id: {data.get('IFID', '')}")
     lines.append(f"title: {data.get('storyworld_title', '')}")

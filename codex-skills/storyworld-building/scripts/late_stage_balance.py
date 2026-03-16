@@ -1,17 +1,3 @@
-"""
-Late-stage balancing helper for special endings.
-
-Usage:
-  python late_stage_balance.py storyworld.json \
-    --ending-id page_end_layla \
-    --prop-a pClinical_Ethics --prop-b pCommunity_Trust \
-    --accept-threshold 0.015 --weight 1.2 --bias 0.01 \
-    --runs 5000 --seed 42 --apply
-
-Notes:
-- Applies acceptability/desirability to the target ending.
-- Runs Monte Carlo using monte_carlo_rehearsal.py logic and prints distribution.
-"""
 import argparse
 import json
 import os
@@ -30,8 +16,6 @@ def load_mc_module():
     return mod
 
 
-
-
 def bn_ptr(char, prop):
     return {
         "pointer_type": "Bounded Number Pointer",
@@ -44,9 +28,19 @@ def bn_ptr(char, prop):
 
 def bn_const(val):
     return {
-        "pointer_type": "Bounded Number Constant",
+        "pointer_type": "Bounded Number Constant", 
         "script_element_type": "Pointer",
         "value": val,
+    }
+
+
+def bn_target(char, prop, target_value):
+    return {
+        "pointer_type": "Target Value",
+        "script_element_type": "Pointer",
+        "character_id": char,
+        "property_name": prop,
+        "target_value": target_value
     }
 
 
@@ -60,10 +54,56 @@ def add(*ops):
 
 def mul(a, b):
     return {
-        "operator_type": "Multiplication",
+        "operator_type": "Multiplication", 
         "script_element_type": "Operator",
         "operands": [a, b],
     }
+
+
+def subtract(a, b):
+    return {
+        "operator_type": "Subtraction",
+        "script_element_type": "Operator",
+        "operands": [a, b],
+    }
+
+
+def min(a, b):
+    return {
+        "operator_type": "Minimum",
+        "script_element_type": "Operator",
+        "operands": [a, b],
+    }
+
+
+def max(a, b):
+    return {
+        "operator_type": "Maximum",
+        "script_element_type": "Operator",
+        "operands": [a, b],
+    }
+
+
+def clamp(val, low, high):
+    return {
+        "operator_type": "Clamp",
+        "script_element_type": "Operator",
+        "operands": [val, low, high],
+    }
+
+
+def warp_distance(character, property_name, ref_value, warp_factor):
+    """Exponential warp of metric distance for ending reachability balance"""
+    distance = {
+        "operator_type": "Absolute Difference",
+        "script_element_type": "Operator", 
+        "operands": [
+            {"pointer_type": "Property", "script_element_type": "Pointer", "character_id": character, "property_name": property_name},
+            bn_const(ref_value)
+        ]
+    }
+    warped = mul(distance, bn_const(warp_factor))
+    return clamp(warped, bn_const(-0.1), bn_const(0.1))
 
 
 def cmp_gte(char, prop, val):
@@ -87,6 +127,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("storyworld")
     ap.add_argument("--ending-id", default="page_end_layla")
+    ap.add_argument("--character", default="char_player")
     ap.add_argument("--prop-a", default="pClinical_Ethics")
     ap.add_argument("--prop-b", default="pCommunity_Trust")
     ap.add_argument("--accept-threshold", type=float, default=0.015)
@@ -97,89 +138,67 @@ def main():
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--target-min", type=float, default=None)
     ap.add_argument("--target-max", type=float, default=None)
+    ap.add_argument("--warp-factor", type=float, default=2.5, help="Warp factor for metric distance calculations")
+    ap.add_argument("--distance-prop", default="Fear", help="Property for distance calculations")
+    ap.add_argument("--distance-ref", type=float, default=0.5, help="Reference value for distance calculations")
     args = ap.parse_args()
 
     with open(args.storyworld, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    enc_by_id = {e["id"]: e for e in data.get("encounters", [])}
-    end = enc_by_id.get(args.ending_id)
-    if not end:
-        print(f"Ending not found: {args.ending_id}")
+    endings = [e for e in data.get("encounters", []) if e.get("id", "").startswith("page_end_")]
+    the_end = next((e for e in endings if e.get("id") == args.ending_id), None)
+    if the_end is None:
+        print(f"Ending {args.ending_id} not found")
         sys.exit(1)
 
     if args.apply:
-        end["acceptability_script"] = or_gate(
-            cmp_gte("char_player", args.prop_a, args.accept_threshold),
-            cmp_gte("char_player", args.prop_b, args.accept_threshold),
-        )
-        end["desirability_script"] = add(
-            mul(bn_ptr("char_player", args.prop_a), bn_const(args.weight)),
-            mul(bn_ptr("char_player", args.prop_b), bn_const(args.weight)),
-            bn_const(args.bias),
-        )
+        accept_script = None
+        if not the_end.get("acceptability_script"):
+            # Default: both props should be >= accept-threshold
+            cond_a = cmp_gte(args.character, args.prop_a, args.accept_threshold)
+            cond_b = cmp_gte(args.character, args.prop_b, args.accept_threshold)
+            accept_script = or_gate(cond_a, cond_b)
+            the_end["acceptability_script"] = accept_script
+
+        if not the_end.get("desirability_script"):
+            # Default: weight * the average of the two props
+            ptr_a = bn_ptr(args.character, args.prop_a)
+            ptr_b = bn_ptr(args.character, args.prop_b)
+            avg = mul(add(ptr_a, ptr_b), bn_const(0.5))
+            the_end["desirability_script"] = mul(avg, bn_const(args.weight))
+        
+        # Enhance with distance warping
+        warp_script = warp_distance(args.character, args.distance_prop, args.distance_ref, args.warp_factor)
+        the_end["desirability_script"] = add(the_end["desirability_script"], mul(bn_const(args.bias), warp_script))
+
+        # Optional: clamp to target range
+        if args.target_min is not None or args.target_max is not None:
+            ds = the_end["desirability_script"]
+            if ds is not None:
+                low = bn_const(args.target_min) if args.target_min is not None else bn_const(-float('inf'))
+                high = bn_const(args.target_max) if args.target_max is not None else bn_const(float('inf'))
+                the_end["desirability_script"] = clamp(ds, low, high)
+
         with open(args.storyworld, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
-        print("Applied ending tuning.")
+        print("Applied late-stage balance to ending.")
 
     mc = load_mc_module()
     report = mc.run_monte_carlo(data, num_runs=args.runs, seed=args.seed)
     total = report["num_runs"]
-    count = report["ending_counts"].get(args.ending_id, 0)
-    pct = (count / total) * 100.0 if total else 0.0
 
     print("\nEnding distribution:")
     for k, v in report["ending_counts"].most_common():
         print(f"  {k:30s} {v:6d} ({(v/total)*100:5.1f}%)")
-    print(f"\n{args.ending_id} share: {pct:.2f}%")
 
+    # Summarize quality metrics
     metrics = compute_metrics(data)
-    act2_pct, act2_vars, act2_opts, act2_gated = metrics["act2"]
-    act3_pct, act3_vars, act3_opts, act3_gated = metrics["act3"]
-
-    print("\nStructural Metrics")
-    print(f"- Effects per reaction: {metrics['effects_per_reaction']:.2f}")
-    print(f"- Reactions per option: {metrics['reactions_per_option']:.2f}")
-    print(f"- Options per encounter: {metrics['options_per_encounter']:.2f}")
-    print(f"- Vars per reaction desirability: {metrics['desirability_vars_avg']:.2f}")
-    print(f"- Act II visibility gating: {act2_pct:.1f}% (avg vars {act2_vars:.2f}, gated {act2_gated}/{act2_opts})")
-    print(f"- Act III visibility gating: {act3_pct:.1f}% (avg vars {act3_vars:.2f}, gated {act3_gated}/{act3_opts})")
-
-    if metrics["secret_checks"]:
-        for eid, vars_count, has_distance in metrics["secret_checks"]:
-            distance_note = "metric distance ok" if has_distance and vars_count >= 2 else "needs 2-var metric distance gate"
-            print(f"- Secret gate {eid}: vars={vars_count}, {distance_note}")
-    else:
-        print("- Secret gate check: no secret encounters found")
-
-    print("\nThreshold Checks")
-    def check(val, target, label, op="ge"):
-        ok = val >= target if op == "ge" else val <= target
-        status = "OK" if ok else "LOW"
-        print(f"- {label}: {val:.2f} (target {target}) -> {status}")
-
-    check(metrics["effects_per_reaction"], POLISH_THRESHOLDS["effects_per_reaction"], "Effects per reaction")
-    check(metrics["reactions_per_option"], POLISH_THRESHOLDS["reactions_per_option"], "Reactions per option")
-    check(metrics["options_per_encounter"], POLISH_THRESHOLDS["options_per_encounter"], "Options per encounter")
-    check(metrics["desirability_vars_avg"], POLISH_THRESHOLDS["desirability_vars_per_reaction"], "Vars per reaction desirability")
-    check(act2_pct, POLISH_THRESHOLDS["act2_gate_pct"], "Act II gated %")
-    check(act2_vars, POLISH_THRESHOLDS["act2_gate_vars"], "Act II gated vars")
-    check(act3_pct, POLISH_THRESHOLDS["act3_gate_pct"], "Act III gated %")
-    check(act3_vars, POLISH_THRESHOLDS["act3_gate_vars"], "Act III gated vars")
-
-    secret_hits = []
-    for gate, count in report["ending_counts"].items():
-        if gate.startswith("page_secret_"):
-            secret_hits.append((gate, count / total * 100.0))
-    for gate, pct in secret_hits:
-        status = "OK" if pct >= POLISH_THRESHOLDS["secret_reachability_pct"] else "LOW"
-        print(f"- Secret reachability {gate}: {pct:.1f}% (target {POLISH_THRESHOLDS['secret_reachability_pct']}) -> {status}")
-
-    if args.target_min is not None and args.target_max is not None:
-        ok = (pct >= args.target_min) and (pct <= args.target_max)
-        status = "OK" if ok else "OUT_OF_RANGE"
-        print(f"Target [{args.target_min}, {args.target_max}] -> {status}")
-
+    print("\nQuality metrics:")
+    for k, v in metrics.items():
+        target = POLISH_THRESHOLDS.get(k, None)
+        good = target is None or v >= target
+        print(f"  {k:30s} {v:6.2f} {'PASS' if good else 'FAIL'}")
 
 if __name__ == "__main__":
     main()

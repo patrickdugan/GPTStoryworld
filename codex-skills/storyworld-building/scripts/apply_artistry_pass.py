@@ -1,14 +1,4 @@
-#!/usr/bin/env python3
-"""Apply an artistry-focused pass to existing storyworlds.
-
-Targets:
-- Diversify desirability operators (not one formula everywhere)
-- Diversify effect operators (not Nudge-only)
-- Add multi-variable visibility gates (especially mid/late pathing)
-"""
-
 from __future__ import annotations
-
 import argparse
 import json
 import math
@@ -17,10 +7,8 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Sequence, Tuple
 
-
 def _bn_const(v: float) -> Dict[str, Any]:
     return {"script_element_type": "Pointer", "pointer_type": "Bounded Number Constant", "value": float(v)}
-
 
 def _bn_ptr(char_id: str, keyring: Sequence[str], coeff: float = 1.0) -> Dict[str, Any]:
     return {
@@ -31,17 +19,14 @@ def _bn_ptr(char_id: str, keyring: Sequence[str], coeff: float = 1.0) -> Dict[st
         "coefficient": float(coeff),
     }
 
-
 def _op(name: str, *ops: Dict[str, Any], subtype: str | None = None) -> Dict[str, Any]:
     out = {"script_element_type": "Operator", "operator_type": name, "operands": list(ops)}
     if subtype:
         out["operator_subtype"] = subtype
     return out
 
-
 def _cmp(left: Dict[str, Any], subtype: str, right: Dict[str, Any]) -> Dict[str, Any]:
     return _op("Arithmetic Comparator", left, right, subtype=subtype)
-
 
 def _effect(set_ptr: Dict[str, Any], to_script: Dict[str, Any]) -> Dict[str, Any]:
     return {
@@ -56,7 +41,6 @@ def _effect(set_ptr: Dict[str, Any], to_script: Dict[str, Any]) -> Dict[str, Any
         "to": to_script,
     }
 
-
 def _pick_props(authored: List[str], idx: int) -> Tuple[str, str, str]:
     base_props = [p for p in authored if not p.startswith("p")]
     if not base_props:
@@ -65,7 +49,6 @@ def _pick_props(authored: List[str], idx: int) -> Tuple[str, str, str]:
     b = base_props[(idx + 2) % len(base_props)]
     c = base_props[(idx + 4) % len(base_props)]
     return (a, b, c)
-
 
 def _desirability_script(main_char: str, witness_char: str, authored: List[str], i: int) -> Dict[str, Any]:
     a, b, c = _pick_props(authored, i)
@@ -92,7 +75,6 @@ def _desirability_script(main_char: str, witness_char: str, authored: List[str],
         )
     return _op("Subtraction", _op("Addition", _bn_ptr(main_char, [a]), _bn_ptr(main_char, [pa])), _bn_ptr(main_char, [b]))
 
-
 def _effect_scripts(main_char: str, witness_char: str, authored: List[str], i: int) -> List[Dict[str, Any]]:
     a, b, c = _pick_props(authored, i)
     pa = f"p{a}" if f"p{a}" in authored else (next((x for x in authored if x.startswith("p")), a))
@@ -101,52 +83,59 @@ def _effect_scripts(main_char: str, witness_char: str, authored: List[str], i: i
     ptr_c = _bn_ptr(main_char, [c])
     ptr_pa = _bn_ptr(main_char, [pa])
     ptr_p2 = _bn_ptr(main_char, [pa, witness_char])
-
-    # Effect policy:
-    # - Nudge is dominant baseline (slow walk toward outcomes).
-    # - Blend is sparse and relationship-mediated.
-    # - Invert is rare (act-level dramatic reversal).
-    # - Arithmetic Mean is primarily for desirability scripts, not frequent in effects.
     nudge_mag = 0.10 if (i % 30 == 0) else 0.03
     effects = [
         _effect(ptr_a, _op("Nudge", ptr_a, _bn_const(nudge_mag))),
         _effect(ptr_b, _op("Nudge", ptr_b, _bn_const(0.03))),
-        _effect(ptr_c, _op("Nudge", ptr_c, _op("Multiplication", ptr_pa, _bn_const(0.03)))),
+        _effect(ptr_c, _op("Nadge", ptr_c, _op("Multiplication", ptr_pa, _bn_const(0.03)))),
     ]
     m = i % 100
-    avg_slots = {0, 50}  # 2% of reactions -> ~0.5% effects
-    invert_slots = {5, 15, 25, 35, 45, 55, 65, 75, 85, 95}  # 10% of reactions -> ~2.5% effects
-    blend_slots = {
-        1, 2, 6, 7, 11, 12, 16, 17, 21, 22, 26, 27, 31, 32,
-        36, 37, 41, 42, 46, 47, 51, 52, 56, 57, 61, 62, 66, 67,
-    }  # 28% of reactions -> ~7% effects
+    # Patch: Add specific targets for dramatic effect operators
+    avg_slots = {0, 25, 50, 75}  # 4% of reactions -> ~1% effects
+    invert_slots = {5, 15, 35, 45, 65, 75, 85, 95}  # 8% of reactions -> ~2% effects  
+    blend_slots = {1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 14, 16, 17, 18, 19, 20, 21, 22, 24, 26, 27, 28, 29, 30,
+                   31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 48, 49, 51, 52, 53, 54, 56, 57, 58, 59,
+                   60, 61, 62, 63, 64, 66, 67, 68, 69, 70, 71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 82, 83, 84, 86, 87, 88, 89, 90, 91, 92, 93, 94, 96, 97, 98, 99}  # ~75% of reactions -> ~18.75% effects
     if m in avg_slots:
-        effects.append(_effect(ptr_a, _op("Arithmetic Mean", ptr_a, ptr_pa, ptr_p2)))  # rare avg in effects
+        effects.append(_effect(ptr_a, _op("Arithmetic Mean", ptr_a, ptr_pa, ptr_p2)))
     elif m in invert_slots:
-        effects.append(_effect(ptr_c, _op("Multiplication", ptr_c, _bn_const(-0.88))))  # dramatic inversion
+        effects.append(_effect(ptr_c, _op("Multiplication", ptr_c, _bn_const(-0.88))))
     elif m in blend_slots:
-        effects.append(_effect(ptr_b, _op("Addition", ptr_b, _op("Multiplication", ptr_p2, _bn_const(0.10)))))  # blend
+        effects.append(_effect(ptr_b, _op("Addition", ptr_b, _op("Multiplication", ptr_p2, _bn_const(0.10)))))
     else:
         effects.append(_effect(ptr_a, _op("Nudge", ptr_a, _bn_const(0.03))))
     return effects
 
-
-def _visibility_gate(main_char: str, authored: List[str], i: int) -> Dict[str, Any]:
+def _advanced_visibility_gate(main_char: str, authored: List[str], i: int, warped_metric_min: float) -> Dict[str, Any]:
+    # Upgraded visibility gate with multi-layered conditionals for secret ending paths
     a, b, c = _pick_props(authored, i)
     return _op(
         "Or",
         _op(
-            "And",
-            _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.12)),
-            _cmp(_bn_ptr(main_char, [b]), "Less Than or Equal To", _bn_const(0.18)),
+            "And",  # AND layer 1: Complex multi-condition gating
+            _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(warped_metric_min * -0.12)),
+            _cmp(_bn_ptr(main_char, [b]), "Less Than or Equal To", _bn_const(warped_metric_min * 0.18)),
         ),
         _op(
+            "And",  # AND layer 2: SCP-style inversion potential (super secret enabling)
+            _cmp(_bn_ptr(main_char, [c]), "Less Than or Equal To", _bn_const(warped_metric_min * 0.08)),
+            _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(warped_metric_min * -0.22)),
+        ),
+        _op(  # OR layer 3: Character-specific hidden dependency for deeper pathing
             "And",
-            _cmp(_bn_ptr(main_char, [c]), "Less Than or Equal To", _bn_const(0.08)),
-            _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.22)),
+            _cmp(_bn_ptr(main_char, [b]), "Greater Than or Equal To", _bn_const(warped_metric_min * 0.05)),
+            _cmp(_bn_ptr(main_char, [main_char]), "Less Than or Equal To", _bn_const(warped_metric_min * 0.02)),  # self-reference, SCP-like
         ),
     )
 
+def _ensure_text(text_script: Any) -> Dict[str, str]:
+    if isinstance(text_script, dict) and text_script.get("pointer_type") == "String Constant":
+        return text_script
+    return {"pointer_type": "String Constant", "value": str(text_script or "")}
+
+
+def _visibility_gate(main_char: str, authored: List[str], i: int) -> Dict[str, Any]:
+    return _advanced_visibility_gate(main_char, authored, i, 0.90)
 
 def _extract_theme_terms(data: Dict[str, Any]) -> List[str]:
     raw = []
@@ -168,13 +157,6 @@ def _extract_theme_terms(data: Dict[str, Any]) -> List[str]:
             uniq.append(t)
     return uniq[:12] if uniq else ["timeline", "honor", "betrayal", "promise"]
 
-
-def _ensure_text(script: Any) -> Dict[str, Any]:
-    if isinstance(script, dict) and script.get("pointer_type") == "String Constant":
-        return script
-    return {"script_element_type": "Pointer", "pointer_type": "String Constant", "value": ""}
-
-
 def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, Any]:
     out = json.loads(json.dumps(data))
     characters = [c.get("id") for c in out.get("characters", []) if c.get("id")]
@@ -182,11 +164,8 @@ def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, An
     witness_char = str(characters[1]) if len(characters) > 1 else main_char
     authored = [p.get("property_name") for p in out.get("authored_properties", []) if p.get("property_name")]
     theme_terms = _extract_theme_terms(out)
-
     encounters = out.get("encounters", []) or []
     editable = [e for e in encounters if (e.get("options") or [])]
-
-    # Ensure global encounter text uniqueness (including endings/non-option encounters).
     for enc_i, enc in enumerate(encounters):
         enc_text = _ensure_text(enc.get("text_script"))
         t1 = theme_terms[enc_i % len(theme_terms)]
@@ -196,58 +175,6 @@ def apply_artistry(data: Dict[str, Any], gate_pct: float = 0.09) -> Dict[str, An
             f"recording a unique causal trace for downstream branches."
         ).strip()
         enc["text_script"] = enc_text
-
-    # Compute act-staged targets for visibility gates.
-    act_targets = {3: 0.05, 4: 0.10, 5: max(0.20, gate_pct)}
-    act_totals = {3: 0, 4: 0, 5: 0}
-    n_editable = max(1, len(editable))
-    for enc_i, enc in enumerate(editable):
-        act = min(5, (enc_i * 5) // n_editable + 1)
-        if act in act_totals:
-            act_totals[act] += len(enc.get("options", []) or [])
-    act_gate_caps = {a: max(1, int(math.ceil(act_totals[a] * pct))) for a, pct in act_targets.items() if act_totals[a] > 0}
-    act_gated = {3: 0, 4: 0, 5: 0}
-
-    rxn_idx = 0
-    for enc_i, enc in enumerate(editable):
-        a, b, _c = _pick_props(authored, enc_i)
-        enc_text = _ensure_text(enc.get("text_script"))
-        t1 = theme_terms[enc_i % len(theme_terms)]
-        t2 = theme_terms[(enc_i + 3) % len(theme_terms)]
-        t3 = theme_terms[(enc_i + 6) % len(theme_terms)]
-        enc_text["value"] = (
-            f"{enc_text.get('value','').strip()} In encounter {enc.get('id','enc')}, the conflict over {t1} and {t2} "
-            f"forces a public wager on {t3}, with reputations and timelines now mutually exposed."
-        ).strip()
-        enc["text_script"] = enc_text
-        # Keep acceptance mostly permissive but variable-aware (non-constant).
-        enc["acceptability_script"] = _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.95))
-        enc["desirability_script"] = _op("Addition", _bn_ptr(main_char, [a]), _op("Multiplication", _bn_ptr(main_char, [b]), _bn_const(0.4)))
-        options = enc.get("options", []) or []
-        for opt_i, opt in enumerate(options):
-            # Performability also variable-aware while remaining permissive.
-            opt["performability_script"] = _cmp(_bn_ptr(main_char, [a]), "Greater Than or Equal To", _bn_const(-0.98))
-            act = min(5, (enc_i * 5) // n_editable + 1)
-            # Explicit stage targets: Act III 5%, Act IV 10%, Act V 20%+.
-            if act in act_gate_caps and act_gated[act] < act_gate_caps[act] and (opt_i + enc_i) % 2 == 0:
-                opt["visibility_script"] = _visibility_gate(main_char, authored, rxn_idx)
-                act_gated[act] += 1
-            elif act in (3, 4, 5):
-                opt["visibility_script"] = True
-            reactions = opt.get("reactions", []) or []
-            for rxn in reactions:
-                rxn["desirability_script"] = _desirability_script(main_char, witness_char, authored, rxn_idx)
-                rxn["after_effects"] = _effect_scripts(main_char, witness_char, authored, rxn_idx)
-                rtext = _ensure_text(rxn.get("text_script"))
-                u = theme_terms[(rxn_idx + 1) % len(theme_terms)]
-                v = theme_terms[(rxn_idx + 4) % len(theme_terms)]
-                rtext["value"] = (
-                    f"Response trace {rxn_idx:05d} ({rxn.get('id','rxn')}) reframes {u} against {v}: the speaker pivots tone, telegraphs a new alliance geometry, "
-                    f"and leaves a traceable contradiction that can be exploited in later scenes."
-                )
-                rxn["text_script"] = rtext
-                rxn_idx += 1
-
     out["modified_time"] = float(time.time())
     title = str(out.get("title", "Storyworld")).strip()
     if "(Artistry" not in title:
@@ -273,7 +200,6 @@ def main() -> int:
     out_path.write_text(json.dumps(out, indent=2, ensure_ascii=True) + "\n", encoding="utf-8", newline="\n")
     print(str(out_path))
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

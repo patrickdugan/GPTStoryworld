@@ -33,6 +33,7 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
 ## Token-Economics MCP Loop
 - Prefer bounded-context authoring for local 3B/4GB setups: one encounter card at a time, not whole-world prompts.
 - Use SWMD minified markdown as the authoring substrate (`json_to_swmd.py --mode minified`) and keep encounter+context card payloads under an 8k context budget.
+- Require visible SWMD YAML frontmatter for benchmark metadata. At minimum include `title`, `storyworld_id`, `state_variables`, and `endings` (terminal IDs + type/condition/expected_critic_score).
 - Maintain external memory in files: encounter index JSONL, world card, and change ledger; keep the model context small and deterministic.
 - For MCP orchestration in GPTStoryworld, use `C:/projects/GPTStoryworld/mcp-storyworld-encounter/server.py` tools:
   - `list_encounters`
@@ -103,6 +104,7 @@ Use these tools to make deterministic, validated edits:
 `json_to_swmd.py` examples:
 - Full form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.md`
 - Minified form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.min.md --mode minified`
+- Casablanca benchmark note: ensure `adapt_casablanca_crossroads_at_ricks_v1.swmd.min.md` frontmatter `endings` is present and machine-readable before judge/eval runs.
 
 `storyworld_quality_gate.py` examples:
 - Human-readable report: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json`
@@ -141,6 +143,15 @@ Use these tools to make deterministic, validated edits:
 
 ## Validation Rule
 Never bypass `scripts/sweepweave_validator.py` when the task touches storyworld JSON.
+
+## Windows Validation Note
+- On non-UTF8 Windows code pages, validator success output can raise `UnicodeEncodeError` on the checkmark glyph.
+- Prefer running validator with `PYTHONIOENCODING=utf-8` so valid files are not misclassified.
+
+## Batch Revision Gap Note
+- Some storyworld batches are deterministic `consequence_id` chains and use domain-specific character IDs, so fixed char-id heuristics are brittle.
+- For mixed-template spool/secret rewires with receipts, use:
+  - `C:/projects/AICOO/MoralityLab/AICOO/scripts/ml_storyworld_spool_secret_batch_revise.py`
 
 Focused diplomacy QA loop:
 - Run a UI pass in SweepWeave and confirm all target diplomacy encounters load without console errors.

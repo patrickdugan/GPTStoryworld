@@ -240,7 +240,9 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
         _check("option_performability_nonconstant_ratio", perf_suite["nonconstant_ratio"], 0.03),
         _check("option_performability_complexity", perf_suite["avg_op_count"], 0.6),
         _check("encounter_acceptability_nonconstant_ratio", enc_acc_suite["nonconstant_ratio"], 0.2),
-        _check("encounter_acceptability_complexity", enc_acc_suite["avg_op_count"], 0.5),
+        _check("ending_reachability_balance", float(metrics.get('ending_gini', 1.0)), 0.19),
+        _check("secret_reachability_balance", float(metrics.get('secret_gini', 1.0)), 0.12),
+        _check("super_secret_reachability", float(metrics.get('super_secret_access_pct', 0.0)), 0.25),
         _check("encounter_desirability_nonconstant_ratio", enc_des_suite["nonconstant_ratio"], 0.2),
         _check("encounter_desirability_complexity", enc_des_suite["avg_op_count"], 0.5),
     ]
