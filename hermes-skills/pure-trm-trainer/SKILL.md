@@ -127,6 +127,7 @@ Supported directly by the corpus builder:
 - Source recipes: [source-patterns.md](./references/source-patterns.md)
 - Hill-climb search spec: [hillclimb-spec.sample.json](./references/hillclimb-spec.sample.json)
 - Hill-climb smoke spec: [hillclimb-spec.smoke.json](./references/hillclimb-spec.smoke.json)
+- Publish path: [publish-path.md](./references/publish-path.md)
 - Local scorecard evaluator: [evaluate_trm_scorecard.py](./scripts/evaluate_trm_scorecard.py)
 
 ## Example Requests
