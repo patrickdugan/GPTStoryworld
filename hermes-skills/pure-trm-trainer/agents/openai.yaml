@@ -1,4 +1,4 @@
 interface:
   display_name: "Pure TRM Trainer"
-  short_description: "Train pure TRM controllers with Hermes"
-  default_prompt: "Use $pure-trm-trainer to assemble TRM training data and run a Hermes-wrapped trainer."
+  short_description: "Train and tune pure TRM controllers with Hermes"
+  default_prompt: "Use $pure-trm-trainer to assemble TRM data, run Hermes-wrapped training, and hill-climb generalization level against the TRM bench."
