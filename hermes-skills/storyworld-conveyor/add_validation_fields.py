@@ -1,39 +1,46 @@
 #!/usr/bin/env python3
 import json
 import sys
-import os
 
 # Add missing fields to storyworld
-def add_missing_fields(filename):
+def add_missing_fields(filename, verbose=False):
     try:
         text = open(filename, 'r').read()
         world = json.loads(text)
         
-        # Add required fields
-        world['css_theme'] = 'classic'
-        world['debug_mode'] = False
-        world['display_mode'] = 'desktop'
-        world['authored_properties'] = []
+        # Add required fields only when missing
+        world.setdefault("css_theme", "classic")
+        world.setdefault("debug_mode", False)
+        world.setdefault("display_mode", "desktop")
+        world.setdefault("authored_properties", [])
 
         # Convert chars to characters format if needed
-        if 'chars' in world:
+        if "characters" not in world and "chars" in world:
             world['characters'] = world['chars']
             del world['chars']
 
         # Add minimum authored properties structure
-        for char in world.get('characters', []):
-            world['authored_properties'].append({
-                "id": f"Embodiment_Virtuality_{char['id']}" ,
+        existing_property_ids = {item.get("id") for item in world["authored_properties"] if isinstance(item, dict)}
+        for char in world.get("characters", []):
+            char_id = str(char.get("id")) if isinstance(char, dict) and char.get("id") is not None else ""
+            if not char_id:
+                continue
+            prop_id = f"Embodiment_Virtuality_{char_id}"
+            if prop_id in existing_property_ids:
+                continue
+            world["authored_properties"].append({
+                "id": prop_id,
                 "default_value": 0,
                 "depth": 0,
-                "affected_characters": [char['id']]
+                "affected_characters": [char_id],
             })
     
         # Write back
         with open(filename, 'w') as f:
             json.dump(world, f, indent=2)
             
-        print(f"Added missing fields to {filename}")
+        if verbose:
+            print(f"Added missing fields to {filename}")
         return world
     except Exception as e:
         print(f"Error processing {filename}: {e}")
