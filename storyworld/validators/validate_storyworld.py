@@ -64,6 +64,22 @@ def manual_validate(data: dict) -> list[str]:
     else:
         agent_ids = []
 
+    multiplayer = data.get("multiplayer", 1)
+    if not isinstance(multiplayer, int) or multiplayer < 1:
+        errors.append("multiplayer must be an integer >= 1")
+    turns = data.get("turns")
+    requires_turns = ("multiplayer" in data) or (isinstance(multiplayer, int) and multiplayer > 1)
+    if requires_turns:
+        if not isinstance(turns, list) or len(turns) == 0:
+            errors.append("turns must be a non-empty array when multiplayer is set")
+        elif agent_ids:
+            unknown_turn_agents = [entry for entry in turns if entry not in agent_ids]
+            if unknown_turn_agents:
+                errors.append(f"turns contains unknown agents: {unknown_turn_agents}")
+            covered_agents = {entry for entry in turns if entry in agent_ids}
+            if isinstance(multiplayer, int) and len(covered_agents) < min(multiplayer, len(agent_ids)):
+                errors.append("turns must cover at least the declared multiplayer agent count")
+
     if isinstance(nodes, list):
         if len(nodes) > 12:
             errors.append("nodes exceeds max of 12")

@@ -458,10 +458,24 @@ def _responses_text(resp: Dict[str, Any]) -> str:
     return "\n".join(out).strip()
 
 
+def _chat_completions_text(resp: Dict[str, Any]) -> str:
+    choices = resp.get("choices") or []
+    if not choices:
+        return ""
+    message = choices[0].get("message") or {}
+    content = message.get("content", "")
+    if isinstance(content, str):
+        return content.strip()
+    if isinstance(content, list):
+        return "\n".join(str(item.get("text", "")) for item in content if isinstance(item, dict)).strip()
+    return str(content).strip()
+
+
 def run_judge(
     storyworld_path: Path,
     judge_model: str,
     api_key: str,
+    base_url: str,
     dry_run: bool,
     max_encounters: int,
     max_reactions: int,
@@ -527,16 +541,28 @@ def run_judge(
         "samples": samples,
         "holistic_corpus": holistic_corpus,
     }
-    req_body = {
-        "model": judge_model,
-        "input": [
-            {"role": "system", "content": [{"type": "input_text", "text": system_prompt + "\n\n" + system_card}]},
-            {"role": "user", "content": [{"type": "input_text", "text": json.dumps(user_payload, ensure_ascii=True)}]},
-        ],
-        "max_output_tokens": 1900,
-    }
+    is_chat_completions = "/chat/completions" in base_url
+    if is_chat_completions:
+        req_body = {
+            "model": judge_model,
+            "messages": [
+                {"role": "system", "content": system_prompt + "\n\n" + system_card},
+                {"role": "user", "content": json.dumps(user_payload, ensure_ascii=True)},
+            ],
+            "max_tokens": 1900,
+            "temperature": 0.0,
+        }
+    else:
+        req_body = {
+            "model": judge_model,
+            "input": [
+                {"role": "system", "content": [{"type": "input_text", "text": system_prompt + "\n\n" + system_card}]},
+                {"role": "user", "content": [{"type": "input_text", "text": json.dumps(user_payload, ensure_ascii=True)}]},
+            ],
+            "max_output_tokens": 1900,
+        }
     req = urllib.request.Request(
-        "https://api.openai.com/v1/responses",
+        base_url or "https://api.openai.com/v1/responses",
         data=json.dumps(req_body).encode("utf-8"),
         method="POST",
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
@@ -547,7 +573,7 @@ def run_judge(
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="ignore")
         raise RuntimeError(f"Judge API error HTTP {exc.code}: {detail}") from exc
-    text = _responses_text(resp)
+    text = _chat_completions_text(resp) if is_chat_completions else _responses_text(resp)
     parsed = _extract_json(text)
     return {
         "mode": "api",
@@ -568,6 +594,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--out", required=True)
     p.add_argument("--judge-model", default="gpt-5-mini")
     p.add_argument("--api-key-file", default="")
+    p.add_argument("--base-url", default="https://api.openai.com/v1/responses")
     p.add_argument("--source-format", choices=["auto", "json", "swmd"], default="auto")
     p.add_argument("--swmd-path", default="")
     p.add_argument("--max-encounters", type=int, default=50)
@@ -585,6 +612,7 @@ def main() -> int:
         storyworld_path=storyworld,
         judge_model=args.judge_model,
         api_key=api_key,
+        base_url=str(args.base_url),
         dry_run=bool(args.dry_run),
         max_encounters=int(args.max_encounters),
         max_reactions=int(args.max_reactions),

@@ -61,6 +61,23 @@ def _pick_option_id_from_text(text: str, option_ids: List[str]) -> str:
     # Drop explicit reasoning tags when models leak them.
     s = re.sub(r"<think>.*?</think>", " ", s, flags=re.IGNORECASE | re.DOTALL)
     s = re.sub(r"```.*?```", " ", s, flags=re.DOTALL)
+    json_match = re.search(r"\{.*\}", s, flags=re.DOTALL)
+    if json_match:
+        try:
+            payload = json.loads(json_match.group(0))
+        except Exception:
+            payload = None
+        if isinstance(payload, dict):
+            for key in ("option_id", "option", "chosen", "selected_option"):
+                value = str(payload.get(key, "") or "").strip()
+                if not value:
+                    continue
+                for oid in stable:
+                    if oid.lower() == value.lower():
+                        return oid
+                for oid in ordered:
+                    if oid.lower().startswith(value.lower()) or value.lower().startswith(oid.lower()):
+                        return oid
     for oid in ordered:
         pat = re.compile(rf"(?<![A-Za-z0-9_]){re.escape(oid)}(?![A-Za-z0-9_])", flags=re.IGNORECASE)
         if pat.search(s):
@@ -280,6 +297,7 @@ class HFRunner:
         temperature: float,
         top_p: float,
         do_sample: bool,
+        enable_thinking: bool = False,
     ) -> Dict[str, Any]:
         assert self.model is not None
         assert self.tokenizer is not None
@@ -292,9 +310,27 @@ class HFRunner:
             {"role": "user", "content": prompt},
         ]
         if hasattr(tok, "apply_chat_template"):
-            rendered = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            try:
+                rendered = tok.apply_chat_template(
+                    messages,
+                    tokenize=False,
+                    add_generation_prompt=True,
+                    enable_thinking=enable_thinking,
+                )
+            except TypeError:
+                try:
+                    rendered = tok.apply_chat_template(
+                        messages,
+                        tokenize=False,
+                        add_generation_prompt=True,
+                        chat_template_kwargs={"enable_thinking": enable_thinking},
+                    )
+                except TypeError:
+                    rendered = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         else:
             rendered = f"System: {messages[0]['content']}\nUser: {messages[1]['content']}\nAssistant:"
+            if enable_thinking:
+                rendered += "\nThink carefully and provide only the final answer."
 
         encoded = tok(rendered, return_tensors="pt")
         device = next(model.parameters()).device
@@ -370,6 +406,7 @@ class HFRunner:
         candidate_temperature: float = 0.7,
         candidate_top_p: float = 0.95,
         secret_clue_bias: float = 0.0,
+        enable_thinking: bool = False,
     ) -> Dict[str, Any]:
         assert self.model is not None
         assert self.tokenizer is not None
@@ -386,19 +423,39 @@ class HFRunner:
             secret_clue_bias,
         )
         sys_msg = "Return exactly one allowed option id token. No extra text."
+        if enable_thinking:
+            sys_msg = "Think carefully, then return exactly one allowed option id token. No extra text."
         user_msg = (
             f"{prompt}\n\n"
             f"Allowed option ids: {', '.join(valid_ids)}\n"
-            "Output format: <option_id>"
+            'Output format: {"option_id":"<one allowed option id>"}'
         )
         messages = [
             {"role": "system", "content": sys_msg},
             {"role": "user", "content": user_msg},
         ]
         if hasattr(tok, "apply_chat_template"):
-            rendered = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            try:
+                rendered = tok.apply_chat_template(
+                    messages,
+                    tokenize=False,
+                    add_generation_prompt=True,
+                    enable_thinking=enable_thinking,
+                )
+            except TypeError:
+                try:
+                    rendered = tok.apply_chat_template(
+                        messages,
+                        tokenize=False,
+                        add_generation_prompt=True,
+                        chat_template_kwargs={"enable_thinking": enable_thinking},
+                    )
+                except TypeError:
+                    rendered = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         else:
             rendered = f"System: {sys_msg}\nUser: {user_msg}\nAssistant:"
+            if enable_thinking:
+                rendered += "\nThink carefully before answering."
 
         encoded = tok(rendered, return_tensors="pt")
         device = next(model.parameters()).device
@@ -429,16 +486,39 @@ class HFRunner:
             retry_user = (
                 "Pick ONE id from this list and output only that id:\n"
                 + ", ".join(valid_ids)
-                + "\nAnswer with only the id."
+                + '\nAnswer with only JSON: {"option_id":"<id>"}'
             )
             retry_msgs = [
-                {"role": "system", "content": "Output one allowed id token only."},
+                {
+                    "role": "system",
+                    "content": "Output one allowed id token only."
+                    if not enable_thinking
+                    else "Think carefully, then output one allowed id token only.",
+                },
                 {"role": "user", "content": retry_user},
             ]
             if hasattr(tok, "apply_chat_template"):
-                retry_rendered = tok.apply_chat_template(retry_msgs, tokenize=False, add_generation_prompt=True)
+                try:
+                    retry_rendered = tok.apply_chat_template(
+                        retry_msgs,
+                        tokenize=False,
+                        add_generation_prompt=True,
+                        enable_thinking=enable_thinking,
+                    )
+                except TypeError:
+                    try:
+                        retry_rendered = tok.apply_chat_template(
+                            retry_msgs,
+                            tokenize=False,
+                            add_generation_prompt=True,
+                            chat_template_kwargs={"enable_thinking": enable_thinking},
+                        )
+                    except TypeError:
+                        retry_rendered = tok.apply_chat_template(retry_msgs, tokenize=False, add_generation_prompt=True)
             else:
                 retry_rendered = f"System: {retry_msgs[0]['content']}\nUser: {retry_msgs[1]['content']}\nAssistant:"
+                if enable_thinking:
+                    retry_rendered += "\nThink carefully before answering."
             raw_retry, p2, c2, l2 = _gen(retry_rendered, max(8, min(18, int(max_new_tokens))))
             chosen_retry = _pick_option_id_from_text(raw_retry, valid_ids)
             if chosen_retry:
@@ -572,6 +652,7 @@ class ApiRunner:
         candidate_temperature: float = 0.7,
         candidate_top_p: float = 0.95,
         secret_clue_bias: float = 0.0,
+        enable_thinking: bool = False,
     ) -> Dict[str, Any]:
         valid_ids = [str(x) for x in option_ids if str(x)]
         system_parts = ["Return exactly one allowed option id token. No extra text."]
@@ -584,7 +665,7 @@ class ApiRunner:
                 "content": (
                     f"{prompt}\n\n"
                     f"Allowed option ids: {', '.join(valid_ids)}\n"
-                    "Output format: <option_id>"
+                    'Output format: {"option_id":"<one allowed option id>"}'
                 ),
             },
         ]
@@ -607,7 +688,7 @@ class ApiRunner:
                             "content": (
                                 "Pick ONE id from this list and output only that id:\n"
                                 + ", ".join(valid_ids)
-                                + "\nAnswer with only the id."
+                                + '\nAnswer with only JSON: {"option_id":"<id>"}'
                             ),
                         },
                     ],
@@ -1067,6 +1148,7 @@ def run_playthrough_condition(
     api_pick_candidate_temperature: float,
     api_pick_candidate_top_p: float,
     secret_clue_bias: float,
+    enable_thinking: bool,
     dry_run: bool,
 ) -> Dict[str, Any]:
     ensure_dir(out_dir)
@@ -1200,6 +1282,7 @@ def run_playthrough_condition(
                             candidate_temperature=float(api_pick_candidate_temperature),
                             candidate_top_p=float(api_pick_candidate_top_p),
                             secret_clue_bias=float(secret_clue_bias),
+                            enable_thinking=bool(enable_thinking),
                         )
                         pick_raw = str(pick.get("raw_text", "") or "")
                         pick_fallback = bool(pick.get("fallback", False))
@@ -1344,6 +1427,7 @@ def run_condition(
     temperature: float,
     top_p: float,
     do_sample: bool,
+    enable_thinking: bool,
     dry_run: bool,
 ) -> Dict[str, Any]:
     ensure_dir(out_dir)
@@ -1370,6 +1454,7 @@ def run_condition(
                 temperature=temperature,
                 top_p=top_p,
                 do_sample=do_sample,
+                enable_thinking=bool(enable_thinking),
             )
         rows.append(
             {
@@ -1522,6 +1607,7 @@ def main() -> int:
     ap.add_argument("--api-pick-candidate-temperature", type=float, default=0.7)
     ap.add_argument("--api-pick-candidate-top-p", type=float, default=0.95)
     ap.add_argument("--secret-clue-bias", type=float, default=0.0)
+    ap.add_argument("--enable-thinking", action="store_true", help="Enable Qwen thinking mode when the tokenizer supports it.")
     ap.add_argument("--start-encounter-id", default="", help="Optional non-default encounter id to start each playthrough from.")
     ap.add_argument("--seed-diary-path", default="", help="Optional text or JSON file with prior diary lines used as initial context.")
     ap.add_argument("--cross-play-memory-mode", choices=["full_diary", "summary", "none"], default="summary")
@@ -1595,6 +1681,7 @@ def main() -> int:
             "api_pick_candidate_temperature": float(args.api_pick_candidate_temperature),
             "api_pick_candidate_top_p": float(args.api_pick_candidate_top_p),
             "secret_clue_bias": float(args.secret_clue_bias),
+            "enable_thinking": bool(args.enable_thinking),
             "start_encounter_id": str(args.start_encounter_id),
             "seed_diary_path": str(args.seed_diary_path),
             "cross_play_memory_mode": str(args.cross_play_memory_mode),
@@ -1719,6 +1806,7 @@ def main() -> int:
                     api_pick_candidate_temperature=float(args.api_pick_candidate_temperature),
                     api_pick_candidate_top_p=float(args.api_pick_candidate_top_p),
                     secret_clue_bias=float(args.secret_clue_bias),
+                    enable_thinking=bool(args.enable_thinking),
                     dry_run=bool(args.dry_run),
                 )
             else:
@@ -1731,6 +1819,7 @@ def main() -> int:
                     temperature=float(args.temperature),
                     top_p=float(args.top_p),
                     do_sample=bool(args.do_sample),
+                    enable_thinking=bool(args.enable_thinking),
                     dry_run=bool(args.dry_run),
                 )
 
@@ -1772,6 +1861,7 @@ def main() -> int:
                     api_pick_candidate_temperature=float(args.api_pick_candidate_temperature),
                     api_pick_candidate_top_p=float(args.api_pick_candidate_top_p),
                     secret_clue_bias=float(args.secret_clue_bias),
+                    enable_thinking=bool(args.enable_thinking),
                     dry_run=bool(args.dry_run),
                 )
             else:
@@ -1784,6 +1874,7 @@ def main() -> int:
                     temperature=float(args.temperature),
                     top_p=float(args.top_p),
                     do_sample=bool(args.do_sample),
+                    enable_thinking=bool(args.enable_thinking),
                     dry_run=bool(args.dry_run),
                 )
 

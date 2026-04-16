@@ -50,6 +50,8 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
         self._belief_update = storyworld.get("rules", {}).get("belief_update", {})
         self._forecast_questions = storyworld.get("rules", {}).get("forecast_questions", [])
         self._outcome_keys = list(storyworld.get("rules", {}).get("outcomes", {}).keys())
+        self._multiplayer = self._normalize_multiplayer(storyworld.get("multiplayer", 1))
+        self._turn_order = self._normalize_turn_order(storyworld.get("turns"))
 
     def reset(self, seed: Optional[int] = None) -> Dict[str, Any]:
         if seed is not None:
@@ -64,6 +66,9 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
             "messages": [],
             "done": False,
             "history": [],
+            "multiplayer": self._multiplayer,
+            "turn_order": deep_copy_state(self._turn_order),
+            "turn_owner": self._turn_owner_for_turn(0),
         }
         self._ensure_belief_matrix()
         self.logger.log("reset", {"state": self.state, "forecast_questions": self._forecast_questions})
@@ -73,7 +78,8 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
         if self.state.get("done"):
             return deep_copy_state(self.state), {"error": "episode already done"}, True
 
-        actions_by_agent = self._normalize_actions(actions)
+        current_turn_owner = self.state.get("turn_owner") or self._turn_owner_for_turn(self.state.get("turn", 0))
+        actions_by_agent = self._normalize_actions(actions, current_turn_owner)
         messages_list = self._normalize_messages(messages)
 
         self._apply_messages(messages_list)
@@ -85,6 +91,7 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
 
         self.state["turn"] += 1
         self.state["messages"] = messages_list
+        self.state["turn_owner"] = self._turn_owner_for_turn(self.state["turn"])
         forecast_scores = self._score_forecasts(actions_by_agent, outcome)
         metrics = self._compute_metrics(actions_by_agent, pre_beliefs)
         self.state["history"].append({
@@ -94,6 +101,8 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
             "outcome": outcome,
             "forecast_scores": forecast_scores,
             "metrics": metrics,
+            "turn_owner": current_turn_owner,
+            "next_turn_owner": self.state["turn_owner"],
         })
 
         done = self._check_terminal(outcome)
@@ -110,6 +119,10 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
             "beliefs": self.state["beliefs"],
             "active_node": self.state["active_node"],
             "done": done,
+            "multiplayer": self._multiplayer,
+            "turn_order": deep_copy_state(self._turn_order),
+            "turn_owner": current_turn_owner,
+            "next_turn_owner": self.state["turn_owner"],
         }
         self.logger.log("step", event)
         return deep_copy_state(self.state), event, done
@@ -123,7 +136,9 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
                 trust.setdefault(other, 0.0)
         self.state["beliefs"] = beliefs
 
-    def _normalize_actions(self, actions) -> Dict[str, Dict[str, Any]]:
+    def _normalize_actions(self, actions, current_turn_owner: str | None = None) -> Dict[str, Dict[str, Any]]:
+        if self._uses_alternating_turns():
+            return self._normalize_actions_for_turn_owner(actions, current_turn_owner)
         if actions is None:
             return {aid: {"type": "wait"} for aid in self._agent_ids}
         if isinstance(actions, dict):
@@ -135,6 +150,30 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
             by_agent = {a.get("agent_id"): a for a in actions if isinstance(a, dict)}
             return {aid: by_agent.get(aid, {"type": "wait"}) for aid in self._agent_ids}
         return {aid: {"type": "wait"} for aid in self._agent_ids}
+
+    def _normalize_actions_for_turn_owner(self, actions, current_turn_owner: str | None) -> Dict[str, Dict[str, Any]]:
+        normalized = {aid: {"type": "wait"} for aid in self._agent_ids}
+        if current_turn_owner not in normalized:
+            return normalized
+        if actions is None:
+            return normalized
+        if isinstance(actions, dict):
+            if "type" in actions:
+                normalized[current_turn_owner] = actions
+                return normalized
+            payload = actions.get(current_turn_owner)
+            if isinstance(payload, dict):
+                normalized[current_turn_owner] = payload
+            return normalized
+        if isinstance(actions, list):
+            for action in actions:
+                if not isinstance(action, dict):
+                    continue
+                owner = action.get("agent_id") or current_turn_owner
+                if owner == current_turn_owner:
+                    normalized[current_turn_owner] = action
+                    break
+        return normalized
 
     def _normalize_messages(self, messages) -> List[Dict[str, Any]]:
         if messages is None:
@@ -318,6 +357,27 @@ class DiplomacyStoryworldEnv(StoryworldEnvBase):
             if node.get("id") == node_id:
                 return node
         return None
+
+    def _normalize_multiplayer(self, value: Any) -> int:
+        if isinstance(value, int) and value >= 1:
+            return value
+        return 1
+
+    def _normalize_turn_order(self, raw_turns: Any) -> List[str]:
+        if isinstance(raw_turns, list):
+            turns = [entry for entry in raw_turns if isinstance(entry, str) and entry in self._agent_ids]
+            if turns:
+                return turns
+        return list(self._agent_ids)
+
+    def _uses_alternating_turns(self) -> bool:
+        return self._multiplayer > 1 or "turns" in self.storyworld
+
+    def _turn_owner_for_turn(self, turn_index: int | None) -> str | None:
+        if not self._turn_order:
+            return None
+        index = int(turn_index or 0)
+        return self._turn_order[index % len(self._turn_order)]
 
     def _adjust_trust(self, holder: str, target: str, delta: float) -> None:
         beliefs = self.state.get("beliefs", {})

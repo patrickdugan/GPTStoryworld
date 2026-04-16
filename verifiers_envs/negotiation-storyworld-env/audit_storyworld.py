@@ -32,6 +32,16 @@ def iter_nodes(node: Any) -> Iterable[Dict[str, Any]]:
             yield from iter_nodes(value)
 
 
+def iter_legacy_nodes(node: Any) -> Iterable[Dict[str, Any]]:
+    if isinstance(node, dict):
+        yield node
+        for value in node.values():
+            yield from iter_legacy_nodes(value)
+    elif isinstance(node, list):
+        for value in node:
+            yield from iter_legacy_nodes(value)
+
+
 def has_p1(node: Any) -> bool:
     for n in iter_nodes(node):
         if n.get("type") != "BNumberProperty":
@@ -55,6 +65,51 @@ def has_p2(node: Any) -> bool:
 
 def has_dynamic_logic(node: Any) -> bool:
     return any(n.get("type") in AST_DYNAMIC_TYPES for n in iter_nodes(node))
+
+
+def legacy_has_p1(node: Any) -> bool:
+    for n in iter_legacy_nodes(node):
+        if n.get("pointer_type") != "Bounded Number Pointer":
+            continue
+        keyring = n.get("keyring") or []
+        if isinstance(keyring, list) and len(keyring) == 2:
+            return True
+    return False
+
+
+def legacy_has_p2(node: Any) -> bool:
+    for n in iter_legacy_nodes(node):
+        if n.get("pointer_type") != "Bounded Number Pointer":
+            continue
+        keyring = n.get("keyring") or []
+        if isinstance(keyring, list) and len(keyring) >= 3:
+            return True
+    return False
+
+
+def legacy_has_dynamic_logic(node: Any) -> bool:
+    for n in iter_legacy_nodes(node):
+        op = str(n.get("operator_type", "")).strip()
+        if op in AST_DYNAMIC_TYPES:
+            return True
+    return False
+
+
+def legacy_is_constant(node: Any) -> bool:
+    if not isinstance(node, dict):
+        return True
+    if node.get("script_element_type") == "Pointer":
+        return node.get("pointer_type") in {
+            "Bounded Number Constant",
+            "Boolean Constant",
+            "String Constant",
+        }
+    if node.get("script_element_type") == "Operator":
+        operands = node.get("operands", []) or []
+        if not operands:
+            return True
+        return all(legacy_is_constant(op) for op in operands)
+    return False
 
 
 def audit_storyworld(path: Path) -> Dict[str, Any]:
@@ -92,7 +147,17 @@ def audit_storyworld(path: Path) -> Dict[str, Any]:
                 reaction_id = reaction.get("id", "")
 
                 inc = reaction.get("inclination_ast") or reaction.get("desirability_ast")
-                if not isinstance(inc, dict):
+                legacy_inc = reaction.get("desirability_script")
+                if isinstance(inc, dict):
+                    root_type = str(inc.get("type", ""))
+                    is_non_constant = root_type != "Constant"
+                    has_p1_term = has_p1(inc)
+                    has_p2_term = has_p2(inc)
+                elif isinstance(legacy_inc, dict):
+                    is_non_constant = not legacy_is_constant(legacy_inc)
+                    has_p1_term = legacy_has_p1(legacy_inc)
+                    has_p2_term = legacy_has_p2(legacy_inc)
+                else:
                     failures.append(
                         {
                             "encounter": encounter_id,
@@ -103,8 +168,7 @@ def audit_storyworld(path: Path) -> Dict[str, Any]:
                     )
                     continue
 
-                root_type = str(inc.get("type", ""))
-                if root_type != "Constant":
+                if is_non_constant:
                     reactions_non_constant += 1
                 else:
                     failures.append(
@@ -116,7 +180,7 @@ def audit_storyworld(path: Path) -> Dict[str, Any]:
                         }
                     )
 
-                if has_p1(inc):
+                if has_p1_term:
                     reactions_with_p1 += 1
                 else:
                     failures.append(
@@ -128,7 +192,7 @@ def audit_storyworld(path: Path) -> Dict[str, Any]:
                         }
                     )
 
-                if has_p2(inc):
+                if has_p2_term:
                     reactions_with_p2 += 1
                 else:
                     failures.append(
@@ -141,7 +205,9 @@ def audit_storyworld(path: Path) -> Dict[str, Any]:
                     )
 
                 effects = reaction.get("effects")
-                if not isinstance(effects, list) or len(effects) == 0:
+                legacy_effects = reaction.get("after_effects")
+                effect_nodes = effects if isinstance(effects, list) and effects else legacy_effects
+                if not isinstance(effect_nodes, list) or len(effect_nodes) == 0:
                     failures.append(
                         {
                             "encounter": encounter_id,
@@ -153,14 +219,35 @@ def audit_storyworld(path: Path) -> Dict[str, Any]:
                     continue
 
                 reaction_effect_dynamic = False
-                for effect in effects:
+                for effect in effect_nodes:
                     if not isinstance(effect, dict):
                         continue
                     value_ast = effect.get("value")
-                    if isinstance(value_ast, dict) and value_ast.get("type") != "Constant":
-                        if has_dynamic_logic(value_ast):
+                    if isinstance(value_ast, dict):
+                        if value_ast.get("type") != "Constant":
+                            if has_dynamic_logic(value_ast):
+                                reaction_effect_dynamic = True
+                            if any(n.get("type") == "ArithmeticNegation" for n in iter_nodes(value_ast)):
+                                reversal_effects += 1
+                        else:
+                            failures.append(
+                                {
+                                    "encounter": encounter_id,
+                                    "option": option_id,
+                                    "reaction": reaction_id,
+                                    "issue": "constant_effect_value",
+                                }
+                            )
+                        continue
+
+                    legacy_value = effect.get("to")
+                    if isinstance(legacy_value, dict) and not legacy_is_constant(legacy_value):
+                        if legacy_has_dynamic_logic(legacy_value):
                             reaction_effect_dynamic = True
-                        if any(n.get("type") == "ArithmeticNegation" for n in iter_nodes(value_ast)):
+                        if any(
+                            str(n.get("operator_type", "")).strip() == "ArithmeticNegation"
+                            for n in iter_legacy_nodes(legacy_value)
+                        ):
                             reversal_effects += 1
                     else:
                         failures.append(

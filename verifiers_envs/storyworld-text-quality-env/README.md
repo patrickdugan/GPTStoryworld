@@ -17,6 +17,17 @@ python storyworld-text-quality-env/evaluate_text_quality.py `
   --out C:\projects\GPTStoryworld\logs\text_quality\gone_v6_judge.json
 ```
 
+Arcee Trinity run:
+```powershell
+python storyworld-text-quality-env/evaluate_text_quality.py `
+  --storyworld C:\projects\GPTStoryworld\storyworlds\gone_with_the_flux_capacitor_v6_textgate.json `
+  --source-format auto `
+  --judge-model trinity-large-thinking `
+  --base-url https://api.arcee.ai/api/v1/chat/completions `
+  --api-key-file (Join-Path ([Environment]::GetFolderPath('Desktop')) 'arcee.txt') `
+  --out C:\projects\GPTStoryworld\logs\text_quality\gone_v6_trinity_judge.json
+```
+
 SWMD-first (token-efficient):
 ```powershell
 python storyworld-text-quality-env/evaluate_text_quality.py `
@@ -46,6 +57,9 @@ Lookup order:
 1. `OPENAI_API_KEY`
 2. `--api-key-file`
 3. `%USERPROFILE%\Desktop\GPTAPI.txt`
+
+For Arcee, keep the same lookup order and set `--base-url` to
+`https://api.arcee.ai/api/v1/chat/completions`.
 
 ## Notes
 - Use `--dry-run` for offline smoke tests (heuristic scoring only).
