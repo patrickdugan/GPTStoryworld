@@ -54,6 +54,34 @@ class CompletionRecord:
 
 
 @dataclass
+class TraceRecord:
+    run_id: str
+    stage_id: str
+    encounter_id: str
+    completion_id: str
+    completion_index: int
+    model_name: str
+    model_provider: str
+    provider: str
+    api_base: str
+    system_prompt_path: str
+    system_prompt: str
+    prompt_path: str
+    raw_output_path: str
+    raw_prompt: str
+    completion_text: str
+    assistant_content: str
+    reasoning_content: str
+    finish_reason: str
+    token_counts: Dict[str, int]
+    usage: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
 class EnvGradeRecord:
     run_id: str
     stage_id: str
@@ -90,6 +118,14 @@ class JudgeRecord:
     concise_reasoning_quality: float
     judge_score: float
     raw_output_path: str
+    system_prompt_path: str = ""
+    system_prompt: str = ""
+    prompt_path: str = ""
+    raw_prompt: str = ""
+    response_text: str = ""
+    reasoning_content: str = ""
+    finish_reason: str = ""
+    usage: Dict[str, Any] = field(default_factory=dict)
     notes: str = ""
     metadata: Dict[str, Any] = field(default_factory=dict)
 

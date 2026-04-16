@@ -1,6 +1,13 @@
 ---
 name: pure-trm-trainer
-description: Build and run pure TRM controller training workflows under Hermes, including corpus assembly from TRM play logs, event logs, reasoning traces, normalized JSONL datasets, and hill-climbing search loops over generalization level. Use when Codex needs to curate cross-environment controller data, turn logs into conductor-style training corpora, launch a Hermes-wrapped trainer, or optimize a TRM bench by iterating on generalization breadth without mixing in prose or adapter authoring.
+description: Build and run pure TRM controller training workflows under Hermes, including corpus assembly from TRM play logs, event logs, reasoning traces, normalized JSONL datasets, router QLoRA training, and hill-climbing search loops over generalization level. Use when Codex needs to curate cross-environment controller data, turn logs into conductor-style training corpora, launch a Hermes-wrapped trainer, or optimize a TRM bench by iterating on generalization breadth without mixing in prose or adapter authoring.
+version: 1.0.0
+author: Hermes Agent
+license: MIT
+metadata:
+  hermes:
+    tags: [Research, TRM, Training, Generalization, Benchmarks, Router]
+    related_skills: [qmd]
 ---
 
 # Pure TRM Trainer
@@ -19,10 +26,34 @@ Start from normalized `state/tools/action` records whenever possible. If the sou
    - Read [source-patterns.md](./references/source-patterns.md) for concrete source recipes.
 3. Build a normalized corpus.
    - Canonical builder:
-     - `python hermes-skills/storyworld-conveyor/scripts/build_trm_training_corpus.py --config hermes-skills/storyworld-conveyor/sample_data/trm_training_corpus_spec.sample.json`
+     - `python hermes-skills/pure-trm-trainer/scripts/build_router_training_corpus.py --out <messages-jsonl>`
 4. Launch Hermes-wrapped training.
+   - Router QLoRA recipe:
+     - Build a router corpus from the persistent-tesseract router dataset, then launch `train_qlora_sft.py` through the Hermes bridge.
+     - Canonical sample spec:
+       - `python hermes-skills/pure-trm-trainer/scripts/run_trm_trainer_hermes.py --config hermes-skills/pure-trm-trainer/references/router-training-spec.sample.json`
+     - This follows the same low-VRAM recipe used in persistent-tesseract: 4-bit NF4, `q_proj,k_proj,v_proj,o_proj`, and a compact messages JSONL corpus.
    - Canonical runner:
-     - `python hermes-skills/storyworld-conveyor/scripts/run_trm_trainer_hermes.py --config hermes-skills/storyworld-conveyor/sample_data/trm_trainer_hermes_safe.json`
+     - `python hermes-skills/pure-trm-trainer/scripts/run_trm_trainer_hermes.py --config hermes-skills/pure-trm-trainer/references/router-training-spec.sample.json`
+   - Bench menu:
+     - `python hermes-skills/pure-trm-trainer/scripts/run_trm_bench.py --bench routerbench`
+     - `python hermes-skills/pure-trm-trainer/scripts/run_trm_bench.py --bench primehub-envs`
+     - `python hermes-skills/pure-trm-trainer/scripts/run_trm_bench.py --bench primehub-baseline`
+     - Add `--dry-run` to resolve the chosen bench config without launching.
+   - Router bench runner:
+     - `python hermes-skills/pure-trm-trainer/scripts/run_trm_routerbench.py`
+     - Add `--dry-run` to resolve the portable bench config without launching.
+     - Add `--template-root <path>` or `--corpus-spec <path>` if your local checkout lives outside the usual `C:/projects` or `/mnt/c/projects` roots.
+   - One-click routerBench action:
+     - Use this when the user asks to run `trm-routerBench`.
+     - This path is isolated from the full trainer pipeline and is the preferred UI prompt flow for bench-only runs.
+   - Watch / tail helper:
+     - `python hermes-skills/pure-trm-trainer/scripts/watch_trm_routerbench.py --run-dir <run_dir>`
+     - Use this to monitor an already-running bench without relaunching it.
+     - Add `--once` for a single snapshot render, or omit it to follow updates.
+   - Bench watcher alias:
+     - `python hermes-skills/pure-trm-trainer/scripts/watch_trm_bench.py --run-dir <run_dir>`
+     - Use this when you want a neutral name that matches the bench menu.
    - Hill-climb runner:
      - `python hermes-skills/pure-trm-trainer/scripts/run_trm_generalization_hillclimb.py --config <search-spec>.json`
    - Smoke wrapper:
@@ -35,6 +66,19 @@ Start from normalized `state/tools/action` records whenever possible. If the sou
    - Check `launch_trainer/manifest.json`
    - Check final `summary.json`
    - For hill-climb runs, also check `hillclimb_ledger.jsonl` and each candidate `result.json`
+
+## Run Telemetry
+
+Research and training runs should emit a compact Hermes-style status card.
+
+- Show the current phase and candidate or step.
+- Show the corpus or data source in use.
+- Show the RAM budget or `auto` if the run does not know it yet.
+- Show ETA once at least one completed candidate can anchor an estimate.
+- Show percent complete and a short ASCII progress bar.
+- Show the current candidate metrics and the best-so-far metrics.
+- Keep the output short enough to tail in a terminal without scrolling noise.
+- Write the same snapshot into `progress.snapshot.json` so other tools can read it.
 
 ## Hill-Climbing Loop
 
@@ -81,6 +125,8 @@ Use this when the user wants the best TRM bench score, not just a one-off traine
 - Favor a model that survives harder held-out envs over one that only spikes on easy repeats.
 - Keep the final artifact set small and reproducible: corpus spec, resolved trainer config, run manifest, and summary.
 - If you have a separate evaluator, have it write a compact `scorecard.json` with `train_score`, `anchor_score`, `failure_rate`, and `recovery_rate`.
+- Emit a Hermes-style status card for training runs, with RAM, ETA, percent complete, data source, and a compact ASCII progress bar.
+- Keep the status contract consistent across research training skills.
 
 ## Corpus Rules
 
@@ -92,13 +138,13 @@ Use this when the user wants the best TRM bench score, not just a one-off traine
 
 ## Hermes Runner
 
-Use [run_trm_trainer_hermes.py](../storyworld-conveyor/scripts/run_trm_trainer_hermes.py) for the full Hermes path. It performs three stages:
+Use [run_trm_trainer_hermes.py](./scripts/run_trm_trainer_hermes.py) for the full Hermes path. It performs three stages:
 
 - `prepare_corpus`
 - `prepare_config`
 - `launch_trainer`
 
-Use [run_hrm_trainer_hermes.py](../storyworld-conveyor/scripts/run_hrm_trainer_hermes.py) only when the user already has a clean conductor dataset and does not need corpus assembly.
+Use `run_hrm_trainer_hermes.py` only when the user already has a clean conductor dataset and does not need corpus assembly. If that script exists in a sibling checkout, prefer it over reimplementing the same bridge.
 
 ## Source Types
 
@@ -127,8 +173,21 @@ Supported directly by the corpus builder:
 - Source recipes: [source-patterns.md](./references/source-patterns.md)
 - Hill-climb search spec: [hillclimb-spec.sample.json](./references/hillclimb-spec.sample.json)
 - Hill-climb smoke spec: [hillclimb-spec.smoke.json](./references/hillclimb-spec.smoke.json)
-- Publish path: [publish-path.md](./references/publish-path.md)
+- Router bench spec: [routerbench-spec.json](./references/routerbench-spec.json)
+- PrimeHub envs bench spec: [primehub-envs-bench.json](./references/primehub-envs-bench.json)
+- PrimeHub baseline bench spec: [primehub-baseline-bench.json](./references/primehub-baseline-bench.json)
+- Router training recipe: [router-training-recipe.md](./references/router-training-recipe.md)
+- Router training spec: [router-training-spec.sample.json](./references/router-training-spec.sample.json)
+- Bench menu: [bench-menu.md](./references/bench-menu.md)
+- Router corpus builder: [build_router_training_corpus.py](./scripts/build_router_training_corpus.py)
+- Router trainer bridge: [run_trm_trainer_hermes.py](./scripts/run_trm_trainer_hermes.py)
+- Router bench launcher: [run_trm_routerbench.py](./scripts/run_trm_routerbench.py)
+- Bench launcher: [run_trm_bench.py](./scripts/run_trm_bench.py)
+- Router bench watcher: [watch_trm_routerbench.py](./scripts/watch_trm_routerbench.py)
+- Bench watcher alias: [watch_trm_bench.py](./scripts/watch_trm_bench.py)
+- Router bench UI prompt: use `trm-routerBench` as the action name in Hermes.
 - Local scorecard evaluator: [evaluate_trm_scorecard.py](./scripts/evaluate_trm_scorecard.py)
+- Run telemetry standard: [run-telemetry.md](./references/run-telemetry.md)
 
 ## Example Requests
 

@@ -50,6 +50,35 @@ def script_has_operator(script: Any, operator_type: str) -> bool:
     return False
 
 
+def _script_is_constant(script: Any) -> bool:
+    if not isinstance(script, dict):
+        return True
+    if script.get("script_element_type") == "Pointer":
+        return script.get("pointer_type") in (
+            "Bounded Number Constant",
+            "Boolean Constant",
+            "String Constant",
+        )
+    if script.get("script_element_type") == "Operator":
+        operands = script.get("operands", []) or []
+        if not operands:
+            return True
+        return all(_script_is_constant(op) for op in operands)
+    return True
+
+
+def _is_super_secret_encounter(encounter: Dict[str, Any]) -> bool:
+    if (encounter.get("id") or "").startswith("page_secret_"):
+        return True
+    for option in encounter.get("options", []) or []:
+        if option.get("secret") is True:
+            return True
+        vis = option.get("visibility_script")
+        if isinstance(vis, dict) and vis.get("pointer_type") != "Boolean Constant":
+            return True
+    return False
+
+
 def is_visibility_gated(script: Any) -> bool:
     if script is True:
         return False
@@ -119,6 +148,14 @@ def compute_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
     act2_pct, act2_vars, act2_opts, act2_gated = gate_stats(act2_ids)
     act3_pct, act3_vars, act3_opts, act3_gated = gate_stats(act3_ids)
 
+    secret_candidates = [enc for enc in encounters if _is_super_secret_encounter(enc)]
+    super_secret_accessible = 0
+    super_secret_candidates = len(secret_candidates)
+    for enc in secret_candidates:
+        if not _script_is_constant(enc.get("acceptability_script", 0.0)):
+            super_secret_accessible += 1
+    super_secret_access_pct = (super_secret_accessible / super_secret_candidates) if super_secret_candidates else 0.0
+
     secret_checks = []
     for enc in encounters:
         eid = enc.get("id", "")
@@ -135,6 +172,6 @@ def compute_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
         "desirability_vars_avg": desirability_vars_avg,
         "act2": (act2_pct, act2_vars, act2_opts, act2_gated),
         "act3": (act3_pct, act3_vars, act3_opts, act3_gated),
+        "super_secret_access_pct": super_secret_access_pct,
         "secret_checks": secret_checks,
     }
-

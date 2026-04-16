@@ -13,6 +13,12 @@ Use this skill to build, edit, and validate SweepWeave storyworld content with t
 - When editing storyworld JSON, validate with `scripts/sweepweave_validator.py` before and after changes.
 - If you introduce a terminal gate (e.g., `page_endings_gate`), ensure it routes to every `page_end_*`/`page_secret_*` and keep ending encounter `acceptability_script` permissive so the gate controls reachability.
 
+## Multiplayer Core Variables
+- Treat `multiplayer` as an optional top-level core variable with default `1`.
+- If `multiplayer` is explicitly present or greater than `1`, include top-level `turns` as an ordered array of character ids covering the alternation.
+- Keep multiplayer reasoning first-order by folding `other-self-model` estimates into pValue terms; do not add p2 unless the user explicitly wants second-order beliefs.
+- Record each player's moral commits in the self-model or turn trace so authored poetics stay tied to durable state.
+
 ## Token-Economics MCP Loop
 - Prefer bounded-context authoring for local 3B/4GB setups: one encounter card at a time, not whole-world prompts.
 - Use SWMD minified markdown as the authoring substrate (`json_to_swmd.py --mode minified`) and keep encounter+context card payloads under an 8k context budget.

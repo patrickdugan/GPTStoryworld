@@ -42,6 +42,15 @@ def _collect_pointer_refs(node: Any, out: List[Tuple[str, int]]) -> None:
             _collect_pointer_refs(item, out)
 
 
+def _belief_ref_kind(prop: str, depth: int) -> Optional[str]:
+    prop = str(prop)
+    if prop.startswith("p2") or depth >= 3:
+        return "p2"
+    if prop.startswith("p") or depth == 2:
+        return "p1"
+    return None
+
+
 def _is_ending(encounter: Dict[str, Any]) -> bool:
     eid = str(encounter.get("id", ""))
     if eid.startswith("page_end") or eid.startswith("page_secret"):
@@ -181,11 +190,11 @@ def evaluate_storyworld(data: Dict[str, Any], validation_errors: List[str]) -> D
                     if isinstance(eff, dict):
                         effect_scripts.append(eff.get("to"))
                 for prop, depth in refs:
-                    if prop.startswith("p"):
-                        if depth >= 2:
-                            p2value_refs += 1
-                        else:
-                            pvalue_refs += 1
+                    kind = _belief_ref_kind(prop, depth)
+                    if kind == "p2":
+                        p2value_refs += 1
+                    elif kind == "p1":
+                        pvalue_refs += 1
 
     gated_pct = (100.0 * gated_options / total_options) if total_options else 0.0
     des_ops_total = sum(desirability_ops.values())

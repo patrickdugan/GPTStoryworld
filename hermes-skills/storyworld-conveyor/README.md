@@ -91,6 +91,25 @@ User payload:
 }
 ```
 
+## GPT-5 Mini Moral Trace Smoke
+Use a dedicated system prompt file plus the desktop `GPTAPI.txt` key when you want richer moral-reasoning metadata from the judge stage:
+
+```bash
+$desktop = [Environment]::GetFolderPath('Desktop')
+$env:OPENAI_API_KEY = (Get-Content (Join-Path $desktop 'GPTAPI.txt') -Raw).Trim()
+python hermes-skills/storyworld-conveyor/run_storyworld_conveyor.py \
+  --config hermes-skills/storyworld-conveyor/sample_data/gpt5_mini_moral_judge.json \
+  --run-id gpt5_mini_moral_judge_smoke \
+  run-pipeline
+```
+
+This writes judge-side traces under `llm_judge/traces.jsonl` with:
+- the judge system prompt path and resolved text
+- the serialized user prompt
+- the parsed response text
+- any `reasoning_content` returned by the API
+- finish reason, usage, and response id metadata when available
+
 ## 10 Encounter Smoke Test
 ```bash
 python hermes-skills/storyworld-conveyor/run_storyworld_conveyor.py \
@@ -100,6 +119,28 @@ python hermes-skills/storyworld-conveyor/run_storyworld_conveyor.py \
 ```
 
 To scale to 10 encounters, edit `encounter_builder.count` and remove `input_jsonl`.
+
+## Arcee Play Batch
+Use the OpenAI-compatible completion path with Trinity Large Thinking for plays/completions only:
+
+```bash
+$desktop = [Environment]::GetFolderPath('Desktop')
+$env:OPENAI_API_KEY = (Get-Content (Join-Path $desktop 'arcee.txt') -Raw).Trim()
+python hermes-skills/storyworld-conveyor/run_storyworld_conveyor.py \
+  --config hermes-skills/storyworld-conveyor/sample_data/arcee_trinity_smoke.json \
+  --run-id arcee_trinity_smoke \
+  run-pipeline
+```
+
+This keeps `llm_judge` on `mock` so only the completion stage spends credit.
+If you want a constitution prompt, set `system_prompt_file` on the model config to a local markdown file such as `Claude.md`.
+
+Each play run now also writes `completion_runner/traces.jsonl` with:
+- the prompt path and raw prompt
+- the parsed completion text
+- the model's `reasoning_content` when present
+- finish reason and token usage fields when the provider returns them
+- the raw response path for the underlying API payload
 
 ## 120 Encounter Batch Mode
 1. Set `encounter_builder.count` to `120`.
@@ -246,6 +287,23 @@ This wrapper:
 - runs the phased MCP loop with 4GB-friendly defaults
 - writes Hermes-style manifests, progress files, and per-stage logs under `context_port_runs/<run_id>/`
 
+## Hybrid Repair Mode
+If the model still fails on full SWMD output, run the port in hybrid mode so it can fall back to operation-level repair packets.
+
+Config keys:
+- `repair_mode`: `swmd_only`, `operation_only`, `both`, or `phase_then_operation_fallback`
+- `operation_max_packets`: how many encounter packets to repair in the fallback pass
+- `operation_max_new_tokens`: token budget for the one-op JSON response
+- `operation_no_adapter`: force base-model smoke without an adapter
+- `quality_report`: optional path to the world quality gate report
+- `monte_carlo_report`: optional path to the Monte Carlo report used for TRM advice
+
+Recommended default for brittle Qwen 2B repair:
+- `repair_mode = phase_then_operation_fallback`
+- `operation_max_packets = 24`
+- `operation_max_new_tokens = 160`
+- `operation_no_adapter = true` until the adapter path is stable
+
 Recommended defaults for Qwen 2B on 4GB:
 - If another process is already using about `100MB` VRAM, treat the real budget as about `3.9GB`, not `4GB`
 - `max_encounters`: `4`
@@ -257,6 +315,25 @@ Recommended defaults for Qwen 2B on 4GB:
 - `planning_card_tokens`: `700`
 - `apply`: `false` until parse stability is confirmed
 - keep context bounded through encounter packets rather than full-world diary replay
+
+## Operation-Level Repair Smoke
+If Qwen 2B keeps drifting on full SWMD output, switch to discrete repair packets instead of asking it to emit whole blocks.
+
+```bash
+python hermes-skills/storyworld-conveyor/scripts/run_storyworld_operation_smoke.py \
+  --world-json C:/projects/GPTStoryworld/hermes-skills/storyworld-conveyor/factory_runs/abstract_letters_96/worlds/artistry_world.json \
+  --quality-report C:/projects/GPTStoryworld/hermes-skills/storyworld-conveyor/factory_runs/abstract_letters_96/reports/quality_gate.json \
+  --model-path D:/Research_Engine/models/Qwen3.5/Qwen3.5-2B-HF \
+  --no-adapter \
+  --max-new-tokens 160 \
+  --max-packets 24
+```
+
+This path:
+- builds per-encounter operation packets
+- asks the model for strict JSON only
+- normalizes malformed responses back to deterministic option/reaction/effect/formula suggestions
+- keeps Windows compatibility by using the local HF stack and sanitized adapter loading when adapters are enabled
 
 ## Qwen 9B On Mac, No Adapter
 If the 2B adapter is not good enough for direct encounter-block generation, switch to the Hermes skill-only path on a stronger machine and drop the adapter entirely.

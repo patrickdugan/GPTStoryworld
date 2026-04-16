@@ -28,6 +28,10 @@ def dump_json(path: Path, payload: Dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
+def read_json(path: Path) -> Dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def append_jsonl(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8", newline="\n") as handle:
@@ -116,6 +120,10 @@ def build_trm_advice_from_reports(run_dir: Path, python_bin: str, config: Dict[s
     return advice_out
 
 
+def build_operation_packet_path(run_dir: Path) -> Path:
+    return run_dir / "reports" / "operation_packets.jsonl"
+
+
 def build_stage_manifest(
     run_id: str,
     stage: str,
@@ -156,6 +164,81 @@ def line_count(path: Path) -> int:
         return sum(1 for line in handle if line.strip())
 
 
+def run_operation_stage(run_dir: Path, python_bin: str, config: Dict[str, Any], trm_packet_path: Path, dry_run: bool) -> Dict[str, Any]:
+    op_stage = ensure_dir(run_dir / "operation_pipeline")
+    op_run_root = ensure_dir(op_stage / "runs")
+    op_run_id = str(config.get("operation_run_id") or f"{config.get('run_id', 'small_port')}_op")
+    world_json_value = str(config.get("world_json", "") or config.get("operation_world_json", "") or "").strip()
+    if world_json_value:
+        world_json_path = Path(world_json_value).resolve()
+    else:
+        swmd_path = Path(config["swmd"]).resolve()
+        candidate = swmd_path.with_name("artistry_world.json")
+        world_json_path = candidate if candidate.exists() else swmd_path
+    op_cmd = [
+        python_bin,
+        str(CONVEYOR_SCRIPTS / "run_storyworld_operation_smoke.py"),
+        "--world-json",
+        str(world_json_path),
+        "--model-path",
+        str(Path(config["model_path"]).resolve()),
+        "--output-root",
+        str(op_run_root),
+        "--run-id",
+        op_run_id,
+        "--max-packets",
+        str(int(config.get("operation_max_packets", config.get("max_encounters", 12)))),
+        "--max-new-tokens",
+        str(int(config.get("operation_max_new_tokens", 160))),
+        "--temperature",
+        str(float(config.get("operation_temperature", config.get("temperature", 0.0)))),
+    ]
+    quality_report = str(config.get("quality_report", "") or "").strip()
+    if quality_report:
+        op_cmd.extend(["--quality-report", str(Path(quality_report).resolve())])
+    if bool(config.get("operation_no_adapter", False)) or not str(config.get("adapter_path", "") or "").strip():
+        op_cmd.append("--no-adapter")
+    else:
+        op_cmd.extend(["--adapter-path", str(config.get("adapter_path"))])
+    packet_jsonl = str(config.get("operation_packet_jsonl", "") or "").strip()
+    if packet_jsonl:
+        op_cmd.extend(["--packet-jsonl", str(Path(packet_jsonl).resolve())])
+
+    dump_json(op_stage / "command.json", {"command": op_cmd})
+    if dry_run:
+        op_status = "planned"
+    else:
+        rc = run_command(op_stage, op_cmd)
+        op_status = "completed" if rc == 0 else "failed"
+
+    op_run_dir = op_run_root / op_run_id
+    op_summary = op_run_dir / "summary.json"
+    op_gens = op_run_dir / "generations.jsonl"
+    op_manifest = build_stage_manifest(
+        str(config.get("run_id") or run_dir.name),
+        "operation_pipeline",
+        op_status,
+        [x for x in [str(world_json_path), str(Path(quality_report).resolve()) if quality_report else ""] if x],
+        [str(op_summary), str(op_gens)],
+        {
+            "packet_count": line_count(op_gens),
+            "parse_accuracy": read_json(op_summary).get("parse_accuracy", 0.0) if op_summary.exists() else 0.0,
+        },
+        notes=["operation-level repair packet smoke"],
+    )
+    dump_json(op_stage / "manifest.json", op_manifest)
+    dump_json(op_stage / "progress.json", {"stage": "operation_pipeline", "status": op_status, "updated_at": now_iso()})
+    append_jsonl(op_stage / "events.jsonl", {"event": "stage_finished", "status": op_status, "at": now_iso()})
+    return {
+        "stage_dir": str(op_stage),
+        "run_dir": str(op_run_dir),
+        "summary": str(op_summary),
+        "generations": str(op_gens),
+        "status": op_status,
+        "manifest": str(op_stage / "manifest.json"),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Hermes context-managed port of the small storyworld builder for 4GB VRAM setups.")
     parser.add_argument("--config", required=True, help="JSON config path.")
@@ -177,6 +260,10 @@ def main() -> int:
     adapter_path = str(config.get("adapter_path", "") or "")
     trm_advice_path = Path(config.get("trm_advice_json", "")).resolve() if config.get("trm_advice_json") else None
     qlora_examples = str(Path(config["qlora_examples_jsonl"]).resolve()) if config.get("qlora_examples_jsonl") else ""
+    repair_mode = str(config.get("repair_mode", "phase_then_operation_fallback") or "phase_then_operation_fallback").strip()
+    if repair_mode not in {"swmd_only", "operation_only", "both", "phase_then_operation_fallback"}:
+        repair_mode = "phase_then_operation_fallback"
+    force_phase_failure = bool(config.get("force_phase_failure", False))
 
     index_stage = ensure_dir(run_dir / "build_encounter_index")
     index_dir = ensure_dir(run_dir / "indices" / "encounter_index")
@@ -242,77 +329,100 @@ def main() -> int:
     dump_json(trm_stage / "progress.json", {"stage": "prepare_trm_packet", "status": "completed", "updated_at": now_iso()})
     append_jsonl(trm_stage / "events.jsonl", {"event": "stage_finished", "status": "completed", "at": now_iso()})
 
-    phase_stage = ensure_dir(run_dir / "phase_pipeline")
-    phase_events = run_dir / "reports" / "phase_events.jsonl"
-    phase_state = run_dir / "reports" / "phase_state.json"
-    phase_cmd = [
-        python_bin,
-        str(SMALL_BUILDER_SCRIPTS / "swmd_mcp_phase_pipeline.py"),
-        "--swmd",
-        str(swmd_path),
-        "--backend",
-        str(config.get("inference_backend", "auto")),
-        "--model-path",
-        model_path,
-        "--max-encounters",
-        str(int(config.get("max_encounters", 12))),
-        "--start-index",
-        str(int(config.get("start_index", 0))),
-        "--neighbor-hops",
-        str(int(config.get("neighbor_hops", 1))),
-        "--context-budget-tokens",
-        str(int(config.get("context_budget_tokens", 8192))),
-        "--reserve-output-tokens",
-        str(int(config.get("reserve_output_tokens", 1024))),
-        "--planning-card-tokens",
-        str(int(config.get("planning_card_tokens", 900))),
-        "--max-new-tokens",
-        str(int(config.get("max_new_tokens", 160))),
-        "--temperature",
-        str(float(config.get("temperature", 0.0))),
-        "--out-jsonl",
-        str(phase_events),
-        "--state-json",
-        str(phase_state),
-        "--fewshot-count",
-        str(int(config.get("fewshot_count", 0))),
-        "--external-constraints-json",
-        str(trm_packet_path),
-    ]
-    phases = str(config.get("phases", "")).strip()
-    if phases:
-        phase_cmd.extend(["--phases", phases])
-    if adapter_path:
-        phase_cmd.extend(["--adapter-path", adapter_path])
-    if qlora_examples:
-        phase_cmd.extend(["--qlora-examples-jsonl", qlora_examples])
-    if bool(config.get("repair_build_output", False)):
-        phase_cmd.append("--repair-build-output")
-    if bool(config.get("apply", False)):
-        phase_cmd.append("--apply")
-    dump_json(phase_stage / "command.json", {"command": phase_cmd})
+    operation_result: Dict[str, Any] = {
+        "stage_dir": "",
+        "run_dir": "",
+        "summary": "",
+        "generations": "",
+        "status": "skipped",
+        "manifest": "",
+    }
+    phase_status = "skipped"
+    if repair_mode != "operation_only":
+        phase_stage = ensure_dir(run_dir / "phase_pipeline")
+        phase_events = run_dir / "reports" / "phase_events.jsonl"
+        phase_state = run_dir / "reports" / "phase_state.json"
+        phase_cmd = [
+            python_bin,
+            str(SMALL_BUILDER_SCRIPTS / "swmd_mcp_phase_pipeline.py"),
+            "--swmd",
+            str(swmd_path),
+            "--backend",
+            str(config.get("inference_backend", "auto")),
+            "--model-path",
+            model_path,
+            "--max-encounters",
+            str(int(config.get("max_encounters", 12))),
+            "--start-index",
+            str(int(config.get("start_index", 0))),
+            "--neighbor-hops",
+            str(int(config.get("neighbor_hops", 1))),
+            "--context-budget-tokens",
+            str(int(config.get("context_budget_tokens", 8192))),
+            "--reserve-output-tokens",
+            str(int(config.get("reserve_output_tokens", 1024))),
+            "--planning-card-tokens",
+            str(int(config.get("planning_card_tokens", 900))),
+            "--max-new-tokens",
+            str(int(config.get("max_new_tokens", 160))),
+            "--temperature",
+            str(float(config.get("temperature", 0.0))),
+            "--out-jsonl",
+            str(phase_events),
+            "--state-json",
+            str(phase_state),
+            "--fewshot-count",
+            str(int(config.get("fewshot_count", 0))),
+            "--external-constraints-json",
+            str(trm_packet_path),
+        ]
+        phases = str(config.get("phases", "")).strip()
+        if phases:
+            phase_cmd.extend(["--phases", phases])
+        if adapter_path:
+            phase_cmd.extend(["--adapter-path", adapter_path])
+        if qlora_examples:
+            phase_cmd.extend(["--qlora-examples-jsonl", qlora_examples])
+        if bool(config.get("repair_build_output", False)):
+            phase_cmd.append("--repair-build-output")
+        if bool(config.get("apply", False)):
+            phase_cmd.append("--apply")
+        dump_json(phase_stage / "command.json", {"command": phase_cmd})
 
-    if args.dry_run:
-        phase_status = "planned"
-    else:
-        rc = run_command(phase_stage, phase_cmd)
-        phase_status = "completed" if rc == 0 else "failed"
-    dump_json(
-        phase_stage / "manifest.json",
-        build_stage_manifest(
-            run_id,
-            "phase_pipeline",
-            phase_status,
-            [str(swmd_path), str(trm_packet_path)],
-            [str(phase_events), str(phase_state)],
-            {"rows": line_count(phase_events)},
-            notes=["4GB-friendly bounded-context phase loop"],
-        ),
-    )
-    dump_json(phase_stage / "progress.json", {"stage": "phase_pipeline", "status": phase_status, "updated_at": now_iso()})
-    append_jsonl(phase_stage / "events.jsonl", {"event": "stage_finished", "status": phase_status, "at": now_iso()})
-    if phase_status == "failed":
-        return 1
+        if args.dry_run:
+            phase_status = "planned"
+        else:
+            rc = run_command(phase_stage, phase_cmd)
+            phase_status = "completed" if rc == 0 else "failed"
+        if force_phase_failure and phase_status != "planned":
+            phase_status = "failed"
+        dump_json(
+            phase_stage / "manifest.json",
+            build_stage_manifest(
+                run_id,
+                "phase_pipeline",
+                phase_status,
+                [str(swmd_path), str(trm_packet_path)],
+                [str(phase_events), str(phase_state)],
+                {"rows": line_count(phase_events)},
+                notes=["4GB-friendly bounded-context phase loop"],
+            ),
+        )
+        dump_json(phase_stage / "progress.json", {"stage": "phase_pipeline", "status": phase_status, "updated_at": now_iso()})
+        append_jsonl(phase_stage / "events.jsonl", {"event": "stage_finished", "status": phase_status, "at": now_iso()})
+        if repair_mode == "swmd_only" and phase_status == "failed":
+            return 1
+    elif repair_mode == "operation_only":
+        phase_events = run_dir / "reports" / "phase_events.jsonl"
+        phase_state = run_dir / "reports" / "phase_state.json"
+
+    if repair_mode in {"operation_only", "both"} or (repair_mode == "phase_then_operation_fallback" and phase_status == "failed"):
+        operation_result = run_operation_stage(run_dir, python_bin, config, trm_packet_path, args.dry_run)
+        if operation_result.get("status") == "failed":
+            if repair_mode in {"operation_only", "phase_then_operation_fallback"}:
+                return 1
+            if repair_mode == "both" and phase_status == "failed":
+                return 1
 
     summary = {
         "run_id": run_id,
@@ -321,6 +431,8 @@ def main() -> int:
         "phase_events": str(phase_events),
         "phase_state": str(phase_state),
         "trm_constraints": str(trm_packet_path),
+        "operation_pipeline": operation_result,
+        "repair_mode": repair_mode,
         "status": "planned" if args.dry_run else "completed",
     }
     dump_json(run_dir / "summary.json", summary)

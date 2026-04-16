@@ -68,10 +68,14 @@ Read only the minimal sections you need, then execute.
 - `monte_carlo_rehearsal.py`
 - `ending_reachability_balance.py`
 - `late_stage_balance.py`
+- For Macbeth-style secret endings, treat `spool_endings` as a required artifact, not an implied consequence of `connected_spools`.
+- If `super_secret_reachability` stays at `0.0`, inspect the actual anchor route to `page_secret_0299` and the secret-option desirability/visibility on the epilogue anchor (`page_0087`) before assuming the graph is sound.
 
 6. Quality gates
 - `storyworld_quality_gate.py`
 - env-style quality metrics outrank textual taste
+- Keep desirability scripts nonconstant. A handful of constant desirability reactions can sink `desirability_nonconstant_ratio` even when validator output is clean.
+- Check the quality report after any secret-route change; validator success does not imply Monte Carlo reachability.
 
 7. Export and indexing
 - `json_to_swmd.py`

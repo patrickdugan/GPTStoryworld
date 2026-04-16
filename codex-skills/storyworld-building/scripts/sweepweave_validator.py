@@ -24,6 +24,23 @@ def validate_storyworld(path: str):
     for k in required_top:
         if k not in data:
             errors.append(f"{k}: missing")
+    multiplayer = data.get("multiplayer", 1)
+    turns = data.get("turns")
+    requires_turns = ("multiplayer" in data) or (isinstance(multiplayer, int) and multiplayer > 1)
+    if requires_turns:
+        if not isinstance(multiplayer, int) or multiplayer < 1:
+            errors.append("multiplayer: must be an integer >= 1")
+        if not isinstance(turns, list) or len(turns) == 0:
+            errors.append("turns: required as a non-empty array when multiplayer is set")
+        else:
+            character_ids = {entry.get("id") for entry in data.get("characters", []) if isinstance(entry, dict) and entry.get("id")}
+            unknown_turns = [entry for entry in turns if character_ids and entry not in character_ids]
+            if unknown_turns:
+                errors.append(f"turns: unknown character ids {unknown_turns}")
+            if character_ids and isinstance(multiplayer, int):
+                covered = {entry for entry in turns if entry in character_ids}
+                if len(covered) < min(multiplayer, len(character_ids)):
+                    errors.append("turns: does not cover the declared multiplayer cast count")
     if errors:
         return errors
 
@@ -82,6 +99,9 @@ def normalize_storyworld(input_path: str, output_path: str, reference_path: str)
         normalized["spools"] = test["spools"]
     if "encounters" in test:
         normalized["encounters"] = test["encounters"]
+    for passthrough_key in ["multiplayer", "turns"]:
+        if passthrough_key in test:
+            normalized[passthrough_key] = test[passthrough_key]
 
     import uuid, time
     if not isinstance(normalized.get("IFID",""), str) or len(normalized["IFID"]) < 10:

@@ -48,6 +48,21 @@ def nudge_effect(character: str, prop: str, amount: float) -> Dict[str, Any]:
 
 
 def profile_for_slug(slug: str) -> Dict[str, Any]:
+    if slug == "nineteen_eighty_four":
+        return {
+            "title": "1984: Ministry of Truth",
+            "about": "A branching surveillance dystopia about memory control, forbidden intimacy, denunciation, and the management of truth.",
+            "motif": "Every record is revised, but the body remembers what the file erases.",
+            "theme_terms": ["telescreen", "memory hole", "canteen", "paperweight", "room 101", "newspeak", "prole quarter", "ministry"],
+            "characters": [
+                ("char_winston", "Winston Smith", "A records clerk who keeps testing whether a private memory can survive public correction."),
+                ("char_julia", "Julia", "A practical dissident who hides rebellion in appetite, rhythm, and small acts of disobedience."),
+                ("char_obrien", "O'Brien", "A cultivated Inner Party operative who can sound like a liberator while tightening the trap."),
+                ("char_charrington", "Mr. Charrington", "A seemingly harmless antiques dealer whose rooms and objects are already under watch."),
+            ],
+            "props": ["Phase_Clock", "Suspicion", "Exposure", "Trust", "Defiance", "Submission", "Private_Self", "Party_Orthodoxy"],
+            "css_theme": "grim",
+        }
     if slug == "the_usual_suspects":
         return {
             "title": "The Usual Suspects: Criminal Masterminds",
@@ -160,7 +175,7 @@ def encounter_option(enc_id: str, opt_idx: int, actor: str, witness: str, prop_a
     }
 
 
-def build_world(slug: str, out_path: Path, target_encounters: int, title: str, about: str, motif: str) -> Dict[str, Any]:
+def build_world(slug: str, out_path: Path, target_encounters: int, title: str, about: str, motif: str, endings: int) -> Dict[str, Any]:
     profile = profile_for_slug(slug)
     ts = float(int(time.time()))
     props = profile["props"]
@@ -169,7 +184,7 @@ def build_world(slug: str, out_path: Path, target_encounters: int, title: str, a
     witness = chars[1]["id"] if len(chars) > 1 else main_char
     authored_properties = [make_property(i, ts, prop) for i, prop in enumerate(props)]
     nonterminal_count = max(8, int(target_encounters))
-    endings = 4
+    endings = max(1, int(endings))
     theme_terms = profile["theme_terms"]
 
     spool_start = ["page_start"] + [f"page_scene_{i:02d}" for i in range(1, min(6, nonterminal_count))]
@@ -309,12 +324,21 @@ def main() -> int:
     parser.add_argument("--slug", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--target-encounters", type=int, default=20)
+    parser.add_argument("--endings", type=int, default=4)
     parser.add_argument("--title", required=True)
     parser.add_argument("--about", required=True)
     parser.add_argument("--motif", required=True)
     args = parser.parse_args()
 
-    build_world(args.slug, Path(args.out).resolve(), args.target_encounters, args.title, args.about, args.motif)
+    build_world(
+        args.slug,
+        Path(args.out).resolve(),
+        args.target_encounters,
+        args.title,
+        args.about,
+        args.motif,
+        args.endings,
+    )
     print(str(Path(args.out).resolve()))
     return 0
 
