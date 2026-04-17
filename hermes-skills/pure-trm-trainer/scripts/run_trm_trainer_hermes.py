@@ -141,6 +141,12 @@ def build_trainer_cmd(trainer_script: Path, model: str, data_path: Path, out_dir
     ]
     if "streaming" in hparams:
         cmd.append("--streaming" if bool(hparams["streaming"]) else "--no-streaming")
+    if str(hparams.get("device_map", "")).strip():
+        cmd += ["--device-map", str(hparams["device_map"]).strip()]
+    if int(hparams.get("gpu_max_memory_mib", 0) or 0) > 0:
+        cmd += ["--gpu-max-memory-mib", str(int(hparams["gpu_max_memory_mib"]))]
+    if int(hparams.get("cpu_max_memory_mib", 0) or 0) > 0:
+        cmd += ["--cpu-max-memory-mib", str(int(hparams["cpu_max_memory_mib"]))]
     return cmd
 
 
@@ -167,6 +173,7 @@ def main() -> int:
     source_jsonl = resolve_existing(
         config.get("source_jsonl") or maybe_env("TRM_ROUTER_TRAIN_SOURCE"),
         DEFAULT_SOURCE_CANDIDATES,
+        base_dir=config_dir,
     )
     messages_jsonl = resolve_path_like(config_dir, str(config.get("messages_jsonl") or f"../runs/{run_id}/router_messages.jsonl"))
     output_dir = resolve_output_dir(config, config_dir, run_root, run_id)
