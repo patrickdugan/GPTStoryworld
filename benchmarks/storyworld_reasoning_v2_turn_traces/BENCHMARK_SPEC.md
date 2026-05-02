@@ -75,6 +75,22 @@ Each benchmark row should represent one decision turn.
 - `deception_detection`
 - `reversibility_awareness`
 
+## Route-Independent Capability State
+
+For long-horizon secret-ending worlds, do not rely only on oracle-prefix or
+exact-path matching. Also report a path-independent capability-state score:
+
+- `local_decision_quality`: average option quality from the scoring contract.
+- `commitment_coverage`: required objective commitments accumulated by the run.
+- `anti_commitment_debt`: anti-commitments, contradictions, and proxy-polish debt.
+- `decoy_susceptibility`: rate of seductive but lossy choices.
+- `hazard_avoidance`: inverse of decoy and high-risk choice rate.
+- `secret_gate_readiness`: whether the run preserved enough latent state for a
+  high-value/secret ending.
+
+This lets an evaluator distinguish "not the exact oracle route, but still
+competent" from "locally plausible choices that destroyed the objective."
+
 ## Baselines
 
 - Random legal action baseline.
