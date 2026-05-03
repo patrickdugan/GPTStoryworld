@@ -32,6 +32,12 @@ Hermes is the orchestrator, not the source of truth. The pipeline is CLI-first a
 ## Canonical Commands
 - Smoke test:
   - `python hermes-skills/storyworld-conveyor/run_storyworld_conveyor.py --config hermes-skills/storyworld-conveyor/sample_data/pipeline_config.json run-pipeline`
+- MCP-default config from a large storyworld JSON or SWMD:
+  - `python hermes-skills/storyworld-conveyor/scripts/prepare_mcp_conveyor_config.py --storyworld <world.json|world.swmd.min.md> --out-config <mcp_config.json> --max-encounters 12`
+- MCP-default bounded conveyor run:
+  - `python hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py --config <mcp_config.json>`
+- MCP budget-only check before any model load:
+  - `python hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py --config <mcp_config.json> --preflight-only`
 - Factory config menu:
   - `python hermes-skills/storyworld-conveyor/scripts/make_factory_config.py --list-templates`
 - Factory config generation:
@@ -87,6 +93,12 @@ Hermes is the orchestrator, not the source of truth. The pipeline is CLI-first a
   - mark the stage failed in manifest, keep going only if it is tagged non-critical
 
 ## Token Burn Controls
+- MCP is the default for any storyworld authoring or revision run larger than a smoke test.
+- Never inline the full storyworld after the initial JSON-to-SWMD conversion. Use SWMD-min plus encounter MCP packets.
+- Default packet contents are: world card, target encounter block, neighbor blocks, compact planning card, TRM constraints, and ledger/state summary.
+- Run `prepare_mcp_conveyor_config.py` before model work when the input is a large JSON storyworld; it emits SWMD-min and a config with `mcp_default=true`.
+- `run_small_model_storyworld_port.py` runs `mcp_budget_preflight` before model load by default and fails if prompt estimate or input/output ratio exceeds the config limits.
+- To widen context intentionally, edit `context_budget_tokens`, `reserve_output_tokens`, `planning_card_tokens`, `neighbor_hops`, and `max_input_output_ratio` in the config. Do not bypass the preflight unless you are doing a controlled overflow experiment.
 - Default smoke test is 3 encounters; demo mode is 10; batch mode is 80-120.
 - Keep `llm_judge.provider=mock` unless external judging is explicitly needed.
 - Shard completion runs by encounter slices or model names.

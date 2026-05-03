@@ -32,6 +32,15 @@ def read_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def load_swmd_tools() -> Any:
+    module_dir = REPO_ROOT / "mcp-storyworld-encounter"
+    if str(module_dir) not in sys.path:
+        sys.path.insert(0, str(module_dir))
+    import swmd_store  # type: ignore
+
+    return swmd_store
+
+
 def append_jsonl(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8", newline="\n") as handle:
@@ -164,6 +173,104 @@ def line_count(path: Path) -> int:
         return sum(1 for line in handle if line.strip())
 
 
+def run_mcp_budget_preflight(run_dir: Path, run_id: str, config: Dict[str, Any], swmd_path: Path) -> bool:
+    stage_dir = ensure_dir(run_dir / "mcp_budget_preflight")
+    report_path = stage_dir / "budget_report.json"
+    rows_path = stage_dir / "budget_rows.jsonl"
+    events_path = stage_dir / "events.jsonl"
+
+    context_budget = int(config.get("context_budget_tokens", 8192))
+    reserve_output = int(config.get("reserve_output_tokens", 1024))
+    planning_card = int(config.get("planning_card_tokens", 900))
+    neighbor_hops = int(config.get("neighbor_hops", 1))
+    start_index = int(config.get("start_index", 0))
+    max_encounters = int(config.get("max_encounters", 12))
+    max_prompt_tokens = int(config.get("max_prompt_tokens", context_budget - reserve_output))
+    if max_prompt_tokens <= 0:
+        max_prompt_tokens = max(1, context_budget - reserve_output)
+    ratio_cap = float(config.get("max_input_output_ratio", 24.0))
+    max_new_tokens = max(1, int(config.get("max_new_tokens", 160)))
+    allow_overflow = bool(config.get("allow_mcp_budget_overflow", False))
+
+    swmd_tools = load_swmd_tools()
+    doc = swmd_tools.parse_swmd_min(swmd_path)
+    selected = doc.encounter_order[start_index : start_index + max_encounters]
+    worst_prompt = 0
+    worst_ratio = 0.0
+    overflow_rows: List[Dict[str, Any]] = []
+
+    with rows_path.open("w", encoding="utf-8", newline="\n") as handle:
+        for encounter_id in selected:
+            packet = swmd_tools.iteration_packet(
+                path=swmd_path,
+                encounter_id=encounter_id,
+                neighbor_hops=neighbor_hops,
+                context_budget_tokens=context_budget,
+                reserve_output_tokens=reserve_output,
+                planning_card_tokens=planning_card,
+                include_poetics=True,
+            )
+            used = int(packet.get("budget", {}).get("estimated_tokens_used", 0))
+            ratio = round(used / max_new_tokens, 3)
+            row = {
+                "encounter_id": encounter_id,
+                "estimated_prompt_tokens": used,
+                "max_prompt_tokens": max_prompt_tokens,
+                "estimated_input_output_ratio": ratio,
+                "max_input_output_ratio": ratio_cap,
+                "neighbor_hops": neighbor_hops,
+                "within_prompt_budget": used <= max_prompt_tokens,
+                "within_ratio_budget": ratio <= ratio_cap,
+            }
+            if not row["within_prompt_budget"] or not row["within_ratio_budget"]:
+                overflow_rows.append(row)
+            worst_prompt = max(worst_prompt, used)
+            worst_ratio = max(worst_ratio, ratio)
+            handle.write(json.dumps(row, ensure_ascii=True) + "\n")
+
+    status = "completed"
+    if overflow_rows and not allow_overflow:
+        status = "failed"
+    report = {
+        "run_id": run_id,
+        "status": status,
+        "swmd": str(swmd_path),
+        "selected_encounters": len(selected),
+        "context_budget_tokens": context_budget,
+        "reserve_output_tokens": reserve_output,
+        "max_prompt_tokens": max_prompt_tokens,
+        "planning_card_tokens": planning_card,
+        "max_new_tokens": max_new_tokens,
+        "max_input_output_ratio": ratio_cap,
+        "worst_prompt_tokens": worst_prompt,
+        "worst_input_output_ratio": worst_ratio,
+        "overflow_count": len(overflow_rows),
+        "overflow_preview": overflow_rows[:10],
+        "allow_mcp_budget_overflow": allow_overflow,
+    }
+    dump_json(report_path, report)
+    dump_json(
+        stage_dir / "manifest.json",
+        build_stage_manifest(
+            run_id,
+            "mcp_budget_preflight",
+            status,
+            [str(swmd_path)],
+            [str(report_path), str(rows_path)],
+            {
+                "selected_encounters": len(selected),
+                "worst_prompt_tokens": worst_prompt,
+                "worst_input_output_ratio": worst_ratio,
+                "overflow_count": len(overflow_rows),
+            },
+            notes=["hard MCP budget guard before any model load"],
+        ),
+    )
+    dump_json(stage_dir / "progress.json", {"stage": "mcp_budget_preflight", "status": status, "updated_at": now_iso()})
+    append_jsonl(events_path, {"event": "stage_finished", "status": status, "at": now_iso()})
+    return status == "completed"
+
+
 def run_operation_stage(run_dir: Path, python_bin: str, config: Dict[str, Any], trm_packet_path: Path, dry_run: bool) -> Dict[str, Any]:
     op_stage = ensure_dir(run_dir / "operation_pipeline")
     op_run_root = ensure_dir(op_stage / "runs")
@@ -244,6 +351,7 @@ def main() -> int:
     parser.add_argument("--config", required=True, help="JSON config path.")
     parser.add_argument("--run-id", default="", help="Optional run id override.")
     parser.add_argument("--dry-run", action="store_true", help="Write manifests and commands but do not run the model stages.")
+    parser.add_argument("--preflight-only", action="store_true", help="Build index and MCP budget report, then stop before model load.")
     args = parser.parse_args()
 
     config_path = Path(args.config).resolve()
@@ -297,6 +405,25 @@ def main() -> int:
     append_jsonl(index_stage / "events.jsonl", {"event": "stage_finished", "status": status, "at": now_iso()})
     if status == "failed":
         return 1
+
+    if not args.dry_run and bool(config.get("mcp_budget_preflight", True)):
+        preflight_ok = run_mcp_budget_preflight(run_dir, run_id, config, swmd_path)
+        if not preflight_ok:
+            return 1
+        if args.preflight_only:
+            summary = {
+                "run_id": run_id,
+                "run_dir": str(run_dir),
+                "swmd": str(swmd_path),
+                "status": "preflight_completed",
+                "mcp_budget_report": str(run_dir / "mcp_budget_preflight" / "budget_report.json"),
+            }
+            dump_json(run_dir / "summary.json", summary)
+            print(str(run_dir))
+            print(str(run_dir / "summary.json"))
+            return 0
+    elif args.preflight_only:
+        raise RuntimeError("preflight-only requires mcp_budget_preflight=true and must not be combined with --dry-run")
 
     trm_stage = ensure_dir(run_dir / "prepare_trm_packet")
     trm_packet_path = run_dir / "reports" / "trm_constraints.json"

@@ -32,6 +32,23 @@ Trust only:
 
 Do not claim success from memory, intention, or narrative summary.
 
+## Token Economy Default
+For any non-smoke storyworld generation or revision, use MCP packets by default. Do not feed the full storyworld back through every conveyor phase.
+
+Canonical setup:
+`python3 /mnt/c/projects/GPTStoryworld/hermes-skills/storyworld-conveyor/scripts/prepare_mcp_conveyor_config.py --storyworld <world.json|world.swmd.min.md> --out-config <mcp_config.json> --max-encounters 12`
+
+Canonical run:
+`python3 /mnt/c/projects/GPTStoryworld/hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py --config <mcp_config.json>`
+
+The MCP config must keep:
+- `mcp_default=true`
+- `mcp_budget_preflight=true`
+- `memory_mode=encounter_packet_only`
+- `allow_mcp_budget_overflow=false`
+
+Each model call should receive only world card, target encounter, neighbor encounters, compact planning/TRM constraints, and any ledger summary. If `mcp_budget_preflight/budget_report.json` fails, reduce packet size before model execution.
+
 ## Canonical Files
 - Conveyor AGENTS:
   - `/mnt/c/projects/GPTStoryworld/hermes-skills/storyworld-conveyor/AGENTS.md`

@@ -39,6 +39,32 @@ Factory beats to respect:
 - optional rebalance passes
 - SWMD-min export and encounter indexing
 
+## MCP-Default Conveyor Mode
+Use this mode by default when the task involves a large storyworld, multi-stage generation, revision, or "conveyor" work. The goal is to avoid repeating the whole world in every model call.
+
+1. Prepare a bounded config:
+`python hermes-skills/storyworld-conveyor/scripts/prepare_mcp_conveyor_config.py --storyworld <world.json|world.swmd.min.md> --out-config <mcp_config.json> --max-encounters 12`
+
+2. Run the MCP-bounded port:
+`python hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py --config <mcp_config.json>`
+
+Optional budget-only check before model load:
+`python hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py --config <mcp_config.json> --preflight-only`
+
+3. Inspect these artifacts before reporting success:
+- `<run_dir>/build_encounter_index/manifest.json`
+- `<run_dir>/mcp_budget_preflight/budget_report.json`
+- `<run_dir>/phase_pipeline/manifest.json`
+- `<run_dir>/reports/phase_events.jsonl`
+- `<run_dir>/summary.json`
+
+MCP packet contract:
+- include world card, one target encounter, neighbor encounters, planning card, TRM constraints, and compact state/ledger only
+- never inline the whole JSON/SWMD in a phase prompt after conversion/indexing
+- fail rather than continue when `mcp_budget_preflight` reports overflow
+- lower `neighbor_hops`, `max_encounters`, or `planning_card_tokens` before raising context limits
+- keep `apply=false` until parse stability and budget telemetry are clean
+
 ## 4GB Small-Model Port
 When the user is working with Qwen 2B class models on about 4GB VRAM, prefer the bounded context port instead of whole-world evaluation or immediate adapter training:
 

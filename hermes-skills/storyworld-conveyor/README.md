@@ -37,6 +37,25 @@ hermes-skills/storyworld-conveyor/
 - `build_encounter_index`: produce encounter packets/cards for small-model bounded orchestration
 - `build_qlora_examples`: compile training-style examples for repair/compress/edit loops
 
+## MCP-Default Large Storyworld Flow
+Use this path for large Hermes storyworld builds and revisions. It prevents the 20M-input-token failure mode by converting once, indexing once, then routing each conveyor phase through small encounter packets.
+
+```bash
+python hermes-skills/storyworld-conveyor/scripts/prepare_mcp_conveyor_config.py \
+  --storyworld <world.json|world.swmd.min.md> \
+  --out-config <mcp_config.json> \
+  --max-encounters 12
+
+python hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py \
+  --config <mcp_config.json>
+
+python hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py \
+  --config <mcp_config.json> \
+  --preflight-only
+```
+
+The run writes `mcp_budget_preflight/budget_report.json` before model load. If it fails, reduce `neighbor_hops`, `max_encounters`, or `planning_card_tokens` before raising context limits.
+
 ## Data Model
 - Encounter record:
   - encounter spec
