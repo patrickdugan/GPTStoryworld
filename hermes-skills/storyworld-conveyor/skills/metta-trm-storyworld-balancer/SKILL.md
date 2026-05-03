@@ -46,6 +46,29 @@ python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/sc
 
 5. Rerun validator, Monte Carlo, quality gate, and authoring score. Compare against the original packet. If metrics are unchanged, record a no-op failure.
 
+## Hackathon One-Command Loop
+
+For a Hermes demo where the local 27B model is useful but not reliable as a full autonomous agent, run the deterministic loop and let Qwen provide bounded authoring notes:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/run_metta_trm_qwen_author_loop.py \
+  --storyworld storyworlds/by-week/2026-W11/validated_macbeth.json \
+  --out-dir /tmp/hermes_hackathon_metta_qwen_macbeth \
+  --mc-runs 300 \
+  --qwen-base-url http://127.0.0.1:8081/v1 \
+  --qwen-model Qwen3.5-27B.Q4_K_M.gguf
+```
+
+This loop:
+
+- builds baseline validator, quality, authoring, Monte Carlo, and MeTTa/TRM packet artifacts;
+- applies a deterministic TRM-side pValue/p2Value alignment repair;
+- asks Qwen for bounded prose/design notes from the MeTTa/TRM repair packet;
+- reruns scores on the candidate world;
+- writes `run_summary.json` and `hermes_artifact_report.md`.
+
+Use this when Hermes should launch and review a measurable loop, not when the local model should perform all tool orchestration itself.
+
 ## MeTTa Modeling Contract
 
 Use MeTTa as a compact structural model, not as decorative syntax. The generated atoms should support questions like:
