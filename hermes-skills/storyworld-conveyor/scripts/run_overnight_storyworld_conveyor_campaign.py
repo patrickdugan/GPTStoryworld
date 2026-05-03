@@ -122,9 +122,10 @@ def make_source_card(
     trm_advice_path: Path | None,
     iteration_index: int,
 ) -> Path:
-    card = run_dir / "source_card.md"
+    card = run_dir / f"source_card_iteration_{iteration_index:02d}.md"
     title = meta.get("title") or source.stem
     trm_line = f"- TRM advice: `{trm_advice_path}`" if trm_advice_path else "- TRM advice: not available yet"
+    output_version = max(1, iteration_index)
     card.write_text(
         f"""# Source Card: {title}
 
@@ -150,7 +151,7 @@ Iteration {iteration_index}: create or improve a derivative storyworld using the
 
 Output target:
 
-`{(run_dir / "derivative" / (slugify(source.stem) + "_metta_trm_v1.json")).as_posix()}`
+`{(run_dir / "derivative" / (slugify(source.stem) + f"_metta_trm_v{output_version}.json")).as_posix()}`
 
 Requirements:
 
@@ -175,7 +176,22 @@ Requirements:
     return card
 
 
-def hermes_prompt(source_card: Path, run_dir: Path, source: Path) -> str:
+def hermes_prompt(
+    source_card: Path,
+    iteration_dir: Path,
+    source: Path,
+    iteration_index: int,
+    previous_dir: Path | None,
+) -> str:
+    previous_text = ""
+    if previous_dir is not None:
+        previous_text = f"""
+Read the previous iteration directory before editing:
+{previous_dir.as_posix()}
+
+Compare against its `hermes_artifact_report.md`, `failure.md`, validator outputs, and derivative JSON if present.
+Your job is not to restart from scratch; repair or improve the best available derivative unless it is unusable.
+"""
     return f"""Use only the storyworld-conveyor-runner skill.
 Use terminal tools. Do not narrate intended actions without tool calls.
 
@@ -184,12 +200,13 @@ Read this source card:
 
 Read this general scaffold:
 hermes-skills/storyworld-conveyor/runtime_prompts/MeTTa_TRM_Storyworld_Building.md
+{previous_text}
 
 Task:
-Create one derivative storyworld based on the source world `{source.as_posix()}` and the source card, using the conveyor discipline. Write artifacts under `{run_dir.as_posix()}`. If direct full generation is too large, create a seed derivative and a concrete repair plan with verifier outputs. Run validator and quality/authoring checks where possible. Record all commands and outcomes in `{(run_dir / 'hermes_artifact_report.md').as_posix()}`.
+Iteration {iteration_index}: create or improve one derivative storyworld based on the source world `{source.as_posix()}` and the source card, using the conveyor discipline. Write artifacts under `{iteration_dir.as_posix()}`. If direct full generation is too large, create a seed derivative and a concrete repair plan with verifier outputs. Run validator and quality/authoring checks where possible. Record all commands and outcomes in `{(iteration_dir / 'hermes_artifact_report.md').as_posix()}`.
 
 Hard rule:
-If you cannot complete the derivative, create `{(run_dir / 'failure.md').as_posix()}` with a precise failure class and the next bounded command to run.
+If you cannot complete the derivative, create `{(iteration_dir / 'failure.md').as_posix()}` with a precise failure class and the next bounded command to run.
 """
 
 
@@ -337,7 +354,7 @@ def baseline_source(repo: Path, source: Path, run_root: Path, args: argparse.Nam
             cmd.extend(["--quality-report", str(quality_report)])
         commands.append(run_cmd(cmd, repo, logs / "trm_advice.log", timeout=args.command_timeout))
 
-    source_card = make_source_card(repo, source, run_dir, meta, trm_advice if trm_advice.exists() else None, idx)
+    source_card = make_source_card(repo, source, run_dir, meta, trm_advice if trm_advice.exists() else None, 1)
     write_json(reports / "baseline_commands.json", commands)
 
     return {
@@ -353,14 +370,18 @@ def baseline_source(repo: Path, source: Path, run_root: Path, args: argparse.Nam
     }
 
 
-def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
+def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iteration_index: int) -> dict[str, Any]:
     run_dir = Path(row["run_dir"])
     source = Path(row["source"])
-    source_card = Path(row["source_card"])
-    prompt_path = run_dir / "hermes_prompt.txt"
-    prompt = hermes_prompt(source_card, run_dir, source)
+    iteration_dir = run_dir / f"iteration_{iteration_index:02d}"
+    iteration_dir.mkdir(parents=True, exist_ok=True)
+    previous_dir = run_dir / f"iteration_{iteration_index - 1:02d}" if iteration_index > 1 else None
+    trm_advice = Path(row["trm_advice"]) if row.get("trm_advice") else None
+    source_card = make_source_card(repo, source, run_dir, row.get("metadata", {}), trm_advice, iteration_index)
+    prompt_path = iteration_dir / "hermes_prompt.txt"
+    prompt = hermes_prompt(source_card, iteration_dir, source, iteration_index, previous_dir)
     prompt_path.write_text(prompt, encoding="utf-8", newline="\n")
-    log_path = run_dir / "logs" / "hermes_oneshot.log"
+    log_path = iteration_dir / "logs" / "hermes_oneshot.log"
     env = os.environ.copy()
     env["PATH"] = f"{Path.home() / '.hermes/bin'}:{Path.home() / '.local/bin'}:" + env.get("PATH", "")
     env["HERMES_ACCEPT_HOOKS"] = "1"
@@ -392,8 +413,10 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace) -> dic
             log.write(f"\nHERMES_TIMEOUT after {args.hermes_timeout}s\n")
             rc = 124
     return {
+        "iteration": iteration_index,
         "returncode": rc,
         "seconds": round(time.time() - started, 3),
+        "iteration_dir": str(iteration_dir),
         "prompt": str(prompt_path),
         "log": str(log_path),
     }
@@ -411,8 +434,13 @@ def summarize(run_root: Path, rows: list[dict[str, Any]]) -> None:
         lines.append(f"- Quality report: `{row.get('quality_report')}`")
         lines.append(f"- Authoring report: `{row.get('authoring_report')}`")
         lines.append(f"- TRM advice: `{row.get('trm_advice')}`")
-        if "hermes" in row:
-            lines.append(f"- Hermes: rc={row['hermes']['returncode']} log=`{row['hermes']['log']}`")
+        if row.get("hermes_iterations"):
+            for hermes_row in row["hermes_iterations"]:
+                lines.append(
+                    f"- Hermes iteration {hermes_row['iteration']}: "
+                    f"rc={hermes_row['returncode']} dir=`{hermes_row['iteration_dir']}` "
+                    f"log=`{hermes_row['log']}`"
+                )
         lines.append("")
     (run_root / "SUMMARY.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     write_json(run_root / "summary.json", rows)
@@ -428,6 +456,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mc-runs", type=int, default=300)
     parser.add_argument("--command-timeout", type=int, default=600)
     parser.add_argument("--hermes-timeout", type=int, default=2700)
+    parser.add_argument("--iterations", type=int, default=1)
     parser.add_argument("--skip-hermes", action="store_true")
     return parser.parse_args()
 
@@ -456,8 +485,10 @@ def main() -> int:
         rows.append(row)
         summarize(run_root, rows)
         if not args.skip_hermes:
-            row["hermes"] = run_hermes(repo, row, args)
-            summarize(run_root, rows)
+            row["hermes_iterations"] = []
+            for iteration_index in range(1, max(1, args.iterations) + 1):
+                row["hermes_iterations"].append(run_hermes(repo, row, args, iteration_index))
+                summarize(run_root, rows)
 
     summarize(run_root, rows)
     print(run_root)
