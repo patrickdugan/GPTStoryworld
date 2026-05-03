@@ -754,12 +754,84 @@
         return '';
       }
 
+      evalScript(script) {
+        if (script === true || script === false) return script;
+        if (script === undefined || script === null) return true;
+        if (typeof script === 'number' || typeof script === 'string') return script;
+        if (Array.isArray(script)) return script.map(item => this.evalScript(item));
+        if (typeof script !== 'object') return script;
+
+        const pointerType = script.pointer_type;
+        const operatorType = script.operator_type;
+
+        if (pointerType === 'Bounded Number Constant') return script.value || 0;
+        if (pointerType === 'String Constant') return script.value || '';
+        if (pointerType === 'Bounded Number Pointer') {
+          const char = this.state.characters[script.character];
+          const propName = script.keyring?.[0];
+          const value = char?.properties?.[propName] ?? 0;
+          return value * (script.coefficient ?? 1);
+        }
+
+        const operands = script.operands || [];
+        if (operatorType === 'GreaterThan') {
+          return this.evalScript(operands[0]) > this.evalScript(operands[1]);
+        }
+        if (operatorType === 'GreaterThanOrEqualTo') {
+          return this.evalScript(operands[0]) >= this.evalScript(operands[1]);
+        }
+        if (operatorType === 'Arithmetic Comparator') {
+          const left = this.evalScript(operands[0]);
+          const right = this.evalScript(operands[1]);
+          const subtype = script.operator_subtype;
+          if (subtype === 'Greater Than' || subtype === 'GT') return left > right;
+          if (subtype === 'Greater Than or Equal To' || subtype === 'GTE') return left >= right;
+          if (subtype === 'Less Than' || subtype === 'LT') return left < right;
+          if (subtype === 'Less Than or Equal To' || subtype === 'LTE') return left <= right;
+          if (subtype === 'Equal To' || subtype === 'EQ') return left === right;
+          if (subtype === 'Not Equal To' || subtype === 'NEQ') return left !== right;
+          return false;
+        }
+        if (operatorType === 'And') return operands.every(op => Boolean(this.evalScript(op)));
+        if (operatorType === 'Or') return operands.some(op => Boolean(this.evalScript(op)));
+        if (operatorType === 'Addition') {
+          return operands.reduce((sum, op) => sum + Number(this.evalScript(op) || 0), 0);
+        }
+        if (operatorType === 'Multiplication') {
+          return operands.reduce((product, op) => product * Number(this.evalScript(op) || 0), 1);
+        }
+        if (operatorType === 'Absolute Value') {
+          return Math.abs(Number(this.evalScript(operands[0]) || 0));
+        }
+        if (operatorType === 'Nudge') {
+          const current = Number(this.evalScript(operands[0]) || 0);
+          const amount = Number(this.evalScript(operands[1]) || 0);
+          return Math.max(-1, Math.min(1, current + amount));
+        }
+
+        return script.value ?? 0;
+      }
+
       getVisibleOptions(encounter) {
         if (!encounter || !encounter.options) return [];
         return encounter.options.filter(opt => {
-          // For now, treat all options as visible if visibility_script is true or missing
-          return opt.visibility_script === true || opt.visibility_script === undefined;
+          return Boolean(this.evalScript(opt.visibility_script ?? true));
         });
+      }
+
+      selectReaction(option) {
+        let bestReaction = null;
+        let bestDesirability = -Infinity;
+        for (const reaction of option.reactions || []) {
+          let desirability = this.evalScript(reaction.desirability_script ?? 0);
+          if (typeof desirability === 'boolean') desirability = desirability ? 1 : 0;
+          desirability = Number(desirability || 0);
+          if (desirability > bestDesirability) {
+            bestDesirability = desirability;
+            bestReaction = reaction;
+          }
+        }
+        return bestReaction;
       }
 
       selectOption(optionId) {
@@ -769,8 +841,8 @@
         const option = encounter.options.find(o => o.id === optionId);
         if (!option || !option.reactions || option.reactions.length === 0) return null;
 
-        // Select first reaction (or could implement weighted selection)
-        const reaction = option.reactions[0];
+        const reaction = this.selectReaction(option);
+        if (!reaction) return null;
 
         // Apply effects
         if (reaction.after_effects) {
@@ -828,23 +900,9 @@
         if (!char || char.properties[propName] === undefined) return;
 
         const toExpr = effect.to;
-        if (toExpr?.operator_type === 'Nudge') {
-          const operands = toExpr.operands || [];
-          const currentVal = char.properties[propName];
-          const nudgeAmount = operands[1]?.value || 0;
-          
-          // Nudge formula: moves toward +1 or -1 asymptotically
-          const newVal = this.nudge(currentVal, nudgeAmount);
-          char.properties[propName] = newVal;
-        }
-      }
-
-      nudge(current, amount) {
-        // Asymptotic nudge toward bounds
-        if (amount > 0) {
-          return current + amount * (1 - current);
-        } else {
-          return current + amount * (1 + current);
+        const newVal = Number(this.evalScript(toExpr));
+        if (Number.isFinite(newVal)) {
+          char.properties[propName] = Math.max(-1, Math.min(1, newVal));
         }
       }
 
