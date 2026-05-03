@@ -244,6 +244,16 @@ If you cannot complete the derivative, create `{(iteration_dir / 'failure.md').a
 """
 
 
+def compact_bootstrap_prompt(task_path: Path, iteration_dir: Path, skills: str) -> str:
+    return f"""You are using the preloaded skills: {skills}.
+
+Your next assistant message must be exactly one XML tool call and no prose:
+<tool_call>{{"name":"terminal","arguments":{{"command":"bash -lc 'mkdir -p {iteration_dir.as_posix()} && pwd && sed -n \\\"1,220p\\\" {task_path.as_posix()}'","timeout":60}}}}</tool_call>
+
+After the tool result, follow the task file. Never end a turn with a plan; call tools or write the required artifact.
+"""
+
+
 def baseline_source(repo: Path, source: Path, run_root: Path, args: argparse.Namespace, idx: int) -> dict[str, Any]:
     rel_slug = slugify(source.stem)
     run_dir = run_root / f"{idx:02d}_{rel_slug}"
@@ -440,8 +450,11 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
     trm_advice = Path(row["trm_advice"]) if row.get("trm_advice") else None
     metta_balance = Path(row["metta_balance"]) if row.get("metta_balance") else None
     source_card = make_source_card(repo, source, run_dir, row.get("metadata", {}), trm_advice, metta_balance, iteration_index)
+    task_path = iteration_dir / "hermes_task.md"
+    task = hermes_prompt(source_card, iteration_dir, source, iteration_index, previous_dir, metta_balance, args.skills)
+    task_path.write_text(task, encoding="utf-8", newline="\n")
     prompt_path = iteration_dir / "hermes_prompt.txt"
-    prompt = hermes_prompt(source_card, iteration_dir, source, iteration_index, previous_dir, metta_balance, args.skills)
+    prompt = compact_bootstrap_prompt(task_path, iteration_dir, args.skills) if args.compact_prompt else task
     prompt_path.write_text(prompt, encoding="utf-8", newline="\n")
     log_path = iteration_dir / "logs" / "hermes_oneshot.log"
     env = os.environ.copy()
@@ -547,6 +560,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hermes-timeout", type=int, default=2700)
     parser.add_argument("--iterations", type=int, default=1)
     parser.add_argument("--skills", default="storyworld-conveyor-runner")
+    parser.add_argument("--compact-prompt", action="store_true")
     parser.add_argument("--skip-hermes", action="store_true")
     return parser.parse_args()
 
