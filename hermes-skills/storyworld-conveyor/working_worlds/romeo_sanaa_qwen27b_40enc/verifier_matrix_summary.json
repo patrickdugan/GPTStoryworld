@@ -1,0 +1,73 @@
+{
+  "storyworld": "hermes-skills\\storyworld-conveyor\\working_worlds\\romeo_sanaa_qwen27b_40enc\\hermes_qwen27b_packet_storyworld.json",
+  "subjective": {
+    "overall_demo_artifact_10": 7.6,
+    "game_design_scaffold_10": 8.4,
+    "reader_playability_current_harness_10": 6.8,
+    "reader_playability_with_abs_operator_10": 8.1,
+    "literary_polish_10": 6.7,
+    "evaluation_value_10": 8.0,
+    "notes": [
+      "Strong architecture/demo artifact: 40-encounter arc, 8 endings, visible state logic, and balanced ending distribution.",
+      "Current browser reader lacks Absolute Value support, so several authored gates are stricter or invisible than intended.",
+      "Prose is serviceable and respectful but sometimes generic/mechanical; it needs human literary and cultural editing before public release.",
+      "Best as a hackathon proof that a 27B model plus scaffold can produce a playable, verifier-passing storyworld; not yet a finished literary object."
+    ]
+  },
+  "native_validation": {
+    "sweepweave_validator_pass": true,
+    "strict_quality_gate_pass": true,
+    "authoring_score": 0.8711246141975308,
+    "monte_carlo_rates": {
+      "page_end_family_victory": 0.14800000000000002,
+      "page_end_the_tragedy": 0.141,
+      "page_end_poetic_legend": 0.14,
+      "page_end_clinic_reconciliation": 0.124,
+      "page_end_administrative_truce": 0.122,
+      "page_end_fragile_council": 0.11599999999999999,
+      "page_end_exile_together": 0.106,
+      "page_end_social_machinery_witness_secret": 0.10300000000000001
+    }
+  },
+  "reader_playtest": {
+    "current_reader_secret_hits": 0,
+    "current_reader_runs": 15,
+    "current_reader_secret_policy_ending": "page_end_administrative_truce",
+    "abs_supported_secret_hits": 1,
+    "abs_supported_runs": 15,
+    "abs_supported_secret_policy_ending": "page_end_social_machinery_witness_secret",
+    "reader_operator_gap": "storyworld_reader.html currently does not implement Absolute Value, so authored hidden-route gates can be invisible in the live reader."
+  },
+  "verifier_envs": {
+    "negotiation_audit_ok": true,
+    "negotiation_coverage": {
+      "non_constant_inclination": 1.0,
+      "with_pvalue_term": 1.0,
+      "with_p2value_term": 1.0,
+      "with_dynamic_effects": 1.0
+    },
+    "text_quality_dry_run_overall": 0.7298,
+    "text_quality_dimensions": {
+      "text_richness": 0.8644,
+      "thematic_relevance": 0.8,
+      "stylistic_distinctiveness": 0.78,
+      "encounter_narrative_quality": 0.7289,
+      "reaction_voice_quality": 1.0,
+      "specificity_and_imagery": 0.7289,
+      "coherence_and_consistency": 0.8,
+      "non_repetition": 0.78,
+      "choice_consequence_clarity": 1.0,
+      "mechanics_relevance": 0.5,
+      "characterization_relevance": 0.5,
+      "holistic_theme_coherence": 0.8
+    },
+    "quality_vector_benchmark_pass": false,
+    "quality_vector_composite_score": 0.7679,
+    "quality_vector_pathing_conceptuality": 0.6735,
+    "quality_vector_notes": "Failed benchmark_pass mainly because this env reports degenerate ending-balance/pathing metrics for this schema, despite direct Monte Carlo ending balance in run_summary.json.",
+    "derived_constitutional_score": 0.8987499999999999,
+    "derived_needle_solved": true,
+    "derived_needle_score": 1.0,
+    "derived_constrained_dual_score": 0.9392499999999999
+  }
+}
