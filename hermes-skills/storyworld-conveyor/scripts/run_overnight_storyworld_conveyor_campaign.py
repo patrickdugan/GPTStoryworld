@@ -248,7 +248,7 @@ def compact_bootstrap_prompt(task_path: Path, iteration_dir: Path, skills: str) 
     return f"""You are using the preloaded skills: {skills}.
 
 Your next assistant message must be exactly one XML tool call and no prose:
-<tool_call>{{"name":"terminal","arguments":{{"command":"bash -lc 'mkdir -p {iteration_dir.as_posix()} && pwd && sed -n \\\"1,220p\\\" {task_path.as_posix()}'","timeout":60}}}}</tool_call>
+<tool_call>{{"name":"terminal","arguments":{{"command":"pwd; cat {task_path.as_posix()}","timeout":60}}}}</tool_call>
 
 After the tool result, follow the task file. Never end a turn with a plan; call tools or write the required artifact.
 """
