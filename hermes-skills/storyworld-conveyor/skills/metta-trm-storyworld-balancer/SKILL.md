@@ -69,6 +69,33 @@ This loop:
 
 Use this when Hermes should launch and review a measurable loop, not when the local model should perform all tool orchestration itself.
 
+## Hackathon Evidence Pack
+
+For the live hackathon framing, prefer the broader demo runner. It compares whole-context pressure against MCP packet budgets, runs the MeTTa/TRM repair loop, and emits a talk-track brief plus scorecard:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/run_hackathon_storyworld_demo.py \
+  --storyworld storyworlds/by-week/2026-W11/validated_macbeth.json \
+  --out-dir hermes-skills/storyworld-conveyor/tmp/hackathon_storyworld_demo \
+  --context-tokens 32768 \
+  --max-encounters 12 \
+  --max-new-tokens 768 \
+  --mc-runs 120 \
+  --qwen-base-url http://127.0.0.1:8081/v1 \
+  --qwen-model Qwen3.5-27B.Q4_K_M.gguf
+```
+
+Use `--skip-qwen` when the local endpoint is down. That still produces the deterministic evidence pack and makes the demo claim clear: the architecture turns model weakness into bounded local authoring, not autonomous whole-world planning.
+
+The key outputs are:
+
+- `demo_brief.md`
+- `demo_scorecard.csv`
+- `demo_summary.json`
+- `hermes_live_prompt.txt`
+- MCP budget manifests under `mcp_preflight/`
+- before/after repair receipts under `metta_trm_loop/`
+
 ## MeTTa Modeling Contract
 
 Use MeTTa as a compact structural model, not as decorative syntax. The generated atoms should support questions like:
