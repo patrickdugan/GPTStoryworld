@@ -128,11 +128,13 @@ def make_source_card(
     run_dir: Path,
     meta: dict[str, Any],
     trm_advice_path: Path | None,
+    metta_balance_dir: Path | None,
     iteration_index: int,
 ) -> Path:
     card = run_dir / f"source_card_iteration_{iteration_index:02d}.md"
     title = meta.get("title") or source.stem
     trm_line = f"- TRM advice: `{trm_advice_path}`" if trm_advice_path else "- TRM advice: not available yet"
+    metta_line = f"- MeTTa/TRM balance packet: `{metta_balance_dir}`" if metta_balance_dir else "- MeTTa/TRM balance packet: not available"
     output_version = max(1, iteration_index)
     card.write_text(
         f"""# Source Card: {title}
@@ -151,6 +153,7 @@ def make_source_card(
 
 - Baseline directory: `{run_dir.as_posix()}`
 {trm_line}
+{metta_line}
 - General MeTTa/TRM scaffold: `hermes-skills/storyworld-conveyor/runtime_prompts/MeTTa_TRM_Storyworld_Building.md`
 
 ## Iteration Task
@@ -190,6 +193,8 @@ def hermes_prompt(
     source: Path,
     iteration_index: int,
     previous_dir: Path | None,
+    metta_balance_dir: Path | None,
+    skills: str,
 ) -> str:
     previous_text = ""
     if previous_dir is not None:
@@ -200,7 +205,17 @@ Read the previous iteration directory before editing:
 Compare against its `hermes_artifact_report.md`, `failure.md`, validator outputs, and derivative JSON if present.
 Your job is not to restart from scratch; repair or improve the best available derivative unless it is unusable.
 """
-    return f"""Use only the storyworld-conveyor-runner skill.
+    metta_text = ""
+    if metta_balance_dir is not None:
+        metta_text = f"""
+Read this MeTTa/TRM balance brief first:
+{(metta_balance_dir / 'balance_brief.md').as_posix()}
+
+Use these bounded symbolic/control-plane artifacts only when choosing concrete repair targets:
+{(metta_balance_dir / 'trm_balance_packet.json').as_posix()}
+{(metta_balance_dir / 'world_balance.metta').as_posix()}
+"""
+    return f"""Use the preloaded skills: {skills}.
 Use terminal tools. Do not narrate intended actions without tool calls.
 
 CRITICAL LOCAL-MODEL TOOL FORMAT:
@@ -218,6 +233,7 @@ Read this source card:
 
 Read this general scaffold:
 hermes-skills/storyworld-conveyor/runtime_prompts/MeTTa_TRM_Storyworld_Building.md
+{metta_text}
 {previous_text}
 
 Task:
@@ -247,6 +263,15 @@ def baseline_source(repo: Path, source: Path, run_root: Path, args: argparse.Nam
     story_scripts = repo / "codex-skills" / "storyworld-building" / "scripts"
     conveyor_scripts = repo / "hermes-skills" / "storyworld-conveyor" / "scripts"
     small_scripts = repo / "codex-skills" / "small-storyworld-builder" / "scripts"
+    metta_script = (
+        repo
+        / "hermes-skills"
+        / "storyworld-conveyor"
+        / "skills"
+        / "metta-trm-storyworld-balancer"
+        / "scripts"
+        / "build_metta_trm_balance_packet.py"
+    )
 
     commands.append(run_cmd(
         [args.python_bin, str(story_scripts / "sweepweave_validator.py"), "validate", str(source)],
@@ -372,7 +397,24 @@ def baseline_source(repo: Path, source: Path, run_root: Path, args: argparse.Nam
             cmd.extend(["--quality-report", str(quality_report)])
         commands.append(run_cmd(cmd, repo, logs / "trm_advice.log", timeout=args.command_timeout))
 
-    source_card = make_source_card(repo, source, run_dir, meta, trm_advice if trm_advice.exists() else None, 1)
+    metta_balance_dir = reports / "metta_trm_balance"
+    if metta_script.exists():
+        cmd = [
+            args.python_bin,
+            str(metta_script),
+            "--storyworld",
+            str(source),
+            "--out-dir",
+            str(metta_balance_dir),
+        ]
+        if quality_report.exists():
+            cmd.extend(["--quality-report", str(quality_report)])
+        if mc_report.exists():
+            cmd.extend(["--monte-carlo-report", str(mc_report)])
+        commands.append(run_cmd(cmd, repo, logs / "metta_trm_balance.log", timeout=args.command_timeout))
+
+    metta_balance = metta_balance_dir if (metta_balance_dir / "balance_brief.md").exists() else None
+    source_card = make_source_card(repo, source, run_dir, meta, trm_advice if trm_advice.exists() else None, metta_balance, 1)
     write_json(reports / "baseline_commands.json", commands)
 
     return {
@@ -384,6 +426,7 @@ def baseline_source(repo: Path, source: Path, run_root: Path, args: argparse.Nam
         "authoring_report": str(authoring_report) if authoring_report.exists() else None,
         "monte_carlo_report": str(mc_report) if mc_report.exists() else None,
         "trm_advice": str(trm_advice) if trm_advice.exists() else None,
+        "metta_balance": str(metta_balance) if metta_balance else None,
         "commands": commands,
     }
 
@@ -395,9 +438,10 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
     iteration_dir.mkdir(parents=True, exist_ok=True)
     previous_dir = run_dir / f"iteration_{iteration_index - 1:02d}" if iteration_index > 1 else None
     trm_advice = Path(row["trm_advice"]) if row.get("trm_advice") else None
-    source_card = make_source_card(repo, source, run_dir, row.get("metadata", {}), trm_advice, iteration_index)
+    metta_balance = Path(row["metta_balance"]) if row.get("metta_balance") else None
+    source_card = make_source_card(repo, source, run_dir, row.get("metadata", {}), trm_advice, metta_balance, iteration_index)
     prompt_path = iteration_dir / "hermes_prompt.txt"
-    prompt = hermes_prompt(source_card, iteration_dir, source, iteration_index, previous_dir)
+    prompt = hermes_prompt(source_card, iteration_dir, source, iteration_index, previous_dir, metta_balance, args.skills)
     prompt_path.write_text(prompt, encoding="utf-8", newline="\n")
     log_path = iteration_dir / "logs" / "hermes_oneshot.log"
     env = os.environ.copy()
@@ -410,14 +454,14 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
         "--yolo",
         "--accept-hooks",
         "-s",
-        "storyworld-conveyor-runner",
+        args.skills,
         "-q",
         prompt,
     ]
     started = time.time()
     log_path.parent.mkdir(parents=True, exist_ok=True)
     with log_path.open("w", encoding="utf-8", newline="\n") as log:
-        log.write("$ hermes chat -Q --yolo --accept-hooks -s storyworld-conveyor-runner -q <prompt>\n\n")
+        log.write(f"$ hermes chat -Q --yolo --accept-hooks -s {args.skills} -q <prompt>\n\n")
         log.flush()
         try:
             proc = subprocess.run(
@@ -477,6 +521,7 @@ def summarize(run_root: Path, rows: list[dict[str, Any]]) -> None:
         lines.append(f"- Quality report: `{row.get('quality_report')}`")
         lines.append(f"- Authoring report: `{row.get('authoring_report')}`")
         lines.append(f"- TRM advice: `{row.get('trm_advice')}`")
+        lines.append(f"- MeTTa/TRM balance: `{row.get('metta_balance')}`")
         if row.get("hermes_iterations"):
             for hermes_row in row["hermes_iterations"]:
                 lines.append(
@@ -501,6 +546,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--command-timeout", type=int, default=600)
     parser.add_argument("--hermes-timeout", type=int, default=2700)
     parser.add_argument("--iterations", type=int, default=1)
+    parser.add_argument("--skills", default="storyworld-conveyor-runner")
     parser.add_argument("--skip-hermes", action="store_true")
     return parser.parse_args()
 
