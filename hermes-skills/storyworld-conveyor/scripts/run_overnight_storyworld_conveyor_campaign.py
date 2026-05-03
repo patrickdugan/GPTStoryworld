@@ -195,6 +195,16 @@ Your job is not to restart from scratch; repair or improve the best available de
     return f"""Use only the storyworld-conveyor-runner skill.
 Use terminal tools. Do not narrate intended actions without tool calls.
 
+CRITICAL LOCAL-MODEL TOOL FORMAT:
+Your next assistant message must be exactly one XML tool call and no prose:
+<tool_call>{{"name":"terminal","arguments":{{"command":"bash -lc 'mkdir -p {iteration_dir.as_posix()} && pwd && ls -la {iteration_dir.as_posix()}'","timeout":60}}}}</tool_call>
+
+After that tool result, keep using terminal tool calls until you have created either:
+- a derivative storyworld JSON plus `hermes_artifact_report.md`, or
+- `failure.md` with a precise failure class.
+
+Never end a turn by saying "I will", "let me", "I'll now", or similar. If you need to inspect, create, validate, or score something, emit a `<tool_call>` block.
+
 Read this source card:
 {source_card.as_posix()}
 
