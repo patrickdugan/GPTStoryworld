@@ -387,7 +387,8 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
     env["HERMES_ACCEPT_HOOKS"] = "1"
     cmd = [
         "hermes",
-        "--ignore-rules",
+        "--yolo",
+        "--accept-hooks",
         "-s",
         "storyworld-conveyor-runner",
         "-z",
@@ -412,6 +413,21 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
         except subprocess.TimeoutExpired:
             log.write(f"\nHERMES_TIMEOUT after {args.hermes_timeout}s\n")
             rc = 124
+    report_path = iteration_dir / "hermes_artifact_report.md"
+    failure_path = iteration_dir / "failure.md"
+    derivative_jsons = sorted(str(path) for path in iteration_dir.rglob("*.json"))
+    artifact_success = report_path.exists() or failure_path.exists() or bool(derivative_jsons)
+    if not artifact_success:
+        failure_path.write_text(
+            "failure_class: no_artifacts\n"
+            "detail: Hermes process exited without creating a derivative JSON, "
+            "hermes_artifact_report.md, or failure.md.\n"
+            f"returncode: {rc}\n"
+            f"log: {log_path.as_posix()}\n"
+            "next_bounded_command: rerun without --ignore-rules and require a file artifact gate.\n",
+            encoding="utf-8",
+            newline="\n",
+        )
     return {
         "iteration": iteration_index,
         "returncode": rc,
@@ -419,6 +435,10 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
         "iteration_dir": str(iteration_dir),
         "prompt": str(prompt_path),
         "log": str(log_path),
+        "artifact_success": artifact_success,
+        "report": str(report_path) if report_path.exists() else None,
+        "failure": str(failure_path) if failure_path.exists() else None,
+        "derivative_jsons": derivative_jsons,
     }
 
 
@@ -438,7 +458,8 @@ def summarize(run_root: Path, rows: list[dict[str, Any]]) -> None:
             for hermes_row in row["hermes_iterations"]:
                 lines.append(
                     f"- Hermes iteration {hermes_row['iteration']}: "
-                    f"rc={hermes_row['returncode']} dir=`{hermes_row['iteration_dir']}` "
+                    f"rc={hermes_row['returncode']} artifact_success={hermes_row.get('artifact_success')} "
+                    f"dir=`{hermes_row['iteration_dir']}` "
                     f"log=`{hermes_row['log']}`"
                 )
         lines.append("")
