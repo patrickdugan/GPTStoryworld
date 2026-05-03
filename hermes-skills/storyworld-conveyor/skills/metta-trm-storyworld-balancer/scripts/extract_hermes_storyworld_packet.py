@@ -72,6 +72,42 @@ def first_balanced_json(text: str) -> str:
     raise ValueError("no balanced JSON object found")
 
 
+def decode_json(payload: str) -> dict[str, Any]:
+    try:
+        data = json.loads(payload)
+    except json.JSONDecodeError:
+        data = json.JSONDecoder(strict=False).decode(payload)
+    if not isinstance(data, dict):
+        raise ValueError("packet JSON is not an object")
+    return data
+
+
+def payload_candidates(text: str) -> list[str]:
+    candidates: list[str] = []
+    start_marker = "BEGIN_STORYWORLD_PACKET"
+    end_marker = "END_STORYWORLD_PACKET"
+    start = 0
+    while True:
+        start_index = text.find(start_marker, start)
+        if start_index < 0:
+            break
+        end_index = text.find(end_marker, start_index + len(start_marker))
+        if end_index < 0:
+            break
+        segment = text[start_index + len(start_marker) : end_index].strip()
+        try:
+            candidates.append(first_balanced_json(segment))
+        except ValueError:
+            if segment:
+                candidates.append(segment)
+        start = start_index + len(start_marker)
+    try:
+        candidates.append(first_balanced_json(text))
+    except ValueError:
+        pass
+    return candidates
+
+
 def extract_packet(export_path: Path) -> tuple[dict[str, Any], str]:
     assistant_texts = [
         message_text(message)
@@ -81,10 +117,13 @@ def extract_packet(export_path: Path) -> tuple[dict[str, Any], str]:
     for text in reversed(assistant_texts):
         if not text.strip() or text.strip() == "(empty)":
             continue
-        payload = marked_payload(text) or first_balanced_json(text)
-        data = json.loads(payload)
-        if isinstance(data, dict) and isinstance(data.get("encounters"), list):
-            return data, text
+        for payload in payload_candidates(text):
+            try:
+                data = decode_json(payload)
+            except Exception:
+                continue
+            if isinstance(data.get("encounters"), list):
+                return data, text
     raise ValueError(f"no storyworld packet found in {export_path}")
 
 

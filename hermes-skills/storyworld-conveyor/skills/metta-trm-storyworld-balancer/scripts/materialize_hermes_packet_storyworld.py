@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -56,6 +57,20 @@ ENDING_IDS = [
 ]
 
 
+def safe_id(value: Any, fallback: str) -> str:
+    raw = value if isinstance(value, str) else fallback
+    cleaned = re.sub(r"[^A-Za-z0-9_]+", "_", raw.strip())
+    cleaned = re.sub(r"_+", "_", cleaned).strip("_")
+    return cleaned or fallback
+
+
+def safe_slug(value: Any, fallback: str) -> str:
+    raw = value if isinstance(value, str) else fallback
+    cleaned = re.sub(r"[^a-z0-9]+", "_", raw.lower())
+    cleaned = re.sub(r"_+", "_", cleaned).strip("_")
+    return cleaned or fallback
+
+
 def load_expand_module() -> Any:
     spec = importlib.util.spec_from_file_location("expand_nine_lantern_storyworld", EXPAND_SCRIPT)
     if spec is None or spec.loader is None:
@@ -73,9 +88,62 @@ def text(value: Any, fallback: str) -> str:
 
 
 def profile(value: Any, fallback: str = "procedure") -> str:
+    if isinstance(value, list) and value:
+        value = value[0]
     if isinstance(value, str) and value.strip().lower() in ALLOWED_PROFILES:
         return value.strip().lower()
     return fallback
+
+
+def encounter_body(item: dict[str, Any]) -> str:
+    parts = []
+    for key in ["body", "text", "description", "setup"]:
+        value = item.get(key)
+        if isinstance(value, str) and value.strip():
+            parts.append(value.strip())
+    if parts:
+        return " ".join(" ".join(part.split()) for part in parts)
+    return "The protagonists face a public choice where procedure, mercy, family pressure, and public order pull the scene in different directions."
+
+
+def normalize_variable_ids(packet: dict[str, Any]) -> list[str]:
+    raw = packet.get("variables")
+    values: list[str] = []
+    if isinstance(raw, list):
+        for index, item in enumerate(raw):
+            if isinstance(item, dict):
+                values.append(safe_id(item.get("id", item.get("name")), f"Axis_{index + 1}"))
+            elif isinstance(item, str):
+                values.append(safe_id(item, f"Axis_{index + 1}"))
+            if len(values) >= 4:
+                break
+    defaults = ["Veil_Disclosure", "Solitude_Consensus", "Discord_Ijma", "Letter_Spirit"]
+    while len(values) < 4:
+        values.append(defaults[len(values)])
+    return values[:4]
+
+
+def build_option_profiles(var_ids: list[str]) -> dict[str, dict[str, Any]]:
+    v0, v1, v2, v3 = var_ids
+    return {
+        "procedure": {"primary": v1, "secondary": v0, "tertiary": v3, "deltas": [0.04, -0.02, 0.03]},
+        "reason": {"primary": v3, "secondary": v2, "tertiary": v0, "deltas": [0.05, 0.03, 0.02]},
+        "precedent": {"primary": v3, "secondary": v1, "tertiary": v0, "deltas": [-0.04, 0.03, -0.02]},
+        "transmission": {"primary": v3, "secondary": v1, "tertiary": v2, "deltas": [-0.03, 0.04, -0.02]},
+        "community": {"primary": v1, "secondary": v2, "tertiary": v0, "deltas": [0.05, 0.04, 0.02]},
+        "consensus": {"primary": v1, "secondary": v2, "tertiary": v0, "deltas": [0.05, 0.04, 0.02]},
+        "mercy": {"primary": v0, "secondary": v1, "tertiary": v3, "deltas": [0.03, 0.03, 0.04]},
+        "justice": {"primary": v2, "secondary": v3, "tertiary": v1, "deltas": [0.04, 0.03, 0.02]},
+        "order": {"primary": v1, "secondary": v0, "tertiary": v2, "deltas": [0.04, -0.03, -0.02]},
+        "disclosure": {"primary": v0, "secondary": v2, "tertiary": v3, "deltas": [0.06, 0.02, 0.03]},
+        "symbol": {"primary": v0, "secondary": v3, "tertiary": v2, "deltas": [-0.04, 0.05, 0.03]},
+        "identity": {"primary": v0, "secondary": v1, "tertiary": v2, "deltas": [0.05, -0.02, 0.04]},
+        "veil": {"primary": v0, "secondary": v1, "tertiary": v3, "deltas": [-0.05, 0.02, -0.02]},
+        "letter": {"primary": v3, "secondary": v2, "tertiary": v1, "deltas": [-0.06, -0.02, 0.03]},
+        "spirit": {"primary": v3, "secondary": v0, "tertiary": v2, "deltas": [0.06, 0.02, 0.03]},
+        "purpose": {"primary": v3, "secondary": v0, "tertiary": v2, "deltas": [0.06, 0.02, 0.03]},
+        "witness": {"primary": v0, "secondary": v3, "tertiary": v1, "deltas": [0.08, 0.07, -0.04]},
+    }
 
 
 def normalize_options(raw_options: Any, scene_index: int) -> list[tuple[str, str]]:
@@ -91,7 +159,7 @@ def normalize_options(raw_options: Any, scene_index: int) -> list[tuple[str, str
                 continue
             options.append(
                 (
-                    profile(item.get("profile"), defaults[len(options) % len(defaults)][0]),
+                    profile(item.get("profile", item.get("profiles")), defaults[len(options) % len(defaults)][0]),
                     text(item.get("text"), defaults[len(options) % len(defaults)][1]),
                 )
             )
@@ -102,7 +170,7 @@ def normalize_options(raw_options: Any, scene_index: int) -> list[tuple[str, str
     return options
 
 
-def normalize_scenes(packet: dict[str, Any]) -> list[dict[str, Any]]:
+def normalize_scenes(packet: dict[str, Any], max_encounters: int) -> list[dict[str, Any]]:
     raw = packet.get("encounters")
     if not isinstance(raw, list) or not raw:
         raise ValueError("packet.encounters must be a non-empty list")
@@ -111,25 +179,22 @@ def normalize_scenes(packet: dict[str, Any]) -> list[dict[str, Any]]:
         raise ValueError("packet must include at least four encounter objects")
 
     scenes: list[dict[str, Any]] = []
-    for index, item in enumerate(usable[:8], start=1):
+    for index, item in enumerate(usable[:max_encounters], start=1):
         act = item.get("act")
         if act not in {"act1", "act2", "act3"}:
             act = "act1" if index <= 3 else "act2" if index <= 6 else "act3"
         scene = {
-            "id": f"page_{index:03d}_{text(item.get('id'), 'encounter').lower().replace('-', '_').replace(' ', '_')[:28]}",
+            "id": f"page_{index:03d}_{safe_slug(item.get('id'), 'encounter')[:28]}",
             "title": text(item.get("title"), f"Examination Turn {index}"),
             "act": act,
-            "body": text(
-                item.get("body"),
-                "Yusuf Lin faces a staged legal-theological test where procedure, mercy, and public order pull the court in different directions.",
-            ),
+            "body": encounter_body(item),
             "theme": text(item.get("theme"), "judgment under incomplete evidence"),
             "options": normalize_options(item.get("options"), index),
         }
         secret_option = item.get("secret_option")
         if isinstance(secret_option, dict):
             scene["secret"] = (
-                profile(secret_option.get("profile"), "witness"),
+                profile(secret_option.get("profile", secret_option.get("profiles")), "witness"),
                 text(secret_option.get("text"), "Notice how the examiner is being pulled into evidence."),
             )
         elif index in {3, 6}:
@@ -156,7 +221,7 @@ def normalize_scenes(packet: dict[str, Any]) -> list[dict[str, Any]]:
     return scenes
 
 
-def normalize_endings(packet: dict[str, Any]) -> dict[str, tuple[str, str]]:
+def normalize_endings(packet: dict[str, Any]) -> tuple[dict[str, tuple[str, str]], list[str]]:
     raw_endings = packet.get("endings")
     rows = [item for item in raw_endings if isinstance(item, dict)] if isinstance(raw_endings, list) else []
     defaults = [
@@ -170,13 +235,38 @@ def normalize_endings(packet: dict[str, Any]) -> dict[str, tuple[str, str]]:
         ("Secret Ending: The Ninth Lantern Sits", "Yusuf lights the missing lantern by requiring the examiners to enter their pressures as testimony."),
     ]
     endings: dict[str, tuple[str, str]] = {}
+    ending_ids: list[str] = []
     for index, ending_id in enumerate(ENDING_IDS):
         row = rows[index] if index < len(rows) else {}
-        endings[ending_id] = (
-            text(row.get("title"), defaults[index][0]),
-            text(row.get("body"), defaults[index][1]),
-        )
-    return endings
+        title = text(row.get("title"), defaults[index][0])
+        if rows:
+            suffix = safe_slug(title, f"ending_{index + 1}")
+            ending_id = f"page_end_{suffix[:44]}"
+        endings[ending_id] = (title, text(row.get("body"), defaults[index][1]))
+        ending_ids.append(ending_id)
+    return endings, ending_ids
+
+
+def update_base_variables(base: dict[str, Any], var_ids: list[str]) -> None:
+    now = time.time()
+    base["authored_properties"] = [
+        {
+            "id": var_id,
+            "property_name": var_id,
+            "property_type": "bounded number",
+            "default_value": 0,
+            "depth": 0,
+            "attribution_target": "all cast members",
+            "affected_characters": [],
+            "creation_index": index,
+            "creation_time": now,
+            "modified_time": now,
+        }
+        for index, var_id in enumerate(var_ids)
+    ]
+    for character in base.get("characters", []):
+        if isinstance(character, dict):
+            character["bnumber_properties"] = {var_id: 0 for var_id in var_ids}
 
 
 def update_characters(world: dict[str, Any], packet: dict[str, Any]) -> None:
@@ -188,6 +278,83 @@ def update_characters(world: dict[str, Any], packet: dict[str, Any]) -> None:
     for character, name in zip(world.get("characters", []), names):
         if isinstance(character, dict):
             character["name"] = name
+
+
+def configure_module(module: Any, packet: dict[str, Any], scenes: list[dict[str, Any]], endings: dict[str, tuple[str, str]], ending_ids: list[str], var_ids: list[str]) -> None:
+    module.SCENES = scenes
+    module.ENDING_TEXT = endings
+    module.VARS = var_ids
+    module.OPTION_PROFILES = build_option_profiles(var_ids)
+
+    def option_visibility(profile_name: str, scene_index: int, is_secret: bool) -> Any:
+        if is_secret:
+            return module.op(
+                "And",
+                [
+                    module.cmp_op("Greater Than or Equal To", module.ptr("char_witness", var_ids[0]), module.num_const(min(0.04 + scene_index * 0.004, 0.18))),
+                    module.cmp_op("Greater Than or Equal To", module.ptr("char_witness", var_ids[3]), module.num_const(min(0.02 + scene_index * 0.003, 0.14))),
+                ],
+            )
+        profile_spec = module.OPTION_PROFILES.get(profile_name, module.OPTION_PROFILES["procedure"])
+        return module.permissive_gate(profile_spec["primary"])
+
+    def final_visibility(target_id: str) -> Any:
+        if target_id == ending_ids[-1]:
+            return module.op(
+                "And",
+                [
+                    module.cmp_op("Greater Than or Equal To", module.abs_op(module.ptr("char_witness", var_ids[0])), module.num_const(0.16)),
+                    module.cmp_op("Greater Than or Equal To", module.abs_op(module.ptr("char_witness", var_ids[3])), module.num_const(0.10)),
+                    module.cmp_op("Less Than or Equal To", module.abs_op(module.ptr("char_witness", var_ids[1])), module.num_const(1.0)),
+                ],
+            )
+        return module.permissive_gate(var_ids[ending_ids.index(target_id) % len(var_ids)] if target_id in ending_ids else var_ids[2])
+
+    def add_final_options(enc: dict[str, Any]) -> None:
+        profile_cycle = ["order", "symbol", "precedent", "witness", "justice", "veil", "identity", "witness"]
+        enc["options"] = []
+        for index, target in enumerate(ending_ids):
+            title, _ = endings[target]
+            profile_name = profile_cycle[index % len(profile_cycle)]
+            if index == len(ending_ids) - 1:
+                option_text = "Find the hidden route by making the families and the court testify about their own role."
+                consequence_id = "page_secret_bridge"
+            else:
+                option_text = f"Choose the path of {title}."
+                consequence_id = target
+            option = module.make_option(enc, index, profile_name, option_text, consequence_id, index == len(ending_ids) - 1)
+            option["id"] = f"{enc['id']}_opt_{safe_slug(title, f'ending_{index + 1}')[:30]}"
+            option["visibility_script"] = final_visibility(target)
+            for rxn_index, reaction in enumerate(option["reactions"]):
+                reaction["id"] = f"{option['id']}_r{rxn_index + 1}"
+                reaction["consequence_id"] = consequence_id
+            enc["options"].append(option)
+
+    def make_secret_bridge(index: int) -> dict[str, Any]:
+        raw = packet.get("secret_bridge") if isinstance(packet.get("secret_bridge"), dict) else {}
+        scene = {
+            "id": "page_secret_bridge",
+            "title": text(raw.get("title"), "The Hidden Witness Route"),
+            "act": "act3",
+            "theme": text(raw.get("theme"), "the system becomes evidence"),
+            "body": text(
+                raw.get("body"),
+                "The hidden route opens when love is no longer treated as private escape but as evidence about the structures that made escape seem necessary. The families, clerics, guards, and friends are not scenery now; they are witnesses to the machinery they helped maintain.",
+            ),
+            "options": [
+                ("witness", "Make every authority name what it feared love would expose."),
+                ("mercy", "Protect the lovers without making either community confess defeat."),
+                ("procedure", "Write a public process that can survive after the lovers leave."),
+            ],
+        }
+        enc = module.make_encounter(scene, index, ending_ids[-1])
+        enc["connected_spools"] = ["spool_secret"]
+        return enc
+
+    module.final_visibility = final_visibility
+    module.option_visibility = option_visibility
+    module.add_final_options = add_final_options
+    module.make_secret_bridge = make_secret_bridge
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -248,17 +415,22 @@ def main() -> int:
     parser.add_argument("--transcript", default="")
     parser.add_argument("--base", type=Path, default=DEFAULT_BASE)
     parser.add_argument("--mc-runs", type=int, default=400)
+    parser.add_argument("--max-encounters", type=int, default=8)
     args = parser.parse_args()
 
     packet = json.loads(args.packet.read_text(encoding="utf-8-sig"))
-    scenes = normalize_scenes(packet)
-    endings = normalize_endings(packet)
+    scenes = normalize_scenes(packet, args.max_encounters)
+    endings, ending_ids = normalize_endings(packet)
+    var_ids = normalize_variable_ids(packet)
     module = load_expand_module()
-    module.SCENES = scenes
-    module.ENDING_TEXT = endings
+    configure_module(module, packet, scenes, endings, ending_ids, var_ids)
 
     base = json.loads(args.base.read_text(encoding="utf-8-sig"))
+    update_base_variables(base, var_ids)
     world = module.build_world(base)
+    for spool in world.get("spools", []):
+        if isinstance(spool, dict) and spool.get("id") == "spool_secret":
+            spool["encounters"] = ["page_secret_bridge", ending_ids[-1]]
     world["IFID"] = "SW-HERMES-QWEN27B-PACKET-LATTICE"
     world["storyworld_title"] = text(packet.get("title"), "Hermes 27B Packet Storyworld")
     world["title"] = world["storyworld_title"]
@@ -276,6 +448,7 @@ def main() -> int:
         "transcript": args.transcript,
         "source_model": "Qwen3.5-27B.Q4_K_M.gguf via Hermes",
         "control_plane": "bounded packet -> lattice profiles -> p/p2 effects -> validators",
+        "variable_ids": var_ids,
     }
 
     out_dir = args.out_dir.resolve()
