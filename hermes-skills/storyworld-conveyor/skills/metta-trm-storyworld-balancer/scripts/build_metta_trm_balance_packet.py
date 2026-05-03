@@ -156,11 +156,39 @@ def extract_monte_carlo(path: Path | None) -> dict[str, Any]:
         return {}
     text = path.read_text(encoding="utf-8", errors="replace")
     rates: dict[str, float] = {}
+    unreachable: list[str] = []
+    in_distribution = False
+    in_unreachable = False
+    secret_none_reachable = "None reachable" in text
     for line in text.splitlines():
-        match = re.search(r"([A-Za-z0-9_.:-]+).*?([0-9]+(?:\.[0-9]+)?)%", line)
-        if match:
-            rates[match.group(1)] = float(match.group(2)) / 100.0
-    return {"raw_excerpt": text[:4000], "ending_rates": rates}
+        stripped = line.strip()
+        if stripped.startswith("--- Ending Distribution"):
+            in_distribution = True
+            in_unreachable = False
+            continue
+        if stripped.startswith("--- Unreachable Endings"):
+            in_distribution = False
+            in_unreachable = True
+            continue
+        if stripped.startswith("---") and not stripped.startswith("--- Unreachable Endings"):
+            in_distribution = False
+            if not stripped.startswith("--- Unreachable Endings"):
+                in_unreachable = False
+        if in_distribution:
+            match = re.match(r"([A-Za-z0-9_.:-]+)\s+([0-9]+)\s+\(\s*([0-9]+(?:\.[0-9]+)?)%\)", stripped)
+            if match:
+                rates[match.group(1)] = float(match.group(3)) / 100.0
+        if in_unreachable and stripped and not stripped.startswith("---"):
+            unreachable.append(stripped)
+    dominant = max(rates.items(), key=lambda item: item[1]) if rates else None
+    return {
+        "raw_excerpt": text[:4000],
+        "ending_rates": rates,
+        "dominant_ending": dominant[0] if dominant else None,
+        "dominant_rate": dominant[1] if dominant else None,
+        "unreachable_endings": unreachable,
+        "secret_none_reachable": secret_none_reachable,
+    }
 
 
 def build_packet(storyworld: dict[str, Any], quality: dict[str, Any], monte_carlo: dict[str, Any]) -> dict[str, Any]:
@@ -208,6 +236,15 @@ def build_packet(storyworld: dict[str, Any], quality: dict[str, Any], monte_carl
         observations.append("No secret-like options detected by text/tag scan.")
     if len(operators) <= 2:
         observations.append("Low apparent effect-operator diversity.")
+    mc_unreachable = monte_carlo.get("unreachable_endings") if isinstance(monte_carlo.get("unreachable_endings"), list) else []
+    mc_dominant = monte_carlo.get("dominant_ending")
+    mc_dominant_rate = monte_carlo.get("dominant_rate")
+    if mc_unreachable:
+        observations.append(f"Monte Carlo reports {len(mc_unreachable)} unreachable ending(s).")
+    if isinstance(mc_dominant_rate, (int, float)) and mc_dominant_rate >= 0.85:
+        observations.append(f"Monte Carlo ending distribution is dominated by {mc_dominant} at {mc_dominant_rate:.1%}.")
+    if monte_carlo.get("secret_none_reachable"):
+        observations.append("Monte Carlo reports no reachable secret ending.")
 
     repair_targets: list[dict[str, Any]] = []
     for encounter_id in zero_inbound[:12]:
@@ -218,6 +255,17 @@ def build_packet(storyworld: dict[str, Any], quality: dict[str, Any], monte_carl
         repair_targets.append({"target": "secret_route_layer", "type": "weak_secret_route_support", "priority": "medium"})
     if len(operators) <= 2:
         repair_targets.append({"target": "effect_operator_layer", "type": "low_effect_diversity", "priority": "medium"})
+    for ending_id in mc_unreachable[:12]:
+        repair_targets.append({"target": ending_id, "type": "unreachable_ending", "priority": "high"})
+    if isinstance(mc_dominant_rate, (int, float)) and mc_dominant_rate >= 0.85:
+        repair_targets.append({
+            "target": mc_dominant,
+            "type": "dominant_ending_distribution",
+            "priority": "high",
+            "rate": mc_dominant_rate,
+        })
+    if monte_carlo.get("secret_none_reachable"):
+        repair_targets.append({"target": "secret_route_layer", "type": "secret_unreachable_in_monte_carlo", "priority": "high"})
 
     balance_signals = {
         "encounters": len(encounters),
@@ -231,6 +279,10 @@ def build_packet(storyworld: dict[str, Any], quality: dict[str, Any], monte_carl
         "effect_operators": len(operators),
         "quality_report_present": bool(quality),
         "monte_carlo_report_present": bool(monte_carlo),
+        "mc_unreachable_endings": len(mc_unreachable),
+        "mc_dominant_ending": mc_dominant or "unknown",
+        "mc_dominant_rate": mc_dominant_rate if mc_dominant_rate is not None else "unknown",
+        "mc_secret_none_reachable": bool(monte_carlo.get("secret_none_reachable")),
     }
 
     return {
