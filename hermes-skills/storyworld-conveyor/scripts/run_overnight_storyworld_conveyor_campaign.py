@@ -42,6 +42,14 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8", newline="\n")
 
 
+def is_storyworld_json(path: Path) -> bool:
+    try:
+        data = read_json(path)
+    except Exception:
+        return False
+    return isinstance(data.get("encounters"), list) and isinstance(data.get("spools"), list)
+
+
 def run_cmd(
     cmd: list[str],
     cwd: Path,
@@ -221,7 +229,7 @@ If you cannot complete the derivative, create `{(iteration_dir / 'failure.md').a
 
 
 def baseline_source(repo: Path, source: Path, run_root: Path, args: argparse.Namespace, idx: int) -> dict[str, Any]:
-    rel_slug = slugify(source.with_suffix("").as_posix())
+    rel_slug = slugify(source.stem)
     run_dir = run_root / f"{idx:02d}_{rel_slug}"
     reports = run_dir / "reports"
     worlds = run_dir / "worlds"
@@ -428,15 +436,17 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
     report_path = iteration_dir / "hermes_artifact_report.md"
     failure_path = iteration_dir / "failure.md"
     derivative_jsons = sorted(str(path) for path in iteration_dir.rglob("*.json"))
-    artifact_success = report_path.exists() or failure_path.exists() or bool(derivative_jsons)
+    storyworld_jsons = sorted(str(path) for path in iteration_dir.rglob("*.json") if is_storyworld_json(path))
+    artifact_success = report_path.exists() or failure_path.exists() or bool(storyworld_jsons)
     if not artifact_success:
         failure_path.write_text(
             "failure_class: no_artifacts\n"
-            "detail: Hermes process exited without creating a derivative JSON, "
-            "hermes_artifact_report.md, or failure.md.\n"
+            "detail: Hermes process exited without creating a storyworld-shaped derivative JSON, "
+            "hermes_artifact_report.md, or failure.md. Config-only JSON files do not count.\n"
             f"returncode: {rc}\n"
             f"log: {log_path.as_posix()}\n"
-            "next_bounded_command: rerun without --ignore-rules and require a file artifact gate.\n",
+            "next_bounded_command: create a bounded derivative storyworld JSON under the iteration directory, "
+            "then run validator and write hermes_artifact_report.md.\n",
             encoding="utf-8",
             newline="\n",
         )
@@ -451,6 +461,7 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
         "report": str(report_path) if report_path.exists() else None,
         "failure": str(failure_path) if failure_path.exists() else None,
         "derivative_jsons": derivative_jsons,
+        "storyworld_jsons": storyworld_jsons,
     }
 
 
