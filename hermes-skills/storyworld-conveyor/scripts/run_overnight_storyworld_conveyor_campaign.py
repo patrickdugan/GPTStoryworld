@@ -387,17 +387,19 @@ def run_hermes(repo: Path, row: dict[str, Any], args: argparse.Namespace, iterat
     env["HERMES_ACCEPT_HOOKS"] = "1"
     cmd = [
         "hermes",
+        "chat",
+        "-Q",
         "--yolo",
         "--accept-hooks",
         "-s",
         "storyworld-conveyor-runner",
-        "-z",
+        "-q",
         prompt,
     ]
     started = time.time()
     log_path.parent.mkdir(parents=True, exist_ok=True)
     with log_path.open("w", encoding="utf-8", newline="\n") as log:
-        log.write("$ " + " ".join(cmd[:5]) + " <prompt>\n\n")
+        log.write("$ hermes chat -Q --yolo --accept-hooks -s storyworld-conveyor-runner -q <prompt>\n\n")
         log.flush()
         try:
             proc = subprocess.run(
