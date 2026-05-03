@@ -96,6 +96,29 @@ The key outputs are:
 - MCP budget manifests under `mcp_preflight/`
 - before/after repair receipts under `metta_trm_loop/`
 
+## 9-TRM Encounter Assembly Trajectory Library
+
+When the goal is to train control-plane TRMs that know how to work with an LLM inside the MCP + MeTTa + skill flow, generate the trajectory library:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/build_encounter_trajectory_library.py \
+  --out-dir hermes-skills/storyworld-conveyor/trm_corpus/encounter_assembly_9trm_seed \
+  --trajectory-count 1000 \
+  --target-tokens 100000 \
+  --seed 23
+```
+
+This emits:
+
+- `trajectory_library.jsonl`: full structured trajectories.
+- `trm_control_rows.jsonl`: normalized `state/tools/action/meta` rows for router/control TRMs.
+- `sft_messages.jsonl`: chat-shaped rows for distillation or prompt policy tuning.
+- `world_control_facts.metta`: compact symbolic control facts.
+- `train.jsonl` / `val.jsonl`: train/validation split.
+- `train_manifest.json`: hard-cap training handoff; do not launch training outside a cap wrapper.
+
+The nine TRM roles are documented in `references/encounter_assembly_9trm.md`.
+
 ## MeTTa Modeling Contract
 
 Use MeTTa as a compact structural model, not as decorative syntax. The generated atoms should support questions like:
