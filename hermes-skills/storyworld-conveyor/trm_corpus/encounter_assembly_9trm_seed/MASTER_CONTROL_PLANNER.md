@@ -156,6 +156,17 @@ The first tiny master-planner baseline makes this concrete:
 
 Interpretation: role-local TRMs are already easy to train from the seed rows, but the master planner needs real adaptive histories with skipped roles, repeated repair loops, and failed LLM calls. The synthetic rows define the format; real conveyor traces teach the policy.
 
+The first local auto-research loop produced:
+
+- Run: `hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_auto_research_local_001/`
+- Rows: `16`
+- Tiny planner agreement before augmentation: `0/16`
+- Objectives discovered: `fit_context_budget`, `repair_reader_semantics`, `diversify_effect_scripts`
+- Augmented run: `hermes-skills/storyworld-conveyor/trm_runs/master_control_planner_augmented_local_001/`
+- Held-out auto accuracy after augmentation: `2/3`
+
+Interpretation: a small amount of real diagnostic supervision corrected context-routing and reader-semantics routing, but did not yet fix effect-script routing for Nudge monoculture.
+
 Each real run should append:
 
 - `trajectory_episode.jsonl`: episode-level planner rows.

@@ -149,6 +149,24 @@ python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/sc
 
 This is still a control-policy baseline, not a full neural TRM. Use it as a fast receipt before launching heavier capped training.
 
+## Auto-Research Loop
+
+Use the auto-research loop to collect real storyworld diagnostic states for master-planner training. This loop does not patch storyworld files. It compares the tiny planner's proposed next role against a deterministic oracle derived from context budget, schema/connectivity, reader semantics, secret-route, option, reaction, and effect diagnostics:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/run_master_planner_auto_research_loop.py \
+  --out-dir hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_auto_research_local_001 \
+  --iterations 8 \
+  --context-budget-tokens 8192
+```
+
+This emits:
+
+- `auto_research_rows.jsonl`: trainable `state/tools -> oracle_role` rows.
+- `trajectory_episodes.jsonl`: one-step episode rows.
+- `planner_predictions.jsonl`: planner proposal vs deterministic oracle.
+- `steps/*`: metrics, planner state, and role artifact for each iteration.
+
 ## MeTTa Modeling Contract
 
 Use MeTTa as a compact structural model, not as decorative syntax. The generated atoms should support questions like:
