@@ -141,6 +141,27 @@ This emits:
 
 The nine TRM roles are documented in `references/encounter_assembly_9trm.md`.
 
+## MCP Retrieval TRM Curriculum
+
+When a benchmark shows that a small model can write useful storyworld content but fails from context load, truncation, or schema drift, convert the run into MCP retrieval training rows:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/build_mcp_retrieval_trm_curriculum.py \
+  --run-dir benchmarks/storyworld_builder_small_model/runs/murder_mystery_compare_20260504_001 \
+  --out-dir hermes-skills/storyworld-conveyor/trm_corpus/mcp_retrieval_storyworld_murder_001
+```
+
+This emits:
+
+- `mcp_cards.jsonl`: source/cast/schema/score/validator cards suitable for file-backed MCP memory.
+- `mcp_index.json`: card-id keyed lookup table for file-backed MCP adapters.
+- `retrieval_rows.jsonl`: TRM rows that map stage state to selected MCP card IDs and next action.
+- `sft_messages.jsonl`: chat-shaped rows for distilling a controller that chooses MCP context.
+- `mcp_retrieval_facts.metta`: symbolic facts linking stages, cards, roles, and actions.
+- `train_manifest.json`: hard-cap training handoff; do not launch neural training outside a cap wrapper.
+
+Use this when the skill should learn to pull context from MCP before invoking the LLM. The target behavior is not "write the whole storyworld from memory"; it is "retrieve the smallest stage-relevant packet, then ask the LLM for one bounded component."
+
 ## Master Control Planner Episodes
 
 After the role-local trajectory library exists, build episode-level rows for a master planner that learns which TRM role to invoke next:
