@@ -68,6 +68,11 @@ def main() -> int:
     parser.add_argument("--quality-vector-report", default="")
     parser.add_argument("--qlora-examples-jsonl", default="")
     parser.add_argument("--world-json", default="", help="Optional original JSON path for operation fallback.")
+    parser.add_argument("--research-source", action="append", default=[], help="Research source file or directory for MCP stimulus cards. Repeatable.")
+    parser.add_argument("--research-topic", default="", help="Topic used to rank and label research stimulus cards.")
+    parser.add_argument("--research-card-count", type=int, default=8)
+    parser.add_argument("--research-card-token-budget", type=int, default=220)
+    parser.add_argument("--disable-research-stimulus", action="store_true")
     parser.add_argument("--max-encounters", type=int, default=12)
     parser.add_argument("--start-index", type=int, default=0)
     parser.add_argument("--neighbor-hops", type=int, default=1)
@@ -120,6 +125,11 @@ def main() -> int:
         "quality_report": str(Path(args.quality_report).resolve()) if args.quality_report else "",
         "quality_vector_report": str(Path(args.quality_vector_report).resolve()) if args.quality_vector_report else "",
         "qlora_examples_jsonl": str(Path(args.qlora_examples_jsonl).resolve()) if args.qlora_examples_jsonl else "",
+        "research_stimulus_enabled": bool(args.research_source) and not bool(args.disable_research_stimulus),
+        "research_sources": [str(Path(path).resolve()) for path in args.research_source],
+        "research_topic": args.research_topic.strip(),
+        "research_card_count": int(args.research_card_count),
+        "research_card_token_budget": int(args.research_card_token_budget),
         "phases": args.phases,
         "max_encounters": int(args.max_encounters),
         "start_index": int(args.start_index),
@@ -145,6 +155,7 @@ def main() -> int:
         "prompt_policy": {
             "never_inline_full_storyworld_after_conversion": True,
             "packet_contract": "world_card + target encounter + neighbor encounters + TRM constraints + ledger summary",
+            "research_stimulus_contract": "curated source cards only; never whole research documents; cite source_path in notes",
             "abort_on_budget_overflow": True,
         },
         "hardware_profile": {

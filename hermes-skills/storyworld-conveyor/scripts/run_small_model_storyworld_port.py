@@ -151,6 +151,106 @@ def summarize_hilbert_pathing(path: Path) -> Dict[str, Any]:
     }
 
 
+def summarize_research_stimulus(path: Path) -> Dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    except Exception:
+        return {"source_path": str(path), "parse_ok": False}
+    cards = payload.get("cards", []) if isinstance(payload, dict) else []
+    if not isinstance(cards, list):
+        cards = []
+    return {
+        "source_path": str(path),
+        "parse_ok": True,
+        "manifest": payload.get("manifest", {}) if isinstance(payload, dict) else {},
+        "cards": cards[:8],
+        "contract": {
+            "role": "grounded imagination stimulus for small-model storyworld authoring",
+            "not_authority": True,
+            "must_stay_bounded": True,
+            "cite_source_path_when_used": True,
+        },
+    }
+
+
+def build_research_stimulus_packet(run_dir: Path, python_bin: str, config: Dict[str, Any], dry_run: bool) -> Dict[str, Any]:
+    enabled = bool(config.get("research_stimulus_enabled", False))
+    sources = [str(x) for x in (config.get("research_sources", []) or []) if str(x).strip()]
+    stage_dir = ensure_dir(run_dir / "research_stimulus")
+    events_path = stage_dir / "events.jsonl"
+    if not enabled or not sources:
+        status = "skipped"
+        manifest = build_stage_manifest(
+            str(config.get("run_id") or run_dir.name),
+            "research_stimulus",
+            status,
+            sources,
+            [],
+            {"enabled": enabled, "source_count": len(sources)},
+            notes=["Research stimulus disabled or no sources configured."],
+        )
+        dump_json(stage_dir / "manifest.json", manifest)
+        dump_json(stage_dir / "progress.json", {"stage": "research_stimulus", "status": status, "updated_at": now_iso()})
+        append_jsonl(events_path, {"event": "stage_finished", "status": status, "at": now_iso()})
+        return {"status": status, "stage_dir": str(stage_dir), "cards": "", "brief": "", "manifest": str(stage_dir / "manifest.json")}
+
+    out_dir = ensure_dir(run_dir / "reports" / "research_stimulus")
+    world_json_value = str(config.get("world_json", "") or config.get("operation_world_json", "") or "").strip()
+    cmd = [
+        python_bin,
+        str(CONVEYOR_SCRIPTS / "build_research_stimulus_cards.py"),
+        "--out-dir",
+        str(out_dir),
+        "--max-cards",
+        str(int(config.get("research_card_count", 8))),
+        "--card-token-budget",
+        str(int(config.get("research_card_token_budget", 220))),
+    ]
+    topic = str(config.get("research_topic", "") or config.get("storyworld_label", "") or Path(config.get("swmd", "storyworld")).stem)
+    if topic:
+        cmd.extend(["--topic", topic])
+    if world_json_value:
+        cmd.extend(["--storyworld-json", str(Path(world_json_value).resolve())])
+    for source in sources:
+        cmd.extend(["--source", str(Path(source).resolve())])
+    dump_json(stage_dir / "command.json", {"command": cmd})
+
+    status = "planned"
+    if not dry_run:
+        rc = run_command(stage_dir, cmd)
+        status = "completed" if rc == 0 else "failed"
+
+    cards_path = out_dir / "research_cards.json"
+    brief_path = out_dir / "research_brief.md"
+    metta_path = out_dir / "research_facts.metta"
+    manifest = build_stage_manifest(
+        str(config.get("run_id") or run_dir.name),
+        "research_stimulus",
+        status,
+        sources,
+        [str(cards_path), str(brief_path), str(metta_path)],
+        {
+            "source_count": len(sources),
+            "card_count": len((summarize_research_stimulus(cards_path).get("cards") or []) if cards_path.exists() else []),
+            "card_token_budget": int(config.get("research_card_token_budget", 220)),
+        },
+        notes=["Compact source-grounding cards for small-model imagination inside MCP packets."],
+    )
+    dump_json(stage_dir / "manifest.json", manifest)
+    dump_json(stage_dir / "progress.json", {"stage": "research_stimulus", "status": status, "updated_at": now_iso()})
+    append_jsonl(events_path, {"event": "stage_finished", "status": status, "at": now_iso()})
+    return {
+        "status": status,
+        "stage_dir": str(stage_dir),
+        "cards": str(cards_path) if cards_path.exists() or dry_run else "",
+        "brief": str(brief_path) if brief_path.exists() or dry_run else "",
+        "metta": str(metta_path) if metta_path.exists() or dry_run else "",
+        "manifest": str(stage_dir / "manifest.json"),
+    }
+
+
 def build_hilbert_pathing_packet(run_dir: Path, python_bin: str, config: Dict[str, Any], dry_run: bool) -> Dict[str, Any]:
     enabled = bool(config.get("hilbert_pathing_enabled", False))
     world_json_value = str(config.get("world_json", "") or config.get("operation_world_json", "") or "").strip()
@@ -455,6 +555,7 @@ def main() -> int:
     parser.add_argument("--run-id", default="", help="Optional run id override.")
     parser.add_argument("--dry-run", action="store_true", help="Write manifests and commands but do not run the model stages.")
     parser.add_argument("--preflight-only", action="store_true", help="Build index and MCP budget report, then stop before model load.")
+    parser.add_argument("--constraints-only", action="store_true", help="Build index, MCP budget, research/Hilbert packets, and TRM constraints, then stop before model load.")
     args = parser.parse_args()
 
     config_path = Path(args.config).resolve()
@@ -513,7 +614,7 @@ def main() -> int:
         preflight_ok = run_mcp_budget_preflight(run_dir, run_id, config, swmd_path)
         if not preflight_ok:
             return 1
-        if args.preflight_only:
+        if args.preflight_only and not args.constraints_only:
             summary = {
                 "run_id": run_id,
                 "run_dir": str(run_dir),
@@ -532,6 +633,9 @@ def main() -> int:
     trm_packet_path = run_dir / "reports" / "trm_constraints.json"
     generated_trm_advice = build_trm_advice_from_reports(run_dir, python_bin, config, args.dry_run)
     effective_trm_advice = trm_advice_path or generated_trm_advice
+    research_stimulus = build_research_stimulus_packet(run_dir, python_bin, config, args.dry_run)
+    if research_stimulus.get("status") == "failed":
+        return 1
     hilbert_pathing = build_hilbert_pathing_packet(run_dir, python_bin, config, args.dry_run)
     if hilbert_pathing.get("status") == "failed":
         return 1
@@ -544,6 +648,10 @@ def main() -> int:
     hilbert_packet_path = Path(hilbert_packet_value) if hilbert_packet_value else None
     if hilbert_packet_path and hilbert_packet_path.exists():
         trm_payload["hilbert_pathing"] = summarize_hilbert_pathing(hilbert_packet_path)
+    research_cards_value = str(research_stimulus.get("cards") or "").strip()
+    research_cards_path = Path(research_cards_value) if research_cards_value else None
+    if research_cards_path and research_cards_path.exists():
+        trm_payload["research_stimulus"] = summarize_research_stimulus(research_cards_path)
     trm_payload.setdefault("profile", {})
     trm_payload["profile"].update(
         {
@@ -552,6 +660,7 @@ def main() -> int:
             "model_family": "Qwen_2B_class",
             "memory_mode": "encounter_packet_only",
             "cross_play_memory_mode": "summary",
+            "research_stimulus_mode": "compact_cards",
         }
     )
     dump_json(trm_packet_path, trm_payload)
@@ -561,8 +670,11 @@ def main() -> int:
             run_id,
             "prepare_trm_packet",
             "completed",
-            [str(p) for p in (trm_advice_path, generated_trm_advice) if p]
-            + ([str(hilbert_packet_path)] if hilbert_packet_path and hilbert_packet_path.exists() else []),
+            (
+                [str(p) for p in (trm_advice_path, generated_trm_advice) if p]
+                + ([str(hilbert_packet_path)] if hilbert_packet_path and hilbert_packet_path.exists() else [])
+                + ([str(research_cards_path)] if research_cards_path and research_cards_path.exists() else [])
+            ),
             [str(trm_packet_path)],
             {"keys": len(trm_payload.keys())},
             notes=["TRM constraints summarized for MCP packet injection"],
@@ -570,6 +682,22 @@ def main() -> int:
     )
     dump_json(trm_stage / "progress.json", {"stage": "prepare_trm_packet", "status": "completed", "updated_at": now_iso()})
     append_jsonl(trm_stage / "events.jsonl", {"event": "stage_finished", "status": "completed", "at": now_iso()})
+
+    if args.constraints_only:
+        summary = {
+            "run_id": run_id,
+            "run_dir": str(run_dir),
+            "swmd": str(swmd_path),
+            "status": "constraints_completed",
+            "mcp_budget_report": str(run_dir / "mcp_budget_preflight" / "budget_report.json"),
+            "trm_constraints": str(trm_packet_path),
+            "research_stimulus": research_stimulus,
+            "hilbert_pathing": hilbert_pathing,
+        }
+        dump_json(run_dir / "summary.json", summary)
+        print(str(run_dir))
+        print(str(run_dir / "summary.json"))
+        return 0
 
     operation_result: Dict[str, Any] = {
         "stage_dir": "",
@@ -673,6 +801,7 @@ def main() -> int:
         "phase_events": str(phase_events),
         "phase_state": str(phase_state),
         "trm_constraints": str(trm_packet_path),
+        "research_stimulus": research_stimulus,
         "hilbert_pathing": hilbert_pathing,
         "operation_pipeline": operation_result,
         "repair_mode": repair_mode,

@@ -81,6 +81,27 @@ This emits:
 
 Default target: 24-40 turns to secret resolution. For a quick smoke, lower the target; for an 80-encounter benchmark, raise `--hilbert-target-turns-min` toward 30-40.
 
+## Research Stimulus MCP Mode
+
+Use this when a small model needs richer imagination or domain grounding but cannot safely ingest long research dumps. Build compact research cards and inject them through `trm_constraints.json`, not by pasting whole documents into prompts:
+
+`python hermes-skills/storyworld-conveyor/scripts/build_research_stimulus_cards.py --source <file-or-dir> --topic "<topic>" --storyworld-json <world.json> --out-dir <run_dir>/reports/research_stimulus --max-cards 8 --card-token-budget 220`
+
+Or let the MCP config wire it automatically:
+
+`python hermes-skills/storyworld-conveyor/scripts/prepare_mcp_conveyor_config.py --storyworld <world.json> --out-config <mcp_config.json> --world-json <world.json> --research-source <research.md|dir> --research-topic "<topic>" --research-card-count 8`
+
+Safe smoke without model load:
+
+`python hermes-skills/storyworld-conveyor/scripts/run_small_model_storyworld_port.py --config <mcp_config.json> --constraints-only`
+
+Research stimulus contract:
+- cards are grounding material for local prose, questions, clues, and option/reaction imagination
+- cards are not authority; correctness still comes from source-specific verifiers or human review
+- never include full source documents in the model packet
+- each card must keep `source_path`, keywords, excerpt, and allowed/forbidden use
+- if the model uses a card, it should preserve concrete source terms and avoid inventing doctrine as fact
+
 ## 4GB Small-Model Port
 When the user is working with Qwen 2B class models on about 4GB VRAM, prefer the bounded context port instead of whole-world evaluation or immediate adapter training:
 
