@@ -57,6 +57,23 @@ OBJECTIVE_TO_ROLE = {
     "avoid_noop_repair": "commit_veto_controller",
 }
 
+FAILURE_TO_ROLE = {
+    "context_overflow": "mcp_context_router",
+    "insufficient_neighbor_context": "mcp_context_router",
+    "dangling_consequence": "validator_repair_critic",
+    "unsupported_reader_operator": "validator_repair_critic",
+    "schema_parse_error": "validator_repair_critic",
+    "unreachable_secret": "gate_secret_route_designer",
+    "gate_threshold_unforeshadowed": "gate_secret_route_designer",
+    "effect_nudge_monoculture": "effect_script_synthesizer",
+    "missing_pvalue_refs": "effect_script_synthesizer",
+    "missing_p2value_refs": "effect_script_synthesizer",
+    "reaction_collapse": "reaction_dynamics_mapper",
+    "option_blandness": "option_manifold_planner",
+    "too_much_llm_freeform": "llm_prompt_composer",
+    "no_metric_delta": "commit_veto_controller",
+}
+
 ROLE_TO_ACTION = {
     "mcp_context_router": "SELECT_MCP_PACKET",
     "world_state_summarizer": "BUILD_STATE_CARD",
@@ -344,6 +361,83 @@ def predict(model: dict[str, Any], row: dict[str, Any]) -> tuple[str, dict[str, 
     return max(scores.items(), key=lambda item: item[1])[0], scores
 
 
+def parse_row_state(row: dict[str, Any]) -> dict[str, Any]:
+    raw = row.get("state")
+    if isinstance(raw, dict):
+        return raw
+    if isinstance(raw, str) and raw.strip():
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError:
+            return {"raw_state": raw}
+    return {}
+
+
+def native_reasoning_predict(row: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+    state = parse_row_state(row)
+    objective = str(state.get("objective") or "")
+    failure_mode = str(state.get("current_failure_mode") or "")
+    counts = state.get("diagnostic_counts", {}) if isinstance(state.get("diagnostic_counts"), dict) else {}
+    initial = state.get("initial_metrics", {}) if isinstance(state.get("initial_metrics"), dict) else {}
+    tools = {str(tool) for tool in row.get("tools", [])}
+
+    candidates: list[tuple[int, str, str]] = []
+    if failure_mode in FAILURE_TO_ROLE:
+        candidates.append((100, FAILURE_TO_ROLE[failure_mode], f"failure:{failure_mode}"))
+    if objective in OBJECTIVE_TO_ROLE:
+        candidates.append((90, OBJECTIVE_TO_ROLE[objective], f"objective:{objective}"))
+    whole_context = float(counts.get("whole_context_tokens") or 0)
+    context_budget = float(state.get("context_budget_tokens") or 0)
+    if context_budget and whole_context > context_budget and str(state.get("research_variant")) != "post_mcp_packet":
+        candidates.append((95, "mcp_context_router", "budget:whole_context_exceeds_budget"))
+    if int(counts.get("missing_target_count") or 0) > 0 or int(counts.get("dead_nonterminal_count") or 0) > 0:
+        candidates.append((85, "validator_repair_critic", "connectivity:defect"))
+    if int(counts.get("secret_option_count") or 0) == 0:
+        candidates.append((70, "gate_secret_route_designer", "secret:no_candidate"))
+    if int(counts.get("effect_operator_variety") or 0) <= 2 and str(state.get("research_variant")) == "post_mcp_packet":
+        candidates.append((80, "effect_script_synthesizer", "effects:low_operator_variety"))
+    if float(counts.get("reaction_text_uniqueness") or 1.0) < 0.70:
+        candidates.append((75, "reaction_dynamics_mapper", "reactions:low_uniqueness"))
+    if float(initial.get("validator_errors") or 0.0) > 0:
+        candidates.append((65, "validator_repair_critic", "metrics:validator_errors"))
+
+    candidates = [item for item in candidates if item[1] in tools]
+    if not candidates:
+        fallback = "commit_veto_controller" if "commit_veto_controller" in tools else "stop"
+        return fallback, {"rule": "fallback", "candidates": []}
+    candidates.sort(key=lambda item: (-item[0], item[1], item[2]))
+    priority, role, reason = candidates[0]
+    return role, {
+        "rule": reason,
+        "priority": priority,
+        "candidates": [
+            {"priority": p, "role": r, "reason": why}
+            for p, r, why in candidates
+        ],
+    }
+
+
+def select_planner_prediction(
+    *,
+    planner: str,
+    model: dict[str, Any] | None,
+    row: dict[str, Any],
+) -> tuple[str, dict[str, Any], str | None, dict[str, float], str, dict[str, Any]]:
+    native_role, native_trace = native_reasoning_predict(row)
+    model_role: str | None = None
+    model_scores: dict[str, float] = {}
+    if model is not None:
+        model_role, model_scores = predict(model, row)
+    if planner == "model":
+        if model_role is None:
+            raise ValueError("--planner model requires --model")
+        return model_role, {"model_scores": model_scores}, model_role, model_scores, native_role, native_trace
+    if planner == "hybrid":
+        selected = native_role
+        return selected, {"native_trace": native_trace, "model_role": model_role, "model_scores": model_scores}, model_role, model_scores, native_role, native_trace
+    return native_role, {"native_trace": native_trace}, model_role, model_scores, native_role, native_trace
+
+
 def artifact_for_role(role: str, metrics: dict[str, Any], objective: str, failure_mode: str) -> dict[str, Any]:
     action = ROLE_TO_ACTION.get(role, "STOP")
     base = {
@@ -433,6 +527,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out-dir", default="hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_auto_research_local_001")
     parser.add_argument("--iterations", type=int, default=8)
     parser.add_argument("--context-budget-tokens", type=int, default=8192)
+    parser.add_argument("--planner", choices=["native", "model", "hybrid"], default="native", help="Planner used for predicted_role. Native is the symbolic teacher policy.")
     parser.add_argument("--no-post-mcp-pass", action="store_true", help="Disable the second diagnostic pass that simulates context already being bounded by MCP.")
     return parser.parse_args()
 
@@ -441,7 +536,9 @@ def main() -> int:
     args = parse_args()
     out_dir = Path(args.out_dir).resolve()
     model_path = Path(args.model).resolve()
-    model = read_json(model_path)
+    model = read_json(model_path) if model_path.exists() else None
+    if args.planner == "model" and model is None:
+        raise SystemExit(f"Model planner requested but model file does not exist: {model_path}")
     storyworlds = [Path(p).resolve() for p in args.storyworld] or [p for p in DEFAULT_STORYWORLDS if p.exists()]
     if not storyworlds:
         raise SystemExit("No storyworlds found for auto-research loop.")
@@ -477,7 +574,11 @@ def main() -> int:
                     "source": "auto_research_loop_oracle",
                 },
             }
-            predicted_role, scores = predict(model, row)
+            predicted_role, prediction_trace, model_predicted_role, model_scores, native_predicted_role, native_trace = select_planner_prediction(
+                planner=str(args.planner),
+                model=model,
+                row=row,
+            )
             role_artifact = artifact_for_role(oracle_role, metrics, objective, failure_mode)
             role_artifact["research_variant"] = variant_name
             step_dir = out_dir / "steps" / f"{global_step:04d}_{variant_name}_{metrics['world_id']}_{oracle_role}"
@@ -494,8 +595,13 @@ def main() -> int:
                     "failure_mode": failure_mode,
                     "oracle_role": oracle_role,
                     "predicted_role": predicted_role,
+                    "planner": args.planner,
+                    "native_predicted_role": native_predicted_role,
+                    "model_predicted_role": model_predicted_role,
                     "planner_agreed": predicted_role == oracle_role,
-                    "scores": scores,
+                    "prediction_trace": prediction_trace,
+                    "native_trace": native_trace,
+                    "model_scores": model_scores,
                     "artifact_dir": str(step_dir),
                 }
             )
@@ -516,9 +622,12 @@ def main() -> int:
                             "context_packet_ref": str(step_dir / "planner_state.json"),
                             "output_ref": str(step_dir / "role_artifact.json"),
                             "verifier_delta_ref": str(step_dir / "metrics.json"),
-                            "accepted": predicted_role == oracle_role,
-                            "predicted_role": predicted_role,
-                        }
+                        "accepted": predicted_role == oracle_role,
+                        "predicted_role": predicted_role,
+                        "planner": args.planner,
+                        "native_predicted_role": native_predicted_role,
+                        "model_predicted_role": model_predicted_role,
+                    }
                     ],
                     "final_metrics": metrics["initial_metrics"],
                     "episode_label": {
@@ -541,6 +650,9 @@ def main() -> int:
                     "failure_mode": failure_mode,
                     "oracle_role": oracle_role,
                     "predicted_role": predicted_role,
+                    "planner": args.planner,
+                    "native_predicted_role": native_predicted_role,
+                    "model_predicted_role": model_predicted_role,
                     "planner_agreed": predicted_role == oracle_role,
                 }
             )
@@ -549,6 +661,7 @@ def main() -> int:
     summary = {
         "created_at": now_iso(),
         "model": str(model_path),
+        "planner": args.planner,
         "out_dir": str(out_dir),
         "storyworlds": [str(p) for p in storyworlds],
         "iterations": int(args.iterations),
@@ -561,6 +674,8 @@ def main() -> int:
         "objective_counts": dict(Counter(p["objective"] for p in predictions)),
         "oracle_role_counts": dict(Counter(p["oracle_role"] for p in predictions)),
         "predicted_role_counts": dict(Counter(p["predicted_role"] for p in predictions)),
+        "native_role_counts": dict(Counter(p["native_predicted_role"] for p in predictions)),
+        "model_role_counts": dict(Counter(str(p["model_predicted_role"]) for p in predictions)),
     }
     write_jsonl(out_dir / "auto_research_rows.jsonl", rows)
     write_jsonl(out_dir / "trajectory_episodes.jsonl", episodes)
@@ -575,13 +690,14 @@ def main() -> int:
         f"- Iterations: `{summary['iterations']}`",
         f"- Context budget: `{summary['context_budget_tokens']}`",
         f"- Model tier: `{summary['model_tier']}`",
+        f"- Planner: `{summary['planner']}`",
         f"- Planner agreement: `{summary['planner_agreement']}/{summary['oracle_rows']} = {summary['planner_agreement_rate']}`",
         "",
         "Files:",
         "",
         "- `auto_research_rows.jsonl`: trainable `state/tools -> oracle_role` rows.",
         "- `trajectory_episodes.jsonl`: one-step episode rows compatible with the planner episode schema.",
-        "- `planner_predictions.jsonl`: tiny planner proposal versus deterministic oracle.",
+        "- `planner_predictions.jsonl`: selected planner proposal versus deterministic oracle, with native/model traces.",
         "- `steps/*`: per-iteration metrics, planner state, and role artifact.",
         "",
         "This loop intentionally does not patch storyworld files. It collects supervision for the master planner.",

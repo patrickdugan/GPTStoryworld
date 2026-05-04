@@ -157,7 +157,8 @@ Use the auto-research loop to collect real storyworld diagnostic states for mast
 python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/run_master_planner_auto_research_loop.py \
   --out-dir hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_auto_research_local_001 \
   --iterations 8 \
-  --context-budget-tokens 8192
+  --context-budget-tokens 8192 \
+  --planner model
 ```
 
 This emits:
@@ -166,6 +167,21 @@ This emits:
 - `trajectory_episodes.jsonl`: one-step episode rows.
 - `planner_predictions.jsonl`: planner proposal vs deterministic oracle.
 - `steps/*`: metrics, planner state, and role artifact for each iteration.
+
+For the native symbolic teacher policy, use:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/run_master_planner_auto_research_loop.py \
+  --out-dir hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_native_schema_local_001 \
+  --iterations 8 \
+  --context-budget-tokens 8192 \
+  --planner native
+```
+
+Native schema references:
+
+- `references/native_master_control_schema.md`
+- `references/native_master_control_schema.metta`
 
 ## MeTTa Modeling Contract
 

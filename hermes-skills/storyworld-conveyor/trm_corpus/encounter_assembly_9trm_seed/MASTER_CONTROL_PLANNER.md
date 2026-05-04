@@ -167,6 +167,15 @@ The first local auto-research loop produced:
 
 Interpretation: a small amount of real diagnostic supervision corrected context-routing and reader-semantics routing, but did not yet fix effect-script routing for Nudge monoculture.
 
+The fix is to stop treating the weak learner as the control-plane floor. Add a native symbolic teacher schema first:
+
+- Schema: `hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/references/native_master_control_schema.md`
+- MeTTa-style atoms: `hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/references/native_master_control_schema.metta`
+- Native run: `hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_native_schema_local_001/`
+- Native planner agreement: `16/16 = 1.0`
+
+Interpretation: the native reasoning schema supplies the fast, correct first move. The TRMs should train against this teacher policy plus real repair outcomes, then learn exceptions where the native rules are too rigid.
+
 Each real run should append:
 
 - `trajectory_episode.jsonl`: episode-level planner rows.
