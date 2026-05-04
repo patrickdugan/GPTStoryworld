@@ -72,6 +72,8 @@ def main() -> int:
     parser.add_argument("--research-topic", default="", help="Topic used to rank and label research stimulus cards.")
     parser.add_argument("--research-card-count", type=int, default=8)
     parser.add_argument("--research-card-token-budget", type=int, default=220)
+    parser.add_argument("--research-term-depth", type=int, default=1, help="Depth for associated-term expansion in the research MCP world model.")
+    parser.add_argument("--research-neighbor-terms", type=int, default=8, help="Associated terms retained per research term.")
     parser.add_argument("--disable-research-stimulus", action="store_true")
     parser.add_argument("--max-encounters", type=int, default=12)
     parser.add_argument("--start-index", type=int, default=0)
@@ -130,6 +132,8 @@ def main() -> int:
         "research_topic": args.research_topic.strip(),
         "research_card_count": int(args.research_card_count),
         "research_card_token_budget": int(args.research_card_token_budget),
+        "research_term_depth": int(args.research_term_depth),
+        "research_neighbor_terms": int(args.research_neighbor_terms),
         "phases": args.phases,
         "max_encounters": int(args.max_encounters),
         "start_index": int(args.start_index),
@@ -156,6 +160,7 @@ def main() -> int:
             "never_inline_full_storyworld_after_conversion": True,
             "packet_contract": "world_card + target encounter + neighbor encounters + TRM constraints + ledger summary",
             "research_stimulus_contract": "curated source cards only; never whole research documents; cite source_path in notes",
+            "research_world_model_contract": "MeTTa-style term/source/query nests may guide retrieval and authoring, but do not override source excerpts or validators",
             "abort_on_budget_overflow": True,
         },
         "hardware_profile": {

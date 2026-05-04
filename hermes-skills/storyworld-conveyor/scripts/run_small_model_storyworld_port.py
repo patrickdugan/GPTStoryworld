@@ -175,6 +175,45 @@ def summarize_research_stimulus(path: Path) -> Dict[str, Any]:
     }
 
 
+def summarize_research_world_model(path: Path) -> Dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    except Exception:
+        return {"source_path": str(path), "parse_ok": False}
+    terms = payload.get("terms", []) if isinstance(payload, dict) else []
+    edges = payload.get("term_edges", []) if isinstance(payload, dict) else []
+    nests = payload.get("query_nests", []) if isinstance(payload, dict) else []
+    sources = payload.get("sources", []) if isinstance(payload, dict) else []
+    if not isinstance(terms, list):
+        terms = []
+    if not isinstance(edges, list):
+        edges = []
+    if not isinstance(nests, list):
+        nests = []
+    if not isinstance(sources, list):
+        sources = []
+    return {
+        "source_path": str(path),
+        "parse_ok": True,
+        "schema": payload.get("schema") if isinstance(payload, dict) else "",
+        "topic": payload.get("topic") if isinstance(payload, dict) else "",
+        "source_count": len(sources),
+        "term_count": len(terms),
+        "term_edge_count": len(edges),
+        "query_nest_count": len(nests),
+        "top_terms": terms[:16],
+        "top_edges": edges[:24],
+        "query_nests": nests[:12],
+        "contract": {
+            "role": "MeTTa-style research MCP world model for source-grounded retrieval and authoring",
+            "not_authority": True,
+            "use": "pick follow-up source terms, preserve source paths, and prompt small models with bounded cards",
+        },
+    }
+
+
 def build_research_stimulus_packet(run_dir: Path, python_bin: str, config: Dict[str, Any], dry_run: bool) -> Dict[str, Any]:
     enabled = bool(config.get("research_stimulus_enabled", False))
     sources = [str(x) for x in (config.get("research_sources", []) or []) if str(x).strip()]
@@ -194,7 +233,16 @@ def build_research_stimulus_packet(run_dir: Path, python_bin: str, config: Dict[
         dump_json(stage_dir / "manifest.json", manifest)
         dump_json(stage_dir / "progress.json", {"stage": "research_stimulus", "status": status, "updated_at": now_iso()})
         append_jsonl(events_path, {"event": "stage_finished", "status": status, "at": now_iso()})
-        return {"status": status, "stage_dir": str(stage_dir), "cards": "", "brief": "", "manifest": str(stage_dir / "manifest.json")}
+        return {
+            "status": status,
+            "stage_dir": str(stage_dir),
+            "cards": "",
+            "brief": "",
+            "metta": "",
+            "world_model": "",
+            "query_nests": "",
+            "manifest": str(stage_dir / "manifest.json"),
+        }
 
     out_dir = ensure_dir(run_dir / "reports" / "research_stimulus")
     world_json_value = str(config.get("world_json", "") or config.get("operation_world_json", "") or "").strip()
@@ -207,6 +255,10 @@ def build_research_stimulus_packet(run_dir: Path, python_bin: str, config: Dict[
         str(int(config.get("research_card_count", 8))),
         "--card-token-budget",
         str(int(config.get("research_card_token_budget", 220))),
+        "--research-term-depth",
+        str(int(config.get("research_term_depth", 1))),
+        "--research-neighbor-terms",
+        str(int(config.get("research_neighbor_terms", 8))),
     ]
     topic = str(config.get("research_topic", "") or config.get("storyworld_label", "") or Path(config.get("swmd", "storyworld")).stem)
     if topic:
@@ -225,18 +277,23 @@ def build_research_stimulus_packet(run_dir: Path, python_bin: str, config: Dict[
     cards_path = out_dir / "research_cards.json"
     brief_path = out_dir / "research_brief.md"
     metta_path = out_dir / "research_facts.metta"
+    world_model_path = out_dir / "research_world_model.json"
+    query_nests_path = out_dir / "research_query_nests.jsonl"
     manifest = build_stage_manifest(
         str(config.get("run_id") or run_dir.name),
         "research_stimulus",
         status,
         sources,
-        [str(cards_path), str(brief_path), str(metta_path)],
+        [str(cards_path), str(brief_path), str(metta_path), str(world_model_path), str(query_nests_path)],
         {
             "source_count": len(sources),
             "card_count": len((summarize_research_stimulus(cards_path).get("cards") or []) if cards_path.exists() else []),
             "card_token_budget": int(config.get("research_card_token_budget", 220)),
+            "research_term_depth": int(config.get("research_term_depth", 1)),
+            "research_neighbor_terms": int(config.get("research_neighbor_terms", 8)),
+            "research_world_terms": int(summarize_research_world_model(world_model_path).get("term_count", 0) if world_model_path.exists() else 0),
         },
-        notes=["Compact source-grounding cards for small-model imagination inside MCP packets."],
+        notes=["Compact source-grounding cards plus MeTTa-style term/source/query nests for small-model imagination inside MCP packets."],
     )
     dump_json(stage_dir / "manifest.json", manifest)
     dump_json(stage_dir / "progress.json", {"stage": "research_stimulus", "status": status, "updated_at": now_iso()})
@@ -247,6 +304,8 @@ def build_research_stimulus_packet(run_dir: Path, python_bin: str, config: Dict[
         "cards": str(cards_path) if cards_path.exists() or dry_run else "",
         "brief": str(brief_path) if brief_path.exists() or dry_run else "",
         "metta": str(metta_path) if metta_path.exists() or dry_run else "",
+        "world_model": str(world_model_path) if world_model_path.exists() or dry_run else "",
+        "query_nests": str(query_nests_path) if query_nests_path.exists() or dry_run else "",
         "manifest": str(stage_dir / "manifest.json"),
     }
 
@@ -652,6 +711,10 @@ def main() -> int:
     research_cards_path = Path(research_cards_value) if research_cards_value else None
     if research_cards_path and research_cards_path.exists():
         trm_payload["research_stimulus"] = summarize_research_stimulus(research_cards_path)
+    research_world_model_value = str(research_stimulus.get("world_model") or "").strip()
+    research_world_model_path = Path(research_world_model_value) if research_world_model_value else None
+    if research_world_model_path and research_world_model_path.exists():
+        trm_payload["research_world_model"] = summarize_research_world_model(research_world_model_path)
     trm_payload.setdefault("profile", {})
     trm_payload["profile"].update(
         {
@@ -661,6 +724,7 @@ def main() -> int:
             "memory_mode": "encounter_packet_only",
             "cross_play_memory_mode": "summary",
             "research_stimulus_mode": "compact_cards",
+            "research_world_model_mode": "metta_term_source_query_nests",
         }
     )
     dump_json(trm_packet_path, trm_payload)
@@ -674,6 +738,7 @@ def main() -> int:
                 [str(p) for p in (trm_advice_path, generated_trm_advice) if p]
                 + ([str(hilbert_packet_path)] if hilbert_packet_path and hilbert_packet_path.exists() else [])
                 + ([str(research_cards_path)] if research_cards_path and research_cards_path.exists() else [])
+                + ([str(research_world_model_path)] if research_world_model_path and research_world_model_path.exists() else [])
             ),
             [str(trm_packet_path)],
             {"keys": len(trm_payload.keys())},

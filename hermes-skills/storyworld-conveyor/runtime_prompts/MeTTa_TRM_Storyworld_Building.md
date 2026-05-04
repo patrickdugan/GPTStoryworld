@@ -47,6 +47,42 @@ Use these as a symbolic planning layer, not necessarily as executable MeTTa.
 (repair-action Repair Target)
 ```
 
+## Research MCP World Model
+
+For domain-heavy storyworlds, do not treat RAG as a flat pile of excerpts. Build a compact research world model first:
+
+```lisp
+(: ResearchWorldModel Type)
+(: ResearchSource Type)
+(: ResearchTerm Type)
+(: ResearchQueryNest Type)
+(: ResearchCard Type)
+
+(research-world-model research_mcp_world_model_v1)
+(research-source-node Source)
+(research-source-path Source Path)
+(research-term TermId "term text")
+(research-term-role TermId "seed|associated")
+(research-term-depth TermId Depth)
+(cooccurs-with TermA TermB Score)
+(research-query-nest Nest)
+(query-nest-term Nest TermId)
+(query-nest-query Nest QueryText)
+(research-card CardId)
+(research-card-term CardId TermId)
+```
+
+The intended RAG loop is bird-nest expansion:
+
+1. Start from seed terms in the authoring brief and current storyworld.
+2. Mine configured source files for co-occurring associated terms.
+3. Expand associated terms one or more depths into query nests.
+4. Select bounded research cards from source chunks with the strongest topic/world overlap.
+5. Inject only the cards, term summaries, source paths, and MeTTa facts into MCP packets.
+6. Use the nests to decide what to retrieve next; do not let the model invent scholarship to fill gaps.
+
+This makes research stimulus a reusable world-model class: topic terms become graph nodes, sources become evidence nodes, query nests become retrieval actions, and storyworld authoring packets consume only bounded evidence.
+
 ## TRM Packet Types
 
 1. Router TRM
