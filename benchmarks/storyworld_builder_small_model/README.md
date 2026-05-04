@@ -52,6 +52,31 @@ Outputs:
 - `scorecard.csv`
 - `scorecard.md`
 
+## Build Bounded Small-Model Jobs
+
+After scoring, turn the weakest components into bounded prompt packets:
+
+```powershell
+python benchmarks\storyworld_builder_small_model\run_small_model_builder_campaign.py `
+  --scorecard benchmarks\storyworld_builder_small_model\runs\smoke_001\scorecard.json `
+  --out-dir benchmarks\storyworld_builder_small_model\runs\campaign_smoke_001 `
+  --max-jobs 4
+```
+
+This is offline by default. It writes one packet per target under `jobs/<job_id>/`:
+
+- `packet.json`: compact TRM/MCP job specification without the full prompt.
+- `prompt.md`: bounded prompt to give the local small model.
+- `campaign_jobs.jsonl`: one row per job for later TRM/control training.
+
+If an OpenAI-compatible local endpoint is already running, add:
+
+```powershell
+--call-model --base-url http://127.0.0.1:8081/v1 --model Qwen3.5-3B.Q4_K_M.gguf
+```
+
+Do not use this flag to start or load a model. It only calls an existing endpoint.
+
 ## How This Helps Smaller Models
 
 Use the scorecard to find the worst component, then route the next small-model call narrowly:

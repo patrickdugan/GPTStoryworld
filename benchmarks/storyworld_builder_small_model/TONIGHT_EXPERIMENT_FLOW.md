@@ -38,7 +38,18 @@ python benchmarks\storyworld_builder_small_model\score_small_model_storyworld_bu
   --out-dir benchmarks\storyworld_builder_small_model\runs\<run_id>
 ```
 
-5. Use the weakest score component as the next route target.
+5. Build bounded small-model jobs from that scorecard:
+
+```powershell
+python benchmarks\storyworld_builder_small_model\run_small_model_builder_campaign.py `
+  --scorecard benchmarks\storyworld_builder_small_model\runs\<run_id>\scorecard.json `
+  --out-dir benchmarks\storyworld_builder_small_model\runs\<run_id>_campaign `
+  --max-jobs 4
+```
+
+6. Feed only one `jobs/<job_id>/prompt.md` packet to the local 3B/9B endpoint.
+7. Materialize the returned bounded JSON plan deterministically.
+8. Rerun the scorecard and record before/after deltas.
 
 ## Improvement Policy
 
