@@ -148,6 +148,14 @@ The seed corpus is synthetic and useful for bootstrapping. The high-value next d
 - No-op repair loops.
 - Successful secret-route repairs.
 
+The first tiny master-planner baseline makes this concrete:
+
+- Corpus: `hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_seed/`
+- Run: `hermes-skills/storyworld-conveyor/trm_runs/master_control_planner_tiny/`
+- Episode-disjoint validation: `13/99 = 0.1313` next-role accuracy after removing direct role-order leakage.
+
+Interpretation: role-local TRMs are already easy to train from the seed rows, but the master planner needs real adaptive histories with skipped roles, repeated repair loops, and failed LLM calls. The synthetic rows define the format; real conveyor traces teach the policy.
+
 Each real run should append:
 
 - `trajectory_episode.jsonl`: episode-level planner rows.

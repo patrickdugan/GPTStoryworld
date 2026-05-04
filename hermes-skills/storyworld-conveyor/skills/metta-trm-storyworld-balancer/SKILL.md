@@ -119,6 +119,36 @@ This emits:
 
 The nine TRM roles are documented in `references/encounter_assembly_9trm.md`.
 
+## Master Control Planner Episodes
+
+After the role-local trajectory library exists, build episode-level rows for a master planner that learns which TRM role to invoke next:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/build_master_planner_episodes.py \
+  --trajectory-library hermes-skills/storyworld-conveyor/trm_corpus/encounter_assembly_9trm_seed/trajectory_library.jsonl \
+  --out-dir hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_seed \
+  --context-budget-tokens 8192
+```
+
+This emits:
+
+- `trajectory_episodes.jsonl`: multi-step planner episodes.
+- `master_control_rows.jsonl`: `global_state/tools -> next_role` rows.
+- `train.jsonl` / `val.jsonl`: row views derived from an episode-disjoint split.
+- `episode_train.jsonl` / `episode_val.jsonl`: sequence-level split.
+- `manifest.json`: corpus receipt.
+
+Train a tiny baseline receipt:
+
+```bash
+python hermes-skills/storyworld-conveyor/skills/metta-trm-storyworld-balancer/scripts/train_master_planner_baseline.py \
+  --train hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_seed/train.jsonl \
+  --val hermes-skills/storyworld-conveyor/trm_corpus/master_control_planner_seed/val.jsonl \
+  --out-dir hermes-skills/storyworld-conveyor/trm_runs/master_control_planner_tiny
+```
+
+This is still a control-policy baseline, not a full neural TRM. Use it as a fast receipt before launching heavier capped training.
+
 ## MeTTa Modeling Contract
 
 Use MeTTa as a compact structural model, not as decorative syntax. The generated atoms should support questions like:
