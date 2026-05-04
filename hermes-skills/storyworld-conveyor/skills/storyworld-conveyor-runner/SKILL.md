@@ -65,6 +65,22 @@ MCP packet contract:
 - lower `neighbor_hops`, `max_encounters`, or `planning_card_tokens` before raising context limits
 - keep `apply=false` until parse stability and budget telemetry are clean
 
+## Hilbert Pathing / Secret Locus Mode
+
+For storyworlds where the secret ending is too shallow, too dominant, or not supported by enough turns, keep the default MCP conveyor but add the Hilbert pathing packet before model calls:
+
+`python hermes-skills/storyworld-conveyor/scripts/build_hilbert_pathing_packet.py --world-json <world.json> --out-dir <run_dir>/reports/hilbert_pathing --quality-report <quality_gate.json> --quality-vector-report <verifier_quality_vector.json> --target-turns-min 24 --target-turns-max 40`
+
+This emits:
+- `hilbert_pathing_packet.json`: global DAG/secret-locus turn-depth advice.
+- `hilbert_pathing_rows.jsonl`: per-encounter vectors and repair actions.
+- `hilbert_pathing_facts.metta`: symbolic facts for MeTTa/TRM routing.
+- `hilbert_pathing_brief.md`: human-readable checkpoint.
+
+`prepare_mcp_conveyor_config.py` enables this by default for new configs. The small-model port injects the packet into `trm_constraints.json`, and operation packets receive per-encounter `hilbert_pathing` advice. Use `--disable-hilbert-pathing` only for pure token-budget smoke tests.
+
+Default target: 24-40 turns to secret resolution. For a quick smoke, lower the target; for an 80-encounter benchmark, raise `--hilbert-target-turns-min` toward 30-40.
+
 ## 4GB Small-Model Port
 When the user is working with Qwen 2B class models on about 4GB VRAM, prefer the bounded context port instead of whole-world evaluation or immediate adapter training:
 

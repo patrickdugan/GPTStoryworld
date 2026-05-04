@@ -133,6 +133,103 @@ def build_operation_packet_path(run_dir: Path) -> Path:
     return run_dir / "reports" / "operation_packets.jsonl"
 
 
+def summarize_hilbert_pathing(path: Path) -> Dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {"source_path": str(path), "parse_ok": False}
+    return {
+        "source_path": str(path),
+        "parse_ok": True,
+        "target_turns": payload.get("target_turns", {}),
+        "graph_summary": payload.get("graph_summary", {}),
+        "secret_loci": payload.get("secret_loci", [])[:8],
+        "global_advice": payload.get("global_advice", [])[:8],
+        "top_repair_rows": payload.get("top_repair_rows", [])[:8],
+    }
+
+
+def build_hilbert_pathing_packet(run_dir: Path, python_bin: str, config: Dict[str, Any], dry_run: bool) -> Dict[str, Any]:
+    enabled = bool(config.get("hilbert_pathing_enabled", False))
+    world_json_value = str(config.get("world_json", "") or config.get("operation_world_json", "") or "").strip()
+    stage_dir = ensure_dir(run_dir / "hilbert_pathing")
+    events_path = stage_dir / "events.jsonl"
+    if not enabled or not world_json_value:
+        status = "skipped"
+        manifest = build_stage_manifest(
+            str(config.get("run_id") or run_dir.name),
+            "hilbert_pathing",
+            status,
+            [world_json_value] if world_json_value else [],
+            [],
+            {"enabled": enabled, "has_world_json": bool(world_json_value)},
+            notes=["Hilbert pathing disabled or no world_json configured."],
+        )
+        dump_json(stage_dir / "manifest.json", manifest)
+        dump_json(stage_dir / "progress.json", {"stage": "hilbert_pathing", "status": status, "updated_at": now_iso()})
+        append_jsonl(events_path, {"event": "stage_finished", "status": status, "at": now_iso()})
+        return {"status": status, "stage_dir": str(stage_dir), "packet": "", "rows": "", "brief": "", "manifest": str(stage_dir / "manifest.json")}
+
+    world_json_path = Path(world_json_value).resolve()
+    out_dir = ensure_dir(run_dir / "reports" / "hilbert_pathing")
+    cmd = [
+        python_bin,
+        str(CONVEYOR_SCRIPTS / "build_hilbert_pathing_packet.py"),
+        "--world-json",
+        str(world_json_path),
+        "--out-dir",
+        str(out_dir),
+        "--target-turns-min",
+        str(int(config.get("hilbert_target_turns_min", 24))),
+        "--target-turns-max",
+        str(int(config.get("hilbert_target_turns_max", 40))),
+        "--route-cap",
+        str(int(config.get("hilbert_route_cap", 1000))),
+    ]
+    quality_report = str(config.get("quality_report", "") or "").strip()
+    quality_vector_report = str(config.get("quality_vector_report", "") or "").strip()
+    if quality_report:
+        cmd.extend(["--quality-report", str(Path(quality_report).resolve())])
+    if quality_vector_report:
+        cmd.extend(["--quality-vector-report", str(Path(quality_vector_report).resolve())])
+    dump_json(stage_dir / "command.json", {"command": cmd})
+
+    status = "planned"
+    if not dry_run:
+        rc = run_command(stage_dir, cmd)
+        status = "completed" if rc == 0 else "failed"
+
+    packet_path = out_dir / "hilbert_pathing_packet.json"
+    rows_path = out_dir / "hilbert_pathing_rows.jsonl"
+    brief_path = out_dir / "hilbert_pathing_brief.md"
+    manifest = build_stage_manifest(
+        str(config.get("run_id") or run_dir.name),
+        "hilbert_pathing",
+        status,
+        [x for x in [str(world_json_path), str(Path(quality_report).resolve()) if quality_report else "", str(Path(quality_vector_report).resolve()) if quality_vector_report else ""] if x],
+        [str(packet_path), str(rows_path), str(brief_path)],
+        {
+            "rows": line_count(rows_path),
+            "target_turns_min": int(config.get("hilbert_target_turns_min", 24)),
+            "target_turns_max": int(config.get("hilbert_target_turns_max", 40)),
+        },
+        notes=["Hilbert-manifold DAG pathing packet for secret-ending loci and turn-depth control."],
+    )
+    dump_json(stage_dir / "manifest.json", manifest)
+    dump_json(stage_dir / "progress.json", {"stage": "hilbert_pathing", "status": status, "updated_at": now_iso()})
+    append_jsonl(events_path, {"event": "stage_finished", "status": status, "at": now_iso()})
+    return {
+        "status": status,
+        "stage_dir": str(stage_dir),
+        "packet": str(packet_path) if packet_path.exists() or dry_run else "",
+        "rows": str(rows_path) if rows_path.exists() or dry_run else "",
+        "brief": str(brief_path) if brief_path.exists() or dry_run else "",
+        "manifest": str(stage_dir / "manifest.json"),
+    }
+
+
 def build_stage_manifest(
     run_id: str,
     stage: str,
@@ -310,6 +407,12 @@ def run_operation_stage(run_dir: Path, python_bin: str, config: Dict[str, Any], 
     packet_jsonl = str(config.get("operation_packet_jsonl", "") or "").strip()
     if packet_jsonl:
         op_cmd.extend(["--packet-jsonl", str(Path(packet_jsonl).resolve())])
+    hilbert_packet = str(config.get("_hilbert_pathing_packet", "") or config.get("hilbert_pathing_packet", "") or "").strip()
+    hilbert_rows = str(config.get("_hilbert_pathing_rows", "") or config.get("hilbert_pathing_rows", "") or "").strip()
+    if hilbert_packet:
+        op_cmd.extend(["--hilbert-pathing-packet", str(Path(hilbert_packet).resolve())])
+    if hilbert_rows:
+        op_cmd.extend(["--hilbert-pathing-rows", str(Path(hilbert_rows).resolve())])
 
     dump_json(op_stage / "command.json", {"command": op_cmd})
     if dry_run:
@@ -429,7 +532,18 @@ def main() -> int:
     trm_packet_path = run_dir / "reports" / "trm_constraints.json"
     generated_trm_advice = build_trm_advice_from_reports(run_dir, python_bin, config, args.dry_run)
     effective_trm_advice = trm_advice_path or generated_trm_advice
+    hilbert_pathing = build_hilbert_pathing_packet(run_dir, python_bin, config, args.dry_run)
+    if hilbert_pathing.get("status") == "failed":
+        return 1
+    if hilbert_pathing.get("packet"):
+        config["_hilbert_pathing_packet"] = hilbert_pathing["packet"]
+    if hilbert_pathing.get("rows"):
+        config["_hilbert_pathing_rows"] = hilbert_pathing["rows"]
     trm_payload = summarize_trm_advice(effective_trm_advice) if effective_trm_advice and effective_trm_advice.exists() else {}
+    hilbert_packet_value = str(hilbert_pathing.get("packet") or "").strip()
+    hilbert_packet_path = Path(hilbert_packet_value) if hilbert_packet_value else None
+    if hilbert_packet_path and hilbert_packet_path.exists():
+        trm_payload["hilbert_pathing"] = summarize_hilbert_pathing(hilbert_packet_path)
     trm_payload.setdefault("profile", {})
     trm_payload["profile"].update(
         {
@@ -447,7 +561,8 @@ def main() -> int:
             run_id,
             "prepare_trm_packet",
             "completed",
-            [str(p) for p in (trm_advice_path, generated_trm_advice) if p],
+            [str(p) for p in (trm_advice_path, generated_trm_advice) if p]
+            + ([str(hilbert_packet_path)] if hilbert_packet_path and hilbert_packet_path.exists() else []),
             [str(trm_packet_path)],
             {"keys": len(trm_payload.keys())},
             notes=["TRM constraints summarized for MCP packet injection"],
@@ -558,6 +673,7 @@ def main() -> int:
         "phase_events": str(phase_events),
         "phase_state": str(phase_state),
         "trm_constraints": str(trm_packet_path),
+        "hilbert_pathing": hilbert_pathing,
         "operation_pipeline": operation_result,
         "repair_mode": repair_mode,
         "status": "planned" if args.dry_run else "completed",

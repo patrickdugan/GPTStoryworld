@@ -292,6 +292,24 @@ When Monte Carlo shows poor ending distribution:
 - Add or rebalance effects upstream, then rerun Monte Carlo.
 - Prefer small threshold/effect adjustments over adding unforeshadowed secret shortcuts.
 
+## Hilbert Manifold Pathing Use
+
+When the defect is "the world validates, but secret endings are too shallow, too dominant, or not supported by enough turns," build the Hilbert pathing packet:
+
+```bash
+python hermes-skills/storyworld-conveyor/scripts/build_hilbert_pathing_packet.py \
+  --world-json <world.json> \
+  --out-dir <run_dir>/reports/hilbert_pathing \
+  --quality-report <quality_gate.json> \
+  --quality-vector-report <verifier_quality_vector.json> \
+  --target-turns-min 24 \
+  --target-turns-max 40
+```
+
+The packet embeds each encounter in a compact basis: turn depth, distance to secret-ending loci, gate density, branching, reaction/effect support, pValue support, p2Value support, and clue signal. Secret endings are treated as loci in the DAG. The resulting rows tell the conveyor whether to add bridge turns, create/repair routes to a locus, add pValue/p2Value gate support, or foreshadow a nearby secret.
+
+Use `hilbert_pathing_brief.md` for planning, inject `hilbert_pathing_packet.json` into TRM constraints, and pass `hilbert_pathing_rows.jsonl` into operation packets. Do not use this as a substitute for Monte Carlo or quality-vector scoring; it is the structural prior that decides where the next bounded model call should operate.
+
 ## Small-Context Discipline
 
 For local 3B/9B or 4-bit runs:

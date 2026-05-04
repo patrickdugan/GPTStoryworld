@@ -199,7 +199,7 @@ def _normalize_op(row: Dict[str, Any], allowed_actions: set[str]) -> Dict[str, A
     action = str(row.get("action", "") or "").strip()
     target = str(row.get("target", "") or "").strip()
     details = str(row.get("details", "") or "").strip()
-    if kind not in {"option", "reaction", "effect", "formula"}:
+    if kind not in {"option", "reaction", "effect", "formula", "pathing"}:
         kind = "formula" if action in {"rewrite_formula", "diversify_operator"} else "effect"
     if action not in allowed_actions:
         if kind == "formula":
@@ -210,6 +210,20 @@ def _normalize_op(row: Dict[str, Any], allowed_actions: set[str]) -> Dict[str, A
             action = "add_reaction" if not action.startswith("add_") else action
         elif kind == "effect":
             action = "add_effect" if action not in {"add_effect", "diversify_effect_operator"} else action
+        elif kind == "pathing":
+            action = (
+                "add_bridge_turn"
+                if action
+                not in {
+                    "add_bridge_turn",
+                    "create_route_to_secret_locus",
+                    "add_belief_gate_support",
+                    "foreshadow_secret_locus",
+                    "relax_early_gate_density",
+                    "narrow_overexposed_secret_locus",
+                }
+                else action
+            )
     return {"kind": kind, "action": action, "target": target, "details": details}
 
 
@@ -267,7 +281,7 @@ def _build_prompt(packet: Dict[str, Any]) -> List[Dict[str, str]]:
                 "{"
                 "\"encounter_id\":\"string\","
                 "\"status\":\"ok|needs_repair\","
-                "\"selected_op\":{\"kind\":\"option|reaction|effect|formula\",\"action\":\"string\",\"target\":\"string\",\"details\":\"string\"},"
+                "\"selected_op\":{\"kind\":\"option|reaction|effect|formula|pathing\",\"action\":\"string\",\"target\":\"string\",\"details\":\"string\"},"
                 "\"repair_notes\":[\"string\"]"
                 "}\n\n"
                 "Use only the packet data below and prefer local deterministic edits.\n"
@@ -309,6 +323,8 @@ def main() -> int:
     parser.add_argument("--world-json", required=True)
     parser.add_argument("--quality-report", default="")
     parser.add_argument("--packet-jsonl", default="")
+    parser.add_argument("--hilbert-pathing-packet", default="")
+    parser.add_argument("--hilbert-pathing-rows", default="")
     parser.add_argument("--model-path", required=True)
     parser.add_argument("--adapter-path", default="")
     parser.add_argument("--output-root", default=str(REPO_ROOT / "hermes-skills" / "storyworld-conveyor" / "context_port_runs"))
@@ -329,6 +345,8 @@ def main() -> int:
             "world_json": str(Path(args.world_json).resolve()),
             "quality_report": str(Path(args.quality_report).resolve()) if args.quality_report else "",
             "packet_jsonl": str(Path(args.packet_jsonl).resolve()) if args.packet_jsonl else "",
+            "hilbert_pathing_packet": str(Path(args.hilbert_pathing_packet).resolve()) if args.hilbert_pathing_packet else "",
+            "hilbert_pathing_rows": str(Path(args.hilbert_pathing_rows).resolve()) if args.hilbert_pathing_rows else "",
             "model_path": str(Path(args.model_path).resolve()),
             "adapter_path": str(Path(args.adapter_path).resolve()) if args.adapter_path and not args.no_adapter else "",
             "max_packets": args.max_packets,
@@ -349,6 +367,10 @@ def main() -> int:
         ]
         if args.quality_report:
             builder_cmd.extend(["--quality-report", str(Path(args.quality_report).resolve())])
+        if args.hilbert_pathing_packet:
+            builder_cmd.extend(["--hilbert-pathing-packet", str(Path(args.hilbert_pathing_packet).resolve())])
+        if args.hilbert_pathing_rows:
+            builder_cmd.extend(["--hilbert-pathing-rows", str(Path(args.hilbert_pathing_rows).resolve())])
         rc = subprocess.run(builder_cmd, capture_output=True, text=True, check=False)
         (run_dir / "build_packets.stdout.log").write_text(rc.stdout or "", encoding="utf-8", newline="\n")
         (run_dir / "build_packets.stderr.log").write_text(rc.stderr or "", encoding="utf-8", newline="\n")

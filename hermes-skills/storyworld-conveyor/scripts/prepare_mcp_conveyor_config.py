@@ -34,7 +34,15 @@ def _prepare_swmd(source: Path, out_dir: Path, python_bin: str) -> Path:
     if suffix != ".json":
         raise ValueError(f"unsupported storyworld source extension: {source.suffix}")
     out_path = out_dir / f"{source.stem}.swmd.min.md"
-    cmd = [python_bin, str(JSON_TO_SWMD), str(source.resolve()), str(out_path), "--mode", "minified"]
+    normalized_source = out_dir / f"{source.stem}.nobom.json"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    payload = json.loads(source.read_text(encoding="utf-8-sig"))
+    normalized_source.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    cmd = [python_bin, str(JSON_TO_SWMD), str(normalized_source.resolve()), str(out_path), "--mode", "minified"]
     proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
     if proc.returncode != 0:
         raise RuntimeError((proc.stderr or proc.stdout or "json_to_swmd conversion failed").strip())
@@ -56,6 +64,8 @@ def main() -> int:
     parser.add_argument("--model-path", default="")
     parser.add_argument("--adapter-path", default="")
     parser.add_argument("--trm-advice-json", default="")
+    parser.add_argument("--quality-report", default="")
+    parser.add_argument("--quality-vector-report", default="")
     parser.add_argument("--qlora-examples-jsonl", default="")
     parser.add_argument("--world-json", default="", help="Optional original JSON path for operation fallback.")
     parser.add_argument("--max-encounters", type=int, default=12)
@@ -71,6 +81,10 @@ def main() -> int:
     parser.add_argument("--fewshot-count", type=int, default=0)
     parser.add_argument("--repair-mode", default="phase_then_operation_fallback")
     parser.add_argument("--repair-build-output", action="store_true")
+    parser.add_argument("--disable-hilbert-pathing", action="store_true")
+    parser.add_argument("--hilbert-target-turns-min", type=int, default=24)
+    parser.add_argument("--hilbert-target-turns-max", type=int, default=40)
+    parser.add_argument("--hilbert-route-cap", type=int, default=1000)
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
 
@@ -103,6 +117,8 @@ def main() -> int:
         "model_path": str(Path(model_path).resolve()),
         "adapter_path": str(Path(args.adapter_path).resolve()) if args.adapter_path else "",
         "trm_advice_json": str(Path(args.trm_advice_json).resolve()) if args.trm_advice_json else "",
+        "quality_report": str(Path(args.quality_report).resolve()) if args.quality_report else "",
+        "quality_vector_report": str(Path(args.quality_vector_report).resolve()) if args.quality_vector_report else "",
         "qlora_examples_jsonl": str(Path(args.qlora_examples_jsonl).resolve()) if args.qlora_examples_jsonl else "",
         "phases": args.phases,
         "max_encounters": int(args.max_encounters),
@@ -118,6 +134,10 @@ def main() -> int:
         "repair_mode": args.repair_mode,
         "repair_build_output": bool(args.repair_build_output),
         "apply": bool(args.apply),
+        "hilbert_pathing_enabled": not bool(args.disable_hilbert_pathing),
+        "hilbert_target_turns_min": int(args.hilbert_target_turns_min),
+        "hilbert_target_turns_max": int(args.hilbert_target_turns_max),
+        "hilbert_route_cap": int(args.hilbert_route_cap),
         "mcp_default": True,
         "mcp_budget_preflight": True,
         "allow_mcp_budget_overflow": False,
