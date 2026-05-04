@@ -165,20 +165,26 @@ def build_qwen_prompt(packet: dict[str, Any], world: dict[str, Any]) -> str:
     for encounter in (world.get("encounters", []) or [])[:3]:
         sample.append({
             "id": encounter.get("id") or encounter.get("encounter_id"),
-            "title": script_text(encounter.get("title_text"))[:120],
-            "body": script_text(encounter.get("body_text"))[:240],
+            "title": script_text(encounter.get("title_text") or encounter.get("title"))[:120],
+            "body": script_text(encounter.get("body_text") or encounter.get("text_script") or encounter.get("text"))[:360],
         })
     return json.dumps(
         {
-            "task": "Write bounded prose/design notes for a MeTTa/TRM guided Macbeth storyworld repair. Do not output full JSON.",
+            "task": (
+                "Write bounded prose/design notes for a MeTTa/TRM guided storyworld repair. "
+                "Do not output full JSON. Focus on local clues, route depth, reaction variety, "
+                "and secret-path readability without changing schema."
+            ),
             "title": title,
             "repair_targets": packet.get("repair_targets", [])[:6],
             "observations": packet.get("observations", [])[:6],
             "sample_encounters": sample,
             "output_schema": {
                 "tone_notes": ["..."],
+                "route_depth_notes": ["..."],
                 "route_foreshadowing_lines": ["..."],
                 "secret_route_clues": ["..."],
+                "effect_variety_notes": ["..."],
                 "fallback_suppression_notes": ["..."],
             },
         },
