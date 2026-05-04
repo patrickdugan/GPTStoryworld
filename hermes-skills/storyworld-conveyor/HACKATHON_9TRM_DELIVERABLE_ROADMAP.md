@@ -21,6 +21,8 @@ The LLM supplies bounded local inputs: scene text, option candidates, reaction p
 - Held-out action accuracy: 96/100 = 0.96.
 - Submission pack built: `hermes-skills/storyworld-conveyor/hackathon_submission/9trm_mesh_current/`.
 - Scope note: this is a trained tiny control-policy mesh, not a full neural TRM/QLoRA run.
+- Master-planner extension specified: `trm_corpus/encounter_assembly_9trm_seed/MASTER_CONTROL_PLANNER.md`.
+- 9B bounded authoring mode specified: `runtime_prompts/9B_Trajectory_Control_Plane.md`.
 
 ## Nine TRMs To Show
 
@@ -160,3 +162,9 @@ Unsafe unless separately evidenced:
 ## Best Hackathon Framing
 
 "I am not trying to make the small model smarter by wishing harder. I am reducing the creative task into a mesh of small learned control policies, symbolic state, memory packets, and validators. The LLM becomes a local imagination component. The skill is the architecture."
+
+## 9B Extension Claim
+
+The same architecture should plausibly produce storyworlds with a 9B local model if the model is never asked to own whole-world planning. The conveyor should call 9B only through typed trajectories for local prose, option sets, reaction text, clue lines, and short rationale. The TRM mesh owns context routing, schema mechanics, verifier repair, and commit/veto.
+
+This is a stronger and safer claim than "9B can build storyworlds." The claim is: "a 9B model can be made useful inside a trained MeTTa/MCP/TRM storyworld factory because the hard control plane is externalized and learned."
