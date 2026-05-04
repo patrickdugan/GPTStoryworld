@@ -29,6 +29,18 @@ Qwen3.5-9B Q4 was given compact research cards and asked for a JSON design packe
 
 Design packet: `qwen9b_design_packet.json`
 
+Recorded throughput for the Qwen3.5-9B Q4 design call:
+
+- Prompt tokens: `2162`
+- Completion tokens: `900`
+- Total tokens: `3062`
+- Prompt processing: `38603.88 ms`, `56.00 tok/s`
+- Generation: `188942.865 ms`, `4.76 tok/s`
+- Total model timing: `227546.745 ms`, about `3m 47.5s`
+- End-to-end token throughput: about `13.46 tok/s` across prompt plus completion
+- Completion throughput over total elapsed model time: about `3.95 tok/s`
+- Finish reason: `length`, so the design packet hit the requested output cap while writing the secret-route section.
+
 ## Validation
 
 - SweepWeave validator: `VALID OK`
