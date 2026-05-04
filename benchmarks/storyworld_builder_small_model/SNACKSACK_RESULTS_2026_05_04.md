@@ -60,6 +60,26 @@ Observed score changes after adding the native receipt to the manifest:
 
 Interpretation: the largest immediate benchmark lift is not prose generation. It is making native control-plane evidence explicit: MCP readiness plus native schema agreement.
 
+## Effect-Operator Scorer Correction
+
+After the first 9B run, we found that the scorer and packetizer were undercounting valid nested effect operators. Many storyworld effects use a top-level bounded-number effect with the actual operation under `to.operator_type`. The old scorer flattened these as `to` or `Set`, so it generated false control-logic repair jobs for worlds that already had operator diversity.
+
+Corrected native scorecard:
+
+- `benchmarks/storyworld_builder_small_model/runs/snacksack_score_native_effectfix_001/scorecard.md`
+
+Corrected scores:
+
+| Run | Old native score | Corrected native score | Main change |
+|---|---:|---:|---|
+| `snacksack_romeo_juliet_spooltight` | `0.9287` | `0.9617` | Nested `to.operator_type` recognized. |
+| `snacksack_scarlet_letter_focus5` | `0.9287` | `0.9617` | Nested `to.operator_type` recognized. |
+| `snacksack_macbeth_validated` | `0.9112` | `0.9305` | Nested effect operators recognized. |
+| `snacksack_politburo_shehada` | `0.8802` | `0.8802` | No change. |
+| `snacksack_first_and_last_men` | `0.8633` | `0.8633` | No change. |
+
+Interpretation: the control-logic bottleneck for Romeo, Scarlet Letter, and Macbeth was mostly a measurement blind spot. With the scorer fixed, the true next bottleneck is prose/local surface quality and MCP-packet compliance.
+
 ## 27B Teacher Campaign
 
 Strict bounded teacher campaign:
@@ -155,24 +175,54 @@ Comparison against 27B strict materialized candidates:
 | `snacksack_politburo_shehada` | `0.8807` | `0.8804` | `-0.0003` |
 | `snacksack_first_and_last_men` | `0.8635` | `0.8635` | `+0.0000` |
 
-Interpretation: on these bounded prose packets, the LLM scale difference is much less important than the skill scaffold, native receipt, extractor, and repair gate. The LLM is mostly supplying local prose/idea material. The control-plane path still needs a schema-specific materializer before the valid effect-operator plans can move benchmark scores.
+Interpretation: on these bounded prose packets, the LLM scale difference is much less important than the skill scaffold, native receipt, extractor, and repair gate. The LLM is mostly supplying local prose/idea material. The earlier control-logic path also exposed a scoring bug: nested effect operators were already present and should be counted directly.
+
+## 9B Corrected-Scorer Campaign
+
+Corrected full-packet 9B campaign:
+
+- `benchmarks/storyworld_builder_small_model/runs/snacksack_campaign_native_9b_effectfix_001/campaign_summary.md`
+- Post-repair schema-key-valid plans: `4/5`
+- Main failure: largest Romeo prose packet still failed structured repair after two model retries.
+
+Corrected compact-packet 9B campaign:
+
+- `benchmarks/storyworld_builder_small_model/runs/snacksack_campaign_native_9b_effectfix_compact_001/campaign_summary.md`
+- Packet token estimates: `721-1105`, down from roughly `1978-5072`
+- Post-repair/fallback schema-key-valid plans: `5/5`
+- Model-authored schema-valid first-pass plans: `2/5`
+- Deterministic fallback plans: `3/5`
+
+Corrected compact materialized scores:
+
+- `benchmarks/storyworld_builder_small_model/runs/snacksack_materialized_9b_effectfix_compact_score_001/scorecard.md`
+
+| Run | Corrected native score | Compact 9B materialized | Delta |
+|---|---:|---:|---:|
+| `snacksack_scarlet_letter_focus5` | `0.9617` | `0.9618` | `+0.0001` |
+| `snacksack_romeo_juliet_spooltight` | `0.9617` | `0.9617` | `+0.0000` |
+| `snacksack_macbeth_validated` | `0.9305` | `0.9305` | `+0.0000` |
+| `snacksack_politburo_shehada` | `0.8802` | `0.8804` | `+0.0002` |
+| `snacksack_first_and_last_men` | `0.8633` | `0.8635` | `+0.0002` |
+
+Interpretation: compact MCP packets improve the 9B path for some large contexts, but the present materialized prose metric barely moves because the scorer is already saturated on mechanics-heavy worlds. This is a methodology result: the next measurable lift needs either more local rewrite coverage or a richer storyworld-quality metric that detects prose/game-design improvements beyond the current shallow text-surface terms.
 
 ## Next Experiment
 
-Build the schema-specific materializer for `effect_operator_diversity_plan`, then rerun 9B and 27B on the same control-logic jobs:
+Use the corrected scorer and run higher-coverage prose packets or a richer storyworld-quality evaluator:
 
 ```bash
 python3 benchmarks/storyworld_builder_small_model/run_small_model_builder_campaign.py \
-  --scorecard benchmarks/storyworld_builder_small_model/runs/snacksack_score_native_001/scorecard.json \
-  --out-dir benchmarks/storyworld_builder_small_model/runs/snacksack_campaign_native_9b_001 \
+  --scorecard benchmarks/storyworld_builder_small_model/runs/snacksack_score_native_effectfix_001/scorecard.json \
+  --out-dir benchmarks/storyworld_builder_small_model/runs/snacksack_campaign_native_9b_next_001 \
   --max-jobs 5 \
-  --max-cards 10 \
-  --packet-token-budget 5200 \
+  --max-cards 6 \
+  --packet-token-budget 3200 \
   --call-model \
   --base-url http://127.0.0.1:8084/v1 \
   --model Qwen_Qwen3.5-9B-Q4_K_M.gguf \
   --timeout 300 \
-  --max-response-tokens 3600
+  --max-response-tokens 2800
 ```
 
 Do not start 9B while 27B is resident unless the 27B process is intentionally stopped first.

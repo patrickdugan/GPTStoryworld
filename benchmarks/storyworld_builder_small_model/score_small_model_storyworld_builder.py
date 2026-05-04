@@ -120,12 +120,16 @@ def effect_operator(effect: Any) -> str:
         return effect.split("(", 1)[0].strip() or "string_effect"
     if not isinstance(effect, dict):
         return type(effect).__name__
-    for key in ("operator", "op", "type", "function", "name"):
+    for key in ("operator", "operator_type", "op", "type", "function", "name"):
         value = effect.get(key)
         if isinstance(value, str) and value.strip():
             return value.strip()
+    for key in ("to", "value", "expression", "script", "rhs"):
+        value = effect.get(key)
+        if isinstance(value, dict):
+            return effect_operator(value)
     for key, value in effect.items():
-        if key.lower() not in {"inputs", "args", "value", "constant", "target", "property"}:
+        if key.lower() not in {"inputs", "args", "value", "constant", "target", "property", "set", "operands"}:
             if isinstance(value, (dict, list)):
                 return str(key)
     return "dict_effect"

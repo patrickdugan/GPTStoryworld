@@ -217,7 +217,7 @@ def repair_job(
     if not bool(packet.get("requires_model_call", True)):
         return {"job_id": job_dir.name, "operation": operation, "attempted": False, "reason": "scaffold_owned_job"}
     current_status = status_row(job_dir)
-    if current_status.get("schema_key_pass"):
+    if current_status.get("schema_key_pass") and (job_dir / "model_plan.json").exists():
         return {"job_id": job_dir.name, "operation": operation, "attempted": False, "reason": "already_schema_valid"}
 
     original = response_content(job_dir)
@@ -279,6 +279,18 @@ def repair_job(
         plan = deterministic_fallback_plan(packet)
         validation = validate_plan(plan, operation) if isinstance(plan, dict) else {"schema_key_pass": False}
         if isinstance(plan, dict) and validation.get("schema_key_pass"):
+            fallback_response = {
+                "ok": True,
+                "skipped_model_repair": True,
+                "repair_source": "deterministic_fallback",
+                "content": json.dumps(plan, separators=(",", ":"), ensure_ascii=True),
+            }
+            write_json(job_dir / "model_response_repair_fallback.json", fallback_response)
+            (job_dir / "model_response_repair_fallback.txt").write_text(
+                str(fallback_response["content"]) + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
             write_json(job_dir / "model_plan.json", plan)
             status = {
                 "job_id": job_dir.name,
