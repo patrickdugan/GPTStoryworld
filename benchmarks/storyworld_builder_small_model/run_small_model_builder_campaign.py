@@ -336,9 +336,11 @@ def requires_model_call(operation: str, output_schema: dict[str, Any]) -> bool:
 
 def build_prompt(packet: dict[str, Any]) -> str:
     return (
+        "Return ONLY minified JSON. Start with { and end with }.\n"
+        "No analysis. No markdown. No code fences. No <think> text.\n"
         "You are the bounded local author inside a MeTTa/MCP/TRM storyworld factory.\n"
         "Do not output full storyworld JSON. Do not change IDs unless explicitly asked.\n"
-        "Return JSON only matching output_schema.\n\n"
+        "The JSON object must match output_schema.\n\n"
         + json.dumps(packet, indent=2, ensure_ascii=True)
     )
 
@@ -349,11 +351,14 @@ def call_model(base_url: str, model: str, prompt: str, timeout: int, max_tokens:
         "messages": [
             {
                 "role": "system",
-                "content": "You produce bounded storyworld repair packets. Return JSON only.",
+                "content": (
+                    "Return only a single minified JSON object. Do not explain, "
+                    "do not use markdown, do not include chain-of-thought, and do not wrap in code fences."
+                ),
             },
             {"role": "user", "content": prompt},
         ],
-        "temperature": 0.45,
+        "temperature": 0.2,
         "max_tokens": max_tokens,
     }
     req = urllib.request.Request(
