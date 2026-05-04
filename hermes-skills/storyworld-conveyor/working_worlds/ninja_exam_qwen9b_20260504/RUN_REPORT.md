@@ -7,6 +7,8 @@ Build a short original hidden-village ninja exam storyworld from a Qwen3.5-9B de
 ## Main Artifact
 
 - Storyworld: `ninja_exam_qwen9b_storyworld.json`
+- Full SWMD export: `ninja_exam_qwen9b_storyworld.swmd.md`
+- Minified SWMD export: `ninja_exam_qwen9b_storyworld.swmd.min.md`
 - IFID: `SW-NINJA-EXAM-QWEN9B-20260504`
 - Title: `The Silent Veil Ninja Exam`
 - Shape: 22 nonterminal encounters plus 6 endings.
@@ -61,3 +63,16 @@ Hilbert pathing found the secret ending at depth `21`, inside the 18-30 target b
 Caveat: the route count hit the cap, so the secret is overexposed. The next improvement is to add more discriminating late gates around final silence, false orders, mercy, and under-village investigation.
 
 The legacy Monte Carlo harness reports `Chain: 0` because of the custom generated format, but it still emitted an ending distribution with no dead ends. Treat validator, acceptance audit, and Hilbert pathing as the stronger structural authorities for this run.
+
+## SWMD Round-Trip
+
+After the 27B 128k probe, this run was exported to both full and minified SWMD. A conservative `swmd_patch_json.py` bridge was added to patch a valid base JSON from full SWMD encounter text/choice/reaction edits.
+
+Round-trip smoke:
+
+- Source JSON -> full SWMD -> patched JSON
+- Patched JSON: `ninja_exam_qwen9b_storyworld.swmd_roundtrip.json`
+- Patch report: `swmd_roundtrip_report.json`
+- Validator: `VALID OK`
+
+This supports the safer authoring flow: ask 27B for bounded SWMD-0 encounter blocks, patch those blocks into the existing valid JSON, then validate JSON before scoring or playtesting.

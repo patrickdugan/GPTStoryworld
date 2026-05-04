@@ -88,6 +88,10 @@ Use these tools to make deterministic, validated edits:
 - Minified form: `python scripts/json_to_swmd.py storyworld.json storyworld.swmd.min.md --mode minified`
 - Casablanca benchmark note: ensure `adapt_casablanca_crossroads_at_ricks_v1.swmd.min.md` frontmatter `endings` is present and machine-readable before judge/eval runs.
 
+`swmd_patch_json.py` example:
+- `python scripts/swmd_patch_json.py --base-json storyworld.json --swmd storyworld.swmd.md --out-json storyworld_patched.json --report-out swmd_patch_report.json`
+- Use full SWMD-0, not minified SWMD-0-MIN, when the model edits encounter prose. The patcher preserves JSON formulas/effects and only applies encounter titles/text, option text, reaction text, and reaction consequence targets.
+
 `storyworld_quality_gate.py` examples:
 - Human-readable report: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json`
 - Strict CI gate: `python scripts/storyworld_quality_gate.py --storyworld storyworld.json --strict --report-out out/quality_report.json`
