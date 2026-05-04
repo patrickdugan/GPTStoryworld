@@ -96,6 +96,28 @@ The key outputs are:
 - MCP budget manifests under `mcp_preflight/`
 - before/after repair receipts under `metta_trm_loop/`
 
+## Small-Model Builder Bench
+
+When the goal is to make 3B/9B models bench better at storyworld building, score the artifact as a product of the architecture, not as a one-shot prose generation. Use the small-model builder bench to compare naive JSON, packet authoring, native-schema routing, repair loops, and later TRM-controlled variants:
+
+```bash
+python benchmarks/storyworld_builder_small_model/score_small_model_storyworld_builder.py \
+  --manifest benchmarks/storyworld_builder_small_model/sample_manifest.jsonl \
+  --out-dir benchmarks/storyworld_builder_small_model/runs/smoke_001
+```
+
+The scorecard separates:
+
+- `validity`: JSON/schema surface.
+- `scale`: encounters, endings, characters, properties.
+- `branching`: options, reactions, effects.
+- `control_logic`: gates, effect operators, nonconstant scripts.
+- `text_surface`: local prose length and uniqueness.
+- `small_model_readiness`: context-bounded packet evidence.
+- `native_schema`: native planner agreement receipt.
+
+Use the weakest component as the next bounded repair objective. Do not ask the small model for a larger answer when the scorecard identifies a narrower missing skill.
+
 ## 9-TRM Encounter Assembly Trajectory Library
 
 When the goal is to train control-plane TRMs that know how to work with an LLM inside the MCP + MeTTa + skill flow, generate the trajectory library:
