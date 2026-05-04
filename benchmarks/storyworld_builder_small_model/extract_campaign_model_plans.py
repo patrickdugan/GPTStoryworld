@@ -24,11 +24,11 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8", newline="\n")
 
 
-def extract_fenced_json(text: str) -> str | None:
-    matches = re.findall(r"```(?:json)?\s*(\{.*?\})\s*```", text, flags=re.DOTALL | re.IGNORECASE)
-    if matches:
-        return matches[-1].strip()
-    return None
+def fenced_json_candidates(text: str) -> list[str]:
+    return [
+        match.strip()
+        for match in re.findall(r"```(?:json)?\s*(\{.*?\})\s*```", text, flags=re.DOTALL | re.IGNORECASE)
+    ]
 
 
 def balanced_json_candidates(text: str) -> list[str]:
@@ -61,28 +61,50 @@ def balanced_json_candidates(text: str) -> list[str]:
     return candidates
 
 
-def extract_json(text: str) -> tuple[dict[str, Any] | None, str, str | None]:
-    fenced = extract_fenced_json(text)
-    if fenced:
-        try:
-            parsed = json.loads(fenced)
-        except json.JSONDecodeError as exc:
-            return None, "fenced", f"JSONDecodeError: {exc}"
-        if isinstance(parsed, dict):
-            return parsed, "fenced", None
-        return None, "fenced", "extracted JSON was not an object"
-    last_error = None
+def json_candidate_strings(text: str) -> list[tuple[str, str]]:
+    candidates: list[tuple[str, str]] = []
+    for candidate in fenced_json_candidates(text):
+        candidates.append(("fenced", candidate))
     for candidate in balanced_json_candidates(text):
+        candidates.append(("balanced", candidate))
+    return candidates
+
+
+def extract_json(text: str, operation: str = "") -> tuple[dict[str, Any] | None, str, str | None]:
+    """Extract the best JSON object from a messy model response.
+
+    Small reasoning models often show schema examples in fenced blocks, then
+    emit a valid final object later. Prefer the last schema-valid candidate
+    rather than the first parseable object.
+    """
+    parse_errors: list[tuple[str, str]] = []
+    schema_miss: tuple[dict[str, Any], str] | None = None
+    seen: set[str] = set()
+    for method, candidate in reversed(json_candidate_strings(text)):
+        if candidate in seen:
+            continue
+        seen.add(candidate)
         try:
             parsed = json.loads(candidate)
         except json.JSONDecodeError as exc:
-            last_error = f"JSONDecodeError: {exc}"
+            parse_errors.append((method, f"JSONDecodeError: {exc}"))
             continue
         if isinstance(parsed, dict):
-            return parsed, "balanced", None
-        last_error = "extracted JSON was not an object"
-    if last_error:
-        return None, "balanced", last_error
+            if operation:
+                validation = validate_plan(parsed, operation)
+                if validation["schema_key_pass"]:
+                    return parsed, method, None
+                if schema_miss is None:
+                    schema_miss = (parsed, method)
+            else:
+                return parsed, method, None
+        else:
+            parse_errors.append((method, "extracted JSON was not an object"))
+    if schema_miss is not None:
+        return schema_miss[0], schema_miss[1], None
+    if parse_errors:
+        method, error = parse_errors[-1]
+        return None, method, error
     return None, "none", "no JSON object found"
 
 
@@ -115,6 +137,13 @@ def find_jobs(campaign_dir: Path) -> list[Path]:
     return sorted(path for path in jobs_dir.iterdir() if path.is_dir())
 
 
+def selected_response_path(job_dir: Path) -> Path:
+    repair_paths = sorted(job_dir.glob("model_response_repair_*.json"))
+    if repair_paths:
+        return repair_paths[-1]
+    return job_dir / "model_response.json"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Extract JSON plans from campaign model responses.")
     parser.add_argument("--campaign-dir", required=True)
@@ -123,7 +152,7 @@ def main() -> int:
     rows: list[dict[str, Any]] = []
     for job_dir in find_jobs(campaign_dir):
         packet_path = job_dir / "packet.json"
-        response_path = job_dir / "model_response.json"
+        response_path = selected_response_path(job_dir)
         packet = read_json(packet_path) if packet_path.exists() else {}
         operation = str(packet.get("operation", ""))
         row: dict[str, Any] = {
@@ -131,6 +160,7 @@ def main() -> int:
             "operation": operation,
             "requires_model_call": packet.get("requires_model_call"),
             "has_response": response_path.exists(),
+            "response_source": response_path.name if response_path.exists() else None,
             "json_only_contract_pass": None,
             "extract_method": None,
             "extract_ok": False,
@@ -147,16 +177,23 @@ def main() -> int:
             continue
         content = str(response.get("content", ""))
         row["json_only_contract_pass"] = content.lstrip().startswith("{") and content.rstrip().endswith("}")
-        plan, method, error = extract_json(content)
+        plan, method, error = extract_json(content, operation)
         row["extract_method"] = method
         if plan is None:
             row["error"] = error
+            if (job_dir / "model_plan.json").exists():
+                (job_dir / "model_plan.json").unlink()
             rows.append(row)
             continue
         validation = validate_plan(plan, operation)
         row.update(validation)
         row["extract_ok"] = True
-        write_json(job_dir / "model_plan.json", plan)
+        if row["schema_key_pass"]:
+            write_json(job_dir / "model_plan.json", plan)
+        else:
+            if (job_dir / "model_plan.json").exists():
+                (job_dir / "model_plan.json").unlink()
+            write_json(job_dir / "model_plan_candidate.json", plan)
         write_json(job_dir / "model_plan_status.json", row)
         rows.append(row)
 
