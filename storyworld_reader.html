@@ -678,6 +678,7 @@
           characters: {},
           history: [],
           visitedEncounters: new Set(),
+          activeSpools: new Set(),
           pendingReaction: null
         };
         this.imageMap = new Map(); // encounter_id -> image URL
@@ -689,6 +690,32 @@
         return this;
       }
 
+      keyringKey(keyring) {
+        const parts = Array.isArray(keyring) ? keyring : [];
+        return parts.map(part => String(part)).join('::');
+      }
+
+      getBNumber(characterId, keyring) {
+        const char = this.state.characters[characterId];
+        if (!char || !Array.isArray(keyring) || keyring.length === 0) return 0;
+        const key = this.keyringKey(keyring);
+        if (Object.prototype.hasOwnProperty.call(char.properties, key)) {
+          return char.properties[key] ?? 0;
+        }
+        if (keyring.length === 1) {
+          return char.properties[keyring[0]] ?? 0;
+        }
+        return 0;
+      }
+
+      setBNumber(characterId, keyring, value) {
+        const char = this.state.characters[characterId];
+        if (!char || !Array.isArray(keyring) || keyring.length === 0) return;
+        const key = this.keyringKey(keyring);
+        const propName = keyring.length === 1 ? keyring[0] : key;
+        char.properties[propName] = Math.max(-1, Math.min(1, value));
+      }
+
       reset() {
         if (!this.storyworld) return;
 
@@ -698,21 +725,41 @@
           characters: {},
           history: [],
           visitedEncounters: new Set(),
+          activeSpools: new Set(),
           pendingReaction: null
         };
 
         // Initialize character states
         for (const char of this.storyworld.characters) {
+          const properties = { ...(char.bnumber_properties || {}) };
+          for (const prop of this.storyworld.authored_properties || []) {
+            const propName = prop.property_name || prop.id;
+            if (propName && properties[propName] === undefined) {
+              properties[propName] = prop.default_value ?? 0;
+            }
+          }
           this.state.characters[char.id] = {
             name: char.name,
-            properties: { ...char.bnumber_properties }
+            properties
           };
         }
 
-        // Find first encounter
-        const firstSpool = this.storyworld.spools.find(s => s.starts_active);
+        // Initialize active spools and find first encounter.
+        const startSpools = (this.storyworld.spools || [])
+          .filter(s => s.starts_active)
+          .sort((a, b) => (a.creation_index ?? 0) - (b.creation_index ?? 0));
+        for (const spool of startSpools) {
+          this.state.activeSpools.add(spool.id);
+        }
+        if (startSpools.length === 0) {
+          for (const spool of this.storyworld.spools || []) {
+            this.state.activeSpools.add(spool.id);
+          }
+        }
+        const firstSpool = startSpools[0] || (this.storyworld.spools || [])[0];
         if (firstSpool && firstSpool.encounters.length > 0) {
           this.state.currentEncounterId = firstSpool.encounters[0];
+          this.state.visitedEncounters.add(this.state.currentEncounterId);
         }
       }
 
@@ -767,9 +814,7 @@
         if (pointerType === 'Bounded Number Constant') return script.value || 0;
         if (pointerType === 'String Constant') return script.value || '';
         if (pointerType === 'Bounded Number Pointer') {
-          const char = this.state.characters[script.character];
-          const propName = script.keyring?.[0];
-          const value = char?.properties?.[propName] ?? 0;
+          const value = this.getBNumber(script.character, script.keyring);
           return value * (script.coefficient ?? 1);
         }
 
@@ -834,6 +879,60 @@
         return bestReaction;
       }
 
+      isWildConsequence(consequenceId) {
+        return consequenceId === undefined ||
+          consequenceId === null ||
+          (typeof consequenceId === 'string' && consequenceId.trim() === '') ||
+          consequenceId === 'wild';
+      }
+
+      applySpoolChanges(reaction) {
+        for (const spoolId of reaction.deactivate_spools || []) {
+          this.state.activeSpools.delete(spoolId);
+        }
+        for (const spoolId of reaction.activate_spools || []) {
+          this.state.activeSpools.add(spoolId);
+        }
+      }
+
+      selectNextAcceptableEncounter() {
+        const nextTurn = this.state.turn + 1;
+        const encounterById = new Map((this.storyworld.encounters || []).map(e => [e.id, e]));
+        const candidates = new Map();
+        const activeSpools = (this.storyworld.spools || [])
+          .filter(s => this.state.activeSpools.has(s.id))
+          .sort((a, b) => (a.creation_index ?? 0) - (b.creation_index ?? 0));
+
+        for (const spool of activeSpools) {
+          for (const encounterId of spool.encounters || []) {
+            if (this.state.visitedEncounters.has(encounterId)) continue;
+            const encounter = encounterById.get(encounterId);
+            if (!encounter) continue;
+            const earliest = encounter.earliest_turn ?? 0;
+            const latest = encounter.latest_turn ?? Number.MAX_SAFE_INTEGER;
+            if (nextTurn < earliest || nextTurn > latest) continue;
+            if (!Boolean(this.evalScript(encounter.acceptability_script ?? true))) continue;
+            candidates.set(encounter.id, encounter);
+          }
+        }
+
+        let best = null;
+        let bestScore = -Infinity;
+        let bestCreationIndex = Infinity;
+        for (const encounter of candidates.values()) {
+          let score = this.evalScript(encounter.desirability_script ?? 0);
+          if (typeof score === 'boolean') score = score ? 1 : 0;
+          score = Number(score || 0);
+          const creationIndex = encounter.creation_index ?? 0;
+          if (score > bestScore || (score === bestScore && creationIndex < bestCreationIndex)) {
+            best = encounter;
+            bestScore = score;
+            bestCreationIndex = creationIndex;
+          }
+        }
+        return best ? best.id : null;
+      }
+
       selectOption(optionId) {
         const encounter = this.getCurrentEncounter();
         if (!encounter) return null;
@@ -848,6 +947,7 @@
         if (reaction.after_effects) {
           this.applyEffects(reaction.after_effects);
         }
+        this.applySpoolChanges(reaction);
 
         // Record history
         this.state.history.push({
@@ -868,7 +968,10 @@
       continueToNext() {
         if (!this.state.pendingReaction) return null;
 
-        const nextId = this.state.pendingReaction.nextEncounterId;
+        const consequenceId = this.state.pendingReaction.nextEncounterId;
+        const nextId = this.isWildConsequence(consequenceId)
+          ? this.selectNextAcceptableEncounter()
+          : consequenceId;
         this.state.pendingReaction = null;
 
         if (nextId) {
@@ -893,16 +996,13 @@
         if (!setPointer) return;
 
         const charId = setPointer.character;
-        const propName = setPointer.keyring?.[0];
-        if (!charId || !propName) return;
-
-        const char = this.state.characters[charId];
-        if (!char || char.properties[propName] === undefined) return;
+        const keyring = setPointer.keyring || [];
+        if (!charId || keyring.length === 0) return;
 
         const toExpr = effect.to;
         const newVal = Number(this.evalScript(toExpr));
         if (Number.isFinite(newVal)) {
-          char.properties[propName] = Math.max(-1, Math.min(1, newVal));
+          this.setBNumber(charId, keyring, newVal);
         }
       }
 
@@ -989,7 +1089,7 @@
     function startGame(data) {
       engine.load(data);
       
-      elements.gameTitle.textContent = data.title || 'Storyworld';
+      elements.gameTitle.textContent = data.title || data.storyworld_title || 'Storyworld';
       selectedCharId = data.characters[0]?.id || null;
 
       elements.loadingScreen.classList.add('hidden');
